@@ -3,56 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velkommen til Jakobs Hjemmeside</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #0056b3;
-        }
-    </style>
+    <title>Jakob Munch-Brandt | Udvikler & Designer</title>
+    <meta name="description" content="Velkommen til Jakob Munch-Brandts personlige hjemmeside. Udvikler, designer og innovatør med passion for teknologi.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jakobmunch-brandt.github.io/">
+    <meta property="og:title" content="Jakob Munch-Brandt | Udvikler & Designer">
+    <meta property="og:description" content="Velkommen til Jakob Munch-Brandts personlige hjemmeside. Udvikler, designer og innovatør med passion for teknologi.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Jakob Munch-Brandt | Udvikler & Designer">
+    <meta property="twitter:description" content="Velkommen til Jakob Munch-Brandts personlige hjemmeside. Udvikler, designer og innovatør med passion for teknologi.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <div class="container">
-        <header>
-            <h1>Velkommen til Jakobs Hjemmeside 🚀</h1>
-        </header>
-
-        <main>
-            <h2>Om Mig</h2>
-            <p>Hej! Mit navn er Jakob, og dette er min personlige hjemmeside. Her kan du finde information om mine interesser, projekter og meget mere.</p>
-
-            <h2>Mine Interesser</h2>
-            <ul>
-                <li>Kodning</li>
-                <li>Gaming</li>
-                <li>Musik</li>
-                <li>Rejser</li>
+    <!-- Header with Navigation -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#home" class="logo">Jakob MB</a>
+            <ul class="nav-links">
+                <li><a href="#home">Hjem</a></li>
+                <li><a href="#om">Om Mig</a></li>
+                <li><a href="#interesser">Interesser</a></li>
+                <li><a href="#projekter">Projekter</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
             </ul>
+        </nav>
+    </header>
 
-            <h2>Kontakt</h2>
-            <p>Du er velkommen til at kontakte mig, hvis du har spørgsmål.</p>
-        </main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <span class="hero-emoji">🚀</span>
+        <h1 class="hero-title">Hej, jeg er Jakob!</h1>
+        <p class="hero-subtitle">
+            Passioneret <span class="typewriter">Udvikler</span> fra Aarhus, Danmark
+        </p>
+        <p>Velkommen til min digitale verden, hvor kreativitet møder teknologi</p>
+    </section>
 
-        <footer>
-            <p>&copy; 2025 Jakobs Hjemmeside</p>
-        </footer>
-    </div>
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Om Mig Section -->
+        <section id="om" class="card">
+            <h2 class="card-title">
+                <span class="card-icon">👨‍💻</span>
+                Om Mig
+            </h2>
+            <p>
+                Hej! Mit navn er Jakob Munch-Brandt, og jeg er en passioneret udvikler og designer bosat i det smukke Aarhus. 
+                Med flere års erfaring inden for webudvikling og en konstant hunger efter at lære nye teknologier, 
+                stræber jeg efter at skabe digitale oplevelser, der både er funktionelle og æstetisk tiltalende.
+            </p>
+            <p>
+                Når jeg ikke sidder foran skærmen og koder, finder du mig sandsynligvis på eventyr i naturen, 
+                til koncerter eller dybt fordybet i et godt spil. Jeg tror på, at de bedste løsninger opstår, 
+                når teknik møder kreativitet, og det er netop den balance, jeg tilstræber i alt, hvad jeg laver.
+            </p>
+        </section>
 
+        <!-- Interesser Section -->
+        <section id="interesser" class="card">
+            <h2 class="card-title">
+                <span class="card-icon">🎯</span>
+                Mine Interesser
+            </h2>
+            <p>Her er nogle af de ting, der driver og inspirerer mig:</p>
+            <div class="interests-grid">
+                <div class="interest-tag">💻 Kodning</div>
+                <div class="interest-tag">🎮 Gaming</div>
+                <div class="interest-tag">🎵 Musik</div>
+                <div class="interest-tag">✈️ Rejser</div>
+                <div class="interest-tag">📚 Læsning</div>
+                <div class="interest-tag">🏃‍♂️ Sport</div>
+                <div class="interest-tag">🎨 Design</div>
+                <div class="interest-tag">☕ Kaffe</div>
+            </div>
+        </section>
+
+        <!-- Projekter Section -->
+        <section id="projekter" class="card">
+            <h2 class="card-title">
+                <span class="card-icon">🛠️</span>
+                Projekter & Teknologier
+            </h2>
+            <p>
+                Jeg arbejder primært med moderne web-teknologier og har erfaring med:
+            </p>
+            <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript ES6+, React, Vue.js</li>
+                <li><strong>Backend:</strong> Node.js, Python, PHP</li>
+                <li><strong>Mobile:</strong> React Native, Flutter</li>
+                <li><strong>Databaser:</strong> MySQL, MongoDB, PostgreSQL</li>
+                <li><strong>Tools:</strong> Git, Docker, VS Code, Figma</li>
+            </ul>
+            <p>
+                Jeg er altid på udkig efter nye udfordringer og spændende projekter at arbejde på. 
+                Hvis du har en idé, du gerne vil have realiseret, så tøv ikke med at kontakte mig!
+            </p>
+        </section>
+
+        <!-- Kontakt Section -->
+        <section id="kontakt" class="card">
+            <h2 class="card-title">
+                <span class="card-icon">📧</span>
+                Kontakt Mig
+            </h2>
+            <p>
+                Har du spørgsmål, forslag til samarbejde eller vil bare sige hej? 
+                Jeg glæder mig til at høre fra dig!
+            </p>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name" class="form-label">Navn</label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Besked</label>
+                    <textarea id="message" name="message" class="form-input" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Besked</button>
+            </form>
+            
+            <div style="margin-top: 2rem; text-align: center; color: #6b7280;">
+                <p>
+                    📍 Aarhus, Danmark<br>
+                    ⏰ Typisk svartid: 24 timer
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <p>&copy; 2025 Jakob Munch-Brandt. Lavet med ❤️ og masser af ☕</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">
+                Denne side er bygget med moderne webudvikling praksisser og kærlighed til detaljer
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
