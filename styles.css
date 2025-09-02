@@ -144,6 +144,7 @@ body {
     color: var(--text-secondary);
     margin-bottom: 24px;
     animation: fadeInUp 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.4s both;
+    min-height: 34px; /* Prevent layout shift during typewriter */
 }
 
 .hero p:last-child {
@@ -158,6 +159,22 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    display: inline-block;
+    position: relative;
+}
+
+.typewriter::after {
+    content: '|';
+    color: var(--primary-color);
+    background: none;
+    -webkit-text-fill-color: var(--primary-color);
+    animation: blink 1s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
 }
 
 /* Main Content - Apple Card Style */
@@ -469,11 +486,13 @@ body {
     }
     
     .hero-title {
-        font-size: 40px;
+        font-size: 36px;
+        line-height: 1.1;
     }
     
     .hero-subtitle {
-        font-size: 24px;
+        font-size: 22px;
+        min-height: 28px;
     }
     
     .profile-image {
@@ -492,7 +511,8 @@ body {
     }
     
     .card-title {
-        font-size: 28px;
+        font-size: 26px;
+        line-height: 1.2;
     }
     
     .interests-grid {
@@ -501,7 +521,7 @@ body {
     }
     
     .interest-tag {
-        padding: 12px 16px;
+        padding: 14px 16px;
         font-size: 15px;
     }
 }

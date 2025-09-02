@@ -177,7 +177,7 @@ class AppleStoreWebsite {
         modal.innerHTML = `
             <div class="modal-backdrop">
                 <div class="modal-content">
-                    <img src="IMG_3176.jpg" alt="Jakob Munch-Brandt" class="modal-image">
+                    <img src="IMG_3176 (1).JPG" alt="Jakob Munch-Brandt" class="modal-image">
                     <button class="modal-close">&times;</button>
                 </div>
             </div>
@@ -568,17 +568,24 @@ class AppleStoreWebsite {
         if (typewriterElement) {
             const texts = [
                 'Kommunikations- og marketingkonsulent',
+                'Informationsvidenskabsstuderende',
                 'Digital marketing specialist',
-                'Content creator',
-                'Informationsvidenskabsstuderende'
+                'Content creator'
             ];
             
             let textIndex = 0;
             let charIndex = 0;
             let isDeleting = false;
+            let isPaused = false;
 
             const typeWriter = () => {
                 const currentText = texts[textIndex];
+                
+                if (isPaused) {
+                    isPaused = false;
+                    setTimeout(typeWriter, 2000);
+                    return;
+                }
                 
                 if (isDeleting) {
                     typewriterElement.textContent = currentText.substring(0, charIndex - 1);
@@ -588,21 +595,22 @@ class AppleStoreWebsite {
                     charIndex++;
                 }
 
-                let typeSpeed = isDeleting ? 80 : 120;
+                let typeSpeed = isDeleting ? 50 : 100;
 
                 if (!isDeleting && charIndex === currentText.length) {
-                    typeSpeed = 3000;
+                    isPaused = true;
                     isDeleting = true;
                 } else if (isDeleting && charIndex === 0) {
                     isDeleting = false;
                     textIndex = (textIndex + 1) % texts.length;
-                    typeSpeed = 800;
+                    typeSpeed = 500;
                 }
 
                 setTimeout(typeWriter, typeSpeed);
             };
 
-            setTimeout(typeWriter, 1500);
+            // Start after initial load
+            setTimeout(typeWriter, 1000);
         }
     }
 
