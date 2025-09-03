@@ -1,2 +1,0 @@
-# website
-Min portfolio hjemmeside
