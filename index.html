@@ -3,164 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jakob Munch-Brandt | Marketing Konsulent & Studerende</title>
-    <meta name="description" content="Jakob Munch-Brandt - Kommunikations- og marketingkonsulent hos Uniwelco ApS og informationsvidenskabsstuderende på Aarhus Universitet. Specialist i digital marketing, SEO og hjemmesidekonstruktion.">
+    <title>Webspind | Jakob Munch-Brandt - Digital Portfolio</title>
+    <meta name="description" content="Webspind - Jakob Munch-Brandt's digitale portfolio. Digital kreatør, marketing specialist og informationsvidenskabsstuderende. Ekspert i digital marketing, design og webudvikling.">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jakobmunch-brandt.github.io/">
-    <meta property="og:title" content="Jakob Munch-Brandt | Marketing Konsulent & Studerende">
-    <meta property="og:description" content="Kommunikations- og marketingkonsulent med ekspertise i digital marketing, SEO og hjemmesidekonstruktion. Studerende på Aarhus Universitet.">
+    <meta property="og:title" content="Webspind | Jakob Munch-Brandt - Digital Portfolio">
+    <meta property="og:description" content="Webspind - Jakob Munch-Brandt's digitale portfolio. Digital kreatør og marketing specialist med ekspertise i digital marketing, design og webudvikling.">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Jakob Munch-Brandt | Marketing Konsulent & Studerende">
-    <meta property="twitter:description" content="Kommunikations- og marketingkonsulent med ekspertise i digital marketing, SEO og hjemmesidekonstruktion. Studerende på Aarhus Universitet.">
+    <meta property="twitter:title" content="Webspind | Jakob Munch-Brandt - Digital Portfolio">
+    <meta property="twitter:description" content="Webspind - Jakob Munch-Brandt's digitale portfolio. Digital kreatør og marketing specialist med ekspertise i digital marketing, design og webudvikling.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
-    
-    <!-- Apple-specific meta tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Jakob MB">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕸️</text></svg>">
     
     <!-- Preload critical fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeToggle" aria-label="Skift tema">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+
     <!-- Header with Navigation -->
     <header class="header">
         <nav class="nav">
-            <a href="#home" class="logo">Jakob MB</a>
+            <a href="#home" class="logo">
+                <span class="logo-text">Webspind</span>
+                <span class="logo-accent">🕸️</span>
+            </a>
             <ul class="nav-links">
-                <li><a href="#home">Hjem</a></li>
-                <li><a href="#om">Om</a></li>
-                <li><a href="#kompetencer">Kompetencer</a></li>
-                <li><a href="#kontakt">Kontakt</a></li>
+                <li><a href="#home" class="nav-link">Hjem</a></li>
+                <li><a href="#about" class="nav-link">Om</a></li>
+                <li><a href="#skills" class="nav-link">Kompetencer</a></li>
+                <li><a href="#work" class="nav-link">Arbejde</a></li>
+                <li><a href="#contact" class="nav-link">Kontakt</a></li>
             </ul>
+            <button class="mobile-menu-btn" aria-label="Åbn mobilmenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <img src="IMG_3176 (1).JPG" alt="Jakob Munch-Brandt" class="profile-image">
-        <h1 class="hero-title">Hej, jeg er Jakob</h1>
-        <p class="hero-subtitle">
-            <span class="typewriter">Kommunikations- og marketingkonsulent</span>
-        </p>
-        <p>Studerende i Informationsvidenskab på Aarhus Universitet</p>
+        <div class="hero-background">
+            <div class="hero-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+            <!-- Spider Web Animation -->
+            <div class="spider-web">
+                <div class="web-line web-line-1"></div>
+                <div class="web-line web-line-2"></div>
+                <div class="web-line web-line-3"></div>
+                <div class="web-line web-line-4"></div>
+                <div class="web-line web-line-5"></div>
+                <div class="web-line web-line-6"></div>
+                <div class="web-line web-line-7"></div>
+                <div class="web-line web-line-8"></div>
+                <div class="web-center"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Velkommen til</span>
+                    <span class="title-line">Webspind</span>
+                </h1>
+                <p class="hero-subtitle">
+                    <span class="typewriter" id="typewriter"></span>
+                </p>
+                <p class="hero-description">
+                    Jeg spinder digitale netværk der forbinder, engagerer og konverterer. 
+                    Baseret i Aarhus, Danmark.
+                </p>
+                <div class="hero-actions">
+                    <a href="#work" class="btn btn-primary">Se mit arbejde</a>
+                    <a href="#contact" class="btn btn-secondary">Kontakt mig</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="profile-container">
+                    <img src="IMG_3176 (1).JPG" alt="Jakob Munch-Brandt" class="profile-image">
+                    <div class="profile-glow"></div>
+                    <!-- Floating spider -->
+                    <div class="floating-spider">🕷️</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
     </section>
 
     <!-- Main Content -->
     <main class="main">
-        <!-- Om Mig Section -->
-        <section id="om" class="card">
-            <h2 class="card-title">
-                <span class="card-icon">👨‍💻</span>
-                Om Mig
-            </h2>
-            <p>
-                Jeg er en engageret kommunikations- og marketingkonsulent hos Uniwelco ApS 
-                samt bachelorstuderende i Informationsvidenskab på Aarhus Universitet. 
-                Min passion ligger i at kombinere teknologi og kommunikation for at skabe 
-                effektive digitale løsninger.
-            </p>
-            <p>
-                Som medredaktør hos 24skin og tidligere mentor på universitetet har jeg 
-                udviklet stærke kompetencer inden for content creation og videndeling. 
-                Min erfaring spænder fra digital marketing og grafisk design til 
-                hjemmesidekonstruktion og SEO-optimering.
-            </p>
-        </section>
-
-        <!-- Kompetencer Section -->
-        <section id="kompetencer" class="card">
-            <h2 class="card-title">
-                <span class="card-icon">🎯</span>
-                Mine Interesser
-            </h2>
-            <p>De områder jeg brænder for og arbejder med:</p>
-            <div class="interests-grid">
-                <div class="interest-tag">📈 Digital Marketing</div>
-                <div class="interest-tag">🎨 Grafisk Design</div>
-                <div class="interest-tag">💻 Webudvikling</div>
-                <div class="interest-tag">🎬 Videoproduktion</div>
-                <div class="interest-tag">🏋️‍♂️ Fitness</div>
-                <div class="interest-tag">📚 Informationsvidenskab</div>
-                <div class="interest-tag">✍️ Content Creation</div>
-                <div class="interest-tag">☕ Kaffe</div>
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Om Mig</h2>
+                    <p class="section-subtitle">Passioneret om digital innovation og informationsvidenskab</p>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p class="about-paragraph">
+                            Jeg er en digital kreatør og marketing specialist, der i øjeblikket arbejder hos Uniwelco ApS, 
+                            hvor jeg kombinerer teknologi og kommunikation for at skabe effektive digitale løsninger. 
+                            Som bachelorstuderende i Informationsvidenskab på Aarhus Universitet dykker jeg dybt ned i 
+                            dataanalyse, informationssystemer og digital kommunikation.
+                        </p>
+                        <p class="about-paragraph">
+                            Min erfaring spænder fra digital marketing og grafisk design til webudvikling 
+                            og SEO-optimering. Jeg tror på at skabe løsninger, der ikke kun ser professionelle ud, 
+                            men også fungerer optimalt og leverer reelle resultater baseret på data og forskning.
+                        </p>
+                        <div class="about-stats">
+                            <div class="stat">
+                                <span class="stat-number">3+</span>
+                                <span class="stat-label">Års erfaring</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">∞</span>
+                                <span class="stat-label">Lærelyst</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Digital nørd</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-visual">
+                        <div class="experience-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>Marketing Konsulent</h4>
+                                    <p>Uniwelco ApS</p>
+                                    <span class="timeline-date">2023 - Nu</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>Informationsvidenskabsstuderende</h4>
+                                    <p>Aarhus Universitet</p>
+                                    <span class="timeline-date">2022 - Nu</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>Content Editor</h4>
+                                    <p>24skin</p>
+                                    <span class="timeline-date">2022 - Nu</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Erfaring Section -->
-        <section class="card">
-            <h2 class="card-title">
-                <span class="card-icon">💼</span>
-                Erfaring & Kompetencer
-            </h2>
-            <p>
-                Mine kernekompetencer og professionelle erfaring:
-            </p>
-            <ul>
-                <li><strong>Digital Marketing:</strong> SEO, online markedsføring, HubSpot, web crawling</li>
-                <li><strong>Design & Content:</strong> Grafisk design i Canva og Adobe Photoshop, videoproduktion i Adobe Premiere Pro</li>
-                <li><strong>Webudvikling:</strong> Hjemmesidekonstruktion og responsivt design</li>
-                <li><strong>Kommunikation:</strong> Content creation, redaktionelt arbejde, målgruppeanalyse</li>
-                <li><strong>Certificeringer:</strong> Google Digital Marketing Fundamentals (2018)</li>
-            </ul>
-            <p>
-                Jeg brænder for at hjælpe virksomheder med deres digitale tilstedeværelse 
-                og skabe løsninger, der både ser professionelle ud og fungerer optimalt.
-            </p>
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Kompetencer & Ekspertise</h2>
+                    <p class="section-subtitle">Teknologier og værktøjer jeg arbejder med</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3 class="category-title">Digital Marketing</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <div class="skill-icon">📈</div>
+                                <span>SEO</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🎯</div>
+                                <span>Google Ads</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">📊</div>
+                                <span>Analytics</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🔍</div>
+                                <span>HubSpot</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 class="category-title">Design & Kreativitet</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <div class="skill-icon">🎨</div>
+                                <span>Photoshop</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">✨</div>
+                                <span>Canva</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🎬</div>
+                                <span>Premiere Pro</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🎭</div>
+                                <span>UI/UX Design</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3 class="category-title">Udvikling & Data</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">
+                                <div class="skill-icon">💻</div>
+                                <span>HTML/CSS</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">⚡</div>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">📱</div>
+                                <span>Responsivt Design</span>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">🕸️</div>
+                                <span>Web Development</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- Kontakt Section -->
-        <section id="kontakt" class="card">
-            <h2 class="card-title">
-                <span class="card-icon">📧</span>
-                Lad os snakke sammen
-            </h2>
-            <p>
-                Har du et projekt, en idé eller vil bare sige hej? 
-                Jeg glæder mig til at høre fra dig.
-            </p>
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="name" class="form-label">Navn</label>
-                    <input type="text" id="name" name="name" class="form-input" required placeholder="Dit fulde navn">
+        <!-- Work Section -->
+        <section id="work" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Udvalgt Arbejde</h2>
+                    <p class="section-subtitle">Nogle af mine seneste projekter og præstationer</p>
                 </div>
-                <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" name="email" class="form-input" required placeholder="din@email.dk">
+                <div class="work-grid">
+                    <div class="work-item">
+                        <div class="work-image">
+                            <div class="work-overlay">
+                                <h4>Digital Marketing Kampagner</h4>
+                                <p>SEO-optimering og content strategier for flere kunder</p>
+                            </div>
+                        </div>
+                        <div class="work-content">
+                            <h3>Marketing Løsninger</h3>
+                            <p>Omfattende digitale marketing strategier der driver resultater</p>
+                            <div class="work-tags">
+                                <span class="tag">SEO</span>
+                                <span class="tag">Content</span>
+                                <span class="tag">Analytics</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item">
+                        <div class="work-image">
+                            <div class="work-overlay">
+                                <h4>Webudvikling</h4>
+                                <p>Moderne, responsive hjemmesider med optimal performance</p>
+                            </div>
+                        </div>
+                        <div class="work-content">
+                            <h3>Web Løsninger</h3>
+                            <p>Skråddersyede hjemmesider bygget med moderne teknologier og best practices</p>
+                            <div class="work-tags">
+                                <span class="tag">HTML/CSS</span>
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">Responsivt</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="work-item">
+                        <div class="work-image">
+                            <div class="work-overlay">
+                                <h4>Grafisk Design</h4>
+                                <p>Visuelt indhold der kommunikerer og konverterer</p>
+                            </div>
+                        </div>
+                        <div class="work-content">
+                            <h3>Kreativt Design</h3>
+                            <p>Professionelt grafisk design til digitale og trykte medier</p>
+                            <div class="work-tags">
+                                <span class="tag">Photoshop</span>
+                                <span class="tag">Canva</span>
+                                <span class="tag">Branding</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="message" class="form-label">Besked</label>
-                    <textarea id="message" name="message" class="form-input" rows="4" required placeholder="Fortæl mig om dit projekt eller spørgsmål..."></textarea>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Lad os arbejde sammen</h2>
+                    <p class="section-subtitle">Klar til at starte dit næste projekt? Lad os diskutere hvordan jeg kan hjælpe.</p>
                 </div>
-                <button type="submit" class="btn">Send Besked</button>
-            </form>
-            
-            <div style="margin-top: 48px; padding-top: 32px; border-top: 0.5px solid var(--border-light); text-align: center; color: var(--text-secondary);">
-                <p style="font-size: 19px; margin-bottom: 8px;">
-                    📍 Aarhus, Danmark
-                </p>
-                <p style="font-size: 17px; opacity: 0.8;">
-                    Typisk svartid: inden for 24 timer
-                </p>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div>
+                                <h4>Lokation</h4>
+                                <p>Aarhus, Danmark</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>Tilgængelig ved forespørgsel</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">⏰</div>
+                            <div>
+                                <h4>Svartid</h4>
+                                <p>Inden for 24 timer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Navn</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Emne</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Besked</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text">Send besked</span>
+                            <span class="btn-icon">→</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2025 Jakob Munch-Brandt</p>
-        <p style="margin-top: 8px; font-size: 15px; opacity: 0.8;">
-            Designet med inspiration fra Apple's designsprog
-        </p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Webspind</h3>
+                    <p>Jakob Munch-Brandt's digitale portfolio</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Hjem</a>
+                    <a href="#about">Om</a>
+                    <a href="#skills">Kompetencer</a>
+                    <a href="#work">Arbejde</a>
+                    <a href="#contact">Kontakt</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Webspind. Alle rettigheder forbeholdes.</p>
+                <p>Spundet med moderne web teknologier 🕸️</p>
+            </div>
+        </div>
     </footer>
 
     <!-- JavaScript -->
