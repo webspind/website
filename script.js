@@ -255,9 +255,7 @@ class ModernWebsite {
         this.isMobileMenuOpen = !this.isMobileMenuOpen;
         
         if (this.isMobileMenuOpen) {
-            navLinks.style.display = 'flex';
-            navLinks.style.opacity = '1';
-            navLinks.style.transform = 'translateY(0)';
+            navLinks.classList.add('active');
             
             // Animate hamburger to X
             mobileMenuBtn.classList.add('active');
@@ -265,14 +263,7 @@ class ModernWebsite {
             // Prevent body scroll on mobile
             document.body.style.overflow = 'hidden';
         } else {
-            navLinks.style.opacity = '0';
-            navLinks.style.transform = 'translateY(-20px)';
-            
-            setTimeout(() => {
-                if (!this.isMobileMenuOpen) {
-                    navLinks.style.display = 'none';
-                }
-            }, 300);
+            navLinks.classList.remove('active');
             
             // Animate X to hamburger
             mobileMenuBtn.classList.remove('active');
