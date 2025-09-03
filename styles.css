@@ -1213,3 +1213,585 @@ p {
         color: black;
     }
 }
+
+/* Enhanced Animations and Scroll Effects */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Animation Classes */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate-on-scroll.animate-left {
+    transform: translateX(-30px);
+}
+
+.animate-on-scroll.animate-left.animate-in {
+    transform: translateX(0);
+}
+
+.animate-on-scroll.animate-right {
+    transform: translateX(30px);
+}
+
+.animate-on-scroll.animate-right.animate-in {
+    transform: translateX(0);
+}
+
+.animate-on-scroll.animate-scale {
+    transform: scale(0.9);
+}
+
+.animate-on-scroll.animate-scale.animate-in {
+    transform: scale(1);
+}
+
+/* Enhanced Hero Title */
+.title-line:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.highlight-name {
+    background: var(--gradient-web);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    font-size: 3.5rem;
+    text-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    .highlight-name {
+        font-size: 2.5rem;
+    }
+}
+
+/* Enhanced Profile Container */
+.profile-container::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    right: -30px;
+    bottom: -30px;
+    background: var(--gradient-web);
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: pulse 4s ease-in-out infinite;
+    z-index: 1;
+}
+
+.profile-container::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    background: var(--gradient-accent);
+    border-radius: 50%;
+    opacity: 0.05;
+    animation: pulse 3s ease-in-out infinite reverse;
+    z-index: 1;
+}
+
+/* Enhanced Floating Spider */
+.floating-spider {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.floating-spider::before {
+    content: '🕸️';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    font-size: 1.5rem;
+    opacity: 0.3;
+    animation: spiderFloat 2s ease-in-out infinite reverse;
+}
+
+.floating-spider::after {
+    content: '✨';
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    font-size: 1rem;
+    opacity: 0.6;
+    animation: rotate 4s linear infinite;
+}
+
+/* Enhanced Skill Items */
+.skill-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.skill-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.skill-item:hover::before {
+    left: 100%;
+}
+
+.skill-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Enhanced Work Items */
+.work-item:hover .work-image {
+    transform: scale(1.05);
+}
+
+.work-image {
+    transition: transform var(--transition-normal);
+}
+
+/* Enhanced Buttons */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Enhanced Scroll Progress */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-web);
+    transform-origin: left;
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.scroll-progress.visible {
+    opacity: 1;
+}
+
+/* Enhanced Card Hover Effects */
+.skill-category:hover, .work-item:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* Mobile-optimized animations */
+@media (max-width: 768px) {
+    .skill-category:hover, .work-item:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+    
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+    
+    /* Reduce motion on mobile for better performance */
+    .floating-spider,
+    .profile-container::before,
+    .profile-container::after {
+        animation-duration: 2s;
+    }
+    
+    /* Optimize scroll performance */
+    .hero-shapes,
+    .spider-web {
+        will-change: transform;
+        transform: translateZ(0);
+    }
+    
+    .animate-on-scroll {
+        transform: translateY(20px);
+    }
+    
+    .animate-on-scroll.animate-in {
+        transform: translateY(0);
+    }
+}
+
+/* Performance optimizations for mobile */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .animate-on-scroll,
+    .floating-spider,
+    .profile-container::before,
+    .profile-container::after,
+    .shape,
+    .spider-web {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .skill-item:hover,
+    .work-item:hover,
+    .btn:hover {
+        transform: none !important;
+    }
+}
+
+/* Enhanced focus states for accessibility */
+.btn:focus,
+input:focus,
+textarea:focus {
+    outline: 2px solid var(--border-accent);
+    outline-offset: 2px;
+}
+
+/* Enhanced mobile touch feedback */
+@media (hover: none) {
+    .skill-item:hover,
+    .work-item:hover,
+    .btn:hover {
+        transform: none;
+    }
+    
+    .skill-item:active,
+    .work-item:active,
+    .btn:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+}
+
+/* Performance optimizations */
+.hero-shapes,
+.spider-web,
+.shape {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Enhanced accessibility */
+.focus-visible {
+    outline: 2px solid var(--border-accent);
+    outline-offset: 2px;
+}
+
+/* Enhanced loading animations */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.shimmer {
+    background: linear-gradient(90deg, 
+        var(--bg-secondary) 25%, 
+        var(--bg-tertiary) 50%, 
+        var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* Enhanced scroll snap for mobile */
+@media (max-width: 768px) {
+    .section {
+        scroll-snap-align: start;
+    }
+    
+    .main {
+        scroll-snap-type: y mandatory;
+    }
+}
+
+/* Enhanced tag animations */
+.tag {
+    transition: all var(--transition-normal);
+    cursor: pointer;
+}
+
+.tag:hover {
+    transform: scale(1.1);
+    background: var(--gradient-web);
+    color: white;
+}
+
+/* Enhanced stat animations */
+.stat {
+    transition: all var(--transition-normal);
+}
+
+.stat:hover {
+    transform: scale(1.05);
+}
+
+.stat-number {
+    background: var(--gradient-web);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+}
+
+/* Enhanced timeline animations */
+.timeline-item {
+    transition: all var(--transition-normal);
+}
+
+.timeline-item:hover {
+    transform: translateX(10px);
+}
+
+.timeline-dot {
+    transition: all var(--transition-normal);
+}
+
+.timeline-item:hover .timeline-dot {
+    transform: scale(1.2);
+    background: var(--gradient-web);
+}
+
+/* Enhanced contact form animations */
+.contact-form {
+    transition: all var(--transition-normal);
+}
+
+.contact-form:focus-within {
+    transform: scale(1.01);
+}
+
+/* Enhanced form group animations */
+.form-group {
+    transition: all var(--transition-normal);
+}
+
+.form-group:focus-within {
+    transform: translateY(-2px);
+}
+
+/* Enhanced notification animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.notification {
+    animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced swipe indicator */
+@keyframes fadeInOut {
+    0%, 100% { 
+        opacity: 0; 
+        transform: translate(-50%, -50%) scale(0.8); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1.2); 
+    }
+}
+
+.swipe-indicator {
+    animation: fadeInOut 1s ease;
+}
+
+/* Enhanced parallax effects */
+.parallax-element {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Enhanced spider web animation */
+.spider-web {
+    animation: webFloat 6s ease-in-out infinite;
+}
+
+@keyframes webFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-5px) rotate(1deg);
+    }
+    66% {
+        transform: translateY(5px) rotate(-1deg);
+    }
+}
+
+/* Enhanced shape animations */
+.shape {
+    animation: shapeFloat 8s ease-in-out infinite;
+}
+
+.shape:nth-child(2) {
+    animation-delay: -2s;
+}
+
+.shape:nth-child(3) {
+    animation-delay: -4s;
+}
+
+@keyframes shapeFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    25% {
+        transform: translateY(-10px) rotate(5deg) scale(1.05);
+    }
+    50% {
+        transform: translateY(5px) rotate(-3deg) scale(0.95);
+    }
+    75% {
+        transform: translateY(-5px) rotate(2deg) scale(1.02);
+    }
+}
+
+/* Enhanced profile image hover effect */
+.profile-image {
+    transition: all var(--transition-normal);
+}
+
+.profile-container:hover .profile-image {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Enhanced scroll indicator */
+.scroll-indicator {
+    transition: opacity var(--transition-normal);
+}
+
+.scroll-indicator:hover {
+    animation-play-state: paused;
+}
+
+/* Enhanced form animations */
+.form-group input:focus,
+.form-group textarea:focus {
+    transform: translateY(-2px);
+}
+
+/* Enhanced mobile menu animations */
+@media (max-width: 768px) {
+    .nav-links {
+        transform: translateY(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+    }
+    
+    .mobile-menu-btn span {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
+/* Parallax container */
+.parallax-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}

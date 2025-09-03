@@ -3,6 +3,8 @@ class ModernWebsite {
     constructor() {
         this.currentTheme = localStorage.getItem('theme') || 'light';
         this.isMobileMenuOpen = false;
+        this.isScrolling = false;
+        this.lastScrollY = 0;
         this.init();
     }
 
@@ -15,6 +17,8 @@ class ModernWebsite {
         this.setupScrollEffects();
         this.setupFormHandling();
         this.setupIntersectionObserver();
+        this.setupParallaxEffects();
+        this.setupMobileOptimizations();
     }
 
     // Theme Management
@@ -71,20 +75,10 @@ class ModernWebsite {
             });
         });
 
-        // Header effects on scroll
-        let lastScrollY = window.scrollY;
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            const scrollY = window.scrollY;
-            
-            if (scrollY > 10) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-            
-            lastScrollY = scrollY;
-        }, { passive: true });
+        // Header effects on scroll with throttling
+        window.addEventListener('scroll', this.throttle(() => {
+            this.handleScroll();
+        }, 16), { passive: true });
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
@@ -106,6 +100,141 @@ class ModernWebsite {
                 this.toggleMobileMenu();
             }
         });
+
+        // Touch events for mobile
+        this.setupTouchEvents();
+    }
+
+    // Mobile optimizations
+    setupMobileOptimizations() {
+        // Reduce motion on mobile for better performance
+        if (window.innerWidth <= 768) {
+            document.documentElement.style.setProperty('--animation-duration', '0.4s');
+        }
+
+        // Optimize scroll performance on mobile
+        if ('ontouchstart' in window) {
+            document.body.style.webkitOverflowScrolling = 'touch';
+        }
+    }
+
+    // Touch events for mobile
+    setupTouchEvents() {
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndY = e.changedTouches[0].screenY;
+            this.handleSwipe(touchStartY, touchEndY);
+        }, { passive: true });
+    }
+
+    handleSwipe(startY, endY) {
+        const swipeThreshold = 50;
+        const diff = startY - endY;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swipe up - could trigger next section
+                this.triggerSwipeAnimation('up');
+            } else {
+                // Swipe down - could trigger previous section
+                this.triggerSwipeAnimation('down');
+            }
+        }
+    }
+
+    triggerSwipeAnimation(direction) {
+        // Add visual feedback for swipe
+        const indicator = document.createElement('div');
+        indicator.className = 'swipe-indicator';
+        indicator.textContent = direction === 'up' ? '↑' : '↓';
+        
+        Object.assign(indicator.style, {
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            fontSize: '3rem',
+            color: 'var(--text-accent)',
+            zIndex: '1000',
+            pointerEvents: 'none',
+            animation: 'fadeInOut 1s ease'
+        });
+
+        document.body.appendChild(indicator);
+        setTimeout(() => indicator.remove(), 1000);
+    }
+
+    // Enhanced scroll handling
+    handleScroll() {
+        const header = document.querySelector('.header');
+        const scrollY = window.scrollY;
+        
+        if (scrollY > 10) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+
+        // Parallax effects
+        this.updateParallax(scrollY);
+        
+        // Update scroll indicator
+        this.updateScrollIndicator(scrollY);
+        
+        this.lastScrollY = scrollY;
+    }
+
+    // Parallax effects
+    setupParallaxEffects() {
+        // Create parallax elements
+        this.parallaxElements = document.querySelectorAll('.shape, .hero-shapes, .spider-web');
+        
+        // Add CSS for parallax
+        const style = document.createElement('style');
+        style.textContent = `
+            .parallax-element {
+                will-change: transform;
+                transform: translateZ(0);
+            }
+            
+            @keyframes fadeInOut {
+                0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    updateParallax(scrollY) {
+        if (!this.parallaxElements) return;
+
+        this.parallaxElements.forEach((element, index) => {
+            const rate = scrollY * (0.1 + index * 0.02);
+            const rotation = scrollY * (0.01 + index * 0.005);
+            
+            element.style.transform = `translateY(${rate}px) rotate(${rotation}deg)`;
+        });
+    }
+
+    updateScrollIndicator(scrollY) {
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        if (!scrollIndicator) return;
+
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollProgress = scrollY / (documentHeight - windowHeight);
+        
+        if (scrollProgress > 0.1) {
+            scrollIndicator.style.opacity = '0.3';
+        } else {
+            scrollIndicator.style.opacity = '1';
+        }
     }
 
     // Mobile Menu
@@ -131,6 +260,9 @@ class ModernWebsite {
             
             // Animate hamburger to X
             mobileMenuBtn.classList.add('active');
+            
+            // Prevent body scroll on mobile
+            document.body.style.overflow = 'hidden';
         } else {
             navLinks.style.opacity = '0';
             navLinks.style.transform = 'translateY(-20px)';
@@ -143,6 +275,9 @@ class ModernWebsite {
             
             // Animate X to hamburger
             mobileMenuBtn.classList.remove('active');
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
         }
     }
 
@@ -195,11 +330,11 @@ class ModernWebsite {
         if (!typewriterElement) return;
 
         const texts = [
-            'Digital Kreatør',
-            'Marketing Specialist',
-            'Webudvikler',
-            'Informationsvidenskabsstuderende',
-            'Spinder digitale netværk'
+            'Digital Marketing Specialist',
+            'SEO Ekspert',
+            'Web Developer',
+            'Grafisk Designer',
+            'Informationsvidenskabsstuderende'
         ];
         
         let textIndex = 0;
@@ -244,21 +379,25 @@ class ModernWebsite {
 
     // Scroll Effects
     setupScrollEffects() {
-        // Parallax effect for hero shapes
+        // Enhanced scroll effects with performance optimization
         let ticking = false;
+        
+        const updateScrollEffects = () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.shape');
+            
+            shapes.forEach((shape, index) => {
+                const rate = scrolled * (0.1 + index * 0.05);
+                const rotation = scrolled * (0.02 + index * 0.01);
+                shape.style.transform = `translateY(${rate}px) rotate(${rotation}deg)`;
+            });
+            
+            ticking = false;
+        };
+
         window.addEventListener('scroll', () => {
             if (!ticking) {
-                requestAnimationFrame(() => {
-                    const scrolled = window.pageYOffset;
-                    const shapes = document.querySelectorAll('.shape');
-                    
-                    shapes.forEach((shape, index) => {
-                        const rate = scrolled * (0.1 + index * 0.05);
-                        shape.style.transform = `translateY(${rate}px) rotate(${rate * 0.1}deg)`;
-                    });
-                    
-                    ticking = false;
-                });
+                requestAnimationFrame(updateScrollEffects);
                 ticking = true;
             }
         }, { passive: true });
@@ -281,12 +420,22 @@ class ModernWebsite {
             });
         }, observerOptions);
 
-        // Observe elements for animation
+        // Observe elements for animation with different animation types
         const animateElements = document.querySelectorAll('.skill-category, .work-item, .stat, .contact-item');
-        animateElements.forEach(el => {
+        animateElements.forEach((el, index) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            
+            // Add different animation directions
+            if (index % 3 === 0) {
+                el.classList.add('animate-on-scroll', 'animate-left');
+            } else if (index % 3 === 1) {
+                el.classList.add('animate-on-scroll', 'animate-right');
+            } else {
+                el.classList.add('animate-on-scroll', 'animate-scale');
+            }
+            
             observer.observe(el);
         });
 
@@ -296,6 +445,18 @@ class ModernWebsite {
             .animate-in {
                 opacity: 1 !important;
                 transform: translateY(0) !important;
+            }
+            
+            .animate-left.animate-in {
+                transform: translateX(0) !important;
+            }
+            
+            .animate-right.animate-in {
+                transform: translateX(0) !important;
+            }
+            
+            .animate-scale.animate-in {
+                transform: scale(1) !important;
             }
         `;
         document.head.appendChild(style);
@@ -570,7 +731,7 @@ class ModernWebsite {
         return function executedFunction(...args) {
             const later = () => {
                 clearTimeout(timeout);
-                func(...args);
+                func.apply(this, args);
             };
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
