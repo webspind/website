@@ -421,7 +421,7 @@ class ModernWebsite {
         }, observerOptions);
 
         // Observe elements for animation with different animation types
-        const animateElements = document.querySelectorAll('.skill-category, .work-item, .stat, .contact-item');
+        const animateElements = document.querySelectorAll('.skill-category, .work-item, .project-item, .stat, .contact-item');
         animateElements.forEach((el, index) => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
