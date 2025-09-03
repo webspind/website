@@ -19,6 +19,7 @@ class ModernWebsite {
         this.setupIntersectionObserver();
         this.setupParallaxEffects();
         this.setupMobileOptimizations();
+        this.setupPerformanceOptimizations();
     }
 
     // Theme Management
@@ -725,7 +726,71 @@ class ModernWebsite {
         });
     }
 
-    // Utility methods
+    // Performance optimizations
+    setupPerformanceOptimizations() {
+        // Use Intersection Observer for better performance
+        if ('IntersectionObserver' in window) {
+            this.setupLazyLoading();
+        }
+        
+        // Optimize scroll events
+        this.setupScrollOptimizations();
+        
+        // Optimize animations for mobile
+        this.optimizeForMobile();
+    }
+
+    setupLazyLoading() {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        imageObserver.unobserve(img);
+                    }
+                }
+            });
+        });
+
+        // Observe all images with data-src
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+
+    setupScrollOptimizations() {
+        // Use passive event listeners for better scroll performance
+        let scrollTimeout;
+        
+        const handleScroll = () => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            
+            scrollTimeout = setTimeout(() => {
+                this.handleScroll();
+            }, 16); // ~60fps
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    optimizeForMobile() {
+        if (window.innerWidth <= 768) {
+            // Reduce animation complexity on mobile
+            document.documentElement.style.setProperty('--animation-duration', '0.4s');
+            
+            // Disable heavy animations on mobile
+            const heavyElements = document.querySelectorAll('.hero-shapes, .spider-web');
+            heavyElements.forEach(el => {
+                el.style.animation = 'none';
+            });
+        }
+    }
+
+    // Enhanced debouncing with better performance
     debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -738,6 +803,7 @@ class ModernWebsite {
         };
     }
 
+    // Enhanced throttling for better performance
     throttle(func, limit) {
         let inThrottle;
         return function() {
