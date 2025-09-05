@@ -20,6 +20,7 @@ class ModernWebsite {
         this.setupParallaxEffects();
         this.setupMobileOptimizations();
         this.setupPerformanceOptimizations();
+        this.setupCursorTrail();
     }
 
     // Theme Management
@@ -110,28 +111,68 @@ class ModernWebsite {
     setupMobileOptimizations() {
         // Reduce motion on mobile for better performance
         if (window.innerWidth <= 768) {
-            document.documentElement.style.setProperty('--animation-duration', '0.4s');
+            document.documentElement.style.setProperty('--animation-duration', '0.3s');
+            document.documentElement.style.setProperty('--transition-duration', '0.2s');
         }
-
+        
+        // Fix mobile scrolling issues
+        this.fixMobileScrolling();
+        
         // Optimize scroll performance on mobile
-        if ('ontouchstart' in window) {
+        this.optimizeMobileScroll();
+    }
+    
+    fixMobileScrolling() {
+        // Force enable scrolling on mobile
+        if (window.innerWidth <= 768) {
+            document.body.style.overflowY = 'auto';
+            document.body.style.overflowX = 'hidden';
             document.body.style.webkitOverflowScrolling = 'touch';
+            
+            // Remove any height restrictions that might block scrolling
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.height = 'auto';
+                hero.style.minHeight = '100vh';
+                hero.style.overflow = 'visible';
+            }
+            
+            // Ensure all sections can scroll
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.overflow = 'visible';
+                section.style.height = 'auto';
+            });
         }
     }
-
-    // Touch events for mobile
-    setupTouchEvents() {
-        let touchStartY = 0;
-        let touchEndY = 0;
-
-        document.addEventListener('touchstart', (e) => {
-            touchStartY = e.changedTouches[0].screenY;
-        }, { passive: true });
-
-        document.addEventListener('touchend', (e) => {
-            touchEndY = e.changedTouches[0].screenY;
-            this.handleSwipe(touchStartY, touchEndY);
-        }, { passive: true });
+    
+    optimizeMobileScroll() {
+        if (window.innerWidth <= 768) {
+            // Use passive event listeners for better scroll performance
+            const scrollOptions = { passive: true };
+            
+            // Optimize scroll events
+            window.addEventListener('scroll', this.handleScroll.bind(this), scrollOptions);
+            window.addEventListener('touchmove', this.handleTouchMove.bind(this), scrollOptions);
+            
+            // Prevent horizontal scroll on touch
+            document.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1) {
+                    const touch = e.touches[0];
+                    if (Math.abs(touch.clientX - this.lastTouchX) > Math.abs(touch.clientY - this.lastTouchY)) {
+                        e.preventDefault();
+                    }
+                }
+            }, { passive: false });
+        }
+    }
+    
+    handleTouchMove(e) {
+        // Store last touch position for horizontal scroll prevention
+        if (e.touches.length === 1) {
+            this.lastTouchX = e.touches[0].clientX;
+            this.lastTouchY = e.touches[0].clientY;
+        }
     }
 
     handleSwipe(startY, endY) {
@@ -188,6 +229,9 @@ class ModernWebsite {
         // Update scroll indicator
         this.updateScrollIndicator(scrollY);
         
+        // Update scroll progress
+        this.updateScrollProgress(scrollY);
+        
         this.lastScrollY = scrollY;
     }
 
@@ -235,6 +279,23 @@ class ModernWebsite {
             scrollIndicator.style.opacity = '0.3';
         } else {
             scrollIndicator.style.opacity = '1';
+        }
+    }
+
+    updateScrollProgress(scrollY) {
+        const scrollProgress = document.getElementById('scrollProgress');
+        if (!scrollProgress) return;
+
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const progress = scrollY / (documentHeight - windowHeight);
+        
+        scrollProgress.style.transform = `scaleX(${Math.min(progress, 1)})`;
+        
+        if (scrollY > 100) {
+            scrollProgress.classList.add('visible');
+        } else {
+            scrollProgress.classList.remove('visible');
         }
     }
 
@@ -807,11 +868,85 @@ class ModernWebsite {
             }
         };
     }
+
+
+
+    // Cursor trail effect - Steve Jobs level optimization
+    setupCursorTrail() {
+        if (window.innerWidth <= 768) return; // Skip on mobile for performance
+        
+        this.cursorTrail = [];
+        this.maxTrailLength = 10; // Reduced for better performance
+        
+        // Throttled mouse move for better performance
+        let mouseTimeout;
+        document.addEventListener('mousemove', (e) => {
+            if (mouseTimeout) return;
+            mouseTimeout = setTimeout(() => {
+                this.addTrailPoint(e.clientX, e.clientY);
+                mouseTimeout = null;
+            }, 16); // ~60fps
+        });
+        
+        // Create trail container
+        this.trailContainer = document.createElement('div');
+        this.trailContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        `;
+        document.body.appendChild(this.trailContainer);
+    }
+
+    addTrailPoint(x, y) {
+        this.cursorTrail.push({ x, y, time: Date.now() });
+        
+        if (this.cursorTrail.length > this.maxTrailLength) {
+            this.cursorTrail.shift();
+        }
+        
+        this.updateTrail();
+    }
+
+    updateTrail() {
+        // Clear existing trail
+        this.trailContainer.innerHTML = '';
+        
+        this.cursorTrail.forEach((point, index) => {
+            const age = Date.now() - point.time;
+            if (age > 1000) return; // Remove old points
+            
+            const opacity = 1 - (age / 1000);
+            const size = 4 - (index * 0.2);
+            
+            const trailDot = document.createElement('div');
+            trailDot.style.cssText = `
+                position: absolute;
+                left: ${point.x}px;
+                top: ${point.y}px;
+                width: ${size}px;
+                height: ${size}px;
+                background: var(--gradient-web);
+                border-radius: 50%;
+                opacity: ${opacity};
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+            `;
+            
+            this.trailContainer.appendChild(trailDot);
+        });
+    }
 }
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new ModernWebsite();
+    const website = new ModernWebsite();
+    
+    
     
     // Add some fun interactions
     let clickCount = 0;

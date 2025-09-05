@@ -27,13 +27,20 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕸️</text></svg>">
     
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style">
+    <!-- Preload critical fonts - Steve Jobs optimization -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main" class="skip-link">Spring til indhold</a>
+    
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    
     <!-- Theme Toggle -->
     <div class="theme-toggle">
         <button class="theme-btn" id="themeToggle" aria-label="Skift tema">
@@ -79,65 +86,32 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="hero-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-            </div>
-            <!-- Spider Web Animation -->
-            <div class="spider-web">
-                <div class="web-line web-line-1"></div>
-                <div class="web-line web-line-2"></div>
-                <div class="web-line web-line-3"></div>
-                <div class="web-line web-line-4"></div>
-                <div class="web-line web-line-5"></div>
-                <div class="web-line web-line-6"></div>
-                <div class="web-line web-line-7"></div>
-                <div class="web-line web-line-8"></div>
-                <div class="web-center"></div>
-            </div>
-        </div>
         <div class="hero-content">
                             <div class="hero-text">
                     <h1 class="hero-title">
-                        <span class="title-line">Hej, jeg er...</span>
-                        <span class="title-line highlight-name">Jakob Munch-Brandt</span>
+                        <span class="title-line">Jakob Munch-Brandt</span>
+                        <span class="title-line hero-subtitle">Digital Marketing Specialist & Web Developer</span>
                     </h1>
                     
-                    <!-- Fancy UI Boxes for Skills -->
-                    <div class="hero-skills">
-                        <div class="skill-box">
-                            <div class="skill-icon">🎨</div>
-                            <span>Hjemmeside Designer</span>
+                    <p class="hero-description">
+                        Erfaren digital marketing specialist med ekspertise i SEO, webudvikling og strategiske forretningsløsninger. 
+                        Arbejder som Marketing Konsulent hos Uniwelco ApS og studerer Informationsvidenskab på Aarhus Universitet.
+                    </p>
+                    
+                    <div class="hero-highlights">
+                        <div class="highlight-item">
+                            <span class="highlight-number">4+</span>
+                            <span class="highlight-text">Års Erfaring</span>
                         </div>
-                        <div class="skill-box">
-                            <div class="skill-icon">✨</div>
-                            <span>Grafisk Designer</span>
+                        <div class="highlight-item">
+                            <span class="highlight-number">50+</span>
+                            <span class="highlight-text">Projekter Fuldført</span>
                         </div>
-                        <div class="skill-box">
-                            <div class="skill-icon">📈</div>
-                            <span>SEO Specialist</span>
-                        </div>
-                        <div class="skill-box">
-                            <div class="skill-icon">🎬</div>
-                            <span>Video Editor</span>
-                        </div>
-                        <div class="skill-box">
-                            <div class="skill-icon">🤖</div>
-                            <span>AI Expert</span>
-                        </div>
-                        <div class="skill-box">
-                            <div class="skill-icon">💼</div>
-                            <span>Business Strategist</span>
+                        <div class="highlight-item">
+                            <span class="highlight-number">100%</span>
+                            <span class="highlight-text">Kundetilfredshed</span>
                         </div>
                     </div>
-                    
-                    <p class="hero-description">
-                        Jeg spinder digitale netværk der forbinder, engagerer og konverterer. 
-                        Erfaren marketing specialist med ekspertise i SEO, webdesign og digital kommunikation.
-                        Baseret i Aarhus, Danmark.
-                    </p>
                     <div class="hero-actions">
                         <a href="#work" class="btn btn-primary">Se mit arbejde</a>
                         <a href="#contact" class="btn btn-secondary">Kontakt mig</a>
@@ -146,9 +120,6 @@
             <div class="hero-visual">
                 <div class="profile-container">
                     <img src="IMG_3176 (1).JPG" alt="Jakob Munch-Brandt - Digital Marketing Specialist" class="profile-image">
-                    <div class="profile-glow"></div>
-                    <!-- Floating spider -->
-                    <div class="floating-spider">🕷️</div>
                 </div>
             </div>
         </div>
@@ -158,7 +129,7 @@
     </section>
 
     <!-- Main Content -->
-    <main class="main">
+    <main id="main" class="main">
         <!-- About Section -->
         <section id="about" class="section">
             <div class="container">
@@ -169,17 +140,14 @@
                 <div class="about-content">
                     <div class="about-text">
                         <p class="about-paragraph">
-                            Jeg er <strong>Jakob Munch-Brandt</strong>, en digital marketing specialist og kreativ designer, 
-                            der i øjeblikket arbejder hos Uniwelco ApS, hvor jeg kombinerer teknologi og kommunikation 
-                            for at skabe effektive digitale løsninger. Som bachelorstuderende i Informationsvidenskab 
-                            på Aarhus Universitet dykker jeg dybt ned i dataanalyse, informationssystemer og digital kommunikation.
+                            Jeg er <strong>Jakob Munch-Brandt</strong>, en digital marketing specialist og kreativ designer 
+                            hos Uniwelco ApS, hvor jeg kombinerer teknologi og kommunikation for at skabe effektive digitale løsninger. 
+                            Som bachelorstuderende i Informationsvidenskab på Aarhus Universitet dykker jeg dybt ned i dataanalyse og digital kommunikation.
                         </p>
                         <p class="about-paragraph">
-                            Min erfaring spænder fra digital marketing og grafisk design til webudvikling 
-                            og SEO-optimering. Jeg har arbejdet med alt fra salgsmateriale og fakturaer til 
-                            hjemmesideadministration og sociale medier. Fra 2022-2025 var jeg ejer af 24skin, hvor jeg 
-                            udviklede mine færdigheder inden for content creation og digital marketing. Jeg tror på at skabe løsninger, der ikke kun 
-                            ser professionelle ud, men også fungerer optimalt og leverer reelle resultater baseret på data og forskning.
+                            Min erfaring spænder fra digital marketing og grafisk design til webudvikling og SEO-optimering. 
+                            Fra 2022-2025 var jeg ejer af 24skin, hvor jeg udviklede mine færdigheder inden for content creation og digital marketing. 
+                            Jeg skaber løsninger der ikke kun ser professionelle ud, men også leverer reelle resultater baseret på data og forskning.
                         </p>
                         <div class="about-stats">
                             <div class="stat">
@@ -510,6 +478,7 @@
                 </div>
             </div>
         </section>
+
 
         <!-- Contact Section -->
         <section id="contact" class="section">
