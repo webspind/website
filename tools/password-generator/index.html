@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Password Generator - Secure Password Creator | Webspind Professional Tools</title>
+  <meta name="description" content="Free secure password generator. Create strong, random passwords with customizable length and character sets. 100% private, browser-based generation.">
+  <meta name="keywords" content="password generator, secure password, random password, strong password, password creator, free password tool">
+  <meta name="author" content="Webspind">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webspind.com/tools/password-generator/">
+  <meta property="og:title" content="Password Generator - Secure Password Creator | Webspind Professional Tools">
+  <meta property="og:description" content="Free secure password generator. Create strong, random passwords with customizable length and character sets. 100% private, browser-based generation.">
+  <meta property="og:image" content="https://webspind.com/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://webspind.com/tools/password-generator/">
+  <meta property="twitter:title" content="Password Generator - Secure Password Creator | Webspind Professional Tools">
+  <meta property="twitter:description" content="Free secure password generator. Create strong, random passwords with customizable length and character sets. 100% private, browser-based generation.">
+  <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out',
+            'slide-up': 'slideUp 1s ease-out',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'web-spin': 'webSpin 1s linear infinite',
+            'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
+            'scale-in': 'scaleIn 0.6s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(50px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-15px)' }
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+              '50%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)' }
+            },
+            webSpin: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            scaleIn: {
+              '0%': { opacity: '0', transform: 'scale(0.8)' },
+              '100%': { opacity: '1', transform: 'scale(1)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+      position: relative;
+    }
+    
+    .gradient-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .card {
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .card:hover::before {
+      left: 100%;
+    }
+    
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-color: #3b82f6;
+    }
+    
+    .btn-primary {
+      background: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
+      position: relative;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(26, 26, 26, 0.2);
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+    
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-secondary {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #1a1a1a;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(20px);
+      font-size: 14px;
+    }
+    
+    .btn-secondary:hover {
+      background: #f8fafc;
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+    }
+    
+    .floating-icon {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .webspind-logo {
+      position: relative;
+    }
+    
+    .webspind-logo::after {
+      content: '🕸️';
+      position: absolute;
+      top: -5px;
+      right: -25px;
+      font-size: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .tool-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+    
+    .card:hover .tool-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .password-display {
+      background: #f8fafc;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      word-break: break-all;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    
+    .strength-meter {
+      height: 8px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    
+    .strength-weak { background: linear-gradient(90deg, #ef4444, #dc2626); }
+    .strength-fair { background: linear-gradient(90deg, #f59e0b, #d97706); }
+    .strength-good { background: linear-gradient(90deg, #eab308, #ca8a04); }
+    .strength-strong { background: linear-gradient(90deg, #22c55e, #16a34a); }
+    .strength-very-strong { background: linear-gradient(90deg, #10b981, #059669); }
+    
+    @media (max-width: 768px) {
+      .card:hover {
+        transform: translateY(-4px) scale(1.01);
+      }
+      
+      .btn-primary:hover {
+        transform: translateY(-1px);
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen gradient-bg">
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo">Webspind</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/">Tools</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/privacy.html">Privacy</a>
+      </div>
+      <a href="/" class="btn-secondary">
+        ← Back to Tools
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 md:px-6 py-16 relative z-10">
+    <!-- Header -->
+    <section class="text-center mb-12 fade-in">
+      <div class="floating-icon inline-block mb-6">
+        <div class="tool-icon">
+          🔐
+        </div>
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
+        <span class="text-gray-900">Password Generator</span>
+      </h1>
+      
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+        Generate secure, random passwords with customizable options. All processing happens locally in your browser.
+      </p>
+    </section>
+
+    <!-- Generator Section -->
+    <section class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Generate Secure Password</h2>
+      
+      <!-- Password Display -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Generated Password</label>
+        <div class="password-display" id="password-display">
+          Click "Generate Password" to create a secure password
+        </div>
+        <div class="mt-2 flex justify-between items-center">
+          <div class="text-sm text-gray-500">
+            Strength: <span id="strength-text">-</span>
+          </div>
+          <button id="copy-password" class="btn-secondary text-sm" disabled>
+            Copy to Clipboard
+          </button>
+        </div>
+        <div class="mt-2">
+          <div class="strength-meter w-full" id="strength-meter"></div>
+        </div>
+      </div>
+      
+      <!-- Options -->
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Password Length: <span id="length-value">16</span>
+          </label>
+          <input type="range" id="length-slider" min="8" max="64" value="16" 
+                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Character Sets</label>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input type="checkbox" id="uppercase" checked class="mr-2">
+              <span class="text-sm">Uppercase (A-Z)</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" id="lowercase" checked class="mr-2">
+              <span class="text-sm">Lowercase (a-z)</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" id="numbers" checked class="mr-2">
+              <span class="text-sm">Numbers (0-9)</span>
+            </label>
+            <label class="flex items-center">
+              <input type="checkbox" id="symbols" checked class="mr-2">
+              <span class="text-sm">Symbols (!@#$%^&*)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Presets -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Quick Presets</label>
+        <div class="flex flex-wrap gap-2">
+          <button class="preset-btn" data-preset="basic">Basic (12 chars)</button>
+          <button class="preset-btn" data-preset="strong">Strong (16 chars)</button>
+          <button class="preset-btn" data-preset="maximum">Maximum (32 chars)</button>
+          <button class="preset-btn" data-preset="memorable">Memorable</button>
+        </div>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <button id="generate-btn" class="btn-primary flex-1">
+          Generate New Password
+        </button>
+        <button id="regenerate-btn" class="btn-secondary" disabled>
+          Regenerate
+        </button>
+      </div>
+    </section>
+
+    <!-- Instructions -->
+    <section class="card p-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">How It Works</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+            1️⃣
+          </div>
+          <h3 class="font-semibold mb-2 text-gray-900">Customize Options</h3>
+          <p class="text-gray-600 text-sm">Set length and choose character sets for your password</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+            2️⃣
+          </div>
+          <h3 class="font-semibold mb-2 text-gray-900">Generate Securely</h3>
+          <p class="text-gray-600 text-sm">Password is created using cryptographically secure random generation</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+            3️⃣
+          </div>
+          <h3 class="font-semibold mb-2 text-gray-900">Copy & Use</h3>
+          <p class="text-gray-600 text-sm">Copy the password and use it for your accounts</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all fade-in and slide-up elements
+    document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Password generation logic
+    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+    const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+    const memorable = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+    function generatePassword() {
+      const length = parseInt(document.getElementById('length-slider').value);
+      const useUppercase = document.getElementById('uppercase').checked;
+      const useLowercase = document.getElementById('lowercase').checked;
+      const useNumbers = document.getElementById('numbers').checked;
+      const useSymbols = document.getElementById('symbols').checked;
+      
+      let charset = '';
+      if (useUppercase) charset += uppercase;
+      if (useLowercase) charset += lowercase;
+      if (useNumbers) charset += numbers;
+      if (useSymbols) charset += symbols;
+      
+      if (charset === '') {
+        alert('Please select at least one character set.');
+        return;
+      }
+      
+      let password = '';
+      const array = new Uint32Array(length);
+      crypto.getRandomValues(array);
+      
+      for (let i = 0; i < length; i++) {
+        password += charset[array[i] % charset.length];
+      }
+      
+      return password;
+    }
+
+    function calculateStrength(password) {
+      let score = 0;
+      const length = password.length;
+      
+      // Length scoring
+      if (length >= 8) score += 1;
+      if (length >= 12) score += 1;
+      if (length >= 16) score += 1;
+      if (length >= 20) score += 1;
+      
+      // Character variety scoring
+      if (/[a-z]/.test(password)) score += 1;
+      if (/[A-Z]/.test(password)) score += 1;
+      if (/[0-9]/.test(password)) score += 1;
+      if (/[^a-zA-Z0-9]/.test(password)) score += 1;
+      
+      // Pattern penalties
+      if (/(.)\1{2,}/.test(password)) score -= 1; // Repeated characters
+      if (/123|abc|qwe/i.test(password)) score -= 1; // Common patterns
+      
+      return Math.max(0, Math.min(5, score));
+    }
+
+    function updateStrengthDisplay(password) {
+      const strength = calculateStrength(password);
+      const strengthText = document.getElementById('strength-text');
+      const strengthMeter = document.getElementById('strength-meter');
+      
+      const levels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong', 'Very Strong'];
+      const colors = ['strength-weak', 'strength-weak', 'strength-fair', 'strength-good', 'strength-strong', 'strength-very-strong'];
+      
+      strengthText.textContent = levels[strength];
+      strengthMeter.className = `strength-meter w-full ${colors[strength]}`;
+      strengthMeter.style.width = `${(strength / 5) * 100}%`;
+    }
+
+    function updatePassword() {
+      const password = generatePassword();
+      document.getElementById('password-display').textContent = password;
+      updateStrengthDisplay(password);
+      document.getElementById('copy-password').disabled = false;
+      document.getElementById('regenerate-btn').disabled = false;
+    }
+
+    // Event listeners
+    document.getElementById('length-slider').addEventListener('input', (e) => {
+      document.getElementById('length-value').textContent = e.target.value;
+    });
+
+    document.getElementById('generate-btn').addEventListener('click', updatePassword);
+    document.getElementById('regenerate-btn').addEventListener('click', updatePassword);
+
+    document.getElementById('copy-password').addEventListener('click', async () => {
+      const password = document.getElementById('password-display').textContent;
+      try {
+        await navigator.clipboard.writeText(password);
+        const btn = document.getElementById('copy-password');
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.style.background = '#10b981';
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = '';
+        }, 2000);
+      } catch (err) {
+        alert('Failed to copy password. Please select and copy manually.');
+      }
+    });
+
+    // Preset buttons
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const preset = btn.dataset.preset;
+        
+        switch(preset) {
+          case 'basic':
+            document.getElementById('length-slider').value = 12;
+            document.getElementById('length-value').textContent = '12';
+            break;
+          case 'strong':
+            document.getElementById('length-slider').value = 16;
+            document.getElementById('length-value').textContent = '16';
+            break;
+          case 'maximum':
+            document.getElementById('length-slider').value = 32;
+            document.getElementById('length-value').textContent = '32';
+            break;
+          case 'memorable':
+            document.getElementById('length-slider').value = 20;
+            document.getElementById('length-value').textContent = '20';
+            document.getElementById('symbols').checked = false;
+            break;
+        }
+        
+        updatePassword();
+      });
+    });
+
+    // Generate initial password
+    updatePassword();
+  </script>
+
+  <footer class="mt-20 border-t border-gray-200 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
+      <div class="text-gray-600 text-sm mb-4">
+        © 2025 Webspind · Local processing · 
+        <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/privacy.html">Privacy</a>
+      </div>
+      <div class="text-gray-500 text-xs">
+        Professional tools for modern workflows
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

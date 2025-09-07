@@ -3,61 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PDF Merge - Combine PDF Files | Webspind Professional Tools</title>
-  <meta name="description" content="Free PDF merge tool. Combine multiple PDF documents into a single file with drag-and-drop interface. Secure, private, browser-based processing.">
-  <meta name="keywords" content="PDF merge, combine PDF, merge PDF files, PDF combiner, free PDF tools, online PDF merge">
+  <title>Image Resizer - Resize Images Online | Webspind Professional Tools</title>
+  <meta name="description" content="Free image resizer tool. Resize images to any size, batch resize, maintain aspect ratio. JPG, PNG, WebP support. 100% private, browser-based processing.">
+  <meta name="keywords" content="image resizer, resize images, batch resize, image compressor, free image tools, online image editor">
   <meta name="author" content="Webspind">
   <meta name="robots" content="index, follow">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://webspind.com/tools/pdf-merge/">
-  <meta property="og:title" content="PDF Merge - Combine PDF Files | Webspind Professional Tools">
-  <meta property="og:description" content="Free PDF merge tool. Combine multiple PDF documents into a single file with drag-and-drop interface. Secure, private, browser-based processing.">
+  <meta property="og:url" content="https://webspind.com/tools/image-resizer/">
+  <meta property="og:title" content="Image Resizer - Resize Images Online | Webspind Professional Tools">
+  <meta property="og:description" content="Free image resizer tool. Resize images to any size, batch resize, maintain aspect ratio. JPG, PNG, WebP support. 100% private, browser-based processing.">
   <meta property="og:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://webspind.com/tools/pdf-merge/">
-  <meta property="twitter:title" content="PDF Merge - Combine PDF Files | Webspind Professional Tools">
-  <meta property="twitter:description" content="Free PDF merge tool. Combine multiple PDF documents into a single file with drag-and-drop interface. Secure, private, browser-based processing.">
+  <meta property="twitter:url" content="https://webspind.com/tools/image-resizer/">
+  <meta property="twitter:title" content="Image Resizer - Resize Images Online | Webspind Professional Tools">
+  <meta property="twitter:description" content="Free image resizer tool. Resize images to any size, batch resize, maintain aspect ratio. JPG, PNG, WebP support. 100% private, browser-based processing.">
   <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Favicon -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "PDF Merge Tool",
-    "description": "Free PDF merge tool. Combine multiple PDF documents into a single file with drag-and-drop interface. Secure, private, browser-based processing.",
-    "url": "https://webspind.com/tools/pdf-merge/",
-    "applicationCategory": "UtilityApplication",
-    "operatingSystem": "Web Browser",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "creator": {
-      "@type": "Organization",
-      "name": "Webspind",
-      "url": "https://webspind.com"
-    },
-    "featureList": [
-      "Combine multiple PDF files",
-      "Drag and drop interface",
-      "Secure browser-based processing",
-      "No file uploads required",
-      "Free to use"
-    ]
-  }
-  </script>
-  
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -153,21 +122,6 @@
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
     
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-      transition: left 0.6s;
-    }
-    
-    .card:hover::before {
-      left: 100%;
-    }
-    
     .card:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -186,21 +140,6 @@
       position: relative;
       overflow: hidden;
       font-size: 14px;
-    }
-    
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-      transition: left 0.5s;
-    }
-    
-    .btn-primary:hover::before {
-      left: 100%;
     }
     
     .btn-primary:hover {
@@ -249,22 +188,11 @@
       transform: scale(1.02);
     }
     
-    .file-item {
-      background: #ffffff;
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 16px;
-      margin: 8px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.3s ease;
-    }
-    
-    .file-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      border-color: #3b82f6;
+    .image-preview {
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
     
     .web-spinner {
@@ -325,17 +253,6 @@
       transform: translateY(0);
     }
     
-    .slide-up {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 1s ease-out;
-    }
-    
-    .slide-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
     .floating-icon {
       animation: float 6s ease-in-out infinite;
     }
@@ -363,7 +280,7 @@
       font-size: 24px;
       margin-bottom: 16px;
       transition: all 0.3s ease;
-      background: linear-gradient(135deg, #ef4444, #dc2626);
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
       color: white;
     }
     
@@ -407,8 +324,8 @@
   <div id="loading-overlay" class="loading-overlay">
     <div class="loading-content">
       <div class="web-spinner"></div>
-      <h3>Merging PDFs...</h3>
-      <p>Please wait while we combine your documents</p>
+      <h3>Resizing Images...</h3>
+      <p>Please wait while we process your images</p>
     </div>
   </div>
 
@@ -432,68 +349,108 @@
     <section class="text-center mb-12 fade-in">
       <div class="floating-icon inline-block mb-6">
         <div class="tool-icon">
-          📄
+          🖼️
         </div>
       </div>
       
       <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
-        <span class="text-gray-900">PDF Merge</span>
+        <span class="text-gray-900">Image Resizer</span>
       </h1>
       
       <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-        Combine multiple PDF documents into a single file. Drag-and-drop interface with intelligent page ordering.
+        Resize images to any size with batch processing. Maintain aspect ratio or set custom dimensions. JPG, PNG, WebP support.
       </p>
     </section>
 
     <!-- Upload Section -->
     <section class="card p-8 mb-8 fade-in">
-      <h2 class="text-2xl font-bold mb-6 text-gray-900">Upload PDF Files</h2>
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Upload Images</h2>
       
       <div id="drop-zone" class="drop-zone">
-        <div class="text-6xl mb-4">📁</div>
-        <h3 class="text-xl font-semibold mb-2 text-gray-700">Drag & Drop PDF Files</h3>
+        <div class="text-6xl mb-4">📸</div>
+        <h3 class="text-xl font-semibold mb-2 text-gray-700">Drag & Drop Images</h3>
         <p class="text-gray-600 mb-4">or click to browse</p>
-        <input type="file" id="file-input" multiple accept=".pdf" class="hidden">
+        <input type="file" id="file-input" multiple accept="image/*" class="hidden">
         <button onclick="document.getElementById('file-input').click()" class="btn-primary">
-          Choose Files
+          Choose Images
         </button>
       </div>
       
-      <div id="file-list" class="mt-6 hidden">
-        <h3 class="text-lg font-semibold mb-4 text-gray-900">Selected Files</h3>
-        <div id="files-container"></div>
+      <div id="image-list" class="mt-6 hidden">
+        <h3 class="text-lg font-semibold mb-4 text-gray-900">Selected Images</h3>
+        <div id="images-container" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
       </div>
     </section>
 
-    <!-- Controls -->
+    <!-- Resize Options -->
     <section class="card p-8 mb-8 fade-in">
-      <h2 class="text-2xl font-bold mb-6 text-gray-900">Merge Options</h2>
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Resize Options</h2>
       
       <div class="grid md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Output Filename</label>
-          <input type="text" id="filename" placeholder="merged-document.pdf" 
+          <label class="block text-sm font-medium text-gray-700 mb-2">Resize Mode</label>
+          <select id="resize-mode" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="maintain-ratio">Maintain Aspect Ratio</option>
+            <option value="custom">Custom Dimensions</option>
+            <option value="percentage">Percentage</option>
+            <option value="preset">Preset Sizes</option>
+          </select>
+        </div>
+
+        <div id="preset-sizes" class="hidden">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Preset Size</label>
+          <select id="preset-select" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="thumbnail">Thumbnail (150x150)</option>
+            <option value="small">Small (300x300)</option>
+            <option value="medium">Medium (600x600)</option>
+            <option value="large">Large (1200x1200)</option>
+            <option value="social">Social Media (1080x1080)</option>
+            <option value="banner">Banner (1920x1080)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mt-6" id="custom-dimensions">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Width (px)</label>
+          <input type="number" id="width" placeholder="800" 
                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Page Order</label>
-          <select id="page-order" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            <option value="sequential">Sequential (File 1, File 2, File 3...)</option>
-            <option value="reverse">Reverse (File 3, File 2, File 1...)</option>
-          </select>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Height (px)</label>
+          <input type="number" id="height" placeholder="600" 
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
+      </div>
+
+      <div class="mt-6" id="percentage-input">
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Resize Percentage: <span id="percentage-value">50</span>%
+        </label>
+        <input type="range" id="percentage" min="10" max="200" value="50" 
+               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+      </div>
+
+      <div class="mt-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Output Format</label>
+        <select id="output-format" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          <option value="original">Keep Original Format</option>
+          <option value="jpeg">JPEG</option>
+          <option value="png">PNG</option>
+          <option value="webp">WebP</option>
+        </select>
       </div>
       
       <div class="mt-6 flex flex-col sm:flex-row gap-4">
-        <button id="merge-btn" class="btn-primary flex-1" disabled>
-          <span id="merge-text">Merge PDFs</span>
+        <button id="resize-btn" class="btn-primary flex-1" disabled>
+          <span id="resize-text">Resize Images</span>
         </button>
         <button id="clear-btn" class="btn-secondary">
           Clear All
         </button>
-        </div>
-      </section>
+      </div>
+    </section>
 
     <!-- Instructions -->
     <section class="card p-8 fade-in">
@@ -501,29 +458,29 @@
       
       <div class="grid md:grid-cols-3 gap-6">
         <div class="text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
             1️⃣
           </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Upload Files</h3>
-          <p class="text-gray-600 text-sm">Drag and drop or click to select multiple PDF files</p>
+          <h3 class="font-semibold mb-2 text-gray-900">Upload Images</h3>
+          <p class="text-gray-600 text-sm">Drag and drop or click to select multiple images</p>
         </div>
         
         <div class="text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
             2️⃣
           </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Configure Options</h3>
-          <p class="text-gray-600 text-sm">Set filename and page order preferences</p>
+          <h3 class="font-semibold mb-2 text-gray-900">Set Dimensions</h3>
+          <p class="text-gray-600 text-sm">Choose resize mode and set your desired dimensions</p>
         </div>
         
         <div class="text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
             3️⃣
           </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Download Result</h3>
-          <p class="text-gray-600 text-sm">Click merge and download your combined PDF</p>
+          <h3 class="font-semibold mb-2 text-gray-900">Download Results</h3>
+          <p class="text-gray-600 text-sm">Click resize and download your processed images</p>
         </div>
-    </div>
+      </div>
     </section>
   </main>
 
@@ -545,8 +502,7 @@
       });
     }, observerOptions);
 
-    // Observe all fade-in and slide-up elements
-    document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
+    document.querySelectorAll('.fade-in').forEach(el => {
       observer.observe(el);
     });
 
@@ -562,9 +518,9 @@
     // File handling
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
-    const fileList = document.getElementById('file-list');
-    const filesContainer = document.getElementById('files-container');
-    const mergeBtn = document.getElementById('merge-btn');
+    const imageList = document.getElementById('image-list');
+    const imagesContainer = document.getElementById('images-container');
+    const resizeBtn = document.getElementById('resize-btn');
     const clearBtn = document.getElementById('clear-btn');
 
     // Drag and drop
@@ -593,119 +549,187 @@
 
     function handleFiles(files) {
       Array.from(files).forEach(file => {
-        if (file.type === 'application/pdf') {
+        if (file.type.startsWith('image/')) {
           if (!selectedFiles.find(f => f.name === file.name)) {
             selectedFiles.push(file);
             fileObjects[file.name] = file;
-            updateFileList();
+            updateImageList();
           }
         }
       });
     }
 
-    function updateFileList() {
+    function updateImageList() {
       if (selectedFiles.length > 0) {
-        fileList.classList.remove('hidden');
-        filesContainer.innerHTML = '';
+        imageList.classList.remove('hidden');
+        imagesContainer.innerHTML = '';
         
         selectedFiles.forEach((file, index) => {
-          const fileItem = document.createElement('div');
-          fileItem.className = 'file-item';
-          fileItem.innerHTML = `
-            <div class="flex items-center">
-              <span class="text-2xl mr-3">📄</span>
-              <div>
-                <div class="font-medium text-gray-900">${file.name}</div>
-                <div class="text-sm text-gray-500">${(file.size / 1024 / 1024).toFixed(2)} MB</div>
-              </div>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-sm text-gray-500">#${index + 1}</span>
-              <button onclick="removeFile('${file.name}')" class="text-red-500 hover:text-red-700 text-xl">
-                ×
-              </button>
-            </div>
+          const imageItem = document.createElement('div');
+          imageItem.className = 'relative group';
+          
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(file);
+          img.className = 'image-preview w-full h-32 object-cover rounded-lg';
+          
+          const overlay = document.createElement('div');
+          overlay.className = 'absolute inset-0 bg-black bg-opacity-50 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity';
+          overlay.innerHTML = `
+            <button onclick="removeImage('${file.name}')" class="text-white hover:text-red-400 text-xl">
+              ×
+            </button>
           `;
-          filesContainer.appendChild(fileItem);
+          
+          imageItem.appendChild(img);
+          imageItem.appendChild(overlay);
+          imagesContainer.appendChild(imageItem);
         });
         
-        mergeBtn.disabled = false;
-        mergeBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        resizeBtn.disabled = false;
       } else {
-        fileList.classList.add('hidden');
-        mergeBtn.disabled = true;
-        mergeBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        imageList.classList.add('hidden');
+        resizeBtn.disabled = true;
       }
     }
 
-    function removeFile(filename) {
+    function removeImage(filename) {
       selectedFiles = selectedFiles.filter(f => f.name !== filename);
       delete fileObjects[filename];
-      updateFileList();
+      updateImageList();
     }
 
     // Clear all files
     clearBtn.addEventListener('click', () => {
       selectedFiles = [];
       fileObjects = {};
-      updateFileList();
+      updateImageList();
       fileInput.value = '';
     });
 
-    // Merge PDFs
-    mergeBtn.addEventListener('click', async () => {
-      if (selectedFiles.length < 2) {
-        alert('Please select at least 2 PDF files to merge.');
+    // Resize mode handling
+    document.getElementById('resize-mode').addEventListener('change', (e) => {
+      const mode = e.target.value;
+      const customDimensions = document.getElementById('custom-dimensions');
+      const percentageInput = document.getElementById('percentage-input');
+      const presetSizes = document.getElementById('preset-sizes');
+      
+      customDimensions.classList.toggle('hidden', mode !== 'custom');
+      percentageInput.classList.toggle('hidden', mode !== 'percentage');
+      presetSizes.classList.toggle('hidden', mode !== 'preset');
+    });
+
+    // Percentage slider
+    document.getElementById('percentage').addEventListener('input', (e) => {
+      document.getElementById('percentage-value').textContent = e.target.value;
+    });
+
+    // Resize images
+    resizeBtn.addEventListener('click', async () => {
+      if (selectedFiles.length === 0) {
+        alert('Please select at least one image to resize.');
         return;
       }
 
       showLoading();
       
       try {
-      const { PDFDocument } = PDFLib;
-        const mergedPdf = await PDFDocument.create();
+        const mode = document.getElementById('resize-mode').value;
+        const outputFormat = document.getElementById('output-format').value;
         
-        const pageOrder = document.getElementById('page-order').value;
-        const filesToProcess = pageOrder === 'reverse' ? [...selectedFiles].reverse() : selectedFiles;
-        
-        for (const file of filesToProcess) {
-          const arrayBuffer = await file.arrayBuffer();
-          const pdf = await PDFDocument.load(arrayBuffer);
-          const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-          pages.forEach(page => mergedPdf.addPage(page));
+        for (const file of selectedFiles) {
+          await resizeImage(file, mode, outputFormat);
         }
-        
-        const pdfBytes = await mergedPdf.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-        
-        const filename = document.getElementById('filename').value || 'merged-document.pdf';
-        if (!filename.endsWith('.pdf')) {
-          filename += '.pdf';
-        }
-        
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
         
         hideLoading();
-        
-        // Show success message
-        alert('PDFs merged successfully!');
+        alert('Images resized successfully! Check your downloads.');
         
       } catch (error) {
         hideLoading();
-        console.error('Error merging PDFs:', error);
-        alert('Error merging PDFs. Please try again.');
+        console.error('Error resizing images:', error);
+        alert('Error resizing images. Please try again.');
       }
     });
 
-    // Set default filename
-    document.getElementById('filename').value = `merged-document-${new Date().toISOString().split('T')[0]}.pdf`;
+    async function resizeImage(file, mode, outputFormat) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          let newWidth, newHeight;
+          
+          switch (mode) {
+            case 'maintain-ratio':
+              const maxWidth = parseInt(document.getElementById('width').value) || 800;
+              const maxHeight = parseInt(document.getElementById('height').value) || 600;
+              const ratio = Math.min(maxWidth / img.width, maxHeight / img.height);
+              newWidth = img.width * ratio;
+              newHeight = img.height * ratio;
+              break;
+              
+            case 'custom':
+              newWidth = parseInt(document.getElementById('width').value) || img.width;
+              newHeight = parseInt(document.getElementById('height').value) || img.height;
+              break;
+              
+            case 'percentage':
+              const percentage = parseInt(document.getElementById('percentage').value) / 100;
+              newWidth = img.width * percentage;
+              newHeight = img.height * percentage;
+              break;
+              
+            case 'preset':
+              const preset = document.getElementById('preset-select').value;
+              const presets = {
+                'thumbnail': [150, 150],
+                'small': [300, 300],
+                'medium': [600, 600],
+                'large': [1200, 1200],
+                'social': [1080, 1080],
+                'banner': [1920, 1080]
+              };
+              [newWidth, newHeight] = presets[preset];
+              break;
+              
+            default:
+              newWidth = img.width;
+              newHeight = img.height;
+          }
+          
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+          
+          ctx.drawImage(img, 0, 0, newWidth, newHeight);
+          
+          canvas.toBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            let filename = file.name;
+            if (outputFormat !== 'original') {
+              const nameWithoutExt = filename.substring(0, filename.lastIndexOf('.'));
+              filename = `${nameWithoutExt}_resized.${outputFormat}`;
+            } else {
+              const nameWithoutExt = filename.substring(0, filename.lastIndexOf('.'));
+              const ext = filename.substring(filename.lastIndexOf('.'));
+              filename = `${nameWithoutExt}_resized${ext}`;
+            }
+            
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            resolve();
+          }, `image/${outputFormat === 'original' ? file.type.split('/')[1] : outputFormat}`, 0.9);
+        };
+        
+        img.onerror = reject;
+        img.src = URL.createObjectURL(file);
+      });
+    }
   </script>
 
   <footer class="mt-20 border-t border-gray-200 relative z-10">
