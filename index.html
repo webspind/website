@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Webspind App Store - Gratis PDF & Tekst Værktøjer 2026</title>
-  <meta name="description" content="Gratis PDF merge, split, rotate og tekst værktøjer. 100% privat, ingen uploads, kører i browser. Moderne UX design 2026. Webspind - dit digitale værktøjssæt.">
+  <title>Webspind - Professional Document & Data Tools</title>
+  <meta name="description" content="Enterprise-grade PDF manipulation, image processing, and data conversion tools. Secure, private, browser-based solutions for professionals.">
   <meta name="keywords" content="PDF merge, PDF split, PDF rotate, tekst værktøjer, gratis PDF, browser værktøjer, privatliv, ingen upload, PDF sammensæt, PDF del, tekst konverter">
   <meta name="author" content="Webspind">
   <meta name="robots" content="index, follow">
@@ -71,9 +71,7 @@
     * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
     
     .gradient-bg {
-      background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #533483, #667eea, #764ba2);
-      background-size: 400% 400%;
-      animation: gradient 15s ease infinite;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%, #0a0a0a 100%);
       position: relative;
       overflow: hidden;
     }
@@ -86,10 +84,8 @@
       right: 0;
       bottom: 0;
       background-image: 
-        radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 60%, rgba(240, 147, 251, 0.1) 0%, transparent 50%);
-      animation: web-pulse 6s ease-in-out infinite;
+        radial-gradient(circle at 20% 20%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.03) 0%, transparent 50%);
     }
     
     .web-pattern {
@@ -99,44 +95,27 @@
       right: 0;
       bottom: 0;
       background-image: 
-        linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.02) 50%, transparent 60%),
-        linear-gradient(-45deg, transparent 40%, rgba(255,255,255,0.02) 50%, transparent 60%);
+        linear-gradient(45deg, transparent 40%, rgba(0,255,0,0.02) 50%, transparent 60%),
+        linear-gradient(-45deg, transparent 40%, rgba(0,255,255,0.02) 50%, transparent 60%);
       background-size: 60px 60px;
-      animation: spin-slow 60s linear infinite;
     }
     
-    .spider {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      border-radius: 50%;
-      animation: spider-crawl 20s linear infinite;
-      z-index: 1;
-    }
-    
-    .spider::before {
-      content: '🕷️';
-      position: absolute;
-      top: -5px;
-      left: -5px;
-      font-size: 30px;
-    }
     
     .glass {
       backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(0, 255, 0, 0.2);
     }
     
     .card {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 24px;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      border-radius: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
     }
     
     .card::before {
@@ -155,20 +134,20 @@
     }
     
     .card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      border-color: rgba(102, 126, 234, 0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -3px rgba(0, 255, 0, 0.2), 0 4px 6px -2px rgba(0, 255, 0, 0.1);
+      border-color: rgba(0, 255, 0, 0.6);
     }
     
     .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border: none;
-      color: white;
+      background: #000000;
+      border: 1px solid #00ff00;
+      color: #00ff00;
       font-weight: 600;
       padding: 12px 24px;
-      border-radius: 16px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px 0 rgba(0, 255, 0, 0.2), 0 1px 2px 0 rgba(0, 255, 0, 0.1);
       position: relative;
       overflow: hidden;
     }
@@ -189,19 +168,22 @@
     }
     
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+      background: #00ff00;
+      border-color: #00ff00;
+      color: #000000;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px -1px rgba(0, 255, 0, 0.3), 0 2px 4px -1px rgba(0, 255, 0, 0.2);
     }
     
     .btn-donate {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      border: none;
-      color: white;
-      font-weight: 700;
-      padding: 14px 28px;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+      background: #ff0000;
+      border: 1px solid #ff0000;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px 0 rgba(255, 0, 0, 0.3), 0 1px 2px 0 rgba(255, 0, 0, 0.2);
       position: relative;
       overflow: hidden;
     }
@@ -222,8 +204,10 @@
     }
     
     .btn-donate:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 12px 30px rgba(240, 147, 251, 0.6);
+      background: #cc0000;
+      border-color: #cc0000;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px -1px rgba(255, 0, 0, 0.4), 0 2px 4px -1px rgba(255, 0, 0, 0.3);
     }
     
     .search-input {
@@ -239,16 +223,15 @@
     
     .search-input:focus {
       outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1), 0 12px 40px rgba(0, 0, 0, 0.15);
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 0 12px 40px rgba(0, 0, 0, 0.15);
       transform: translateY(-2px);
     }
     
     .hero-text {
-      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #00ff00;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
     }
     
     .floating-icon {
@@ -298,14 +281,17 @@
     }
     
     .feature-badge {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      padding: 6px 12px;
-      border-radius: 12px;
-      font-size: 12px;
+      background: #000000;
+      color: #00ff00;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
       font-weight: 600;
       display: inline-block;
       margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid #00ff00;
     }
     
     .webspind-logo {
@@ -343,25 +329,20 @@
 <body class="min-h-screen gradient-bg">
   <!-- Web Pattern Overlay -->
   <div class="web-pattern"></div>
-  
-  <!-- Spider Animation -->
-  <div class="spider" style="top: 20%; animation-delay: 0s;"></div>
-  <div class="spider" style="top: 60%; animation-delay: -10s;"></div>
-  <div class="spider" style="top: 40%; animation-delay: -5s;"></div>
 
   <!-- Navigation -->
   <nav class="sticky top-0 z-50 w-full glass border-b border-white/20">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
       <a href="/" class="font-black tracking-tight text-xl text-white text-shadow webspind-logo">Webspind</a>
       <div class="hidden md:flex items-center gap-6 text-sm">
-        <a class="text-white/90 hover:text-white transition-colors font-medium" href="/">App Store</a>
-        <a class="text-white/90 hover:text-white transition-colors font-medium" href="/privacy.html">Privatliv</a>
+        <a class="text-white/90 hover:text-white transition-colors font-medium" href="#tools">Tools</a>
+        <a class="text-white/90 hover:text-white transition-colors font-medium" href="/privacy.html">Privacy</a>
       </div>
       <a id="donate" href="DONATION_LINK" class="btn-donate">
         💝 Donate what you want
       </a>
     </div>
-  </nav>
+      </nav>
 
   <!-- Hero Section -->
   <main class="max-w-7xl mx-auto px-4 md:px-6 py-16 relative z-10">
@@ -369,59 +350,52 @@
       <div class="floating-icon inline-block mb-6">
         <div class="w-20 h-20 bg-white/20 backdrop-blur-xl rounded-3xl flex items-center justify-center text-4xl">
           🕸️
-        </div>
-      </div>
-      
+    </div>
+  </div>
+
       <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6">
         <span class="hero-text">Webspind</span>
         <br>
-        <span class="text-white text-shadow">App Store</span>
+        <span class="text-white text-shadow">Professional Tools</span>
       </h1>
       
       <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-        Gratis PDF- og tekstværktøjer med <span class="font-bold text-white">2026-modern UX</span>. 
-        Ingen login. Ingen uploads. Alt kører i din browser.
+        Enterprise-grade document processing and data manipulation tools. 
+        <span class="font-bold text-white">Secure. Private. Efficient.</span> 
+        All processing happens locally in your browser.
       </p>
       
       <!-- Stats -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-12 fade-in">
         <div class="stats-card">
-          <div class="text-3xl font-bold text-white mb-2">6+</div>
-          <div class="text-white/80 text-sm">Værktøjer</div>
+          <div class="text-3xl font-bold text-white mb-2">6</div>
+          <div class="text-white/80 text-sm">Professional Tools</div>
         </div>
         <div class="stats-card">
           <div class="text-3xl font-bold text-white mb-2">100%</div>
-          <div class="text-white/80 text-sm">Privat</div>
+          <div class="text-white/80 text-sm">Secure</div>
         </div>
         <div class="stats-card">
           <div class="text-3xl font-bold text-white mb-2">0</div>
-          <div class="text-white/80 text-sm">Uploads</div>
+          <div class="text-white/80 text-sm">Data Transfer</div>
         </div>
       </div>
       
-      <!-- Search -->
-      <div class="max-w-2xl mx-auto mb-16 fade-in">
-        <input 
-          id="search" 
-          placeholder="🔍 Søg værktøjer…" 
-          class="search-input w-full text-lg"
-        />
-      </div>
     </section>
 
     <!-- Tools Grid -->
-    <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="cards">
+    <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="tools">
       <a href="/tools/pdf-merge/" class="card group p-8 hover:scale-105 transition-all duration-500 fade-in">
         <div class="tool-icon pdf-icon text-white floating-icon">
           📄
         </div>
-        <div class="feature-badge">PDF Tools</div>
-        <h2 class="text-2xl font-bold mb-3 text-gray-800">PDF Merge</h2>
-        <p class="text-gray-600 mb-4 leading-relaxed">
-          Sammenflet flere PDF-filer i én. Træk & slip, ændr rækkefølge med elegant drag-and-drop interface.
+        <div class="feature-badge">Document Processing</div>
+        <h2 class="text-2xl font-bold mb-3 text-white">PDF Merge</h2>
+        <p class="text-gray-300 mb-4 leading-relaxed">
+          Combine multiple PDF documents into a single file. Drag-and-drop interface with intelligent page ordering.
         </p>
         <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-500">PDF • Browser • Gratis</div>
+          <div class="text-sm text-gray-400">PDF • Secure • Professional</div>
           <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
         </div>
       </a>
@@ -430,13 +404,13 @@
         <div class="tool-icon pdf-icon text-white floating-icon">
           ✂️
         </div>
-        <div class="feature-badge">PDF Tools</div>
-        <h2 class="text-2xl font-bold mb-3 text-gray-800">PDF Split</h2>
-        <p class="text-gray-600 mb-4 leading-relaxed">
-          Udtræk sider eller intervaller fra en PDF – fx 1-3,5,10-12. Smart parsing af side-ranges.
+        <div class="feature-badge">Document Processing</div>
+        <h2 class="text-2xl font-bold mb-3 text-white">PDF Split</h2>
+        <p class="text-gray-300 mb-4 leading-relaxed">
+          Extract specific pages or page ranges from PDF documents. Advanced parsing with intelligent range detection.
         </p>
         <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-500">PDF • Browser • Gratis</div>
+          <div class="text-sm text-gray-400">PDF • Secure • Professional</div>
           <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
         </div>
       </a>
@@ -445,13 +419,13 @@
         <div class="tool-icon pdf-icon text-white floating-icon">
           🔄
         </div>
-        <div class="feature-badge">PDF Tools</div>
-        <h2 class="text-2xl font-bold mb-3 text-gray-800">PDF Pages</h2>
-        <p class="text-gray-600 mb-4 leading-relaxed">
-          Omarrangér, slet og roter sider – og gem som ny PDF. Intuitiv side-management.
+        <div class="feature-badge">Document Processing</div>
+        <h2 class="text-2xl font-bold mb-3 text-white">PDF Pages</h2>
+        <p class="text-gray-300 mb-4 leading-relaxed">
+          Reorder, delete, and rotate PDF pages with precision. Advanced page management for professional workflows.
         </p>
         <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-500">PDF • Browser • Gratis</div>
+          <div class="text-sm text-gray-400">PDF • Secure • Professional</div>
           <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
         </div>
       </a>
@@ -460,13 +434,13 @@
         <div class="tool-icon text-icon text-white floating-icon">
           📝
         </div>
-        <div class="feature-badge">Text Tools</div>
-        <h2 class="text-2xl font-bold mb-3 text-gray-800">Text Toolkit</h2>
-        <p class="text-gray-600 mb-4 leading-relaxed">
-          Tæl ord, case-convert, slugify, sortér/dedupe linjer, URL/Base64 og meget mere.
+        <div class="feature-badge">Data Processing</div>
+        <h2 class="text-2xl font-bold mb-3 text-white">Text Toolkit</h2>
+        <p class="text-gray-300 mb-4 leading-relaxed">
+          Advanced text processing and data manipulation. Word counting, case conversion, encoding, and data cleaning tools.
         </p>
         <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-500">Tekst • Browser • Gratis</div>
+          <div class="text-sm text-gray-400">Text • Secure • Professional</div>
           <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
         </div>
       </a>
@@ -475,13 +449,13 @@
         <div class="tool-icon pdf-icon text-white floating-icon">
           🖼️
         </div>
-        <div class="feature-badge">Image Tools</div>
-        <h2 class="text-2xl font-bold mb-3 text-gray-800">Image Converter</h2>
-        <p class="text-gray-600 mb-4 leading-relaxed">
-          Konverter billeder mellem JPG, PNG, WebP, GIF. Komprimer og optimer billeder lokalt.
+        <div class="feature-badge">Media Processing</div>
+        <h2 class="text-2xl font-bold mb-3 text-white">Image Converter</h2>
+        <p class="text-gray-300 mb-4 leading-relaxed">
+          Professional image format conversion and optimization. Support for JPG, PNG, WebP, GIF with quality control.
         </p>
         <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-500">Billeder • Browser • Gratis</div>
+          <div class="text-sm text-gray-400">Images • Secure • Professional</div>
           <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
         </div>
       </a>
@@ -490,13 +464,13 @@
         <div class="tool-icon text-icon text-white floating-icon">
           📱
         </div>
-        <div class="feature-badge">QR Tools</div>
-        <h2 class="text-2xl font-bold mb-3 text-gray-800">QR Generator</h2>
-        <p class="text-gray-600 mb-4 leading-relaxed">
-          Generer QR koder for URL, tekst, WiFi, kontakt info. Download som PNG/SVG.
+        <div class="feature-badge">Data Encoding</div>
+        <h2 class="text-2xl font-bold mb-3 text-white">QR Generator</h2>
+        <p class="text-gray-300 mb-4 leading-relaxed">
+          Generate professional QR codes for URLs, text, WiFi credentials, and contact information. High-resolution output.
         </p>
         <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-500">QR • Browser • Gratis</div>
+          <div class="text-sm text-gray-400">QR • Secure • Professional</div>
           <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
         </div>
       </a>
@@ -506,41 +480,41 @@
     <section class="mt-20 text-center fade-in">
       <div class="card p-12 max-w-4xl mx-auto">
         <div class="floating-icon inline-block mb-6">
-          <div class="w-16 h-16 bg-gradient-to-r from-pink-400 to-purple-500 rounded-2xl flex items-center justify-center text-3xl text-white pulse-glow">
+          <div class="w-16 h-16 bg-gradient-to-r from-amber-400 to-red-500 rounded-2xl flex items-center justify-center text-3xl text-white pulse-glow">
             💝
           </div>
         </div>
         
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
-          Støt Webspind
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+          Support Professional Development
         </h2>
         
-        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-          Disse værktøjer er helt gratis og altid vil være det. Hvis du synes de er nyttige, 
-          så overvej at donere for at hjælpe med at holde dem kørende og udvikle nye features.
+        <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+          These enterprise-grade tools are provided free of charge. If you find value in our professional solutions, 
+          consider supporting continued development and maintenance.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a href="DONATION_LINK" class="btn-donate text-lg px-8 py-4">
-            💝 Donate what you want
+            Support Development
           </a>
-          <div class="text-sm text-gray-500">
-            Ingen minimum • Ingen maksimum • 100% frivilligt
+          <div class="text-sm text-gray-400">
+            No minimum • No maximum • Voluntary contribution
           </div>
         </div>
         
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-500">
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-400">
           <div class="flex items-center justify-center gap-2">
-            <span class="text-green-500">✓</span>
-            Ingen reklamer
+            <span class="text-green-400">✓</span>
+            No advertisements
           </div>
           <div class="flex items-center justify-center gap-2">
-            <span class="text-green-500">✓</span>
-            Ingen tracking
+            <span class="text-green-400">✓</span>
+            No tracking
           </div>
           <div class="flex items-center justify-center gap-2">
-            <span class="text-green-500">✓</span>
-            Altid gratis
+            <span class="text-green-400">✓</span>
+            Always free
           </div>
         </div>
       </div>
@@ -548,22 +522,8 @@
   </main>
 
   <script>
-    // Enhanced search with smooth animations
-    const s = document.getElementById('search');
+    // Get all cards for animations
     const cards = Array.from(document.querySelectorAll('#cards > a'));
-    
-    s.addEventListener('input', () => { 
-      const q = s.value.toLowerCase();
-      cards.forEach((c, index) => {
-        const matches = c.textContent.toLowerCase().includes(q);
-        c.style.display = matches ? '' : 'none';
-        
-        if (matches) {
-          c.style.animationDelay = `${index * 0.1}s`;
-          c.classList.add('animate-fade-in');
-        }
-      });
-    });
 
     // Add smooth scroll behavior
     document.documentElement.style.scrollBehavior = 'smooth';
@@ -595,23 +555,6 @@
       parallax.style.transform = `translateY(${speed}px)`;
     });
 
-    // Add typing effect to search placeholder
-    const searchInput = document.getElementById('search');
-    const placeholders = [
-      '🔍 Søg værktøjer…',
-      '🔍 PDF merge…',
-      '🔍 PDF split…',
-      '🔍 Text tools…',
-      '🔍 Gratis værktøjer…'
-    ];
-    
-    let currentPlaceholder = 0;
-    setInterval(() => {
-      if (document.activeElement !== searchInput) {
-        searchInput.placeholder = placeholders[currentPlaceholder];
-        currentPlaceholder = (currentPlaceholder + 1) % placeholders.length;
-      }
-    }, 3000);
 
     // Add hover effects to cards
     cards.forEach(card => {
@@ -642,11 +585,11 @@
   <footer class="mt-20 border-t border-white/20 relative z-10">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
       <div class="text-white/80 text-sm mb-4">
-        © 2025 Webspind · Filer behandles lokalt · 
-        <a class="text-white hover:text-white/80 transition-colors underline" href="/privacy.html">Privatliv</a>
+        © 2025 Webspind · Local processing · 
+        <a class="text-white hover:text-white/80 transition-colors underline" href="/privacy.html">Privacy</a>
       </div>
       <div class="text-white/60 text-xs">
-        Lavet med ❤️ for at gøre dit arbejde lettere
+        Professional tools for modern workflows
       </div>
     </div>
   </footer>
