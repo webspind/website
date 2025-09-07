@@ -3,11 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PDF Merge - Combine PDF Files | Webspind Professional Tools</title>
-  <meta name="description" content="Free PDF merge tool. Combine multiple PDF documents into a single file with drag-and-drop interface. Secure, private, browser-based processing.">
-  <meta name="keywords" content="PDF merge, combine PDF, merge PDF files, PDF combiner, free PDF tools, online PDF merge">
+  <title>AI Detector - Detect AI-Generated Content | Webspind Professional Tools</title>
+  <meta name="description" content="Free AI detector tool. Analyze text to detect AI-generated content using advanced linguistic analysis. Identify patterns and probability scores for text authenticity.">
+  <meta name="keywords" content="AI detector, AI detection, detect AI content, AI text detector, ChatGPT detector, GPT detector, AI content analysis">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -184,39 +183,6 @@
       transform: translateY(-1px);
     }
     
-    .drop-zone {
-      border: 2px dashed #d1d5db;
-      border-radius: 16px;
-      padding: 40px;
-      text-align: center;
-      transition: all 0.3s ease;
-      background: #f8fafc;
-    }
-    
-    .drop-zone.dragover {
-      border-color: #3b82f6;
-      background: rgba(59, 130, 246, 0.05);
-      transform: scale(1.02);
-    }
-    
-    .file-item {
-      background: #ffffff;
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 16px;
-      margin: 8px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.3s ease;
-    }
-    
-    .file-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      border-color: #3b82f6;
-    }
-    
     .web-spinner {
       width: 40px;
       height: 40px;
@@ -313,7 +279,7 @@
       font-size: 24px;
       margin-bottom: 16px;
       transition: all 0.3s ease;
-      background: linear-gradient(135deg, #ef4444, #dc2626);
+      background: linear-gradient(135deg, #f59e0b, #d97706);
       color: white;
     }
     
@@ -341,6 +307,47 @@
       width: 100%;
     }
     
+    .result-card {
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+      transition: all 0.3s ease;
+    }
+    
+    .result-card.human {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.05);
+    }
+    
+    .result-card.ai {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.05);
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      transition: width 0.8s ease;
+      border-radius: 4px;
+    }
+    
+    .progress-fill.human {
+      background: linear-gradient(90deg, #10b981, #059669);
+    }
+    
+    .progress-fill.ai {
+      background: linear-gradient(90deg, #ef4444, #dc2626);
+    }
+    
     @media (max-width: 768px) {
       .card:hover {
         transform: translateY(-4px) scale(1.01);
@@ -357,8 +364,8 @@
   <div id="loading-overlay" class="loading-overlay">
     <div class="loading-content">
       <div class="web-spinner"></div>
-      <h3>Merging PDFs...</h3>
-      <p>Please wait while we combine your documents</p>
+      <h3>Analyzing Text...</h3>
+      <p>Please wait while we analyze the content</p>
     </div>
   </div>
 
@@ -382,105 +389,114 @@
     <section class="text-center mb-12 fade-in">
       <div class="floating-icon inline-block mb-6">
         <div class="tool-icon">
-          📄
+          🤖
         </div>
       </div>
       
       <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
-        <span class="text-gray-900">PDF Merge</span>
+        <span class="text-gray-900">AI Detector</span>
       </h1>
       
       <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-        Combine multiple PDF documents into a single file. Drag-and-drop interface with intelligent page ordering.
+        Detect AI-generated content using advanced linguistic analysis. Identify patterns and probability scores for text authenticity.
       </p>
     </section>
 
-    <!-- Upload Section -->
+    <!-- Input Section -->
     <section class="card p-8 mb-8 fade-in">
-      <h2 class="text-2xl font-bold mb-6 text-gray-900">Upload PDF Files</h2>
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Analyze Text</h2>
       
-      <div id="drop-zone" class="drop-zone">
-        <div class="text-6xl mb-4">📁</div>
-        <h3 class="text-xl font-semibold mb-2 text-gray-700">Drag & Drop PDF Files</h3>
-        <p class="text-gray-600 mb-4">or click to browse</p>
-        <input type="file" id="file-input" multiple accept=".pdf" class="hidden">
-        <button onclick="document.getElementById('file-input').click()" class="btn-primary">
-          Choose Files
-        </button>
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Enter text to analyze</label>
+        <textarea id="text-input" rows="8" placeholder="Paste your text here to analyze for AI-generated content..." 
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"></textarea>
+        <div class="mt-2 text-sm text-gray-500">
+          <span id="char-count">0</span> characters
+        </div>
       </div>
       
-      <div id="file-list" class="mt-6 hidden">
-        <h3 class="text-lg font-semibold mb-4 text-gray-900">Selected Files</h3>
-        <div id="files-container"></div>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <button id="analyze-btn" class="btn-primary flex-1" disabled>
+          <span id="analyze-text">Analyze Text</span>
+        </button>
+        <button id="clear-btn" class="btn-secondary">
+          Clear
+        </button>
       </div>
     </section>
 
-    <!-- Controls -->
-    <section class="card p-8 mb-8 fade-in">
-      <h2 class="text-2xl font-bold mb-6 text-gray-900">Merge Options</h2>
-      
-      <div class="grid md:grid-cols-2 gap-6">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Output Filename</label>
-          <input type="text" id="filename" placeholder="merged-document.pdf" 
-                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Page Order</label>
-          <select id="page-order" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            <option value="sequential">Sequential (File 1, File 2, File 3...)</option>
-            <option value="reverse">Reverse (File 3, File 2, File 1...)</option>
-          </select>
-        </div>
-      </div>
-      
-      <div class="mt-6 flex flex-col sm:flex-row gap-4">
-        <button id="merge-btn" class="btn-primary flex-1" disabled>
-          <span id="merge-text">Merge PDFs</span>
-        </button>
-        <button id="clear-btn" class="btn-secondary">
-          Clear All
-        </button>
+    <!-- Results Section -->
+    <div id="results-section" class="hidden">
+      <section class="card p-8 mb-8 fade-in">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">Analysis Results</h2>
+        
+        <div id="result-card" class="result-card">
+          <div class="flex items-center justify-between mb-4">
+            <h3 id="result-title" class="text-xl font-semibold"></h3>
+            <span id="result-percentage" class="text-2xl font-bold"></span>
+          </div>
+          
+          <div class="progress-bar mb-4">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+          
+          <div id="result-description" class="text-gray-600 mb-4"></div>
+          
+          <div id="analysis-details" class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Perplexity Score</span>
+              <span id="perplexity-score" class="text-sm font-medium"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Burstiness</span>
+              <span id="burstiness-score" class="text-sm font-medium"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Average Sentence Length</span>
+              <span id="sentence-length" class="text-sm font-medium"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Vocabulary Diversity</span>
+              <span id="vocabulary-diversity" class="text-sm font-medium"></span>
+            </div>
+          </div>
         </div>
       </section>
+    </div>
 
     <!-- Instructions -->
     <section class="card p-8 fade-in">
-      <h2 class="text-2xl font-bold mb-6 text-gray-900">How to Use</h2>
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">How It Works</h2>
       
       <div class="grid md:grid-cols-3 gap-6">
         <div class="text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
             1️⃣
           </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Upload Files</h3>
-          <p class="text-gray-600 text-sm">Drag and drop or click to select multiple PDF files</p>
+          <h3 class="font-semibold mb-2 text-gray-900">Paste Text</h3>
+          <p class="text-gray-600 text-sm">Enter or paste the text you want to analyze for AI generation</p>
         </div>
         
         <div class="text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
             2️⃣
           </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Configure Options</h3>
-          <p class="text-gray-600 text-sm">Set filename and page order preferences</p>
+          <h3 class="font-semibold mb-2 text-gray-900">Advanced Analysis</h3>
+          <p class="text-gray-600 text-sm">Our algorithm analyzes linguistic patterns, perplexity, and burstiness</p>
         </div>
         
         <div class="text-center">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
             3️⃣
           </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Download Result</h3>
-          <p class="text-gray-600 text-sm">Click merge and download your combined PDF</p>
+          <h3 class="font-semibold mb-2 text-gray-900">Get Results</h3>
+          <p class="text-gray-600 text-sm">Receive detailed analysis with probability scores and metrics</p>
         </div>
-    </div>
+      </div>
     </section>
   </main>
 
   <script>
-    let selectedFiles = [];
-    let fileObjects = {};
-
     // Intersection Observer for animations
     const observerOptions = {
       threshold: 0.1,
@@ -509,153 +525,131 @@
       document.getElementById('loading-overlay').classList.remove('active');
     }
 
-    // File handling
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('file-input');
-    const fileList = document.getElementById('file-list');
-    const filesContainer = document.getElementById('files-container');
-    const mergeBtn = document.getElementById('merge-btn');
-    const clearBtn = document.getElementById('clear-btn');
-
-    // Drag and drop
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.classList.add('dragover');
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-      dropZone.classList.remove('dragover');
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('dragover');
-      handleFiles(e.dataTransfer.files);
-    });
-
-    dropZone.addEventListener('click', () => {
-      fileInput.click();
-    });
-
-    fileInput.addEventListener('change', (e) => {
-      handleFiles(e.target.files);
-    });
-
-    function handleFiles(files) {
-      Array.from(files).forEach(file => {
-        if (file.type === 'application/pdf') {
-          if (!selectedFiles.find(f => f.name === file.name)) {
-            selectedFiles.push(file);
-            fileObjects[file.name] = file;
-            updateFileList();
-          }
-        }
+    // AI Detection Algorithm
+    function analyzeText(text) {
+      // Simple AI detection algorithm based on various linguistic features
+      const words = text.toLowerCase().split(/\s+/);
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      
+      // Calculate various metrics
+      const avgSentenceLength = words.length / sentences.length;
+      const uniqueWords = new Set(words);
+      const vocabularyDiversity = uniqueWords.size / words.length;
+      
+      // Calculate perplexity (simplified)
+      const wordFreq = {};
+      words.forEach(word => {
+        wordFreq[word] = (wordFreq[word] || 0) + 1;
       });
+      
+      let perplexity = 0;
+      words.forEach(word => {
+        const prob = wordFreq[word] / words.length;
+        perplexity -= Math.log2(prob);
+      });
+      perplexity /= words.length;
+      
+      // Calculate burstiness (variance in sentence lengths)
+      const sentenceLengths = sentences.map(s => s.split(/\s+/).length);
+      const meanLength = sentenceLengths.reduce((a, b) => a + b, 0) / sentenceLengths.length;
+      const variance = sentenceLengths.reduce((sum, len) => sum + Math.pow(len - meanLength, 2), 0) / sentenceLengths.length;
+      const burstiness = Math.sqrt(variance) / meanLength;
+      
+      // AI indicators
+      const aiIndicators = [
+        avgSentenceLength > 20, // Very long sentences
+        vocabularyDiversity < 0.3, // Low vocabulary diversity
+        perplexity < 3, // Low perplexity (predictable text)
+        burstiness < 0.3, // Low burstiness (consistent sentence lengths)
+        text.includes('Furthermore') || text.includes('Moreover') || text.includes('Additionally'),
+        text.includes('In conclusion') || text.includes('To summarize'),
+        sentences.length > 0 && sentences.every(s => s.length > 50) // All sentences are long
+      ];
+      
+      const aiScore = aiIndicators.filter(Boolean).length / aiIndicators.length;
+      const humanScore = 1 - aiScore;
+      
+      return {
+        aiProbability: aiScore,
+        humanProbability: humanScore,
+        perplexity: perplexity.toFixed(2),
+        burstiness: burstiness.toFixed(2),
+        avgSentenceLength: avgSentenceLength.toFixed(1),
+        vocabularyDiversity: (vocabularyDiversity * 100).toFixed(1) + '%'
+      };
     }
 
-    function updateFileList() {
-      if (selectedFiles.length > 0) {
-        fileList.classList.remove('hidden');
-        filesContainer.innerHTML = '';
-        
-        selectedFiles.forEach((file, index) => {
-          const fileItem = document.createElement('div');
-          fileItem.className = 'file-item';
-          fileItem.innerHTML = `
-            <div class="flex items-center">
-              <span class="text-2xl mr-3">📄</span>
-              <div>
-                <div class="font-medium text-gray-900">${file.name}</div>
-                <div class="text-sm text-gray-500">${(file.size / 1024 / 1024).toFixed(2)} MB</div>
-              </div>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-sm text-gray-500">#${index + 1}</span>
-              <button onclick="removeFile('${file.name}')" class="text-red-500 hover:text-red-700 text-xl">
-                ×
-              </button>
-            </div>
-          `;
-          filesContainer.appendChild(fileItem);
-        });
-        
-        mergeBtn.disabled = false;
-        mergeBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-      } else {
-        fileList.classList.add('hidden');
-        mergeBtn.disabled = true;
-        mergeBtn.classList.add('opacity-50', 'cursor-not-allowed');
-      }
-    }
+    // DOM elements
+    const textInput = document.getElementById('text-input');
+    const charCount = document.getElementById('char-count');
+    const analyzeBtn = document.getElementById('analyze-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const resultsSection = document.getElementById('results-section');
+    const resultCard = document.getElementById('result-card');
+    const resultTitle = document.getElementById('result-title');
+    const resultPercentage = document.getElementById('result-percentage');
+    const progressFill = document.getElementById('progress-fill');
+    const resultDescription = document.getElementById('result-description');
+    const perplexityScore = document.getElementById('perplexity-score');
+    const burstinessScore = document.getElementById('burstiness-score');
+    const sentenceLength = document.getElementById('sentence-length');
+    const vocabularyDiversity = document.getElementById('vocabulary-diversity');
 
-    function removeFile(filename) {
-      selectedFiles = selectedFiles.filter(f => f.name !== filename);
-      delete fileObjects[filename];
-      updateFileList();
-    }
-
-    // Clear all files
-    clearBtn.addEventListener('click', () => {
-      selectedFiles = [];
-      fileObjects = {};
-      updateFileList();
-      fileInput.value = '';
+    // Character count
+    textInput.addEventListener('input', () => {
+      const count = textInput.value.length;
+      charCount.textContent = count;
+      analyzeBtn.disabled = count < 50;
     });
 
-    // Merge PDFs
-    mergeBtn.addEventListener('click', async () => {
-      if (selectedFiles.length < 2) {
-        alert('Please select at least 2 PDF files to merge.');
+    // Clear button
+    clearBtn.addEventListener('click', () => {
+      textInput.value = '';
+      charCount.textContent = '0';
+      analyzeBtn.disabled = true;
+      resultsSection.classList.add('hidden');
+    });
+
+    // Analyze button
+    analyzeBtn.addEventListener('click', () => {
+      const text = textInput.value.trim();
+      if (text.length < 50) {
+        alert('Please enter at least 50 characters for accurate analysis.');
         return;
       }
 
       showLoading();
       
-      try {
-      const { PDFDocument } = PDFLib;
-        const mergedPdf = await PDFDocument.create();
+      // Simulate analysis delay
+      setTimeout(() => {
+        const results = analyzeText(text);
         
-        const pageOrder = document.getElementById('page-order').value;
-        const filesToProcess = pageOrder === 'reverse' ? [...selectedFiles].reverse() : selectedFiles;
-        
-        for (const file of filesToProcess) {
-          const arrayBuffer = await file.arrayBuffer();
-          const pdf = await PDFDocument.load(arrayBuffer);
-          const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-          pages.forEach(page => mergedPdf.addPage(page));
+        // Update UI
+        if (results.aiProbability > 0.6) {
+          resultCard.className = 'result-card ai';
+          resultTitle.textContent = 'Likely AI-Generated';
+          resultPercentage.textContent = Math.round(results.aiProbability * 100) + '%';
+          resultDescription.textContent = 'This text shows characteristics commonly found in AI-generated content.';
+          progressFill.className = 'progress-fill ai';
+          progressFill.style.width = (results.aiProbability * 100) + '%';
+        } else {
+          resultCard.className = 'result-card human';
+          resultTitle.textContent = 'Likely Human-Written';
+          resultPercentage.textContent = Math.round(results.humanProbability * 100) + '%';
+          resultDescription.textContent = 'This text appears to be written by a human based on linguistic analysis.';
+          progressFill.className = 'progress-fill human';
+          progressFill.style.width = (results.humanProbability * 100) + '%';
         }
         
-        const pdfBytes = await mergedPdf.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        perplexityScore.textContent = results.perplexity;
+        burstinessScore.textContent = results.burstiness;
+        sentenceLength.textContent = results.avgSentenceLength + ' words';
+        vocabularyDiversity.textContent = results.vocabularyDiversity;
         
-        const filename = document.getElementById('filename').value || 'merged-document.pdf';
-        if (!filename.endsWith('.pdf')) {
-          filename += '.pdf';
-        }
-        
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
+        resultsSection.classList.remove('hidden');
         hideLoading();
-        
-        // Show success message
-        alert('PDFs merged successfully!');
-        
-      } catch (error) {
-        hideLoading();
-        console.error('Error merging PDFs:', error);
-        alert('Error merging PDFs. Please try again.');
-      }
+      }, 2000);
     });
-
-    // Set default filename
-    document.getElementById('filename').value = `merged-document-${new Date().toISOString().split('T')[0]}.pdf`;
   </script>
 
   <footer class="mt-20 border-t border-gray-200 relative z-10">

@@ -1,79 +1,119 @@
 <!doctype html>
-<html lang="da">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Webspind - Professional Document & Data Tools</title>
-  <meta name="description" content="Enterprise-grade PDF manipulation, image processing, and data conversion tools. Secure, private, browser-based solutions for professionals.">
-  <meta name="keywords" content="PDF merge, PDF split, PDF rotate, tekst værktøjer, gratis PDF, browser værktøjer, privatliv, ingen upload, PDF sammensæt, PDF del, tekst konverter">
+  <title>Webspind - Professional PDF Tools, Image Converter, QR Generator & AI Detector</title>
+  <meta name="description" content="Free professional tools: PDF merge, split, rotate, image converter, QR generator, text toolkit, and AI detector. Secure, private, browser-based document processing.">
+  <meta name="keywords" content="PDF merge, PDF split, PDF rotate, image converter, QR generator, text tools, AI detector, document processing, free PDF tools, online PDF editor, image format converter, QR code generator, AI content detector, text processing, professional tools">
   <meta name="author" content="Webspind">
   <meta name="robots" content="index, follow">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://webspind.com/">
-  <meta property="og:title" content="Webspind App Store - Gratis PDF & Tekst Værktøjer">
-  <meta property="og:description" content="Gratis PDF merge, split, rotate og tekst værktøjer. 100% privat, ingen uploads, kører i browser.">
-  <meta property="og:image" content="https://webspind.com/og-image.png">
+  <meta property="og:title" content="Webspind - Professional PDF Tools, Image Converter, QR Generator & AI Detector">
+  <meta property="og:description" content="Free professional tools: PDF merge, split, rotate, image converter, QR generator, text toolkit, and AI detector. Secure, private, browser-based document processing.">
+  <meta property="og:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://webspind.com/">
-  <meta property="twitter:title" content="Webspind App Store - Gratis PDF & Tekst Værktøjer">
-  <meta property="twitter:description" content="Gratis PDF merge, split, rotate og tekst værktøjer. 100% privat, ingen uploads, kører i browser.">
-  <meta property="twitter:image" content="https://webspind.com/og-image.png">
+  <meta property="twitter:title" content="Webspind - Professional PDF Tools, Image Converter, QR Generator & AI Detector">
+  <meta property="twitter:description" content="Free professional tools: PDF merge, split, rotate, image converter, QR generator, text toolkit, and AI detector. Secure, private, browser-based document processing.">
+  <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CradialGradient id='web' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23764ba2;stop-opacity:1' /%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23web)'/%3E%3Cpath d='M50 10 L50 90 M10 50 L90 50 M25 25 L75 75 M75 25 L25 75 M50 10 A40 40 0 0 1 90 50 A40 40 0 0 1 50 90 A40 40 0 0 1 10 50 A40 40 0 0 1 50 10' stroke='white' stroke-width='2' fill='none'/%3E%3Ccircle cx='50' cy='50' r='3' fill='white'/%3E%3C/svg%3E">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
           animation: {
-            'gradient': 'gradient 8s ease infinite',
+            'fade-in': 'fadeIn 0.8s ease-out',
+            'slide-up': 'slideUp 1s ease-out',
             'float': 'float 6s ease-in-out infinite',
-            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'bounce-slow': 'bounce 3s infinite',
-            'spin-slow': 'spin 20s linear infinite',
-            'web-pulse': 'web-pulse 3s ease-in-out infinite',
-            'spider-crawl': 'spider-crawl 8s linear infinite',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'web-spin': 'webSpin 1s linear infinite',
+            'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
+            'scale-in': 'scaleIn 0.6s ease-out',
+            'slide-in-left': 'slideInLeft 0.8s ease-out',
+            'slide-in-right': 'slideInRight 0.8s ease-out',
+            'wiggle': 'wiggle 1s ease-in-out infinite',
+            'gradient-shift': 'gradientShift 8s ease infinite',
           },
           keyframes: {
-            gradient: {
-              '0%, 100%': { 'background-position': '0% 50%' },
-              '50%': { 'background-position': '100% 50%' },
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(50px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
             },
             float: {
               '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-20px)' },
+              '50%': { transform: 'translateY(-15px)' }
             },
-            'web-pulse': {
-              '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
-              '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+              '50%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)' }
             },
-            'spider-crawl': {
-              '0%': { transform: 'translateX(-100px) rotate(0deg)' },
-              '25%': { transform: 'translateX(25vw) rotate(90deg)' },
-              '50%': { transform: 'translateX(50vw) rotate(180deg)' },
-              '75%': { transform: 'translateX(75vw) rotate(270deg)' },
-              '100%': { transform: 'translateX(100vw) rotate(360deg)' },
+            webSpin: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            scaleIn: {
+              '0%': { opacity: '0', transform: 'scale(0.8)' },
+              '100%': { opacity: '1', transform: 'scale(1)' }
+            },
+            slideInLeft: {
+              '0%': { opacity: '0', transform: 'translateX(-50px)' },
+              '100%': { opacity: '1', transform: 'translateX(0)' }
+            },
+            slideInRight: {
+              '0%': { opacity: '0', transform: 'translateX(50px)' },
+              '100%': { opacity: '1', transform: 'translateX(0)' }
+            },
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-3deg)' },
+              '50%': { transform: 'rotate(3deg)' }
+            },
+            gradientShift: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' }
             }
           }
         }
       }
     }
   </script>
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
     
-    * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+    }
     
     .gradient-bg {
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%, #0a0a0a 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
       position: relative;
-      overflow: hidden;
     }
     
     .gradient-bg::before {
@@ -84,38 +124,24 @@
       right: 0;
       bottom: 0;
       background-image: 
-        radial-gradient(circle at 20% 20%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.03) 0%, transparent 50%);
+        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
     }
-    
-    .web-pattern {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        linear-gradient(45deg, transparent 40%, rgba(0,255,0,0.02) 50%, transparent 60%),
-        linear-gradient(-45deg, transparent 40%, rgba(0,255,255,0.02) 50%, transparent 60%);
-      background-size: 60px 60px;
-    }
-    
     
     .glass {
+      background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(20px);
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(0, 255, 0, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.1);
     }
     
     .card {
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(0, 255, 0, 0.3);
-      border-radius: 8px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
     
     .card::before {
@@ -125,7 +151,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
       transition: left 0.6s;
     }
     
@@ -134,22 +160,23 @@
     }
     
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px -3px rgba(0, 255, 0, 0.2), 0 4px 6px -2px rgba(0, 255, 0, 0.1);
-      border-color: rgba(0, 255, 0, 0.6);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-color: #3b82f6;
     }
     
     .btn-primary {
-      background: #000000;
-      border: 1px solid #00ff00;
-      color: #00ff00;
-      font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 4px;
+      background: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
       transition: all 0.2s ease;
-      box-shadow: 0 1px 3px 0 rgba(0, 255, 0, 0.2), 0 1px 2px 0 rgba(0, 255, 0, 0.1);
+      box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
       position: relative;
       overflow: hidden;
+      font-size: 14px;
     }
     
     .btn-primary::before {
@@ -159,7 +186,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
       transition: left 0.5s;
     }
     
@@ -168,24 +195,24 @@
     }
     
     .btn-primary:hover {
-      background: #00ff00;
-      border-color: #00ff00;
-      color: #000000;
       transform: translateY(-1px);
-      box-shadow: 0 4px 6px -1px rgba(0, 255, 0, 0.3), 0 2px 4px -1px rgba(0, 255, 0, 0.2);
+      box-shadow: 0 2px 8px rgba(26, 26, 26, 0.2);
+      background: #3b82f6;
+      border-color: #3b82f6;
     }
     
     .btn-donate {
-      background: #ff0000;
-      border: 1px solid #ff0000;
+      background: #ef4444;
+      border: 1px solid #ef4444;
       color: #ffffff;
       font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 4px;
+      padding: 10px 20px;
+      border-radius: 6px;
       transition: all 0.2s ease;
-      box-shadow: 0 1px 3px 0 rgba(255, 0, 0, 0.3), 0 1px 2px 0 rgba(255, 0, 0, 0.2);
+      box-shadow: 0 1px 3px rgba(239, 68, 68, 0.2);
       position: relative;
       overflow: hidden;
+      font-size: 14px;
     }
     
     .btn-donate::before {
@@ -195,7 +222,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
       transition: left 0.5s;
     }
     
@@ -204,94 +231,50 @@
     }
     
     .btn-donate:hover {
-      background: #cc0000;
-      border-color: #cc0000;
       transform: translateY(-1px);
-      box-shadow: 0 4px 6px -1px rgba(255, 0, 0, 0.4), 0 2px 4px -1px rgba(255, 0, 0, 0.3);
-    }
-    
-    .search-input {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(20px);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 20px;
-      padding: 16px 24px;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-    
-    .search-input:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 0 12px 40px rgba(0, 0, 0, 0.15);
-      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+      background: #dc2626;
+      border-color: #dc2626;
     }
     
     .hero-text {
-      color: #00ff00;
-      font-weight: 900;
-      text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+      background: linear-gradient(135deg, #1a1a1a, #3b82f6, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
     .floating-icon {
       animation: float 6s ease-in-out infinite;
     }
     
-    .floating-icon:nth-child(2) { animation-delay: -2s; }
-    .floating-icon:nth-child(3) { animation-delay: -4s; }
-    
-    .pulse-glow {
-      animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    
-    .text-shadow {
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    .muted { color: #64748b; }
-    
-    .tool-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 16px;
-    }
-    
-    .pdf-icon { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
-    .text-icon { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
-    
     .stats-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
       padding: 24px;
       text-align: center;
       transition: all 0.3s ease;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
     
     .stats-card:hover {
       transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.15);
+      border-color: #3b82f6;
+      box-shadow: 0 10px 25px -3px rgba(59, 130, 246, 0.1);
     }
     
     .feature-badge {
-      background: #000000;
-      color: #00ff00;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 11px;
+      background: #1a1a1a;
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
       font-weight: 600;
       display: inline-block;
       margin-bottom: 8px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      border: 1px solid #00ff00;
     }
     
     .webspind-logo {
@@ -302,16 +285,62 @@
       content: '🕸️';
       position: absolute;
       top: -5px;
-      right: -10px;
+      right: -25px;
       font-size: 16px;
-      animation: bounce-slow 3s infinite;
+      animation: float 3s ease-in-out infinite;
     }
     
-    /* Scroll animations */
+    .web-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(59, 130, 246, 0.3);
+      border-top: 3px solid #3b82f6;
+      border-radius: 50%;
+      animation: webSpin 1s linear infinite;
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-content {
+      text-align: center;
+      color: #1a1a1a;
+    }
+    
+    .loading-content h3 {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .loading-content p {
+      margin-top: 8px;
+      color: #6b7280;
+    }
+    
     .fade-in {
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.6s ease;
+      transition: all 0.8s ease-out;
     }
     
     .fade-in.visible {
@@ -319,201 +348,332 @@
       transform: translateY(0);
     }
     
-    /* Parallax effect */
-    .parallax {
-      transform: translateZ(0);
-      will-change: transform;
+    .slide-up {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease-out;
+    }
+    
+    .slide-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .pulse-glow {
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+    
+    .accent-gradient {
+      background: linear-gradient(135deg, #3b82f6, #10b981, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .tool-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .pdf-icon {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+    
+    .text-icon {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+    
+    .media-icon {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    }
+    
+    .ai-icon {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+    
+    .card:hover .tool-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    @media (max-width: 768px) {
+      .card:hover {
+        transform: translateY(-4px) scale(1.01);
+      }
+      
+      .btn-primary:hover {
+        transform: translateY(-1px);
+      }
+      
+      .btn-donate:hover {
+        transform: translateY(-2px) scale(1.02);
+      }
     }
   </style>
 </head>
 <body class="min-h-screen gradient-bg">
-  <!-- Web Pattern Overlay -->
-  <div class="web-pattern"></div>
-
-  <!-- Navigation -->
-  <nav class="sticky top-0 z-50 w-full glass border-b border-white/20">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
-      <a href="/" class="font-black tracking-tight text-xl text-white text-shadow webspind-logo">Webspind</a>
-      <div class="hidden md:flex items-center gap-6 text-sm">
-        <a class="text-white/90 hover:text-white transition-colors font-medium" href="#tools">Tools</a>
-        <a class="text-white/90 hover:text-white transition-colors font-medium" href="/privacy.html">Privacy</a>
-      </div>
-      <a id="donate" href="DONATION_LINK" class="btn-donate">
-        💝 Donate what you want
-      </a>
-    </div>
-      </nav>
-
-  <!-- Hero Section -->
-  <main class="max-w-7xl mx-auto px-4 md:px-6 py-16 relative z-10">
-    <section class="text-center mb-16 fade-in">
-      <div class="floating-icon inline-block mb-6">
-        <div class="w-20 h-20 bg-white/20 backdrop-blur-xl rounded-3xl flex items-center justify-center text-4xl">
-          🕸️
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="web-spinner"></div>
+      <h3>Processing...</h3>
+      <p>Please wait while we handle your request</p>
     </div>
   </div>
 
-      <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6">
-        <span class="hero-text">Webspind</span>
-        <br>
-        <span class="text-white text-shadow">Professional Tools</span>
-      </h1>
-      
-      <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-        Enterprise-grade document processing and data manipulation tools. 
-        <span class="font-bold text-white">Secure. Private. Efficient.</span> 
-        All processing happens locally in your browser.
-      </p>
-      
-      <!-- Stats -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-12 fade-in">
-        <div class="stats-card">
-          <div class="text-3xl font-bold text-white mb-2">6</div>
-          <div class="text-white/80 text-sm">Professional Tools</div>
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo">Webspind</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="#tools">Tools</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/privacy.html">Privacy</a>
+      </div>
+      <a href='https://ko-fi.com/G2G01KWLB2' target='_blank' class="btn-primary">
+        Support
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="max-w-7xl mx-auto px-4 md:px-6 py-16 relative z-10">
+    <section class="grid lg:grid-cols-2 gap-12 items-center fade-in">
+      <!-- Left Side - Hero Content -->
+      <div class="text-center lg:text-left">
+        <div class="floating-icon inline-block mb-6">
+          <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl flex items-center justify-center text-3xl text-white">
+            🕸️
+          </div>
         </div>
-        <div class="stats-card">
-          <div class="text-3xl font-bold text-white mb-2">100%</div>
-          <div class="text-white/80 text-sm">Secure</div>
-        </div>
-        <div class="stats-card">
-          <div class="text-3xl font-bold text-white mb-2">0</div>
-          <div class="text-white/80 text-sm">Data Transfer</div>
+
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-4">
+          <span class="hero-text">Webspind</span>
+          <br>
+          <span class="text-gray-900">Professional Tools</span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
+          Free professional tools for document processing, image conversion, QR generation, and AI detection. 
+          <span class="font-bold text-gray-900">Secure. Private. Efficient.</span>
+        </p>
+        
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 mb-8 fade-in">
+          <div class="stats-card">
+            <div class="text-2xl font-bold text-gray-900 mb-1">7</div>
+            <div class="text-gray-600 text-xs">Tools</div>
+          </div>
+          <div class="stats-card">
+            <div class="text-2xl font-bold text-gray-900 mb-1">100%</div>
+            <div class="text-gray-600 text-xs">Secure</div>
+          </div>
+          <div class="stats-card">
+            <div class="text-2xl font-bold text-gray-900 mb-1">0</div>
+            <div class="text-gray-600 text-xs">Uploads</div>
+          </div>
         </div>
       </div>
-      
+
+      <!-- Right Side - Tools Grid -->
+      <div class="grid grid-cols-2 gap-4" id="tools">
+      <a href="/tools/pdf-merge/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in">
+        <div class="flex items-center mb-3">
+          <div class="tool-icon pdf-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px;">
+            📄
+          </div>
+          <div>
+            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px;">PDF</div>
+            <h2 class="text-lg font-bold text-gray-900">PDF Merge</h2>
+          </div>
+        </div>
+        <p class="text-gray-600 text-sm mb-3 leading-relaxed">
+          Combine multiple PDF documents into a single file.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-gray-500">Drag & Drop</div>
+          <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
+        </div>
+      </a>
+
+      <a href="/tools/pdf-split/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in">
+        <div class="flex items-center mb-3">
+          <div class="tool-icon pdf-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px;">
+            ✂️
+          </div>
+          <div>
+            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px;">PDF</div>
+            <h2 class="text-lg font-bold text-gray-900">PDF Split</h2>
+          </div>
+        </div>
+        <p class="text-gray-600 text-sm mb-3 leading-relaxed">
+          Extract specific pages or page ranges from PDF documents.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-gray-500">Page Range</div>
+          <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
+        </div>
+      </a>
+
+      <a href="/tools/pdf-pages/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in">
+        <div class="flex items-center mb-3">
+          <div class="tool-icon pdf-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px;">
+            🔄
+          </div>
+          <div>
+            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px;">PDF</div>
+            <h2 class="text-lg font-bold text-gray-900">PDF Pages</h2>
+          </div>
+        </div>
+        <p class="text-gray-600 text-sm mb-3 leading-relaxed">
+          Reorder, delete, and rotate PDF pages with precision.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-gray-500">Page Management</div>
+          <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
+        </div>
+      </a>
+
+      <a href="/tools/text-tools/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in">
+        <div class="flex items-center mb-3">
+          <div class="tool-icon text-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px;">
+            📝
+          </div>
+          <div>
+            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px;">TEXT</div>
+            <h2 class="text-lg font-bold text-gray-900">Text Toolkit</h2>
+          </div>
+        </div>
+        <p class="text-gray-600 text-sm mb-3 leading-relaxed">
+          Advanced text processing and data manipulation tools.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-gray-500">Word Count</div>
+          <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
+        </div>
+      </a>
+
+      <a href="/tools/image-converter/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in">
+        <div class="flex items-center mb-3">
+          <div class="tool-icon media-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px;">
+            🖼️
+          </div>
+          <div>
+            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px;">IMAGE</div>
+            <h2 class="text-lg font-bold text-gray-900">Image Converter</h2>
+          </div>
+        </div>
+        <p class="text-gray-600 text-sm mb-3 leading-relaxed">
+          Professional image format conversion and optimization.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-gray-500">JPG, PNG, WebP</div>
+          <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
+        </div>
+      </a>
+
+      <a href="/tools/qr-generator/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in">
+        <div class="flex items-center mb-3">
+          <div class="tool-icon text-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px;">
+            📱
+          </div>
+          <div>
+            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px;">QR</div>
+            <h2 class="text-lg font-bold text-gray-900">QR Generator</h2>
+          </div>
+        </div>
+        <p class="text-gray-600 text-sm mb-3 leading-relaxed">
+          Generate professional QR codes for URLs and text.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-gray-500">High Resolution</div>
+          <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
+        </div>
+      </a>
+
+      <a href="/tools/ai-detector/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in">
+        <div class="flex items-center mb-3">
+          <div class="tool-icon ai-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px;">
+            🤖
+          </div>
+          <div>
+            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px;">AI</div>
+            <h2 class="text-lg font-bold text-gray-900">AI Detector</h2>
+          </div>
+        </div>
+        <p class="text-gray-600 text-sm mb-3 leading-relaxed">
+          Detect AI-generated content using linguistic analysis.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-gray-500">Pattern Analysis</div>
+          <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
+        </div>
+      </a>
+      </div>
     </section>
 
-    <!-- Tools Grid -->
-    <section class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="tools">
-      <a href="/tools/pdf-merge/" class="card group p-8 hover:scale-105 transition-all duration-500 fade-in">
-        <div class="tool-icon pdf-icon text-white floating-icon">
-          📄
-        </div>
-        <div class="feature-badge">Document Processing</div>
-        <h2 class="text-2xl font-bold mb-3 text-white">PDF Merge</h2>
-        <p class="text-gray-300 mb-4 leading-relaxed">
-          Combine multiple PDF documents into a single file. Drag-and-drop interface with intelligent page ordering.
-        </p>
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-400">PDF • Secure • Professional</div>
-          <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
-        </div>
-      </a>
-
-      <a href="/tools/pdf-split/" class="card group p-8 hover:scale-105 transition-all duration-500 fade-in">
-        <div class="tool-icon pdf-icon text-white floating-icon">
-          ✂️
-        </div>
-        <div class="feature-badge">Document Processing</div>
-        <h2 class="text-2xl font-bold mb-3 text-white">PDF Split</h2>
-        <p class="text-gray-300 mb-4 leading-relaxed">
-          Extract specific pages or page ranges from PDF documents. Advanced parsing with intelligent range detection.
-        </p>
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-400">PDF • Secure • Professional</div>
-          <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
-        </div>
-      </a>
-
-      <a href="/tools/pdf-pages/" class="card group p-8 hover:scale-105 transition-all duration-500 fade-in">
-        <div class="tool-icon pdf-icon text-white floating-icon">
-          🔄
-        </div>
-        <div class="feature-badge">Document Processing</div>
-        <h2 class="text-2xl font-bold mb-3 text-white">PDF Pages</h2>
-        <p class="text-gray-300 mb-4 leading-relaxed">
-          Reorder, delete, and rotate PDF pages with precision. Advanced page management for professional workflows.
-        </p>
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-400">PDF • Secure • Professional</div>
-          <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
-        </div>
-      </a>
-
-      <a href="/tools/text-tools/" class="card group p-8 hover:scale-105 transition-all duration-500 fade-in">
-        <div class="tool-icon text-icon text-white floating-icon">
-          📝
-        </div>
-        <div class="feature-badge">Data Processing</div>
-        <h2 class="text-2xl font-bold mb-3 text-white">Text Toolkit</h2>
-        <p class="text-gray-300 mb-4 leading-relaxed">
-          Advanced text processing and data manipulation. Word counting, case conversion, encoding, and data cleaning tools.
-        </p>
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-400">Text • Secure • Professional</div>
-          <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
-        </div>
-      </a>
-
-      <a href="/tools/image-converter/" class="card group p-8 hover:scale-105 transition-all duration-500 fade-in">
-        <div class="tool-icon pdf-icon text-white floating-icon">
-          🖼️
-        </div>
-        <div class="feature-badge">Media Processing</div>
-        <h2 class="text-2xl font-bold mb-3 text-white">Image Converter</h2>
-        <p class="text-gray-300 mb-4 leading-relaxed">
-          Professional image format conversion and optimization. Support for JPG, PNG, WebP, GIF with quality control.
-        </p>
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-400">Images • Secure • Professional</div>
-          <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
-        </div>
-      </a>
-
-      <a href="/tools/qr-generator/" class="card group p-8 hover:scale-105 transition-all duration-500 fade-in">
-        <div class="tool-icon text-icon text-white floating-icon">
-          📱
-        </div>
-        <div class="feature-badge">Data Encoding</div>
-        <h2 class="text-2xl font-bold mb-3 text-white">QR Generator</h2>
-        <p class="text-gray-300 mb-4 leading-relaxed">
-          Generate professional QR codes for URLs, text, WiFi credentials, and contact information. High-resolution output.
-        </p>
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-400">QR • Secure • Professional</div>
-          <div class="text-2xl group-hover:translate-x-2 transition-transform">→</div>
-        </div>
-      </a>
-    </section>
-
-    <!-- Donation CTA -->
-    <section class="mt-20 text-center fade-in">
-      <div class="card p-12 max-w-4xl mx-auto">
-        <div class="floating-icon inline-block mb-6">
-          <div class="w-16 h-16 bg-gradient-to-r from-amber-400 to-red-500 rounded-2xl flex items-center justify-center text-3xl text-white pulse-glow">
-            💝
+    <!-- Support Section -->
+    <section class="mt-16 text-center fade-in">
+      <div class="card p-8 max-w-3xl mx-auto">
+        <div class="flex items-center justify-center mb-4">
+          <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-green-500 rounded-xl flex items-center justify-center text-2xl text-white">
+            ⚡
           </div>
         </div>
         
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
-          Support Professional Development
+        <h2 class="text-2xl font-bold mb-3 text-gray-900">
+          Keep These Tools Free
         </h2>
         
-        <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-          These enterprise-grade tools are provided free of charge. If you find value in our professional solutions, 
-          consider supporting continued development and maintenance.
+        <p class="text-gray-600 mb-6 max-w-xl mx-auto">
+          Help maintain these professional tools and add new features. Every contribution helps keep the service running smoothly.
         </p>
         
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a href="DONATION_LINK" class="btn-donate text-lg px-8 py-4">
-            Support Development
+        <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+          <a href='https://ko-fi.com/G2G01KWLB2' target='_blank' class="btn-primary">
+            Contribute
           </a>
-          <div class="text-sm text-gray-400">
-            No minimum • No maximum • Voluntary contribution
+          <div class="text-xs text-gray-500">
+            Optional • Secure • Appreciated
           </div>
         </div>
         
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-400">
-          <div class="flex items-center justify-center gap-2">
-            <span class="text-green-400">✓</span>
-            No advertisements
+        <div class="mt-6 grid grid-cols-3 gap-4 text-xs text-gray-500">
+          <div class="flex items-center justify-center gap-1">
+            <span class="text-green-500">✓</span>
+            No ads
           </div>
-          <div class="flex items-center justify-center gap-2">
-            <span class="text-green-400">✓</span>
+          <div class="flex items-center justify-center gap-1">
+            <span class="text-green-500">✓</span>
             No tracking
           </div>
-          <div class="flex items-center justify-center gap-2">
-            <span class="text-green-400">✓</span>
+          <div class="flex items-center justify-center gap-1">
+            <span class="text-green-500">✓</span>
             Always free
           </div>
         </div>
@@ -522,13 +682,7 @@
   </main>
 
   <script>
-    // Get all cards for animations
-    const cards = Array.from(document.querySelectorAll('#cards > a'));
-
-    // Add smooth scroll behavior
-    document.documentElement.style.scrollBehavior = 'smooth';
-
-    // Intersection Observer for scroll animations
+    // Intersection Observer for animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -542,53 +696,89 @@
       });
     }, observerOptions);
 
-    // Observe all fade-in elements
-    document.querySelectorAll('.fade-in').forEach(el => {
+    // Observe all fade-in and slide-up elements
+    document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
       observer.observe(el);
     });
 
-    // Parallax effect for background
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const parallax = document.querySelector('.web-pattern');
-      const speed = scrolled * 0.5;
-      parallax.style.transform = `translateY(${speed}px)`;
-    });
-
-
-    // Add hover effects to cards
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-8px) scale(1.02)';
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0) scale(1)';
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
       });
     });
 
-    // Performance optimization
-    let ticking = false;
-    function updateAnimations() {
-      // Throttle scroll events
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          ticking = false;
-        });
-        ticking = true;
-      }
+    // Loading overlay functions
+    function showLoading() {
+      document.getElementById('loading-overlay').classList.add('active');
     }
 
-    window.addEventListener('scroll', updateAnimations);
+    function hideLoading() {
+      document.getElementById('loading-overlay').classList.remove('active');
+    }
+
+    // Add loading to tool links
+    document.querySelectorAll('a[href*="/tools/"]').forEach(link => {
+      link.addEventListener('click', function() {
+        showLoading();
+        // Hide loading after a short delay (in real implementation, this would be when the page loads)
+        setTimeout(hideLoading, 1000);
+      });
+    });
+
+    // Add some interactive effects
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Add floating animation to stats cards
+    document.querySelectorAll('.stats-card').forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.2}s`;
+    });
+
+    // Add staggered animation to tool cards
+    document.querySelectorAll('#tools .card').forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.1}s`;
+    });
+
+    // Add random wiggle animation to some elements
+    document.querySelectorAll('.floating-icon').forEach((icon, index) => {
+      if (index % 3 === 0) {
+        icon.style.animation = 'wiggle 3s ease-in-out infinite';
+        icon.style.animationDelay = `${index * 0.5}s`;
+      }
+    });
+
+    // Initialize Ko-fi donation widget (subtle)
+    kofiWidgetOverlay.draw('webspind', {
+      'type': 'floating-chat',
+      'floating-chat.donateButton.text': 'Support',
+      'floating-chat.donateButton.background-color': '#1a1a1a',
+      'floating-chat.donateButton.text-color': '#fff',
+      'floating-chat.donateButton.position': 'bottom-right'
+    });
   </script>
 
-  <footer class="mt-20 border-t border-white/20 relative z-10">
+  <footer class="mt-20 border-t border-gray-200 relative z-10">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
-      <div class="text-white/80 text-sm mb-4">
+      <div class="text-gray-600 text-sm mb-4">
         © 2025 Webspind · Local processing · 
-        <a class="text-white hover:text-white/80 transition-colors underline" href="/privacy.html">Privacy</a>
+        <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/privacy.html">Privacy</a>
       </div>
-      <div class="text-white/60 text-xs">
+      <div class="text-gray-500 text-xs">
         Professional tools for modern workflows
       </div>
     </div>
