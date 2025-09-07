@@ -13,6 +13,77 @@
     .btn { display:inline-flex; align-items:center; justify-content:center; border:1px solid #0f172a; border-radius: 0.75rem; padding:0.75rem 1rem; }
     .muted { color: #64748b; }
     .kbd { border:1px solid #cbd5e1; border-bottom-width:2px; padding:0 0.375rem; border-radius:0.375rem; background:#f8fafc; }
+    
+    .web-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    
+    .web-spinner::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      border-top: 2px solid #764ba2;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 0.5s linear infinite reverse;
+    }
+    
+    .web-spinner::after {
+      content: '🕸️';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .loading-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-content {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-slate-900">
@@ -20,7 +91,7 @@
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-2 flex items-center justify-between gap-3">
       <a href="/" class="font-extrabold tracking-tight text-lg">Webspind</a>
       <nav class="hidden md:flex items-center gap-4 text-sm">
-        <a class="hover:underline" href="/index.html">App Store</a>
+        <a class="hover:underline" href="/">App Store</a>
         <a class="hover:underline" href="/privacy.html">Privatliv</a>
       </nav>
       <a id="donate" href="DONATION_LINK" class="btn">Donate what you want</a>
@@ -56,6 +127,15 @@
       </aside>
     </div>
   </main>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="web-spinner"></div>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">Splitter PDF...</h3>
+      <p class="text-gray-600 mt-2">Vent venligst mens vi behandler din fil</p>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
   <script>
@@ -102,23 +182,43 @@
 
     document.getElementById('extract').addEventListener('click', async () => {
       if (!sourceDoc) return alert('Vælg en PDF');
-      const total = sourceDoc.getPageCount();
-      const idxs = parseRanges(rangesInput.value || `1-${total}`, total);
-      if (!idxs.length) return alert('Ingen gyldige sider fundet');
-      const outDoc = await PDFLib.PDFDocument.create();
-      const pages = await outDoc.copyPages(sourceDoc, idxs);
-      pages.forEach(p => outDoc.addPage(p));
-      await saveDoc(outDoc, 'split.pdf');
+      
+      // Show loading overlay
+      const loadingOverlay = document.getElementById('loading-overlay');
+      loadingOverlay.classList.add('show');
+      
+      try {
+        const total = sourceDoc.getPageCount();
+        const idxs = parseRanges(rangesInput.value || `1-${total}`, total);
+        if (!idxs.length) return alert('Ingen gyldige sider fundet');
+        const outDoc = await PDFLib.PDFDocument.create();
+        const pages = await outDoc.copyPages(sourceDoc, idxs);
+        pages.forEach(p => outDoc.addPage(p));
+        await saveDoc(outDoc, 'split.pdf');
+      } finally {
+        // Hide loading overlay
+        loadingOverlay.classList.remove('show');
+      }
     });
 
     document.getElementById('perpage').addEventListener('click', async () => {
       if (!sourceDoc) return alert('Vælg en PDF');
-      const total = sourceDoc.getPageCount();
-      for (let i=0;i<total;i++) {
-        const doc = await PDFLib.PDFDocument.create();
-        const [p] = await doc.copyPages(sourceDoc, [i]);
-        doc.addPage(p);
-        await saveDoc(doc, `page-${i+1}.pdf`);
+      
+      // Show loading overlay
+      const loadingOverlay = document.getElementById('loading-overlay');
+      loadingOverlay.classList.add('show');
+      
+      try {
+        const total = sourceDoc.getPageCount();
+        for (let i=0;i<total;i++) {
+          const doc = await PDFLib.PDFDocument.create();
+          const [p] = await doc.copyPages(sourceDoc, [i]);
+          doc.addPage(p);
+          await saveDoc(doc, `page-${i+1}.pdf`);
+        }
+      } finally {
+        // Hide loading overlay
+        loadingOverlay.classList.remove('show');
       }
     });
   </script>
@@ -126,7 +226,7 @@
   <footer class="mt-20 border-t border-slate-200">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-10 text-sm text-slate-600 flex flex-col md:flex-row items-center justify-between gap-4">
       <p>© 2025 Webspind · Filer behandles lokalt · <a class="underline" href="/privacy.html">Privatliv</a></p>
-      <a class="underline" href="/index.html">App Store</a>
+      <a class="underline" href="/">App Store</a>
     </div>
   </footer>
 </body>

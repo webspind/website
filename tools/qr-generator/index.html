@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QR Code Generator - Gratis QR koder · Webspind</title>
+  <meta name="description" content="Generer QR koder gratis. URL, tekst, WiFi, kontakt info. Download som PNG/SVG. 100% privat og gratis.">
+  <meta name="keywords" content="QR kode generator, QR code, gratis QR, QR kode maker, QR kode download, QR kode PNG">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            'gradient': 'gradient 8s ease infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            gradient: {
+              '0%, 100%': { 'background-position': '0% 50%' },
+              '50%': { 'background-position': '100% 50%' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    
+    .gradient-bg {
+      background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #533483, #667eea, #764ba2);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+    
+    .glass {
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    }
+    
+    .btn-donate {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+    }
+    
+    .btn-donate:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 30px rgba(240, 147, 251, 0.6);
+    }
+    
+    .hero-text {
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .floating-icon {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .text-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .tool-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      color: white;
+    }
+    
+    .qr-preview {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+    
+    .type-tab {
+      padding: 12px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .type-tab.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-color: #667eea;
+    }
+    
+    .type-tab:not(.active) {
+      background: rgba(255, 255, 255, 0.5);
+      color: #666;
+    }
+    
+    .type-tab:not(.active):hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+    }
+    
+    .web-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    
+    .web-spinner::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      border-top: 2px solid #764ba2;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 0.5s linear infinite reverse;
+    }
+    
+    .web-spinner::after {
+      content: '🕸️';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .loading-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-content {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body class="min-h-screen gradient-bg">
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 w-full glass border-b border-white/20">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
+      <a href="/" class="font-black tracking-tight text-xl text-white text-shadow">Webspind</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a class="text-white/90 hover:text-white transition-colors font-medium" href="/">App Store</a>
+        <a class="text-white/90 hover:text-white transition-colors font-medium" href="/privacy.html">Privatliv</a>
+      </div>
+      <a id="donate" href="DONATION_LINK" class="btn-donate">
+        💝 Donate what you want
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 md:px-6 py-16">
+    <!-- Hero Section -->
+    <section class="text-center mb-16">
+      <div class="floating-icon inline-block mb-6">
+        <div class="tool-icon mx-auto">
+          📱
+        </div>
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
+        <span class="hero-text">QR Code Generator</span>
+      </h1>
+      
+      <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+        Generer QR koder gratis. <span class="font-bold text-white">URL, tekst, WiFi, kontakt info</span>. 
+        Download som PNG/SVG. 100% privat.
+      </p>
+    </section>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Main Tool Area -->
+      <section class="lg:col-span-2">
+        <div class="card p-8">
+          <!-- Type Selection -->
+          <div class="mb-8">
+            <h3 class="text-lg font-semibold mb-4 text-gray-800">Vælg type:</h3>
+            <div class="flex flex-wrap gap-3">
+              <div class="type-tab active" data-type="url">
+                🌐 URL
+              </div>
+              <div class="type-tab" data-type="text">
+                📝 Tekst
+              </div>
+              <div class="type-tab" data-type="wifi">
+                📶 WiFi
+              </div>
+              <div class="type-tab" data-type="contact">
+                👤 Kontakt
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Forms -->
+          <div id="url-form" class="form-content">
+            <label class="block text-lg font-semibold mb-4 text-gray-800">Website URL:</label>
+            <input type="url" id="url-input" placeholder="https://example.com" class="w-full p-4 border border-gray-300 rounded-xl text-lg">
+          </div>
+
+          <div id="text-form" class="form-content hidden">
+            <label class="block text-lg font-semibold mb-4 text-gray-800">Tekst:</label>
+            <textarea id="text-input" placeholder="Indtast din tekst her..." class="w-full p-4 border border-gray-300 rounded-xl text-lg h-32"></textarea>
+          </div>
+
+          <div id="wifi-form" class="form-content hidden">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Netværksnavn (SSID):</label>
+                <input type="text" id="wifi-ssid" placeholder="Mit WiFi" class="w-full p-3 border border-gray-300 rounded-lg">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Adgangskode:</label>
+                <input type="password" id="wifi-password" placeholder="password123" class="w-full p-3 border border-gray-300 rounded-lg">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Sikkerhedstype:</label>
+                <select id="wifi-security" class="w-full p-3 border border-gray-300 rounded-lg">
+                  <option value="WPA">WPA/WPA2</option>
+                  <option value="WEP">WEP</option>
+                  <option value="nopass">Ingen adgangskode</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Skjult netværk:</label>
+                <select id="wifi-hidden" class="w-full p-3 border border-gray-300 rounded-lg">
+                  <option value="false">Nej</option>
+                  <option value="true">Ja</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div id="contact-form" class="form-content hidden">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Navn:</label>
+                <input type="text" id="contact-name" placeholder="John Doe" class="w-full p-3 border border-gray-300 rounded-lg">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Telefon:</label>
+                <input type="tel" id="contact-phone" placeholder="+45 12 34 56 78" class="w-full p-3 border border-gray-300 rounded-lg">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Email:</label>
+                <input type="email" id="contact-email" placeholder="john@example.com" class="w-full p-3 border border-gray-300 rounded-lg">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Website:</label>
+                <input type="url" id="contact-website" placeholder="https://example.com" class="w-full p-3 border border-gray-300 rounded-lg">
+              </div>
+            </div>
+          </div>
+
+          <!-- Size Selection -->
+          <div class="mt-8">
+            <label class="block text-lg font-semibold mb-4 text-gray-800">
+              Størrelse: <span id="size-value">256</span>px
+            </label>
+            <input type="range" id="size" min="128" max="512" value="256" step="32" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+          </div>
+
+          <!-- Generate Button -->
+          <div class="mt-8">
+            <button id="generate" class="btn-primary w-full py-4 text-lg">
+              🚀 Generer QR Kode
+            </button>
+          </div>
+
+          <!-- QR Preview -->
+          <div id="qr-preview" class="mt-8 qr-preview hidden">
+            <canvas id="qr-canvas"></canvas>
+          </div>
+
+          <!-- Download Buttons -->
+          <div id="download-buttons" class="mt-6 flex gap-4 hidden">
+            <button id="download-png" class="btn-primary flex-1 py-3">
+              📥 Download PNG
+            </button>
+            <button id="download-svg" class="btn-primary flex-1 py-3">
+              📥 Download SVG
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sidebar -->
+      <aside class="space-y-6">
+        <!-- Tips Card -->
+        <div class="card p-6">
+          <h2 class="text-xl font-bold mb-4 text-gray-800">💡 Tips & Tricks</h2>
+          <ul class="space-y-3 text-sm text-gray-600">
+            <li class="flex items-start gap-3">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>QR koder genereres lokalt i din browser</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>WiFi QR koder gør det nemt at dele netværk</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>Kontakt QR koder kan importeres direkte</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>Større QR koder er nemmere at scanne</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Donation Card -->
+        <div class="card p-6 bg-gradient-to-br from-pink-50 to-purple-50 border-pink-200">
+          <h2 class="text-xl font-bold mb-4 text-gray-800">💝 Støt Webspind</h2>
+          <p class="text-sm text-gray-600 mb-4">
+            Synes du værktøjet er nyttigt? Overvej at donere for at hjælpe med at holde det kørende!
+          </p>
+          <a href="DONATION_LINK" class="btn-donate w-full text-center block">
+            💝 Donate what you want
+          </a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="web-spinner"></div>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">Genererer QR kode...</h3>
+      <p class="text-gray-600 mt-2">Vent venligst mens vi laver din QR kode</p>
+    </div>
+  </div>
+
+  <script>
+    let currentType = 'url';
+    let currentQRData = '';
+
+    // Type selection
+    document.querySelectorAll('.type-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.form-content').forEach(f => f.classList.add('hidden'));
+        
+        tab.classList.add('active');
+        currentType = tab.dataset.type;
+        document.getElementById(`${currentType}-form`).classList.remove('hidden');
+      });
+    });
+
+    // Size slider
+    const sizeSlider = document.getElementById('size');
+    const sizeValue = document.getElementById('size-value');
+    sizeSlider.addEventListener('input', (e) => {
+      sizeValue.textContent = e.target.value;
+    });
+
+    // Generate QR code
+    document.getElementById('generate').addEventListener('click', async () => {
+      let data = '';
+      
+      switch(currentType) {
+        case 'url':
+          data = document.getElementById('url-input').value;
+          if (!data) {
+            alert('Indtast en URL');
+            return;
+          }
+          break;
+        case 'text':
+          data = document.getElementById('text-input').value;
+          if (!data) {
+            alert('Indtast tekst');
+            return;
+          }
+          break;
+        case 'wifi':
+          const ssid = document.getElementById('wifi-ssid').value;
+          const password = document.getElementById('wifi-password').value;
+          const security = document.getElementById('wifi-security').value;
+          const hidden = document.getElementById('wifi-hidden').value;
+          
+          if (!ssid) {
+            alert('Indtast netværksnavn');
+            return;
+          }
+          
+          data = `WIFI:T:${security};S:${ssid};P:${password};H:${hidden};;`;
+          break;
+        case 'contact':
+          const name = document.getElementById('contact-name').value;
+          const phone = document.getElementById('contact-phone').value;
+          const email = document.getElementById('contact-email').value;
+          const website = document.getElementById('contact-website').value;
+          
+          if (!name) {
+            alert('Indtast navn');
+            return;
+          }
+          
+          data = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}`;
+          if (phone) data += `\nTEL:${phone}`;
+          if (email) data += `\nEMAIL:${email}`;
+          if (website) data += `\nURL:${website}`;
+          data += '\nEND:VCARD';
+          break;
+      }
+
+      // Show loading overlay
+      const loadingOverlay = document.getElementById('loading-overlay');
+      loadingOverlay.classList.add('show');
+
+      try {
+        currentQRData = data;
+        const size = parseInt(sizeSlider.value);
+        
+        const canvas = document.getElementById('qr-canvas');
+        await QRCode.toCanvas(canvas, data, {
+          width: size,
+          margin: 2,
+          color: {
+            dark: '#000000',
+            light: '#FFFFFF'
+          }
+        });
+        
+        document.getElementById('qr-preview').classList.remove('hidden');
+        document.getElementById('download-buttons').classList.remove('hidden');
+      } catch (error) {
+        alert('Fejl ved generering af QR kode: ' + error.message);
+      } finally {
+        // Hide loading overlay
+        loadingOverlay.classList.remove('show');
+      }
+    });
+
+    // Download functions
+    document.getElementById('download-png').addEventListener('click', () => {
+      const canvas = document.getElementById('qr-canvas');
+      const link = document.createElement('a');
+      link.download = `qr-code-${currentType}.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+
+    document.getElementById('download-svg').addEventListener('click', async () => {
+      try {
+        const svg = await QRCode.toString(currentQRData, {
+          type: 'svg',
+          width: parseInt(sizeSlider.value),
+          margin: 2,
+          color: {
+            dark: '#000000',
+            light: '#FFFFFF'
+          }
+        });
+        
+        const blob = new Blob([svg], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = `qr-code-${currentType}.svg`;
+        link.href = url;
+        link.click();
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        alert('Fejl ved download af SVG: ' + error.message);
+      }
+    });
+  </script>
+
+  <footer class="mt-20 border-t border-white/20">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
+      <div class="text-white/80 text-sm mb-4">
+        © 2025 Webspind · Filer behandles lokalt · 
+        <a class="text-white hover:text-white/80 transition-colors underline" href="/privacy.html">Privatliv</a>
+      </div>
+      <div class="text-white/60 text-xs">
+        Lavet med ❤️ for at gøre dit arbejde lettere
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

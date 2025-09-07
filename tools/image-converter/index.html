@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PDF Merge · Webspind</title>
-  <meta name="description" content="Gratis browser-værktøjer. Ingen uploads – alt kører lokalt.">
+  <title>Image Converter - Konverter billeder gratis · Webspind</title>
+  <meta name="description" content="Konverter billeder mellem JPG, PNG, WebP, GIF format. Komprimer og optimer billeder. 100% gratis og privat.">
+  <meta name="keywords" content="billede konverter, JPG til PNG, PNG til JPG, WebP konverter, billede komprimering, gratis billede værktøj">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -14,7 +15,6 @@
             'gradient': 'gradient 8s ease infinite',
             'float': 'float 6s ease-in-out infinite',
             'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'bounce-slow': 'bounce 3s infinite',
           },
           keyframes: {
             gradient: {
@@ -32,11 +32,10 @@
   </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-    
     * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
     
     .gradient-bg {
-      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+      background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #533483, #667eea, #764ba2);
       background-size: 400% 400%;
       animation: gradient 15s ease infinite;
     }
@@ -55,6 +54,11 @@
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
     .btn-primary {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       border: none;
@@ -69,22 +73,6 @@
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
-    }
-    
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.8);
-      border: 2px solid rgba(102, 126, 234, 0.3);
-      color: #667eea;
-      font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 16px;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-secondary:hover {
-      background: rgba(102, 126, 234, 0.1);
-      border-color: #667eea;
-      transform: translateY(-2px);
     }
     
     .btn-donate {
@@ -119,20 +107,6 @@
       transform: scale(1.02);
     }
     
-    .file-item {
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(102, 126, 234, 0.2);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 12px;
-      transition: all 0.3s ease;
-    }
-    
-    .file-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-    
     .hero-text {
       background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
       -webkit-background-clip: text;
@@ -146,13 +120,6 @@
     
     .text-shadow {
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    .progress-bar {
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      height: 4px;
-      border-radius: 2px;
-      transition: width 0.3s ease;
     }
     
     .tool-icon {
@@ -260,16 +227,17 @@
     <section class="text-center mb-16">
       <div class="floating-icon inline-block mb-6">
         <div class="tool-icon mx-auto">
-          📄
+          🖼️
         </div>
       </div>
       
       <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
-        <span class="hero-text">PDF Merge</span>
+        <span class="hero-text">Image Converter</span>
       </h1>
       
       <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-        Sammenflet flere PDF-filer lokalt i din browser. <span class="font-bold text-white">Træk og slip</span> for at ændre rækkefølge.
+        Konverter billeder mellem <span class="font-bold text-white">JPG, PNG, WebP, GIF</span> format. 
+        Komprimer og optimer billeder lokalt i din browser.
       </p>
     </section>
 
@@ -280,35 +248,67 @@
           <div id="drop" class="drop-zone">
             <div class="floating-icon inline-block mb-4">
               <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center text-3xl text-white">
-                📁
+                🖼️
               </div>
             </div>
-            <h3 class="text-xl font-bold mb-2 text-gray-800">Slip dine PDF-filer her</h3>
+            <h3 class="text-xl font-bold mb-2 text-gray-800">Slip dine billeder her</h3>
             <p class="text-gray-600 mb-6">eller klik for at vælge filer</p>
             <label class="btn-primary cursor-pointer">
-              📄 Vælg PDF-filer
-              <input id="files" type="file" accept="application/pdf" multiple class="hidden">
+              🖼️ Vælg billeder
+              <input id="files" type="file" accept="image/*" multiple class="hidden">
             </label>
+          </div>
+
+          <!-- Format Selection -->
+          <div class="mt-8">
+            <h3 class="text-lg font-semibold mb-4 text-gray-800">Vælg output format:</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-400 transition-colors">
+                <input type="radio" name="format" value="jpeg" class="mr-3" checked>
+                <div>
+                  <div class="font-semibold">JPEG</div>
+                  <div class="text-sm text-gray-500">Komprimeret</div>
+                </div>
+              </label>
+              <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-400 transition-colors">
+                <input type="radio" name="format" value="png" class="mr-3">
+                <div>
+                  <div class="font-semibold">PNG</div>
+                  <div class="text-sm text-gray-500">Lossless</div>
+                </div>
+              </label>
+              <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-400 transition-colors">
+                <input type="radio" name="format" value="webp" class="mr-3">
+                <div>
+                  <div class="font-semibold">WebP</div>
+                  <div class="text-sm text-gray-500">Moderne</div>
+                </div>
+              </label>
+              <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-400 transition-colors">
+                <input type="radio" name="format" value="gif" class="mr-3">
+                <div>
+                  <div class="font-semibold">GIF</div>
+                  <div class="text-sm text-gray-500">Animation</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Quality Slider -->
+          <div class="mt-8">
+            <label class="block text-lg font-semibold mb-4 text-gray-800">
+              Kvalitet: <span id="quality-value">80</span>%
+            </label>
+            <input type="range" id="quality" min="10" max="100" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
           </div>
 
           <!-- File List -->
           <div id="list" class="mt-8 space-y-3"></div>
 
-          <!-- Progress Bar -->
-          <div id="progress-container" class="mt-6 hidden">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-sm font-medium text-gray-700">Fletter PDF'er...</span>
-              <span id="progress-text" class="text-sm text-gray-500">0%</span>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-2">
-              <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
-            </div>
-          </div>
-
           <!-- Action Buttons -->
           <div class="mt-8 flex flex-col sm:flex-row gap-4">
-            <button id="merge" class="btn-primary flex-1 py-4 text-lg">
-              🚀 Flet PDF'er
+            <button id="convert" class="btn-primary flex-1 py-4 text-lg">
+              🚀 Konverter alle
             </button>
             <button id="clear" class="btn-secondary flex-1 py-4 text-lg">
               🗑️ Ryd alle
@@ -325,46 +325,21 @@
           <ul class="space-y-3 text-sm text-gray-600">
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>Alle filer behandles lokalt i din browser</span>
+              <span>JPEG er bedst til fotos</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>Brug pilene for at ændre rækkefølge</span>
+              <span>PNG er bedst til grafik med gennemsigtighed</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>Store PDF'er kan tage lidt tid at flette</span>
+              <span>WebP giver mindre filstørrelse</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>Du kan trække og slippe filer direkte</span>
+              <span>Alle billeder behandles lokalt</span>
             </li>
           </ul>
-        </div>
-
-        <!-- Features Card -->
-        <div class="card p-6">
-          <h2 class="text-xl font-bold mb-4 text-gray-800">✨ Features</h2>
-          <div class="space-y-3">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg flex items-center justify-center text-white text-sm">
-                🔒
-              </div>
-              <span class="text-sm text-gray-600">100% privat</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg flex items-center justify-center text-white text-sm">
-                ⚡
-              </div>
-              <span class="text-sm text-gray-600">Hurtig behandling</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-500 rounded-lg flex items-center justify-center text-white text-sm">
-                🎯
-              </div>
-              <span class="text-sm text-gray-600">Ingen begrænsninger</span>
-            </div>
-          </div>
         </div>
 
         <!-- Donation Card -->
@@ -385,43 +360,33 @@
   <div id="loading-overlay" class="loading-overlay">
     <div class="loading-content">
       <div class="web-spinner"></div>
-      <h3 class="text-xl font-bold mt-6 text-gray-800">Fletter PDF'er...</h3>
-      <p class="text-gray-600 mt-2">Vent venligst mens vi behandler dine filer</p>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">Konverterer billeder...</h3>
+      <p class="text-gray-600 mt-2">Vent venligst mens vi behandler dine billeder</p>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
   <script>
     const drop = document.getElementById('drop');
     const input = document.getElementById('files');
     const list = document.getElementById('list');
-    const progressContainer = document.getElementById('progress-container');
-    const progressBar = document.getElementById('progress-bar');
-    const progressText = document.getElementById('progress-text');
+    const qualitySlider = document.getElementById('quality');
+    const qualityValue = document.getElementById('quality-value');
     let items = [];
 
     function renderList() {
       list.innerHTML = '';
       items.forEach((it, idx) => {
         const li = document.createElement('div');
-        li.className = 'file-item';
+        li.className = 'border border-gray-200 rounded-xl p-4 mb-3';
         li.innerHTML = `
           <div class="flex items-center justify-between">
             <div class="min-w-0 flex-1">
               <div class="font-semibold text-gray-800 truncate">${it.file.name}</div>
               <div class="text-sm text-gray-500">${(it.file.size/1024/1024).toFixed(2)} MB</div>
             </div>
-            <div class="flex items-center gap-2 ml-4">
-              <button data-act="up" data-idx="${idx}" class="w-8 h-8 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center transition-colors" title="Flyt op">
-                ↑
-              </button>
-              <button data-act="down" data-idx="${idx}" class="w-8 h-8 rounded-lg border border-gray-300 hover:bg-gray-50 flex items-center justify-center transition-colors" title="Flyt ned">
-                ↓
-              </button>
-              <button data-act="del" data-idx="${idx}" class="w-8 h-8 rounded-lg border border-red-300 text-red-600 hover:bg-red-50 flex items-center justify-center transition-colors" title="Slet">
-                ×
-              </button>
-            </div>
+            <button data-idx="${idx}" class="w-8 h-8 rounded-lg border border-red-300 text-red-600 hover:bg-red-50 flex items-center justify-center transition-colors" title="Slet">
+              ×
+            </button>
           </div>`;
         list.appendChild(li);
       });
@@ -429,16 +394,11 @@
 
     function addFiles(fileList) {
       Array.from(fileList).forEach(f => { 
-        if (f.type === 'application/pdf') {
+        if (f.type.startsWith('image/')) {
           items.push({ file: f });
         }
       });
       renderList();
-    }
-
-    function updateProgress(percent) {
-      progressBar.style.width = `${percent}%`;
-      progressText.textContent = `${Math.round(percent)}%`;
     }
 
     // Drag and drop handlers
@@ -457,25 +417,18 @@
     
     input.addEventListener('change', e => addFiles(e.target.files));
 
+    // Quality slider
+    qualitySlider.addEventListener('input', (e) => {
+      qualityValue.textContent = e.target.value;
+    });
+
     // File list interactions
     list.addEventListener('click', e => {
       const btn = e.target.closest('button');
       if (!btn) return;
       const idx = +btn.dataset.idx;
-      const act = btn.dataset.act;
-      
-      if (act === 'up' && idx > 0) {
-        [items[idx-1], items[idx]] = [items[idx], items[idx-1]];
-        renderList();
-      }
-      if (act === 'down' && idx < items.length-1) {
-        [items[idx+1], items[idx]] = [items[idx], items[idx+1]];
-        renderList();
-      }
-      if (act === 'del') {
-        items.splice(idx, 1);
-        renderList();
-      }
+      items.splice(idx, 1);
+      renderList();
     });
 
     // Clear button
@@ -484,10 +437,10 @@
       renderList(); 
     });
 
-    // Merge button
-    document.getElementById('merge').addEventListener('click', async () => {
+    // Convert button
+    document.getElementById('convert').addEventListener('click', async () => {
       if (!items.length) {
-        alert('Tilføj mindst 1 PDF-fil');
+        alert('Tilføj mindst 1 billede');
         return;
       }
 
@@ -496,45 +449,38 @@
       loadingOverlay.classList.add('show');
 
       try {
-        const { PDFDocument } = PDFLib;
-        const out = await PDFDocument.create();
-        
-        progressContainer.classList.remove('hidden');
-        updateProgress(0);
+        const format = document.querySelector('input[name="format"]:checked').value;
+        const quality = qualitySlider.value / 100;
 
         for (let i = 0; i < items.length; i++) {
-          const it = items[i];
-          const bytes = await it.file.arrayBuffer();
-          const src = await PDFDocument.load(bytes);
-          const pages = await out.copyPages(src, src.getPageIndices());
-          pages.forEach(p => out.addPage(p));
+          const item = items[i];
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          const img = new Image();
           
-          updateProgress((i + 1) / items.length * 100);
+          img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            
+            const mimeType = `image/${format === 'jpeg' ? 'jpeg' : format}`;
+            const dataURL = canvas.toDataURL(mimeType, quality);
+            
+            const a = document.createElement('a');
+            a.href = dataURL;
+            a.download = `${item.file.name.split('.')[0]}.${format}`;
+            a.click();
+          };
+          
+          img.src = URL.createObjectURL(item.file);
         }
-
-        const merged = await out.save();
-        const blob = new Blob([merged], { type: 'application/pdf' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'merged.pdf';
-        a.click();
-        URL.revokeObjectURL(a.href);
-
-        // Success animation
-        progressContainer.classList.add('hidden');
-        
-      } catch (error) {
-        console.error('Error merging PDFs:', error);
-        alert('Der opstod en fejl under flettingen. Prøv igen.');
-        progressContainer.classList.add('hidden');
       } finally {
-        // Hide loading overlay
-        loadingOverlay.classList.remove('show');
+        // Hide loading overlay after a short delay
+        setTimeout(() => {
+          loadingOverlay.classList.remove('show');
+        }, 1000);
       }
     });
-
-    // Add smooth animations
-    document.documentElement.style.scrollBehavior = 'smooth';
   </script>
 
   <footer class="mt-20 border-t border-white/20">
