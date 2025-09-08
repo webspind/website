@@ -3,7 +3,7 @@
 
 class WebspindCredits {
   constructor() {
-    this.apiBase = 'https://api.webspind.com'; // Replace with your actual API URL
+    this.apiBase = 'https://your-backend-domain.com/api'; // Replace with your actual backend URL
     this.deviceId = this.getDeviceId();
     this.userId = localStorage.getItem('webspind-user-id');
     this.credits = parseInt(localStorage.getItem('webspind-credits') || '3'); // 3 free credits

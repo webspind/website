@@ -467,7 +467,33 @@
       </p>
     </section>
 
-    {{TOOL_CONTENT}}
+    <!-- Text Input Section -->
+    <section class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Text Processing Tools</h2>
+      
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Enter your text</label>
+        <textarea id="text-input" rows="8" placeholder="Paste or type your text here..." 
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-4">
+        <button id="word-count" class="btn-secondary">Word Count</button>
+        <button id="character-count" class="btn-secondary">Character Count</button>
+        <button id="uppercase" class="btn-secondary">UPPERCASE</button>
+        <button id="lowercase" class="btn-secondary">lowercase</button>
+        <button id="title-case" class="btn-secondary">Title Case</button>
+        <button id="reverse-text" class="btn-secondary">Reverse Text</button>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <div id="results-section" class="hidden">
+      <section class="card p-8 mb-8 fade-in">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">Results</h2>
+        <div id="text-results" class="bg-gray-50 p-4 rounded-lg"></div>
+      </section>
+    </div>
   </main>
 
   <!-- Loading Overlay -->

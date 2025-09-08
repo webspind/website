@@ -467,7 +467,87 @@
       </p>
     </section>
 
-    {{TOOL_CONTENT}}
+    <!-- Image Upload Section -->
+    <section class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Upload Image</h2>
+      
+      <div id="drop-zone" class="drop-zone">
+        <div class="text-4xl mb-4">🖼️</div>
+        <h3 class="text-lg font-semibold text-gray-700 mb-2">Drop your image here</h3>
+        <p class="text-gray-500 mb-4">or click to browse files and remove background</p>
+        <input type="file" id="file-input" accept="image/*" class="hidden">
+        <button id="browse-btn" class="btn-primary">Browse Files</button>
+        <p class="text-sm text-gray-400 mt-4">Supports JPG, PNG up to 10MB</p>
+      </div>
+      
+      <div id="file-info" class="hidden mt-4 p-4 bg-gray-50 rounded-lg">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-medium text-gray-900" id="file-name"></p>
+            <p class="text-sm text-gray-500" id="file-size"></p>
+            <p class="text-sm text-gray-500" id="image-dimensions"></p>
+          </div>
+          <button id="remove-file" class="btn-secondary text-sm">Remove</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Processing Options -->
+    <section class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Background Removal</h2>
+      
+      <div class="mb-6">
+        <p class="text-gray-600 mb-4">Our AI will automatically detect and remove the background from your image, creating a transparent PNG.</p>
+        
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <p class="text-blue-800 text-sm">
+            <strong>💡 Pro Tip:</strong> Images with clear subject separation from background work best. 
+            For best results, use images with high contrast between subject and background.
+          </p>
+        </div>
+      </div>
+      
+      <div class="mt-6">
+        <button id="remove-bg-btn" class="btn-primary w-full" disabled>
+          <span id="remove-bg-text">Remove Background</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <div id="results-section" class="hidden">
+      <section class="card p-8 mb-8 fade-in">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">Background Removed!</h2>
+        
+        <div id="result-card" class="result-card">
+          <div class="flex items-center justify-between mb-4">
+            <h3 id="result-title" class="text-xl font-semibold"></h3>
+            <div class="flex gap-2">
+              <button id="download-image" class="btn-primary text-sm">Download PNG</button>
+            </div>
+          </div>
+          
+          <div id="image-preview" class="mb-4"></div>
+          
+          <div id="processing-stats" class="mt-4 text-sm text-gray-600">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div>
+                <span class="font-medium">Original Size:</span>
+                <span id="original-size">-</span>
+              </div>
+              <div>
+                <span class="font-medium">Processing Time:</span>
+                <span id="processing-time">0s</span>
+              </div>
+              <div>
+                <span class="font-medium">Format:</span>
+                <span id="output-format">PNG (Transparent)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
   <!-- Loading Overlay -->

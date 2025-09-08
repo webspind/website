@@ -468,29 +468,348 @@
       </p>
     </section>
 
-    {{TOOL_CONTENT}}
+    <!-- Upload Section -->
+    <section class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Upload PDF File</h2>
+      
+      <div id="drop-zone" class="drop-zone">
+        <div class="text-4xl mb-4">📁</div>
+        <h3 class="text-lg font-semibold text-gray-700 mb-2">Drop your PDF here</h3>
+        <p class="text-gray-500 mb-4">or click to browse files and manipulate pages</p>
+        <input type="file" id="file-input" accept=".pdf" class="hidden">
+        <button id="browse-btn" class="btn-primary">Browse Files</button>
+        <p class="text-sm text-gray-400 mt-4">Supports PDF files up to 10MB</p>
+      </div>
+      
+      <div id="file-info" class="hidden mt-4 p-4 bg-gray-50 rounded-lg">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-medium text-gray-900" id="file-name"></p>
+            <p class="text-sm text-gray-500" id="file-size"></p>
+            <p class="text-sm text-gray-500" id="page-count"></p>
+          </div>
+          <button id="remove-file" class="btn-secondary text-sm">Remove</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page Manipulation Options -->
+    <section class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Page Manipulation</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Action</label>
+          <select id="action-type" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="extract">Extract Pages</option>
+            <option value="remove">Remove Pages</option>
+            <option value="reorder">Reorder Pages</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Pages</label>
+          <input type="text" id="page-input" placeholder="e.g., 1-5, 10, 15-20" 
+                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          <p class="text-sm text-gray-500 mt-1">Enter page numbers or ranges</p>
+        </div>
+      </div>
+      
+      <div class="mt-6">
+        <button id="process-btn" class="btn-primary w-full" disabled>
+          <span id="process-text">Process PDF</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <div id="results-section" class="hidden">
+      <section class="card p-8 mb-8 fade-in">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">PDF Processing Complete!</h2>
+        
+        <div id="result-card" class="result-card">
+          <div class="flex items-center justify-between mb-4">
+            <h3 id="result-title" class="text-xl font-semibold"></h3>
+            <div class="flex gap-2">
+              <button id="download-pdf" class="btn-primary text-sm">Download PDF</button>
+            </div>
+          </div>
+          
+          <div id="processing-stats" class="mt-4 text-sm text-gray-600">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div>
+                <span class="font-medium">Pages Processed:</span>
+                <span id="pages-processed">0</span>
+              </div>
+              <div>
+                <span class="font-medium">Action:</span>
+                <span id="action-performed">-</span>
+              </div>
+              <div>
+                <span class="font-medium">Processing Time:</span>
+                <span id="processing-time">0s</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
   <!-- Loading Overlay -->
   <div id="loading-overlay" class="loading-overlay">
     <div class="loading-content">
       <div class="web-spinner"></div>
-      <h3 class="text-xl font-bold mt-6 text-gray-800">{{TOOL_LOADING_MESSAGE}}</h3>
-      <p class="text-gray-600 mt-2">{{TOOL_LOADING_SUBMESSAGE}}</p>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">Processing PDF...</h3>
+      <p class="text-gray-600 mt-2">Manipulating pages in your PDF</p>
     </div>
   </div>
 
   <script>
     // Tool-specific configuration
     const TOOL_CONFIG = {
-      name: '{{TOOL_NAME}}',
-      actionCost: {{TOOL_ACTION_COST}}, // Cost per action (1 for most tools, 2 for AI/OCR)
-      isPremiumFeature: {{TOOL_IS_PREMIUM}}, // true for Pro-only features
-      batchEnabled: {{TOOL_BATCH_ENABLED}} // true if tool supports batch processing
+      name: 'PDF Pages',
+      actionCost: 1,
+      isPremiumFeature: false,
+      batchEnabled: false
     };
 
     // Tool-specific JavaScript
-    {{TOOL_JAVASCRIPT}}
+    let selectedFile = null;
+    let processedPdfBytes = null;
+
+    // Initialize tool
+    document.addEventListener('DOMContentLoaded', async () => {
+      await waitForFreemium();
+      initializeTool();
+      integrateFreemiumSystem();
+    });
+
+    function initializeTool() {
+      setupEventListeners();
+    }
+
+    function setupEventListeners() {
+      const dropZone = document.getElementById('drop-zone');
+      const fileInput = document.getElementById('file-input');
+      const browseBtn = document.getElementById('browse-btn');
+      const removeFile = document.getElementById('remove-file');
+      const processBtn = document.getElementById('process-btn');
+      const downloadPdf = document.getElementById('download-pdf');
+
+      browseBtn.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+      removeFile.addEventListener('click', removeSelectedFile);
+      processBtn.addEventListener('click', processPDF);
+      downloadPdf.addEventListener('click', downloadProcessedPDF);
+
+      // Drag and drop
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+      });
+      dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        if (e.dataTransfer.files.length > 0) {
+          handleFile(e.dataTransfer.files[0]);
+        }
+      });
+    }
+
+    function handleFile(file) {
+      if (file && file.type === 'application/pdf') {
+        selectedFile = file;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('file-size').textContent = formatFileSize(file.size);
+        document.getElementById('file-info').classList.remove('hidden');
+        document.getElementById('process-btn').disabled = false;
+        document.getElementById('results-section').classList.add('hidden');
+        
+        // Get page count
+        getPageCount(file);
+      } else {
+        alert('Please select a valid PDF file.');
+      }
+    }
+
+    async function getPageCount(file) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdfDoc = await window.PDFLib.PDFDocument.load(arrayBuffer);
+        const pageCount = pdfDoc.getPageCount();
+        document.getElementById('page-count').textContent = `${pageCount} pages`;
+      } catch (error) {
+        console.error('Error getting page count:', error);
+        document.getElementById('page-count').textContent = 'Unknown pages';
+      }
+    }
+
+    function removeSelectedFile() {
+      selectedFile = null;
+      document.getElementById('file-input').value = '';
+      document.getElementById('file-info').classList.add('hidden');
+      document.getElementById('process-btn').disabled = true;
+      document.getElementById('results-section').classList.add('hidden');
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    async function processPDF() {
+      if (!selectedFile) return;
+
+      // Check usage before proceeding
+      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(TOOL_CONFIG.actionCost)) {
+        window.webspindFreemium.showUpgradeModal('limit_reached');
+        return;
+      }
+
+      // Consume usage
+      if (window.webspindFreemium) {
+        const canProceed = await window.webspindFreemium.consumeUsage(TOOL_CONFIG.actionCost);
+        if (!canProceed) return;
+      }
+
+      showLoading('Processing PDF...', 'Manipulating pages in your PDF');
+
+      try {
+        const startTime = Date.now();
+        const pageInput = document.getElementById('page-input').value.trim();
+        const actionType = document.getElementById('action-type').value;
+
+        if (!pageInput) {
+          throw new Error('Please specify which pages to process.');
+        }
+
+        // Check if required libraries are loaded
+        if (typeof window.PDFLib === 'undefined') {
+          throw new Error('PDF-lib library not loaded. Please refresh the page and try again.');
+        }
+
+        // Load the original PDF
+        const pdfData = await selectedFile.arrayBuffer();
+        const pdfDoc = await window.PDFLib.PDFDocument.load(pdfData);
+        const totalPages = pdfDoc.getPageCount();
+
+        // Parse page ranges
+        const pageRanges = parsePageRanges(pageInput, totalPages);
+        const pagesToProcess = pageRanges.flat();
+        
+        let newPdf;
+        let processedPages = 0;
+
+        if (actionType === 'extract') {
+          // Extract specific pages
+          newPdf = await window.PDFLib.PDFDocument.create();
+          const pages = await newPdf.copyPages(pdfDoc, pagesToProcess);
+          pages.forEach(page => newPdf.addPage(page));
+          processedPages = pagesToProcess.length;
+        } else if (actionType === 'remove') {
+          // Remove specific pages
+          newPdf = await window.PDFLib.PDFDocument.create();
+          const allPages = Array.from({length: totalPages}, (_, i) => i);
+          const pagesToKeep = allPages.filter(pageIndex => !pagesToProcess.includes(pageIndex));
+          const pages = await newPdf.copyPages(pdfDoc, pagesToKeep);
+          pages.forEach(page => newPdf.addPage(page));
+          processedPages = pagesToProcess.length;
+        } else if (actionType === 'reorder') {
+          // Reorder pages (for now, just extract in the specified order)
+          newPdf = await window.PDFLib.PDFDocument.create();
+          const pages = await newPdf.copyPages(pdfDoc, pagesToProcess);
+          pages.forEach(page => newPdf.addPage(page));
+          processedPages = pagesToProcess.length;
+        }
+
+        processedPdfBytes = await newPdf.save();
+
+        const endTime = Date.now();
+        const processingTimeMs = endTime - startTime;
+
+        // Display results
+        document.getElementById('pages-processed').textContent = processedPages;
+        document.getElementById('action-performed').textContent = actionType.charAt(0).toUpperCase() + actionType.slice(1);
+        document.getElementById('processing-time').textContent = (processingTimeMs / 1000).toFixed(1) + 's';
+
+        document.getElementById('result-card').className = 'result-card success';
+        document.getElementById('result-title').textContent = 'PDF Processing Complete!';
+        document.getElementById('results-section').classList.remove('hidden');
+
+        hideLoading();
+
+      } catch (error) {
+        console.error('PDF processing error:', error);
+        hideLoading();
+        alert('Error processing PDF: ' + error.message);
+      }
+    }
+
+    function parsePageRanges(input, totalPages) {
+      const ranges = [];
+      const parts = input.split(',');
+      
+      for (const part of parts) {
+        const trimmed = part.trim();
+        if (trimmed.includes('-')) {
+          // Range (e.g., "1-5")
+          const [start, end] = trimmed.split('-').map(n => parseInt(n.trim()) - 1);
+          if (isNaN(start) || isNaN(end) || start < 0 || end >= totalPages || start > end) {
+            throw new Error(`Invalid page range: ${trimmed}`);
+          }
+          const range = [];
+          for (let i = start; i <= end; i++) {
+            range.push(i);
+          }
+          ranges.push(range);
+        } else {
+          // Single page (e.g., "10")
+          const pageNum = parseInt(trimmed) - 1;
+          if (isNaN(pageNum) || pageNum < 0 || pageNum >= totalPages) {
+            throw new Error(`Invalid page number: ${trimmed}`);
+          }
+          ranges.push([pageNum]);
+        }
+      }
+      
+      return ranges;
+    }
+
+    function downloadProcessedPDF() {
+      if (processedPdfBytes) {
+        const blob = new Blob([processedPdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = selectedFile.name.replace('.pdf', '_processed.pdf');
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    function showLoading(title, message) {
+      document.getElementById('loading-title').textContent = title;
+      document.getElementById('loading-message').textContent = message;
+      document.getElementById('loading-overlay').classList.add('show');
+    }
+
+    function hideLoading() {
+      document.getElementById('loading-overlay').classList.remove('show');
+    }
+
+    function updateProgress(percent) {
+      const progressBar = document.getElementById('loading-progress');
+      if (progressBar) {
+        progressBar.style.width = percent + '%';
+      }
+    }
   </script>
 
   <!-- Footer -->
