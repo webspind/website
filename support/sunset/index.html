@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support - Did I Earn The Sunset | Journal App Help</title>
+  <meta name="description" content="Get help with Did I Earn The Sunset journal app. Find answers to common questions, contact support, and learn how to make the most of your sunset journaling experience.">
+  <meta name="keywords" content="Did I Earn The Sunset, journal app, support, help, sunset journaling, mindfulness, daily reflection">
+  <meta name="author" content="Webspind">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webspind.com/support/sunset">
+  <meta property="og:title" content="Support - Did I Earn The Sunset | Journal App Help">
+  <meta property="og:description" content="Get help with Did I Earn The Sunset journal app. Find answers to common questions, contact support, and learn how to make the most of your sunset journaling experience.">
+  <meta property="og:image" content="https://webspind.com/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://webspind.com/support/sunset">
+  <meta property="twitter:title" content="Support - Did I Earn The Sunset | Journal App Help">
+  <meta property="twitter:description" content="Get help with Did I Earn The Sunset journal app. Find answers to common questions, contact support, and learn how to make the most of your sunset journaling experience.">
+  <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  
+  <!-- Core Scripts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/freemium.js"></script>
+  <script src="/js/tool-template.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out',
+            'slide-up': 'slideUp 1s ease-out',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'web-spin': 'webSpin 1s linear infinite',
+            'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
+            'scale-in': 'scaleIn 0.6s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(50px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-15px)' }
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+              '50%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)' }
+            },
+            webSpin: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-5px)' }
+            },
+            scaleIn: {
+              '0%': { transform: 'scale(0.9)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+      position: relative;
+    }
+    
+    .gradient-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 165, 0, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 69, 0, 0.05) 0%, transparent 50%);
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .card {
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 165, 0, 0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .card:hover::before {
+      left: 100%;
+    }
+    
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-color: #ffa500;
+    }
+    
+    .btn-primary {
+      background: #ffa500;
+      border: 1px solid #ffa500;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(255, 165, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(255, 165, 0, 0.2);
+      background: #ff8c00;
+      border-color: #ff8c00;
+    }
+    
+    .btn-secondary {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #1a1a1a;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(20px);
+      font-size: 14px;
+    }
+    
+    .btn-secondary:hover {
+      background: #f8fafc;
+      border-color: #ffa500;
+      transform: translateY(-1px);
+    }
+    
+    .sunset-gradient {
+      background: linear-gradient(135deg, #ffa500, #ff8c00, #ff6347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .sunset-icon {
+      background: linear-gradient(135deg, #ffa500, #ff8c00);
+      color: white;
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #ffa500;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .faq-item {
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    
+    .faq-question {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-question:hover {
+      color: #ffa500;
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    
+    .faq-answer.open {
+      max-height: 200px;
+    }
+    
+    /* Safety override - ensure content is visible */
+    .fade-in, .slide-up { opacity: 1 !important; transform: none !important; }
+  </style>
+</head>
+<body class="min-h-screen gradient-bg">
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200 transition-shadow" role="navigation" aria-label="Main navigation" id="site-nav">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-3" id="nav-inner">
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo brand" aria-label="Webspind - Home"><img src="/assets/webspind-logo.svg" alt="" class="inline-block h-6 w-6 mr-1 align-[-2px] brand-logo"> <span class="brand-text">Webspind</span></a>
+      <button id="mobile-menu-btn" class="md:hidden p-3 rounded-lg hover:bg-gray-100 touch-manipulation" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-menu"><span class="sr-only">Toggle menu</span><svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" id="icon-hamburger"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg><svg class="h-6 w-6 text-gray-700 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" id="icon-close"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+      <div class="hidden lg:flex items-center gap-6 ml-8">
+        <a href="/" class="text-sm text-gray-700 hover:text-gray-900 nav-link">All Tools</a>
+        <a href="/pricing.html" class="text-sm text-gray-700 hover:text-gray-900 nav-link">Pricing</a>
+        <a href="/privacy.html" class="text-sm text-gray-700 hover:text-gray-900 nav-link">Privacy</a>
+      </div>
+      <div class="hidden md:flex items-center gap-2">
+        <button class="buy-credits-btn bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors" aria-label="Buy credits">Buy Credits</button>
+        <button onclick="scrollToTools()" class="btn-secondary" aria-label="Get started with tools">Get Started</button>
+        <button onclick="handleUpgradeClick()" class="btn-primary pulse-glow upgrade-btn" aria-label="Upgrade to Pro plan">Upgrade to Pro</button>
+      </div>
+      <div class="hidden md:block relative">
+        <button id="language-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Select language" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg><span class="ml-1 text-sm text-gray-600" id="current-lang">EN</span></button>
+        <div id="language-menu" class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="language-btn"><div class="py-1"><button onclick="changeLanguage('en')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇺🇸 English</button><button onclick="changeLanguage('es')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇪🇸 Español</button><button onclick="changeLanguage('fr')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇫🇷 Français</button><button onclick="changeLanguage('de')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇩🇪 Deutsch</button><button onclick="changeLanguage('zh')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇨🇳 中文</button></div></div>
+      </div>
+      <div class="hidden md:block relative lg:hidden">
+        <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a 1 1 0 110-2 1 1 0 010 2zm0 7a 1 1 0 110-2 1 1 0 010 2z"></path></svg></button>
+        <div id="more-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="more-menu-btn"><div class="py-1"><a href="#tools" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">All Tools</a><a href="/pricing.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Pricing</a><a href="/privacy.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Privacy</a><hr class="my-1"><button onclick="handleUpgradeClick()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Upgrade to Pro</button><button onclick="openSupport()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Support</button></div></div>
+      </div>
+      <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block" role="status" aria-live="polite"><span class="text-sm font-medium">Loading...</span></div>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn">
+    <div class="px-4 py-4 space-y-4">
+      <div class="relative hidden"></div>
+      <div class="space-y-2" role="menuitem">
+        <button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium buy-credits-btn" role="menuitem">Buy Credits</button>
+        <button onclick="scrollToTools(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" role="menuitem">All Tools</button>
+        <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a>
+        <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a>
+        <hr class="my-2">
+        <button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">Upgrade to Pro</button>
+        <button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">Support</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 md:px-6 py-16 content-root">
+    <!-- Header -->
+    <section class="text-center mb-16 fade-in">
+      <div class="floating-icon inline-block mb-6">
+        <div class="sunset-icon w-16 h-16 rounded-full flex items-center justify-center text-2xl mx-auto">
+          🌅
+        </div>
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
+        <span class="sunset-gradient">Did I Earn The Sunset</span>
+      </h1>
+      
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+        Get help with your sunset journaling journey. Find answers, tips, and support to make the most of your daily reflections.
+      </p>
+    </section>
+
+    <!-- Quick Help -->
+    <section class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Quick Help</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+          <a href="#faq" class="block p-4 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100 transition-colors">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">❓</span>
+              <div>
+                <h3 class="font-semibold text-gray-900">Frequently Asked Questions</h3>
+                <p class="text-sm text-gray-600">Find quick answers to common questions</p>
+              </div>
+            </div>
+          </a>
+          
+          <a href="#contact" class="block p-4 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100 transition-colors">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">📧</span>
+              <div>
+                <h3 class="font-semibold text-gray-900">Contact Support</h3>
+                <p class="text-sm text-gray-600">Get personalized help from our team</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        
+        <div class="space-y-4">
+          <a href="#tips" class="block p-4 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100 transition-colors">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">💡</span>
+              <div>
+                <h3 class="font-semibold text-gray-900">Journaling Tips</h3>
+                <p class="text-sm text-gray-600">Learn how to make the most of your sunset reflections</p>
+              </div>
+            </div>
+          </a>
+          
+          <a href="#troubleshooting" class="block p-4 bg-orange-50 border border-orange-200 rounded-lg hover:bg-orange-100 transition-colors">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🔧</span>
+              <div>
+                <h3 class="font-semibold text-gray-900">Troubleshooting</h3>
+                <p class="text-sm text-gray-600">Fix common issues and problems</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
+      
+      <div class="space-y-4">
+        <div class="faq-item">
+          <div class="faq-question p-4 cursor-pointer" onclick="toggleFAQ(this)">
+            <h3 class="font-semibold text-gray-900 flex items-center justify-between">
+              What is "Did I Earn The Sunset"?
+              <span class="text-orange-500">+</span>
+            </h3>
+          </div>
+          <div class="faq-answer px-4 pb-4">
+            <p class="text-gray-600">"Did I Earn The Sunset" is a mindful journaling app that helps you reflect on your day by asking whether you've earned the beautiful sunset you're witnessing. It's designed to promote gratitude, self-reflection, and appreciation for life's simple pleasures.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question p-4 cursor-pointer" onclick="toggleFAQ(this)">
+            <h3 class="font-semibold text-gray-900 flex items-center justify-between">
+              How do I start journaling?
+              <span class="text-orange-500">+</span>
+            </h3>
+          </div>
+          <div class="faq-answer px-4 pb-4">
+            <p class="text-gray-600">Simply open the app and begin writing about your day. The app will guide you through prompts to help you reflect on what you've accomplished, what you're grateful for, and whether you feel you've earned the sunset. There's no right or wrong way to journal - just be honest with yourself.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question p-4 cursor-pointer" onclick="toggleFAQ(this)">
+            <h3 class="font-semibold text-gray-900 flex items-center justify-between">
+              Can I access my journal entries offline?
+              <span class="text-orange-500">+</span>
+            </h3>
+          </div>
+          <div class="faq-answer px-4 pb-4">
+            <p class="text-gray-600">Yes! All your journal entries are stored locally on your device, so you can write and read your reflections even without an internet connection. Your entries will sync when you're back online.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question p-4 cursor-pointer" onclick="toggleFAQ(this)">
+            <h3 class="font-semibold text-gray-900 flex items-center justify-between">
+              Is my journal data private and secure?
+              <span class="text-orange-500">+</span>
+            </h3>
+          </div>
+          <div class="faq-answer px-4 pb-4">
+            <p class="text-gray-600">Absolutely. Your journal entries are private and stored securely on your device. We don't have access to your personal reflections, and your data is encrypted to ensure maximum privacy and security.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question p-4 cursor-pointer" onclick="toggleFAQ(this)">
+            <h3 class="font-semibold text-gray-900 flex items-center justify-between">
+              What if I miss a day of journaling?
+              <span class="text-orange-500">+</span>
+            </h3>
+          </div>
+          <div class="faq-answer px-4 pb-4">
+            <p class="text-gray-600">That's perfectly okay! Journaling is about self-care, not perfection. You can always go back and write about a previous day, or simply start fresh the next day. The app is designed to be flexible and supportive of your journey.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question p-4 cursor-pointer" onclick="toggleFAQ(this)">
+            <h3 class="font-semibold text-gray-900 flex items-center justify-between">
+              Can I export my journal entries?
+              <span class="text-orange-500">+</span>
+            </h3>
+          </div>
+          <div class="faq-answer px-4 pb-4">
+            <p class="text-gray-600">Yes, you can export your journal entries in various formats (PDF, text, or JSON) to keep a backup or share your reflections. This feature helps you maintain ownership of your personal growth journey.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Journaling Tips -->
+    <section id="tips" class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Journaling Tips</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="space-y-4">
+          <div class="p-4 bg-orange-50 rounded-lg">
+            <h3 class="font-semibold text-gray-900 mb-2">🌅 Find Your Sunset Moment</h3>
+            <p class="text-sm text-gray-600">Take a moment each day to appreciate the sunset, whether you're watching it in person or reflecting on the day's end. This simple act can bring peace and perspective.</p>
+          </div>
+          
+          <div class="p-4 bg-orange-50 rounded-lg">
+            <h3 class="font-semibold text-gray-900 mb-2">📝 Be Honest</h3>
+            <p class="text-sm text-gray-600">Your journal is a safe space for your true thoughts and feelings. Don't worry about perfect grammar or profound insights - just be authentic.</p>
+          </div>
+          
+          <div class="p-4 bg-orange-50 rounded-lg">
+            <h3 class="font-semibold text-gray-900 mb-2">🎯 Focus on Growth</h3>
+            <p class="text-sm text-gray-600">Reflect on what you learned, how you grew, or what you're grateful for. Even small moments of kindness or progress count as "earning" your sunset.</p>
+          </div>
+        </div>
+        
+        <div class="space-y-4">
+          <div class="p-4 bg-orange-50 rounded-lg">
+            <h3 class="font-semibold text-gray-900 mb-2">⏰ Make It a Habit</h3>
+            <p class="text-sm text-gray-600">Try to journal at the same time each day, perhaps right before or after dinner. Consistency helps build this meaningful practice into your routine.</p>
+          </div>
+          
+          <div class="p-4 bg-orange-50 rounded-lg">
+            <h3 class="font-semibold text-gray-900 mb-2">💭 Ask Yourself</h3>
+            <p class="text-sm text-gray-600">"What did I do today that I'm proud of?" "How did I show kindness?" "What am I grateful for?" These questions can guide your reflections.</p>
+          </div>
+          
+          <div class="p-4 bg-orange-50 rounded-lg">
+            <h3 class="font-semibold text-gray-900 mb-2">🔄 Review and Reflect</h3>
+            <p class="text-sm text-gray-600">Occasionally look back at previous entries to see your growth over time. You might be surprised by how much you've learned and changed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Troubleshooting -->
+    <section id="troubleshooting" class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Troubleshooting</h2>
+      
+      <div class="space-y-6">
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">App won't open or crashes</h3>
+          <ul class="text-sm text-gray-600 space-y-1 ml-4">
+            <li>• Try restarting your device</li>
+            <li>• Check if you have the latest version of the app</li>
+            <li>• Clear the app's cache in your device settings</li>
+            <li>• Reinstall the app if the problem persists</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">Entries not saving</h3>
+          <ul class="text-sm text-gray-600 space-y-1 ml-4">
+            <li>• Check your device's storage space</li>
+            <li>• Ensure you have a stable internet connection</li>
+            <li>• Try closing and reopening the app</li>
+            <li>• Check if you have the latest app version</li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-2">Sync issues</h3>
+          <ul class="text-sm text-gray-600 space-y-1 ml-4">
+            <li>• Check your internet connection</li>
+            <li>• Try logging out and back in</li>
+            <li>• Restart the app</li>
+            <li>• Check if you're signed in to the correct account</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Support -->
+    <section id="contact" class="card p-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Contact Support</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-4">Get in Touch</h3>
+          <p class="text-gray-600 mb-4">Can't find what you're looking for? We're here to help with any questions or issues you might have.</p>
+          
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="text-orange-500">📧</span>
+              <div>
+                <p class="font-medium text-gray-900">Email Support</p>
+                <p class="text-sm text-gray-600">support@webspind.com</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+              <span class="text-orange-500">⏰</span>
+              <div>
+                <p class="font-medium text-gray-900">Response Time</p>
+                <p class="text-sm text-gray-600">Usually within 24 hours</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold text-gray-900 mb-4">Send us a message</h3>
+          <form class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Your Email</label>
+              <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="your@email.com">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="How can we help?">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <textarea rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="Tell us about your question or issue..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn-primary w-full">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-20 border-t border-gray-200 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
+      <div class="text-gray-600 text-sm mb-4">
+        © 2025 Webspind · 
+        <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/privacy.html">Privacy</a> · 
+        <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/support/sunset">Support</a>
+      </div>
+      <div class="text-gray-500 text-xs">
+        Did I Earn The Sunset - Mindful journaling for daily reflection
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tool-specific configuration
+    const TOOL_CONFIG = {
+      name: 'Did I Earn The Sunset Support',
+      actionCost: 0,
+      isPremiumFeature: false,
+      batchEnabled: false
+    };
+
+    // Initialize tool
+    document.addEventListener('DOMContentLoaded', async () => {
+      await waitForFreemium();
+      initializeTool();
+      integrateFreemiumSystem();
+    });
+
+    function initializeTool() {
+      setupEventListeners();
+    }
+
+    function setupEventListeners() {
+      // FAQ toggle functionality
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => toggleFAQ(question));
+      });
+    }
+
+    function toggleFAQ(element) {
+      const answer = element.nextElementSibling;
+      const icon = element.querySelector('span');
+      
+      if (answer.classList.contains('open')) {
+        answer.classList.remove('open');
+        icon.textContent = '+';
+      } else {
+        // Close all other FAQs
+        document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
+          openAnswer.classList.remove('open');
+          openAnswer.previousElementSibling.querySelector('span').textContent = '+';
+        });
+        
+        // Open this FAQ
+        answer.classList.add('open');
+        icon.textContent = '−';
+      }
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Form submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for your message! We\'ll get back to you within 24 hours.');
+      this.reset();
+    });
+  </script>
+
+  <!-- Safety: ensure content is not hidden due to any leftover classes -->
+  <script>
+    (function(){
+      try {
+        document.querySelectorAll('.hidden').forEach(el => {
+          if (el.id !== 'mobile-menu' && !el.closest('#mobile-menu')) return;
+        });
+        const mainEl = document.querySelector('main');
+        if (mainEl) mainEl.style.display = 'block';
+      } catch(e) {}
+    })();
+  </script>
+</body>
+</html>
