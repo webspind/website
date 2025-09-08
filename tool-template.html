@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PDF Merge - Combine PDF Files | Webspind Professional Tools</title>
-  <meta name="description" content="Free PDF merge tool. Combine multiple PDF documents into a single file with drag-and-drop interface. Secure, private, browser-based processing.">
-  <meta name="keywords" content="PDF merge, combine PDF, merge PDF files, PDF combiner, free PDF tools, online PDF merge">
+  <title>{{TOOL_TITLE}} - {{TOOL_DESCRIPTION}} | Webspind Professional Tools</title>
+  <meta name="description" content="{{TOOL_META_DESCRIPTION}}">
+  <meta name="keywords" content="{{TOOL_KEYWORDS}}">
   <meta name="author" content="Webspind">
   <meta name="robots" content="index, follow">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://webspind.com/tools/pdf-merge/">
-  <meta property="og:title" content="PDF Merge - Combine PDF Files | Webspind Professional Tools">
-  <meta property="og:description" content="Free PDF merge tool. Combine multiple PDF documents into a single file with drag-and-drop interface. Secure, private, browser-based processing.">
+  <meta property="og:url" content="https://webspind.com{{TOOL_PATH}}/">
+  <meta property="og:title" content="{{TOOL_TITLE}} - {{TOOL_DESCRIPTION}} | Webspind Professional Tools">
+  <meta property="og:description" content="{{TOOL_META_DESCRIPTION}}">
   <meta property="og:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://webspind.com/tools/pdf-merge/">
-  <meta property="twitter:title" content="PDF Merge - Combine PDF Files | Webspind Professional Tools">
-  <meta property="twitter:description" content="Free PDF merge tool. Combine multiple PDF documents into a single file with drag-and-drop interface. Secure, private, browser-based processing.">
+  <meta property="twitter:url" content="https://webspind.com{{TOOL_PATH}}/">
+  <meta property="twitter:title" content="{{TOOL_TITLE}} - {{TOOL_DESCRIPTION}} | Webspind Professional Tools">
+  <meta property="twitter:description" content="{{TOOL_META_DESCRIPTION}}">
   <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Favicon -->
@@ -28,7 +28,7 @@
 
   <!-- Core Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  {{TOOL_LIBRARIES}}
   <script src="/js/freemium.js"></script>
   <script src="/js/tool-template.js"></script>
 
@@ -285,57 +285,38 @@
       color: white;
     }
 
-    .drop-zone {
-      border: 2px dashed #d1d5db;
+    .qr-preview {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+
+    .type-tab {
+      padding: 12px 24px;
       border-radius: 12px;
-      padding: 48px 24px;
-      text-align: center;
-      transition: all 0.3s ease;
       cursor: pointer;
-      background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
     }
 
-    .drop-zone:hover,
-    .drop-zone.dragover {
-      border-color: #3b82f6;
-      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    .type-tab.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-color: #667eea;
     }
 
-    .file-item {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.2s ease;
+    .type-tab:not(.active) {
+      background: rgba(255, 255, 255, 0.5);
+      color: #666;
     }
 
-    .file-item:hover {
-      background: #f3f4f6;
-      border-color: #d1d5db;
-    }
-
-    .file-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .file-icon {
-      font-size: 24px;
-    }
-
-    .file-details h4 {
-      font-weight: 500;
-      color: #1f2937;
-      margin-bottom: 2px;
-    }
-
-    .file-details p {
-      font-size: 14px;
-      color: #6b7280;
+    .type-tab:not(.active):hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
     }
 
     .web-spinner {
@@ -452,6 +433,7 @@
       <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block" role="status" aria-live="polite"><span class="text-sm font-medium">Loading...</span></div>
     </div>
   </nav>
+
   <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn">
     <div class="px-4 py-4 space-y-4">
       <div class="relative hidden"></div>
@@ -473,279 +455,42 @@
     <section class="text-center mb-16">
       <div class="floating-icon inline-block mb-6">
         <div class="tool-icon mx-auto">
-          📄
+          {{TOOL_ICON}}
         </div>
       </div>
 
       <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
-        <span class="text-gray-900">PDF Merge</span>
+        <span class="text-gray-900">{{TOOL_TITLE}}</span>
       </h1>
 
       <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-        Combine multiple PDF files into a single document. Drag and drop files, reorder pages, and download the merged PDF instantly.
+        {{TOOL_DESCRIPTION}}
       </p>
     </section>
 
-    <div class="grid lg:grid-cols-3 gap-8">
-      <!-- Main Tool Area -->
-      <section class="lg:col-span-2">
-        <div class="card p-8">
-          <!-- File Upload Area -->
-          <div class="mb-8">
-            <h3 class="text-lg font-semibold mb-4 text-gray-800">Upload PDF Files:</h3>
-            <div id="drop-zone" class="drop-zone">
-              <div class="text-6xl mb-4">📄</div>
-              <p class="text-xl text-gray-600 mb-2">Drag & drop PDF files here</p>
-              <p class="text-gray-500 mb-4">or</p>
-              <button id="file-select" class="btn-primary">Choose Files</button>
-              <input type="file" id="file-input" multiple accept=".pdf" class="hidden">
-            </div>
-          </div>
-
-          <!-- File List -->
-          <div id="file-list" class="mb-8 hidden">
-            <h3 class="text-lg font-semibold mb-4 text-gray-800">Files to Merge (<span id="file-count">0</span>):</h3>
-            <div id="files-container" class="space-y-3"></div>
-          </div>
-
-          <!-- Merge Button -->
-          <div id="merge-section" class="hidden">
-            <button id="merge-btn" class="btn-primary w-full py-4 text-lg">
-              🚀 Merge PDFs
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Sidebar -->
-      <aside class="space-y-6">
-        <!-- Tips Card -->
-        <div class="card p-6">
-          <h2 class="text-xl font-bold mb-4 text-gray-800">💡 Tips & Features</h2>
-          <ul class="space-y-3 text-sm text-gray-600">
-            <li class="flex items-start gap-3">
-              <span class="text-green-500 mt-1">✓</span>
-              <span>All processing happens locally in your browser</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-green-500 mt-1">✓</span>
-              <span>Files are never uploaded to any server</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-green-500 mt-1">✓</span>
-              <span>Drag and drop to reorder files</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-green-500 mt-1">✓</span>
-              <span>Supports multiple PDF files</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-green-500 mt-1">✓</span>
-              <span>Free to use with no limitations</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Stats Card -->
-        <div class="card p-6">
-          <h2 class="text-xl font-bold mb-4 text-gray-800">📊 Session Stats</h2>
-          <div class="space-y-4">
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-600">Files Processed:</span>
-              <span class="font-semibold text-gray-800" id="files-processed">0</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-600">Total Size:</span>
-              <span class="font-semibold text-gray-800" id="total-size">0 MB</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-600">Last Merge:</span>
-              <span class="font-semibold text-gray-800" id="last-merge">--</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Donation Card -->
-        <div class="card p-6 bg-gradient-to-br from-pink-50 to-purple-50 border-pink-200">
-          <h2 class="text-xl font-bold mb-4 text-gray-800">💝 Support Webspind</h2>
-          <p class="text-sm text-gray-600 mb-4">
-            Find the tool useful? Consider donating to help keep it running!
-          </p>
-          <a href="DONATION_LINK" class="btn-donate w-full text-center block">
-            💝 Donate what you want
-          </a>
-        </div>
-      </aside>
-    </div>
+    {{TOOL_CONTENT}}
   </main>
 
   <!-- Loading Overlay -->
   <div id="loading-overlay" class="loading-overlay">
     <div class="loading-content">
       <div class="web-spinner"></div>
-      <h3 class="text-xl font-bold mt-6 text-gray-800">Merging PDFs...</h3>
-      <p class="text-gray-600 mt-2">Please wait while we combine your files</p>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">{{TOOL_LOADING_MESSAGE}}</h3>
+      <p class="text-gray-600 mt-2">{{TOOL_LOADING_SUBMESSAGE}}</p>
     </div>
   </div>
 
   <script>
     // Tool-specific configuration
     const TOOL_CONFIG = {
-      name: 'PDF Merge',
-      actionCost: 1, // Cost per merge action
-      isPremiumFeature: false, // true for Pro-only features
-      batchEnabled: true // true if tool supports batch processing
+      name: '{{TOOL_NAME}}',
+      actionCost: {{TOOL_ACTION_COST}}, // Cost per action (1 for most tools, 2 for AI/OCR)
+      isPremiumFeature: {{TOOL_IS_PREMIUM}}, // true for Pro-only features
+      batchEnabled: {{TOOL_BATCH_ENABLED}} // true if tool supports batch processing
     };
 
     // Tool-specific JavaScript
-    let pdfFiles = [];
-    let mergeCount = 0;
-
-    // File handling
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('file-input');
-    const fileSelect = document.getElementById('file-select');
-    const fileList = document.getElementById('file-list');
-    const filesContainer = document.getElementById('files-container');
-    const mergeSection = document.getElementById('merge-section');
-    const mergeBtn = document.getElementById('merge-btn');
-    const fileCount = document.getElementById('file-count');
-    const filesProcessed = document.getElementById('files-processed');
-    const totalSize = document.getElementById('total-size');
-    const lastMerge = document.getElementById('last-merge');
-
-    // Drag and drop functionality
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.classList.add('dragover');
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-      dropZone.classList.remove('dragover');
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('dragover');
-      const files = Array.from(e.dataTransfer.files).filter(file => file.type === 'application/pdf');
-      if (files.length > 0) {
-        addFiles(files);
-      } else {
-        alert('Please drop PDF files only');
-      }
-    });
-
-    // File selection
-    fileSelect.addEventListener('click', () => {
-      fileInput.click();
-    });
-
-    fileInput.addEventListener('change', (e) => {
-      const files = Array.from(e.target.files);
-      addFiles(files);
-    });
-
-    function addFiles(files) {
-      files.forEach(file => {
-        if (file.type === 'application/pdf') {
-          pdfFiles.push(file);
-        }
-      });
-      updateFileList();
-      updateStats();
-    }
-
-    function updateFileList() {
-      filesContainer.innerHTML = '';
-
-      pdfFiles.forEach((file, index) => {
-        const fileItem = document.createElement('div');
-        fileItem.className = 'file-item';
-        fileItem.innerHTML = `
-          <div class="file-info">
-            <div class="file-icon">📄</div>
-            <div class="file-details">
-              <h4>${file.name}</h4>
-              <p>${(file.size / 1024 / 1024).toFixed(2)} MB • ${index + 1}</p>
-            </div>
-          </div>
-          <button onclick="removeFile(${index})" class="text-red-500 hover:text-red-700 text-xl ml-4">×</button>
-        `;
-        filesContainer.appendChild(fileItem);
-      });
-
-      fileCount.textContent = pdfFiles.length;
-
-      if (pdfFiles.length > 0) {
-        fileList.classList.remove('hidden');
-        mergeSection.classList.remove('hidden');
-      } else {
-        fileList.classList.add('hidden');
-        mergeSection.classList.add('hidden');
-      }
-    }
-
-    function removeFile(index) {
-      pdfFiles.splice(index, 1);
-      updateFileList();
-      updateStats();
-    }
-
-    function updateStats() {
-      const totalSizeMB = pdfFiles.reduce((sum, file) => sum + file.size, 0) / 1024 / 1024;
-      totalSize.textContent = totalSizeMB.toFixed(2) + ' MB';
-      filesProcessed.textContent = mergeCount;
-    }
-
-    // Merge PDFs
-    mergeBtn.addEventListener('click', async () => {
-      if (pdfFiles.length < 2) {
-        alert('Please select at least 2 PDF files to merge');
-        return;
-      }
-
-      // Show loading overlay
-      const loadingOverlay = document.getElementById('loading-overlay');
-      loadingOverlay.classList.add('show');
-
-      try {
-        const mergedPdf = await mergePDFs(pdfFiles);
-        downloadPDF(mergedPdf, 'merged.pdf');
-
-        // Update stats
-        mergeCount++;
-        lastMerge.textContent = new Date().toLocaleTimeString();
-        updateStats();
-
-      } catch (error) {
-        alert('Error merging PDFs: ' + error.message);
-      } finally {
-        loadingOverlay.classList.remove('show');
-      }
-    });
-
-    async function mergePDFs(files) {
-      const mergedPdf = await PDFLib.PDFDocument.create();
-
-      for (const file of files) {
-        const fileBuffer = await file.arrayBuffer();
-        const pdf = await PDFLib.PDFDocument.load(fileBuffer);
-        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-        copiedPages.forEach(page => mergedPdf.addPage(page));
-      }
-
-      return await mergedPdf.save();
-    }
-
-    function downloadPDF(pdfBytes, filename) {
-      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      link.click();
-      URL.revokeObjectURL(url);
-    }
+    {{TOOL_JAVASCRIPT}}
   </script>
 
   <!-- Footer -->

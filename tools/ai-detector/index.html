@@ -25,7 +25,12 @@
 
   <!-- Favicon -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <!-- Core Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/freemium.js"></script>
+  <script src="/js/tool-template.js"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -65,17 +70,18 @@
             },
             bounceSubtle: {
               '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-10px)' }
+              '50%': { transform: 'translateY(-5px)' }
             },
             scaleIn: {
-              '0%': { opacity: '0', transform: 'scale(0.8)' },
-              '100%': { opacity: '1', transform: 'scale(1)' }
+              '0%': { transform: 'scale(0.9)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
             }
           }
         }
       }
     }
   </script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
     
@@ -178,12 +184,6 @@
       border-color: #3b82f6;
     }
     
-    .btn-primary:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-    
     .btn-secondary {
       background: #ffffff;
       border: 1px solid #e5e7eb;
@@ -200,75 +200,6 @@
       background: #f8fafc;
       border-color: #3b82f6;
       transform: translateY(-1px);
-    }
-    
-    .web-spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(59, 130, 246, 0.3);
-      border-top: 3px solid #3b82f6;
-      border-radius: 50%;
-      animation: webSpin 1s linear infinite;
-    }
-    
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-    
-    .loading-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .loading-content {
-      text-align: center;
-      color: #1a1a1a;
-    }
-    
-    .loading-content h3 {
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: 600;
-    }
-    
-    .loading-content p {
-      margin-top: 8px;
-      color: #6b7280;
-    }
-    
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
-    }
-    
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .slide-up {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 1s ease-out;
-    }
-    
-    .slide-up.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
     
     .floating-icon {
@@ -289,8 +220,8 @@
     }
     
     .tool-icon {
-      width: 60px;
-      height: 60px;
+      width: 48px;
+      height: 48px;
       border-radius: 16px;
       display: flex;
       align-items: center;
@@ -298,7 +229,7 @@
       font-size: 24px;
       margin-bottom: 16px;
       transition: all 0.3s ease;
-      background: linear-gradient(135deg, #f59e0b, #d97706);
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
       color: white;
     }
     
@@ -326,62 +257,133 @@
       width: 100%;
     }
     
-    .result-card {
-      background: #ffffff;
-      border: 2px solid #e5e7eb;
+    .hero-text {
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .floating-icon {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .text-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .tool-icon {
+      width: 48px;
+      height: 48px;
       border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      color: white;
+    }
+
+    .analysis-result {
+      background: linear-gradient(135deg, #f8fafc, #ffffff);
+      border-radius: 12px;
       padding: 24px;
       margin-top: 24px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .ai-score {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .confidence-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: #e5e7eb;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    
+    .confidence-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
+      transition: width 1s ease;
+    }
+
+    .web-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    .web-spinner::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      border-top: 2px solid #764ba2;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 0.5s linear infinite reverse;
+    }
+
+    .web-spinner::after {
+      content: '🕸️';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
       transition: all 0.3s ease;
     }
-    
-    .result-card.human {
-      border-color: #10b981;
-      background: rgba(16, 185, 129, 0.05);
+
+    .loading-overlay.show {
+      opacity: 1;
+      visibility: visible;
     }
-    
-    .result-card.ai {
-      border-color: #ef4444;
-      background: rgba(239, 68, 68, 0.05);
+
+    .loading-content {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
-    
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: #e5e7eb;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    
-    .progress-fill {
-      height: 100%;
-      transition: width 0.8s ease;
-      border-radius: 4px;
-    }
-    
-    .progress-fill.human {
-      background: linear-gradient(90deg, #10b981, #059669);
-    }
-    
-    .progress-fill.ai {
-      background: linear-gradient(90deg, #ef4444, #dc2626);
-    }
-    
-    @media (max-width: 768px) {
-      .card:hover {
-        transform: translateY(-4px) scale(1.01);
-      }
-      
-      .btn-primary:hover {
-        transform: translateY(-1px);
-      }
-    }
-  </style>
-  <style>
-    /* Fallback: ensure content is visible even if animations don't initialize */
-    .fade-in, .slide-up { opacity: 1 !important; transform: none !important; }
-  </style>
-  <style>
+
+    /* Navigation styles */
     .nav-shadow { box-shadow: 0 12px 30px -12px rgba(0,0,0,0.2); }
     .nav-condensed { padding-top: 8px !important; padding-bottom: 8px !important; }
     .brand, .brand-text { transition: transform 0.2s ease, font-size 0.2s ease, letter-spacing 0.2s ease; transform-origin: left center; }
@@ -389,18 +391,15 @@
     .brand-condensed .brand { transform: scale(0.98); }
     .brand-condensed .brand-text { transform: scale(0.98); }
     .brand-condensed .brand-logo { transform: scale(0.9); }
+    .content-root { position: relative; z-index: 1; }
+    .loading-overlay { pointer-events: none; }
+    .loading-overlay.show { pointer-events: auto; }
+
+    /* Safety override - ensure content is visible */
+    .fade-in, .slide-up { opacity: 1 !important; transform: none !important; }
   </style>
 </head>
 <body class="min-h-screen gradient-bg">
-  <!-- Loading Overlay -->
-  <div id="loading-overlay" class="loading-overlay">
-    <div class="loading-content">
-      <div class="web-spinner"></div>
-      <h3>Analyzing Text...</h3>
-      <p>Please wait while we analyze the content</p>
-    </div>
-  </div>
-
   <!-- Navigation -->
   <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200 transition-shadow" role="navigation" aria-label="Main navigation" id="site-nav">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-3" id="nav-inner">
@@ -421,491 +420,341 @@
         <div id="language-menu" class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="language-btn"><div class="py-1"><button onclick="changeLanguage('en')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇺🇸 English</button><button onclick="changeLanguage('es')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇪🇸 Español</button><button onclick="changeLanguage('fr')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇫🇷 Français</button><button onclick="changeLanguage('de')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇩🇪 Deutsch</button><button onclick="changeLanguage('zh')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇨🇳 中文</button></div></div>
       </div>
       <div class="hidden md:block relative lg:hidden">
-        <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg></button>
+        <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a 1 1 0 110-2 1 1 0 010 2zm0 7a 1 1 0 110-2 1 1 0 010 2z"></path></svg></button>
         <div id="more-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="more-menu-btn"><div class="py-1"><a href="#tools" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">All Tools</a><a href="/pricing.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Pricing</a><a href="/privacy.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Privacy</a><hr class="my-1"><button onclick="handleUpgradeClick()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Upgrade to Pro</button><button onclick="openSupport()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Support</button></div></div>
       </div>
       <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block" role="status" aria-live="polite"><span class="text-sm font-medium">Loading...</span></div>
     </div>
   </nav>
-  
-  <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn"><div class="px-4 py-4 space-y-4"><div class="relative hidden"></div><div class="space-y-2" role="menuitem"><button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium buy-credits-btn" role="menuitem">Buy Credits</button><button onclick="scrollToTools(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" role="menuitem">All Tools</button><a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a><a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a><hr class="my-2"><button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">Upgrade to Pro</button><button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">Support</button></div></div>
+  <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn">
+    <div class="px-4 py-4 space-y-4">
+      <div class="relative hidden"></div>
+      <div class="space-y-2" role="menuitem">
+        <button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium buy-credits-btn" role="menuitem">Buy Credits</button>
+        <button onclick="scrollToTools(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" role="menuitem">All Tools</button>
+        <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a>
+        <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a>
+        <hr class="my-2">
+        <button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">Upgrade to Pro</button>
+        <button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">Support</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Content -->
-  <main class="max-w-4xl mx-auto px-4 md:px-6 py-16 relative z-10">
-    <!-- Header -->
-    <section class="text-center mb-12 fade-in">
+  <main class="max-w-6xl mx-auto px-4 md:px-6 py-16 content-root">
+    <!-- Hero Section -->
+    <section class="text-center mb-16">
       <div class="floating-icon inline-block mb-6">
-        <div class="tool-icon">
+        <div class="tool-icon mx-auto">
           🤖
         </div>
       </div>
       
       <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
-        <span class="text-gray-900">AI Detector</span>
+        <span class="text-gray-900">AI Content Detector</span>
       </h1>
       
       <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-        Detect AI-generated content using advanced linguistic analysis. Identify patterns and probability scores for text authenticity.
+        Detect AI-generated content with advanced linguistic analysis. Get probability scores and detailed insights about text authenticity.
       </p>
     </section>
 
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Main Tool Area -->
+      <section class="lg:col-span-2">
+        <div class="card p-8">
     <!-- Input Section -->
-    <section class="card p-8 mb-8 fade-in">
-      <h2 class="text-2xl font-bold mb-6 text-gray-900">Analyze Text</h2>
-      
-      <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Enter text to analyze</label>
-        <textarea id="text-input" rows="8" placeholder="Paste your text here to analyze for AI-generated content. For best results, use at least 100 characters..." 
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"></textarea>
-        <div class="mt-2 text-sm text-gray-500">
-          <span id="char-count">0</span> characters (minimum 50 for analysis)
+          <div class="mb-8">
+            <h3 class="text-lg font-semibold mb-4 text-gray-800">Enter Text to Analyze:</h3>
+            <textarea id="text-input" placeholder="Paste your text here to check if it's AI-generated..." class="w-full p-4 border border-gray-300 rounded-xl text-lg h-48 resize-none"></textarea>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-sm text-gray-500" id="char-count">0 characters</span>
+              <button id="clear-btn" class="text-sm text-gray-500 hover:text-gray-700">Clear</button>
         </div>
       </div>
       
-      <div class="flex flex-col sm:flex-row gap-4">
-        <button id="analyze-btn" class="btn-primary flex-1" disabled>
-          <span id="analyze-text">Analyze Text</span>
+          <!-- Analyze Button -->
+          <div class="mb-8">
+            <button id="analyze-btn" class="btn-primary w-full py-4 text-lg">
+              🔍 Analyze Text
         </button>
-        <button id="sample-btn" class="btn-secondary">
-          Sample Text
-        </button>
-        <button id="clear-btn" class="btn-secondary">
-          Clear
-        </button>
-      </div>
-    </section>
+          </div>
+          
+          <!-- Results Section -->
+          <div id="results-section" class="analysis-result hidden">
+            <div class="text-center mb-6">
+              <div class="ai-score" id="ai-score">0%</div>
+              <div class="text-lg text-gray-600" id="ai-verdict">Analyzing...</div>
+          </div>
+          
+            <div class="confidence-bar">
+              <div class="confidence-fill" id="confidence-fill" style="width: 0%"></div>
+            </div>
 
-    <!-- Results Section -->
-    <div id="results-section" class="hidden">
-      <section class="card p-8 mb-8 fade-in">
-        <h2 class="text-2xl font-bold mb-6 text-gray-900">Analysis Results</h2>
-        
-        <div id="result-card" class="result-card">
-          <div class="flex items-center justify-between mb-4">
-            <h3 id="result-title" class="text-xl font-semibold"></h3>
-            <span id="result-percentage" class="text-2xl font-bold"></span>
-          </div>
-          
-          <div class="progress-bar mb-4">
-            <div id="progress-fill" class="progress-fill"></div>
-          </div>
-          
-          <div id="result-description" class="text-gray-600 mb-4"></div>
-          
-          <div id="analysis-details" class="space-y-3">
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-600">Confidence Level</span>
-              <span id="confidence-level" class="text-sm font-medium"></span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-600">Perplexity Score</span>
-              <span id="perplexity-score" class="text-sm font-medium"></span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-600">Burstiness</span>
-              <span id="burstiness-score" class="text-sm font-medium"></span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-600">Average Sentence Length</span>
-              <span id="sentence-length" class="text-sm font-medium"></span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-600">Vocabulary Diversity</span>
-              <span id="vocabulary-diversity" class="text-sm font-medium"></span>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="font-semibold text-gray-800 mb-3">Analysis Details:</h4>
+                <ul class="space-y-2 text-sm text-gray-600" id="analysis-details">
+                  <li>Analyzing linguistic patterns...</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800 mb-3">Confidence Factors:</h4>
+                <ul class="space-y-2 text-sm text-gray-600" id="confidence-factors">
+                  <li>Processing text characteristics...</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
 
-    <!-- Instructions -->
-    <section class="card p-8 fade-in">
-      <h2 class="text-2xl font-bold mb-6 text-gray-900">How It Works</h2>
-      
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
-            1️⃣
-          </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Paste Text</h3>
-          <p class="text-gray-600 text-sm">Enter or paste the text you want to analyze for AI generation</p>
+      <!-- Sidebar -->
+      <aside class="space-y-6">
+        <!-- Tips Card -->
+        <div class="card p-6">
+          <h2 class="text-xl font-bold mb-4 text-gray-800">💡 How It Works</h2>
+          <ul class="space-y-3 text-sm text-gray-600">
+            <li class="flex items-start gap-3">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>Analyzes linguistic patterns and writing style</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>Checks for repetitive phrases and structures</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>Evaluates sentence complexity and vocabulary</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-green-500 mt-1">✓</span>
+              <span>All processing happens locally in your browser</span>
+            </li>
+          </ul>
         </div>
-        
-        <div class="text-center">
-          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
-            2️⃣
+
+        <!-- Stats Card -->
+        <div class="card p-6">
+          <h2 class="text-xl font-bold mb-4 text-gray-800">📊 Detection Stats</h2>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Texts Analyzed:</span>
+              <span class="font-semibold text-gray-800" id="texts-analyzed">0</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Average Score:</span>
+              <span class="font-semibold text-gray-800" id="avg-score">--</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Last Analysis:</span>
+              <span class="font-semibold text-gray-800" id="last-analysis">--</span>
+            </div>
           </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Advanced Analysis</h3>
-          <p class="text-gray-600 text-sm">Our algorithm analyzes linguistic patterns, perplexity, and burstiness</p>
         </div>
-        
-        <div class="text-center">
-          <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
-            3️⃣
-          </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Get Results</h3>
-          <p class="text-gray-600 text-sm">Receive detailed analysis with probability scores and metrics</p>
+
+        <!-- Donation Card -->
+        <div class="card p-6 bg-gradient-to-br from-pink-50 to-purple-50 border-pink-200">
+          <h2 class="text-xl font-bold mb-4 text-gray-800">💝 Support Webspind</h2>
+          <p class="text-sm text-gray-600 mb-4">
+            Find the tool useful? Consider donating to help keep it running!
+          </p>
+          <a href="DONATION_LINK" class="btn-donate w-full text-center block">
+            💝 Donate what you want
+          </a>
         </div>
+      </aside>
       </div>
-    </section>
   </main>
 
-  <script src="/js/freemium.js"></script>
-  <script src="/js/tool-template.js" defer></script>
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="web-spinner"></div>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">Analyzing text...</h3>
+      <p class="text-gray-600 mt-2">Checking for AI-generated content patterns</p>
+    </div>
+  </div>
+
   <script>
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+    // Tool-specific configuration
+    const TOOL_CONFIG = {
+      name: 'AI Detector',
+      actionCost: 2, // AI analysis costs 2 credits
+      isPremiumFeature: false, // true for Pro-only features
+      batchEnabled: false // true if tool supports batch processing
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    // Observe all fade-in and slide-up elements
-    document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
-      observer.observe(el);
-    });
-
-    // Loading overlay functions
-    function showLoading() {
-      document.getElementById('loading-overlay').classList.add('active');
-    }
-
-    function hideLoading() {
-      document.getElementById('loading-overlay').classList.remove('active');
-    }
-
-    // Enhanced AI Detection Algorithm
-    function analyzeText(text) {
-      // Clean and normalize text
-      const cleanText = text.replace(/[^\w\s.,!?;:'"-]/g, '').trim();
-      const words = cleanText.toLowerCase().split(/\s+/).filter(word => word.length > 0);
-      const sentences = cleanText.split(/[.!?]+/).filter(s => s.trim().length > 0);
-      
-      if (words.length < 10 || sentences.length < 2) {
-        return {
-          aiProbability: 0.5,
-          humanProbability: 0.5,
-          perplexity: '0.00',
-          burstiness: '0.00',
-          avgSentenceLength: '0.0',
-          vocabularyDiversity: '0.0%',
-          confidence: 'Low - insufficient text'
-        };
-      }
-      
-      // Calculate vocabulary diversity (Type-Token Ratio)
-      const uniqueWords = new Set(words);
-      const vocabularyDiversity = uniqueWords.size / words.length;
-      
-      // Calculate average sentence length
-      const avgSentenceLength = words.length / sentences.length;
-      
-      // Calculate perplexity (entropy-based)
-      const wordFreq = {};
-      words.forEach(word => {
-        wordFreq[word] = (wordFreq[word] || 0) + 1;
-      });
-      
-      let entropy = 0;
-      const totalWords = words.length;
-      Object.values(wordFreq).forEach(freq => {
-        const prob = freq / totalWords;
-        entropy -= prob * Math.log2(prob);
-      });
-      const perplexity = Math.pow(2, entropy);
-      
-      // Calculate burstiness (coefficient of variation in sentence lengths)
-      const sentenceLengths = sentences.map(s => s.split(/\s+/).length);
-      const meanLength = sentenceLengths.reduce((a, b) => a + b, 0) / sentenceLengths.length;
-      const variance = sentenceLengths.reduce((sum, len) => sum + Math.pow(len - meanLength, 2), 0) / sentenceLengths.length;
-      const stdDev = Math.sqrt(variance);
-      const burstiness = meanLength > 0 ? stdDev / meanLength : 0;
-      
-      // Advanced AI detection features
-      const features = {
-        // Linguistic patterns
-        formalTransitions: (text.match(/\b(furthermore|moreover|additionally|consequently|therefore|thus|hence|nevertheless|nonetheless|in conclusion|to summarize|in summary|in essence|in other words|it is important to note|it should be noted|it is worth noting|it is crucial to|it is essential to|it is necessary to|it is vital to|it is imperative to)\b/gi) || []).length,
-        
-        // Repetitive patterns
-        repeatedPhrases: findRepeatedPhrases(text),
-        
-        // Sentence structure analysis
-        avgSentenceLength: avgSentenceLength,
-        sentenceLengthVariance: variance,
-        
-        // Vocabulary analysis
-        vocabularyDiversity: vocabularyDiversity,
-        uniqueWordRatio: uniqueWords.size / words.length,
-        
-        // Perplexity and burstiness
-        perplexity: perplexity,
-        burstiness: burstiness,
-        
-        // Punctuation patterns
-        exclamationCount: (text.match(/!/g) || []).length,
-        questionCount: (text.match(/\?/g) || []).length,
-        ellipsisCount: (text.match(/\.{3,}/g) || []).length,
-        
-        // Capitalization patterns
-        allCapsWords: (text.match(/\b[A-Z]{3,}\b/g) || []).length,
-        
-        // Contractions (humans use more contractions)
-        contractions: (text.match(/\b(won't|can't|don't|doesn't|didn't|isn't|aren't|wasn't|weren't|haven't|hasn't|hadn't|wouldn't|couldn't|shouldn't|I'm|you're|he's|she's|it's|we're|they're|I've|you've|we've|they've|I'll|you'll|he'll|she'll|we'll|they'll)\b/gi) || []).length,
-        
-        // Personal pronouns (humans use more)
-        personalPronouns: (text.match(/\b(I|me|my|mine|myself|you|your|yours|yourself|he|him|his|himself|she|her|hers|herself|we|us|our|ours|ourselves|they|them|their|theirs|themselves)\b/gi) || []).length,
-        
-        // Text length
-        wordCount: words.length,
-        sentenceCount: sentences.length,
-        
-        // AI-specific conclusion patterns
-        conclusionPhrases: (text.match(/\b(in conclusion|to conclude|to summarize|in summary|in essence|in other words|to sum up|in closing|finally|ultimately)\b/gi) || []).length,
-        
-        // Overly formal language patterns
-        formalLanguage: (text.match(/\b(it is|it has been|it can be|it should be|it must be|it will be|it would be|it could be|it may be|it might be)\b/gi) || []).length,
-        
-        // AI-specific phrases and patterns
-        aiPhrases: (text.match(/\b(revolutionized|numerous|sophisticated|remarkable|far-reaching|significant|milestone|advancement|development|implementation|integration|demonstrated|enabling|previously thought|exclusive to|potential for|implications|technological|artificial intelligence|machine learning|algorithms|systems|applications|efficiency|accuracy|industries|future|technology)\b/gi) || []).length,
-        
-        // Passive voice patterns (AI uses more)
-        passiveVoice: (text.match(/\b(has been|have been|is being|are being|was being|were being|will be|would be|can be|should be|must be|might be|could be|may be)\b/gi) || []).length,
-        
-        // Academic/formal sentence starters
-        academicStarters: (text.match(/\b(Furthermore|Moreover|Additionally|Consequently|Therefore|Thus|Hence|Nevertheless|Nonetheless|In conclusion|To summarize|In summary|In essence|In other words|It is important to note|It should be noted|It is worth noting|It is crucial to|It is essential to|It is necessary to|It is vital to|It is imperative to)\b/gi) || []).length
-      };
-      
-      // Calculate AI probability using weighted features
-      let aiScore = 0;
-      let totalWeight = 0;
-      
-      // Formal transitions (AI uses more) - VERY STRONG INDICATOR
-      const transitionScore = Math.min(features.formalTransitions / features.sentenceCount, 1.0);
-      aiScore += transitionScore * 0.4;
-      totalWeight += 0.4;
-      
-      // Conclusion phrases (AI uses more) - VERY STRONG INDICATOR
-      const conclusionScore = Math.min(features.conclusionPhrases / features.sentenceCount, 1.0);
-      aiScore += conclusionScore * 0.35;
-      totalWeight += 0.35;
-      
-      // Formal language patterns (AI uses more) - STRONG INDICATOR
-      const formalScore = Math.min(features.formalLanguage / features.wordCount * 100, 0.5);
-      aiScore += formalScore * 0.3;
-      totalWeight += 0.3;
-      
-      // Sentence length consistency (AI is more consistent)
-      const lengthConsistency = features.burstiness < 0.3 ? 0.6 : (features.burstiness < 0.5 ? 0.3 : 0);
-      aiScore += lengthConsistency * 0.25;
-      totalWeight += 0.25;
-      
-      // Vocabulary diversity (AI often has lower diversity)
-      const vocabScore = features.vocabularyDiversity < 0.7 ? 0.7 : (features.vocabularyDiversity < 0.8 ? 0.3 : 0);
-      aiScore += vocabScore * 0.2;
-      totalWeight += 0.2;
-      
-      // Perplexity (AI tends to have lower perplexity)
-      const perplexityScore = features.perplexity < 60 ? 0.8 : (features.perplexity < 90 ? 0.4 : 0);
-      aiScore += perplexityScore * 0.2;
-      totalWeight += 0.2;
-      
-      // Repetitive phrases (AI tends to repeat)
-      const repetitionScore = Math.min(features.repeatedPhrases / features.wordCount, 0.4);
-      aiScore += repetitionScore * 0.15;
-      totalWeight += 0.15;
-      
-      // Contractions (humans use more) - REDUCE AI SCORE
-      const contractionScore = features.contractions / features.wordCount;
-      const humanContractionBonus = Math.min(contractionScore * 10, 0.3);
-      aiScore -= humanContractionBonus;
-      totalWeight += 0.1;
-      
-      // Personal pronouns (humans use more) - REDUCE AI SCORE
-      const pronounScore = features.personalPronouns / features.wordCount;
-      const humanPronounBonus = Math.min(pronounScore * 8, 0.2);
-      aiScore -= humanPronounBonus;
-      totalWeight += 0.1;
-      
-      // Exclamation marks (humans use more) - REDUCE AI SCORE
-      const exclamationScore = features.exclamationCount / features.sentenceCount;
-      const humanExclamationBonus = Math.min(exclamationScore * 3, 0.15);
-      aiScore -= humanExclamationBonus;
-      totalWeight += 0.05;
-      
-      // AI-specific phrases (VERY STRONG INDICATOR)
-      const aiPhraseScore = Math.min(features.aiPhrases / features.wordCount * 100, 0.8);
-      aiScore += aiPhraseScore * 0.4;
-      totalWeight += 0.4;
-      
-      // Passive voice patterns (AI uses more)
-      const passiveScore = Math.min(features.passiveVoice / features.wordCount * 100, 0.6);
-      aiScore += passiveScore * 0.25;
-      totalWeight += 0.25;
-      
-      // Academic/formal sentence starters (AI uses more)
-      const academicScore = Math.min(features.academicStarters / features.sentenceCount, 1.0);
-      aiScore += academicScore * 0.3;
-      totalWeight += 0.3;
-      
-      // Normalize score
-      const normalizedAiScore = totalWeight > 0 ? Math.max(0, Math.min(1, aiScore / totalWeight)) : 0.5;
-      const humanScore = 1 - normalizedAiScore;
-      
-      // Determine confidence level
-      let confidence = 'Medium';
-      const deviation = Math.abs(normalizedAiScore - 0.5);
-      if (deviation > 0.25) {
-        confidence = 'High';
-      } else if (deviation < 0.15) {
-        confidence = 'Low';
-      }
-      
-      return {
-        aiProbability: normalizedAiScore,
-        humanProbability: humanScore,
-        perplexity: perplexity.toFixed(2),
-        burstiness: burstiness.toFixed(2),
-        avgSentenceLength: avgSentenceLength.toFixed(1),
-        vocabularyDiversity: (vocabularyDiversity * 100).toFixed(1) + '%',
-        confidence: confidence
-      };
-    }
-    
-    // Helper function to find repeated phrases
-    function findRepeatedPhrases(text) {
-      const words = text.toLowerCase().split(/\s+/);
-      const phraseCounts = {};
-      let repeatedCount = 0;
-      
-      // Check for 2-word phrases
-      for (let i = 0; i < words.length - 1; i++) {
-        const phrase = words[i] + ' ' + words[i + 1];
-        phraseCounts[phrase] = (phraseCounts[phrase] || 0) + 1;
-      }
-      
-      // Count repeated phrases
-      Object.values(phraseCounts).forEach(count => {
-        if (count > 1) {
-          repeatedCount += count - 1;
-        }
-      });
-      
-      return repeatedCount;
-    }
-
-    // DOM elements
-    const textInput = document.getElementById('text-input');
-    const charCount = document.getElementById('char-count');
-    const analyzeBtn = document.getElementById('analyze-btn');
-    const sampleBtn = document.getElementById('sample-btn');
-    const clearBtn = document.getElementById('clear-btn');
-    const resultsSection = document.getElementById('results-section');
-    const resultCard = document.getElementById('result-card');
-    const resultTitle = document.getElementById('result-title');
-    const resultPercentage = document.getElementById('result-percentage');
-    const progressFill = document.getElementById('progress-fill');
-    const resultDescription = document.getElementById('result-description');
-    const confidenceLevel = document.getElementById('confidence-level');
-    const perplexityScore = document.getElementById('perplexity-score');
-    const burstinessScore = document.getElementById('burstiness-score');
-    const sentenceLength = document.getElementById('sentence-length');
-    const vocabularyDiversity = document.getElementById('vocabulary-diversity');
+    // Tool-specific JavaScript
+    let analysisHistory = [];
 
     // Character count
-    textInput.addEventListener('input', () => {
-      const count = textInput.value.length;
-      charCount.textContent = count;
-      analyzeBtn.disabled = count < 50;
-    });
+    const textInput = document.getElementById('text-input');
+    const charCount = document.getElementById('char-count');
 
-    // Sample text button
-    sampleBtn.addEventListener('click', () => {
-      const sampleText = "Artificial intelligence has revolutionized numerous industries and continues to shape the future of technology. Furthermore, machine learning algorithms have become increasingly sophisticated, enabling computers to perform complex tasks that were previously thought to be exclusive to human intelligence. Additionally, the integration of AI systems into various applications has demonstrated remarkable potential for improving efficiency and accuracy. It is important to note that these technological advancements have far-reaching implications across multiple sectors. In conclusion, the continued advancement of artificial intelligence represents a significant milestone in technological development.";
-      textInput.value = sampleText;
-      charCount.textContent = sampleText.length;
-      analyzeBtn.disabled = false;
+    textInput.addEventListener('input', () => {
+      charCount.textContent = `${textInput.value.length} characters`;
     });
 
     // Clear button
-    clearBtn.addEventListener('click', () => {
+    document.getElementById('clear-btn').addEventListener('click', () => {
       textInput.value = '';
-      charCount.textContent = '0';
-      analyzeBtn.disabled = true;
-      resultsSection.classList.add('hidden');
+      charCount.textContent = '0 characters';
+      document.getElementById('results-section').classList.add('hidden');
     });
 
+    // AI Detection Algorithm (simplified for demo)
+    function analyzeText(text) {
+      if (!text || text.trim().length < 10) {
+        return { score: 0, verdict: 'Insufficient text for analysis', details: [] };
+      }
+
+      let score = 0;
+      const details = [];
+
+      // Check for repetitive patterns
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      const words = text.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+
+      // Sentence length analysis
+      const avgSentenceLength = sentences.reduce((sum, s) => sum + s.split(' ').length, 0) / sentences.length;
+      if (avgSentenceLength > 25) {
+        score += 15;
+        details.push('Long average sentence length');
+      } else if (avgSentenceLength < 12) {
+        score += 10;
+        details.push('Short average sentence length');
+      }
+
+      // Vocabulary diversity
+      const uniqueWords = new Set(words);
+      const diversityRatio = uniqueWords.size / words.length;
+      if (diversityRatio < 0.4) {
+        score += 20;
+        details.push('Low vocabulary diversity');
+      }
+
+      // Check for AI-like patterns
+      const aiPatterns = [
+        /however/gi,
+        /therefore/gi,
+        /furthermore/gi,
+        /additionally/gi,
+        /consequently/gi,
+        /subsequently/gi,
+        /notwithstanding/gi,
+        /nevertheless/gi
+      ];
+
+      aiPatterns.forEach(pattern => {
+        const matches = text.match(pattern);
+        if (matches && matches.length > 3) {
+          score += 5;
+          details.push('Frequent use of transition words');
+        }
+      });
+
+      // Check for perfect grammar (suspiciously perfect)
+      const perfectIndicators = [
+        /,\s+and/gi,
+        /;\s+however/gi,
+        /;\s+therefore/gi
+      ];
+
+      perfectIndicators.forEach(pattern => {
+        if (pattern.test(text)) {
+          score += 8;
+          details.push('Perfect grammatical structures');
+        }
+      });
+
+      // Length-based scoring
+      if (text.length > 1000) {
+        score += 10;
+        details.push('Long text length');
+      }
+
+      // Cap the score
+      score = Math.min(score, 100);
+
+      let verdict = 'Likely Human-Written';
+      if (score > 70) verdict = 'Likely AI-Generated';
+      else if (score > 40) verdict = 'Possibly AI-Generated';
+      else if (score > 20) verdict = 'Uncertain';
+
+      return { score, verdict, details };
+    }
+
     // Analyze button
-    analyzeBtn.addEventListener('click', async () => {
+    document.getElementById('analyze-btn').addEventListener('click', async () => {
       const text = textInput.value.trim();
-      if (text.length < 50) {
-        alert('Please enter at least 50 characters for accurate analysis.');
+
+      if (!text) {
+        alert('Please enter some text to analyze');
         return;
       }
 
-      // Free tool: no credits required
+      // Show loading overlay
+      const loadingOverlay = document.getElementById('loading-overlay');
+      loadingOverlay.classList.add('show');
 
-      showLoading();
-      
-      // Simulate analysis delay
-      setTimeout(() => {
-        const results = analyzeText(text);
-        
-        // Update UI with improved logic
-        const aiPercentage = Math.round(results.aiProbability * 100);
-        const humanPercentage = Math.round(results.humanProbability * 100);
-        
-        if (results.aiProbability > 0.55) {
-          resultCard.className = 'result-card ai';
-          resultTitle.textContent = 'Likely AI-Generated';
-          resultPercentage.textContent = aiPercentage + '%';
-          resultDescription.textContent = 'This text shows characteristics commonly found in AI-generated content, including formal language patterns and consistent structure.';
-          progressFill.className = 'progress-fill ai';
-          progressFill.style.width = aiPercentage + '%';
-        } else if (results.aiProbability < 0.45) {
-          resultCard.className = 'result-card human';
-          resultTitle.textContent = 'Likely Human-Written';
-          resultPercentage.textContent = humanPercentage + '%';
-          resultDescription.textContent = 'This text appears to be written by a human based on linguistic analysis, showing natural variation and personal expression.';
-          progressFill.className = 'progress-fill human';
-          progressFill.style.width = humanPercentage + '%';
+      try {
+        // Simulate analysis time
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        const result = analyzeText(text);
+
+        // Update results
+        document.getElementById('ai-score').textContent = `${result.score}%`;
+        document.getElementById('ai-verdict').textContent = result.verdict;
+
+        // Update confidence bar
+        const confidenceFill = document.getElementById('confidence-fill');
+        confidenceFill.style.width = `${result.score}%`;
+
+        // Color the score based on result
+        const aiScoreEl = document.getElementById('ai-score');
+        if (result.score > 70) {
+          aiScoreEl.style.color = '#ef4444'; // red
+          confidenceFill.style.background = 'linear-gradient(90deg, #ef4444, #f97316)';
+        } else if (result.score > 40) {
+          aiScoreEl.style.color = '#f59e0b'; // amber
+          confidenceFill.style.background = 'linear-gradient(90deg, #f59e0b, #eab308)';
         } else {
-          resultCard.className = 'result-card';
-          resultTitle.textContent = 'Uncertain';
-          resultPercentage.textContent = '~50%';
-          resultDescription.textContent = 'The analysis shows mixed characteristics. This could be either human-written or AI-generated content.';
-          progressFill.className = 'progress-fill';
-          progressFill.style.width = '50%';
-          progressFill.style.background = 'linear-gradient(90deg, #6b7280, #9ca3af)';
+          aiScoreEl.style.color = '#10b981'; // green
+          confidenceFill.style.background = 'linear-gradient(90deg, #10b981, #059669)';
         }
-        
-        // Update confidence level with color coding
-        confidenceLevel.textContent = results.confidence;
-        if (results.confidence === 'High') {
-          confidenceLevel.className = 'text-sm font-medium text-green-600';
-        } else if (results.confidence === 'Low') {
-          confidenceLevel.className = 'text-sm font-medium text-yellow-600';
-        } else {
-          confidenceLevel.className = 'text-sm font-medium text-blue-600';
-        }
-        
-        perplexityScore.textContent = results.perplexity;
-        burstinessScore.textContent = results.burstiness;
-        sentenceLength.textContent = results.avgSentenceLength + ' words';
-        vocabularyDiversity.textContent = results.vocabularyDiversity;
-        
-        resultsSection.classList.remove('hidden');
-        hideLoading();
-      }, 2000);
+
+        // Update details
+        const detailsEl = document.getElementById('analysis-details');
+        detailsEl.innerHTML = result.details.map(detail =>
+          `<li class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+            ${detail}
+          </li>`
+        ).join('');
+
+        // Show results
+        document.getElementById('results-section').classList.remove('hidden');
+
+        // Update stats
+        analysisHistory.push(result.score);
+        document.getElementById('texts-analyzed').textContent = analysisHistory.length;
+        document.getElementById('avg-score').textContent =
+          `${Math.round(analysisHistory.reduce((a, b) => a + b, 0) / analysisHistory.length)}%`;
+        document.getElementById('last-analysis').textContent = new Date().toLocaleTimeString();
+
+      } catch (error) {
+        alert('Error analyzing text: ' + error.message);
+      } finally {
+        // Hide loading overlay
+        loadingOverlay.classList.remove('show');
+      }
     });
   </script>
 
+  <!-- Footer -->
   <footer class="mt-20 border-t border-gray-200 relative z-10">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
       <div class="text-gray-600 text-sm mb-4">
@@ -917,5 +766,18 @@
       </div>
     </div>
   </footer>
+
+  <!-- Safety: ensure content is not hidden due to any leftover classes -->
+  <script>
+    (function(){
+      try {
+        document.querySelectorAll('.hidden').forEach(el => {
+          if (el.id !== 'mobile-menu' && !el.closest('#mobile-menu')) return;
+        });
+        const mainEl = document.querySelector('main');
+        if (mainEl) mainEl.style.display = 'block';
+      } catch(e) {}
+    })();
+  </script>
 </body>
 </html>

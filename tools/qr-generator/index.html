@@ -370,6 +370,9 @@
     .brand-condensed .brand { transform: scale(0.98); }
     .brand-condensed .brand-text { transform: scale(0.98); }
     .brand-condensed .brand-logo { transform: scale(0.9); }
+    .content-root { position: relative; z-index: 1; }
+    .loading-overlay { pointer-events: none; }
+    .loading-overlay.show { pointer-events: auto; }
   </style>
 </head>
 <body class="min-h-screen gradient-bg">
@@ -403,7 +406,7 @@
   
 
   <!-- Main Content -->
-  <main class="max-w-6xl mx-auto px-4 md:px-6 py-16">
+  <main class="max-w-6xl mx-auto px-4 md:px-6 py-16 content-root">
     <!-- Hero Section -->
     <section class="text-center mb-16">
       <div class="floating-icon inline-block mb-6">
@@ -733,5 +736,17 @@
       </div>
     </div>
   </footer>
+  <script>
+    // Safety: ensure content is not hidden due to any leftover classes
+    (function(){
+      try {
+        document.querySelectorAll('.hidden').forEach(el => {
+          if (el.id !== 'mobile-menu' && !el.closest('#mobile-menu')) return;
+        });
+        const mainEl = document.querySelector('main');
+        if (mainEl) mainEl.style.display = 'block';
+      } catch(e) {}
+    })();
+  </script>
 </body>
 </html>
