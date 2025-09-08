@@ -195,18 +195,18 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
   <!-- Navigation -->
-  <nav class="bg-white shadow-sm border-b">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <div class="flex items-center">
-          <a href="/" class="text-2xl font-bold text-gray-900">Webspind</a>
-        </div>
-        <div class="flex items-center space-x-4">
-          <div id="quota-badge" class="text-sm text-gray-600"></div>
-          <button class="buy-credits-btn bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200">
-            Buy Credits
-          </button>
-        </div>
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo"><img src="/assets/webspind-logo.svg" alt="" class="inline-block h-6 w-6 mr-1 align-[-2px]"> Webspind</a>
+      <div class="hidden lg:flex items-center gap-6 ml-8">
+        <a href="/" class="text-sm text-gray-700 hover:text-gray-900 nav-link">All Tools</a>
+        <a href="/pricing.html" class="text-sm text-gray-700 hover:text-gray-900 nav-link">Pricing</a>
+        <a href="/privacy.html" class="text-sm text-gray-700 hover:text-gray-900 nav-link">Privacy</a>
+      </div>
+      <div class="hidden md:flex items-center gap-3">
+        <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block"><span class="text-sm font-medium">Loading...</span></div>
+        <button class="buy-credits-btn bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors" aria-label="Buy credits">Buy Credits</button>
+        <button onclick="handleUpgradeClick()" class="btn-primary pulse-glow upgrade-btn" aria-label="Upgrade to Pro plan">Upgrade to Pro</button>
       </div>
     </div>
   </nav>

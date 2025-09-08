@@ -332,14 +332,18 @@
   <!-- Navigation -->
   <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
-      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo">Webspind</a>
-      <div class="hidden md:flex items-center gap-6 text-sm">
-        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/">Tools</a>
-        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/privacy.html">Privacy</a>
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo"><img src="/assets/webspind-logo.svg" alt="" class="inline-block h-6 w-6 mr-1 align-[-2px]"> Webspind</a>
+      <div class="hidden lg:flex items-center gap-6 ml-8">
+        <a href="/" class="text-sm text-gray-700 hover:text-gray-900 nav-link">All Tools</a>
+        <a href="/pricing.html" class="text-sm text-gray-700 hover:text-gray-900 nav-link">Pricing</a>
+        <a href="/privacy.html" class="text-sm text-gray-700 hover:text-gray-900 nav-link">Privacy</a>
       </div>
-      <a href="/" class="btn-secondary">
-        ← Back to Tools
-      </a>
+      <div class="hidden md:flex items-center gap-3">
+        <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block"><span class="text-sm font-medium">Loading...</span></div>
+        <button class="buy-credits-btn bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors" aria-label="Buy credits">Buy Credits</button>
+        <button onclick="handleUpgradeClick()" class="btn-primary pulse-glow upgrade-btn" aria-label="Upgrade to Pro plan">Upgrade to Pro</button>
+        <a href="/" class="btn-secondary">← Back to Tools</a>
+      </div>
     </div>
   </nav>
 
