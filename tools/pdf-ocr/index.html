@@ -53,6 +53,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -471,7 +472,7 @@
       </h1>
       
       <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-        Convert unreadable PDFs to copyable text! Extract text from scanned PDFs and make them searchable, readable, and copyable instantly.
+        Convert unreadable PDFs to searchable documents! Extract text from scanned PDFs and create a new PDF with embedded, selectable text.
       </p>
     </section>
 
@@ -482,7 +483,7 @@
       <div id="drop-zone" class="drop-zone">
         <div class="text-4xl mb-4">📁</div>
         <h3 class="text-lg font-semibold text-gray-700 mb-2">Drop your unreadable PDF here</h3>
-        <p class="text-gray-500 mb-4">or click to browse files and make them copyable</p>
+        <p class="text-gray-500 mb-4">or click to browse files and make them searchable</p>
         <input type="file" id="file-input" accept=".pdf" class="hidden">
         <button id="browse-btn" class="btn-primary">Browse Files</button>
         <p class="text-sm text-gray-400 mt-4">Supports PDF files up to 10MB</p>
@@ -533,7 +534,7 @@
       
       <div class="mt-6">
         <button id="process-btn" class="btn-primary w-full" disabled>
-          <span id="process-text">Make PDF Readable & Copyable</span>
+          <span id="process-text">Make PDF Searchable & Readable</span>
         </button>
       </div>
     </section>
@@ -541,14 +542,14 @@
     <!-- Results Section -->
     <div id="results-section" class="hidden">
       <section class="card p-8 mb-8 fade-in">
-        <h2 class="text-2xl font-bold mb-6 text-gray-900">Your PDF is Now Readable & Copyable!</h2>
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">Your PDF is Now Searchable & Readable!</h2>
         
         <div id="result-card" class="result-card">
           <div class="flex items-center justify-between mb-4">
             <h3 id="result-title" class="text-xl font-semibold"></h3>
             <div class="flex gap-2">
               <button id="copy-text" class="btn-secondary text-sm">Copy Text</button>
-              <button id="download-text" class="btn-secondary text-sm">Download</button>
+              <button id="download-pdf" class="btn-primary text-sm">Download PDF</button>
             </div>
           </div>
           
@@ -585,7 +586,7 @@
       <div class="prose max-w-none text-gray-700">
         <p class="text-lg mb-4">
           <strong>Have a PDF that you can't copy text from?</strong> Our free PDF OCR tool solves this problem instantly. 
-          Whether your PDF is scanned, image-based, or simply unreadable, we can make it copyable and searchable.
+          Whether your PDF is scanned, image-based, or simply unreadable, we can make it searchable and copyable by creating a new PDF with embedded text.
         </p>
         
         <div class="grid md:grid-cols-2 gap-6 mb-6">
@@ -640,16 +641,16 @@
           <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
             2️⃣
           </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Make PDF Readable</h3>
-          <p class="text-gray-600 text-sm">Our OCR engine converts your PDF to readable, copyable text using advanced recognition</p>
+          <h3 class="font-semibold mb-2 text-gray-900">Make PDF Searchable</h3>
+          <p class="text-gray-600 text-sm">Our OCR engine extracts text and creates a new PDF with embedded, selectable text</p>
         </div>
         
         <div class="text-center">
           <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
             3️⃣
           </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Copy & Use Text</h3>
-          <p class="text-gray-600 text-sm">Copy, download, or search through your now-readable PDF text content</p>
+          <h3 class="font-semibold mb-2 text-gray-900">Download & Use PDF</h3>
+          <p class="text-gray-600 text-sm">Download your new searchable PDF or copy text directly from it</p>
         </div>
       </div>
     </section>
@@ -690,7 +691,7 @@
     const resultTitle = document.getElementById('result-title');
     const extractedText = document.getElementById('extracted-text');
     const copyText = document.getElementById('copy-text');
-    const downloadText = document.getElementById('download-text');
+    const downloadPdf = document.getElementById('download-pdf');
     const pagesProcessed = document.getElementById('pages-processed');
     const processingTime = document.getElementById('processing-time');
     const textLength = document.getElementById('text-length');
@@ -702,6 +703,7 @@
 
     let selectedFile = null;
     let extractedTextContent = '';
+    let processedPdfBytes = null;
 
     // Loading overlay functions
     function showLoading(title = 'Processing PDF...', message = 'Please wait while we extract text from your PDF') {
@@ -788,24 +790,26 @@
       });
     });
 
-    // Download text
-    downloadText.addEventListener('click', () => {
-      const blob = new Blob([extractedTextContent], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = selectedFile.name.replace('.pdf', '_extracted.txt');
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+    // Download PDF
+    downloadPdf.addEventListener('click', () => {
+      if (processedPdfBytes) {
+        const blob = new Blob([processedPdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = selectedFile.name.replace('.pdf', '_readable.pdf');
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
     });
 
     // Process PDF
     processBtn.addEventListener('click', async () => {
       if (!selectedFile) return;
 
-      showLoading('Processing PDF...', 'Extracting text from your PDF file');
+      showLoading('Processing PDF...', 'Making your PDF readable and copyable');
       updateProgress(0);
 
       try {
@@ -814,13 +818,17 @@
         let totalPages = 0;
         let totalConfidence = 0;
 
-        // Convert PDF to images and process with OCR
+        // Load the original PDF with PDF-lib
         const pdfData = await selectedFile.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(pdfData);
+        const pages = pdfDoc.getPages();
+        totalPages = pages.length;
+
+        // Also load with PDF.js for rendering
         const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
-        totalPages = pdf.numPages;
 
         for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-          updateProgress((pageNum / totalPages) * 80);
+          updateProgress((pageNum / totalPages) * 70);
           loadingMessage.textContent = `Processing page ${pageNum} of ${totalPages}...`;
 
           const page = await pdf.getPage(pageNum);
@@ -846,7 +854,7 @@
             {
               logger: m => {
                 if (m.status === 'recognizing text') {
-                  updateProgress(80 + (m.progress * 20));
+                  updateProgress(70 + (m.progress * 20));
                 }
               }
             }
@@ -854,7 +862,36 @@
 
           allText += text + '\n\n';
           totalConfidence += confidence;
+
+          // Add invisible text layer to the PDF page
+          if (text.trim()) {
+            const pdfPage = pages[pageNum - 1];
+            const { width, height } = pdfPage.getSize();
+            
+            // Split text into lines and add them to the PDF
+            const lines = text.split('\n').filter(line => line.trim());
+            const fontSize = 12;
+            const lineHeight = fontSize * 1.2;
+            
+            lines.forEach((line, lineIndex) => {
+              if (line.trim()) {
+                pdfPage.drawText(line.trim(), {
+                  x: 50,
+                  y: height - 50 - (lineIndex * lineHeight),
+                  size: fontSize,
+                  color: PDFLib.rgb(0, 0, 0),
+                  opacity: 0, // Make text invisible but selectable
+                });
+              }
+            });
+          }
         }
+
+        updateProgress(95);
+        loadingMessage.textContent = 'Creating your readable PDF...';
+
+        // Save the modified PDF
+        processedPdfBytes = await pdfDoc.save();
 
         const endTime = Date.now();
         const processingTimeMs = endTime - startTime;
@@ -868,7 +905,7 @@
         confidenceScore.textContent = Math.round(totalConfidence / totalPages) + '%';
 
         resultCard.className = 'result-card success';
-        resultTitle.textContent = 'Text Extraction Complete';
+        resultTitle.textContent = 'PDF Made Searchable & Readable!';
         
         resultsSection.classList.remove('hidden');
         hideLoading();

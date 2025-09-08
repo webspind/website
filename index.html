@@ -3,11 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com https://storage.ko-fi.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.webspind.com https://ko-fi.com; frame-src https://ko-fi.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <title>Webspind - Free Professional PDF Tools, OCR, Image Converter, QR Generator & AI Detector | 100% Private</title>
   <meta name="description" content="Free professional tools: PDF merge, split, rotate, OCR, image converter, QR generator, text toolkit, and AI detector. 100% secure, private, browser-based processing. No uploads required. Used by 50,000+ users monthly.">
   <meta name="keywords" content="free PDF tools, PDF merge, PDF split, PDF rotate, PDF OCR, make PDF readable, make PDF copyable, image converter, QR generator, text tools, AI detector, document processing, online PDF editor, image format converter, QR code generator, AI content detector, text processing, professional tools, browser-based tools, secure PDF tools, private document processing, offline PDF tools, no registration required, instant PDF processing">
   <meta name="author" content="Webspind">
-  <meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow">
+  <meta name="bingbot" content="index, follow">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://webspind.com/">
+  
+  <!-- Language and locale -->
+  <meta name="language" content="en">
+  <meta name="geo.region" content="US">
+  <meta name="geo.placename" content="United States">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -15,13 +30,21 @@
   <meta property="og:title" content="Webspind - Professional PDF Tools, OCR, Image Converter, QR Generator & AI Detector">
   <meta property="og:description" content="Free professional tools: PDF merge, split, rotate, OCR, image converter, QR generator, text toolkit, and AI detector. Secure, private, browser-based document processing.">
   <meta property="og:image" content="https://webspind.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Webspind Professional Tools - Free PDF, Image, and Text Processing Tools">
+  <meta property="og:site_name" content="Webspind">
+  <meta property="og:locale" content="en_US">
 
   <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://webspind.com/">
-  <meta property="twitter:title" content="Webspind - Professional PDF Tools, OCR, Image Converter, QR Generator & AI Detector">
-  <meta property="twitter:description" content="Free professional tools: PDF merge, split, rotate, OCR, image converter, QR generator, text toolkit, and AI detector. Secure, private, browser-based document processing.">
-  <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://webspind.com/">
+  <meta name="twitter:title" content="Webspind - Professional PDF Tools, OCR, Image Converter, QR Generator & AI Detector">
+  <meta name="twitter:description" content="Free professional tools: PDF merge, split, rotate, OCR, image converter, QR generator, text toolkit, and AI detector. Secure, private, browser-based document processing.">
+  <meta name="twitter:image" content="https://webspind.com/og-image.jpg">
+  <meta name="twitter:image:alt" content="Webspind Professional Tools - Free PDF, Image, and Text Processing Tools">
+  <meta name="twitter:creator" content="@webspind">
+  <meta name="twitter:site" content="@webspind">
 
   <!-- Favicon and PWA Icons -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -109,22 +132,63 @@
         "@type": "UseAction", 
         "target": "https://webspind.com/tools/qr-generator/",
         "name": "Generate QR Codes"
+      },
+      {
+        "@type": "UseAction",
+        "target": "https://webspind.com/tools/pdf-ocr/",
+        "name": "Extract Text from PDF"
+      },
+      {
+        "@type": "UseAction",
+        "target": "https://webspind.com/tools/ai-detector/",
+        "name": "Detect AI-Generated Content"
       }
-    ]
+    ],
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "Professional Tools",
+      "itemListElement": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "PDF Merge",
+          "url": "https://webspind.com/tools/pdf-merge/",
+          "description": "Combine multiple PDF documents into a single file"
+        },
+        {
+          "@type": "SoftwareApplication", 
+          "name": "PDF Split",
+          "url": "https://webspind.com/tools/pdf-split/",
+          "description": "Extract specific pages or page ranges from PDF documents"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "AI Detector",
+          "url": "https://webspind.com/tools/ai-detector/",
+          "description": "Detect AI-generated content using linguistic analysis"
+        }
+      ]
+    }
   }
   </script>
   
   <!-- Preload critical resources -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style">
-  <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"></noscript>
   
   <!-- DNS prefetch for external resources -->
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link rel="dns-prefetch" href="//storage.ko-fi.com">
   <link rel="dns-prefetch" href="//ko-fi.com">
+  <link rel="dns-prefetch" href="//unpkg.com">
   
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/js/freemium.js"></script>
+  <!-- Preconnect to critical domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script src="/js/freemium.js" defer></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js' defer></script>
   <script>
     tailwind.config = {
       theme: {
@@ -197,8 +261,7 @@
   </script>
   
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-    
+    /* Critical CSS - inline for faster loading */
     * {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
@@ -547,6 +610,51 @@
       display: none;
     }
     
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    
+    /* Performance optimizations */
+    .lazy {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .lazy.loaded {
+      opacity: 1;
+    }
+    
+    /* Optimize animations for better performance */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    
+    /* GPU acceleration for smooth animations */
+    .card,
+    .btn-primary,
+    .btn-secondary,
+    .floating-icon,
+    .web-spinner {
+      will-change: transform;
+      transform: translateZ(0);
+    }
+    
+    /* Mobile optimizations */
     @media (max-width: 768px) {
       .card:hover {
         transform: translateY(-4px) scale(1.01);
@@ -559,78 +667,129 @@
       .btn-donate:hover {
         transform: translateY(-2px) scale(1.02);
       }
+      
+      /* Improve touch targets */
+      .btn-primary,
+      .btn-secondary,
+      .category-btn {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      /* Better spacing on mobile */
+      .card {
+        margin-bottom: 1rem;
+      }
+      
+      /* Optimize text sizes */
+      h1 {
+        font-size: 2.5rem;
+        line-height: 1.1;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      /* Improve form inputs */
+      input, select, textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+    }
+    
+    /* Tablet optimizations */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .grid.grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+    
+    /* Large screen optimizations */
+    @media (min-width: 1025px) {
+      .max-w-7xl {
+        max-width: 80rem;
+      }
     }
   </style>
 </head>
 <body class="min-h-screen gradient-bg">
   <!-- Loading Overlay -->
-  <div id="loading-overlay" class="loading-overlay">
+  <div id="loading-overlay" class="loading-overlay" role="dialog" aria-modal="true" aria-labelledby="loading-title" aria-describedby="loading-description">
     <div class="loading-content">
-      <div class="web-spinner"></div>
-      <h3>Processing...</h3>
-      <p>Please wait while we handle your request</p>
+      <div class="web-spinner" aria-hidden="true"></div>
+      <h3 id="loading-title">Processing...</h3>
+      <p id="loading-description">Please wait while we handle your request</p>
     </div>
   </div>
 
   <!-- Ko-fi Widget Modal -->
-  <div id="kofi-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <div id="kofi-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="kofi-title" aria-describedby="kofi-description">
     <div class="flex items-center justify-center min-h-screen p-4">
       <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
         <div class="flex justify-between items-center p-6 border-b">
-          <h3 class="text-xl font-bold text-gray-900">Support Webspind</h3>
-          <button onclick="closeKoFiWidget()" class="text-gray-400 hover:text-gray-600 text-2xl">
-            ×
+          <h3 id="kofi-title" class="text-xl font-bold text-gray-900">Support Webspind</h3>
+          <button onclick="closeKoFiWidget()" class="text-gray-400 hover:text-gray-600 text-2xl" aria-label="Close support modal">
+            <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="p-6">
-          <iframe id='kofiframe' src='https://ko-fi.com/webspind/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='webspind'></iframe>
+          <p id="kofi-description" class="sr-only">Support Webspind by making a donation through Ko-fi</p>
+          <iframe id='kofiframe' data-src='https://ko-fi.com/webspind/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='Ko-fi donation widget for Webspind' loading="lazy"></iframe>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Premium Waitlist Modal -->
-  <div id="premium-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <div id="premium-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="premium-title" aria-describedby="premium-description">
     <div class="flex items-center justify-center min-h-screen p-4">
       <div class="bg-white rounded-2xl max-w-lg w-full">
         <div class="flex justify-between items-center p-6 border-b">
-          <h3 class="text-xl font-bold text-gray-900">🚀 Join Premium Waitlist</h3>
-          <button onclick="closePremiumWaitlist()" class="text-gray-400 hover:text-gray-600 text-2xl">
-            ×
+          <h3 id="premium-title" class="text-xl font-bold text-gray-900">🚀 Join Premium Waitlist</h3>
+          <button onclick="closePremiumWaitlist()" class="text-gray-400 hover:text-gray-600 text-2xl" aria-label="Close premium waitlist modal">
+            <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="p-6">
-          <p class="text-gray-600 mb-6">Be the first to know when premium features launch! Get early access and special pricing.</p>
+          <p id="premium-description" class="text-gray-600 mb-6">Be the first to know when premium features launch! Get early access and special pricing.</p>
           
-          <form id="premium-waitlist-form" class="space-y-4">
+          <form id="premium-waitlist-form" class="space-y-4" aria-label="Premium waitlist signup form">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-              <input type="email" id="premium-email" required 
+              <label for="premium-email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+              <input type="email" id="premium-email" name="email" required 
                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                     placeholder="your@email.com">
+                     placeholder="your@email.com" aria-describedby="email-help">
+              <div id="email-help" class="sr-only">Enter your email address to join the premium waitlist</div>
             </div>
             
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Interested in:</label>
-              <div class="space-y-2">
+            <fieldset>
+              <legend class="block text-sm font-medium text-gray-700 mb-2">Interested in:</legend>
+              <div class="space-y-2" role="group" aria-labelledby="interests-legend">
                 <label class="flex items-center">
-                  <input type="checkbox" value="batch-processing" class="mr-2">
+                  <input type="checkbox" name="interests" value="batch-processing" class="mr-2" aria-describedby="batch-help">
                   <span class="text-sm">Batch Processing</span>
                 </label>
                 <label class="flex items-center">
-                  <input type="checkbox" value="api-access" class="mr-2">
+                  <input type="checkbox" name="interests" value="api-access" class="mr-2" aria-describedby="api-help">
                   <span class="text-sm">API Access</span>
                 </label>
                 <label class="flex items-center">
-                  <input type="checkbox" value="advanced-ai" class="mr-2">
+                  <input type="checkbox" name="interests" value="advanced-ai" class="mr-2" aria-describedby="ai-help">
                   <span class="text-sm">Advanced AI Features</span>
                 </label>
                 <label class="flex items-center">
-                  <input type="checkbox" value="custom-branding" class="mr-2">
+                  <input type="checkbox" name="interests" value="custom-branding" class="mr-2" aria-describedby="branding-help">
                   <span class="text-sm">Custom Branding</span>
                 </label>
               </div>
-            </div>
+              <div class="sr-only">
+                <div id="batch-help">Select if you're interested in batch processing features</div>
+                <div id="api-help">Select if you're interested in API access</div>
+                <div id="ai-help">Select if you're interested in advanced AI features</div>
+                <div id="branding-help">Select if you're interested in custom branding options</div>
+              </div>
+            </fieldset>
             
             <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-3 px-4 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all">
               Join Waitlist
@@ -646,72 +805,80 @@
   </div>
 
   <!-- Navigation -->
-  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200">
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200" role="navigation" aria-label="Main navigation">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
-      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo">Webspind</a>
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo" aria-label="Webspind - Home">
+        <span aria-hidden="true">🕸️</span> Webspind
+      </a>
       
       <!-- Search Bar -->
       <div class="hidden md:flex flex-1 max-w-md mx-8">
         <div class="relative w-full">
-          <input type="text" id="tool-search" placeholder="Search tools..." 
-                 class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <label for="tool-search" class="sr-only">Search tools</label>
+          <input type="text" id="tool-search" name="search" placeholder="Search tools..." 
+                 class="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                 aria-describedby="search-help" autocomplete="off">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none" aria-hidden="true">
+            <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           </div>
+          <div id="search-help" class="sr-only">Search for tools by name or category</div>
         </div>
       </div>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
-        <svg class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
       
-      <div class="hidden md:flex items-center gap-6 text-sm">
-        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="#tools">Tools</a>
-        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/pricing.html">Pricing</a>
-        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/privacy.html">Privacy</a>
+      <div class="hidden md:flex items-center gap-6 text-sm" role="menubar">
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="#tools" role="menuitem">Tools</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/pricing.html" role="menuitem">Pricing</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/privacy.html" role="menuitem">Privacy</a>
       </div>
       
       <!-- Quota Badge -->
-      <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block">
+      <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block" role="status" aria-live="polite">
         <span class="text-sm font-medium">Loading...</span>
       </div>
       
       <!-- Upgrade Button -->
-      <button onclick="handleUpgradeClick()" class="btn-primary hidden md:block upgrade-btn">
+      <button onclick="handleUpgradeClick()" class="btn-primary hidden md:block upgrade-btn" aria-label="Upgrade to Pro plan">
         Upgrade to Pro
       </button>
       
       <!-- Support Button (secondary) -->
-      <button onclick="openSupport()" class="btn-secondary hidden md:block support-btn ml-2">
+      <button onclick="openSupport()" class="btn-secondary hidden md:block support-btn ml-2" aria-label="Support Webspind">
         Support
       </button>
     </div>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn">
       <div class="px-4 py-4 space-y-4">
         <div class="relative">
-          <input type="text" id="mobile-search" placeholder="Search tools..." 
-                 class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <label for="mobile-search" class="sr-only">Search tools</label>
+          <input type="text" id="mobile-search" name="mobile-search" placeholder="Search tools..." 
+                 class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                 aria-describedby="mobile-search-help" autocomplete="off">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none" aria-hidden="true">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
           </div>
+          <div id="mobile-search-help" class="sr-only">Search for tools by name or category</div>
         </div>
-        <div class="space-y-2">
-          <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="#tools">Tools</a>
-          <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html">Pricing</a>
-          <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html">Privacy</a>
-          <button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn">
+        <div class="space-y-2" role="menuitem">
+          <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="#tools" role="menuitem">Tools</a>
+          <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a>
+          <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a>
+          <button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">
             Upgrade to Pro
           </button>
-          <button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn">
+          <button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">
             Support
           </button>
         </div>
@@ -801,12 +968,12 @@
       <!-- Right Side - Tools Grid -->
       <div class="space-y-6" id="tools">
         <!-- Tool Categories -->
-        <div class="flex flex-wrap gap-2 mb-6">
-          <button class="category-btn active" data-category="all">All Tools</button>
-          <button class="category-btn" data-category="pdf">PDF Tools</button>
-          <button class="category-btn" data-category="image">Image Tools</button>
-          <button class="category-btn" data-category="text">Text Tools</button>
-          <button class="category-btn" data-category="utility">Utilities</button>
+        <div class="flex flex-wrap gap-2 mb-6" role="tablist" aria-label="Tool categories">
+          <button class="category-btn active" data-category="all" role="tab" aria-selected="true" aria-controls="tools-grid" id="tab-all">All Tools</button>
+          <button class="category-btn" data-category="pdf" role="tab" aria-selected="false" aria-controls="tools-grid" id="tab-pdf">PDF Tools</button>
+          <button class="category-btn" data-category="image" role="tab" aria-selected="false" aria-controls="tools-grid" id="tab-image">Image Tools</button>
+          <button class="category-btn" data-category="text" role="tab" aria-selected="false" aria-controls="tools-grid" id="tab-text">Text Tools</button>
+          <button class="category-btn" data-category="utility" role="tab" aria-selected="false" aria-controls="tools-grid" id="tab-utility">Utilities</button>
         </div>
         
         <!-- Recently Used Tools -->
@@ -817,14 +984,14 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4" id="tools-grid">
-      <a href="/tools/pdf-merge/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in tool-card" data-category="pdf" data-keywords="pdf merge combine documents">
+        <div class="grid grid-cols-2 gap-4" id="tools-grid" role="tabpanel" aria-labelledby="tab-all">
+      <a href="/tools/pdf-merge/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in tool-card" data-category="pdf" data-keywords="pdf merge combine documents" aria-label="PDF Merge - Combine multiple PDF documents into a single file">
         <div class="flex items-center mb-3">
-          <div class="tool-icon pdf-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px;">
+          <div class="tool-icon pdf-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px;" aria-hidden="true">
             📄
           </div>
           <div>
-            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px;">PDF</div>
+            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px;" aria-label="PDF tool">PDF</div>
             <h2 class="text-lg font-bold text-gray-900">PDF Merge</h2>
           </div>
         </div>
@@ -833,7 +1000,7 @@
         </p>
         <div class="flex items-center justify-between">
           <div class="text-xs text-gray-500">Drag & Drop</div>
-          <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
+          <div class="text-lg group-hover:translate-x-2 transition-transform" aria-hidden="true">→</div>
         </div>
       </a>
 
@@ -1215,14 +1382,40 @@
           if (img.dataset.src) {
             img.src = img.dataset.src;
             img.removeAttribute('data-src');
+            img.classList.remove('lazy');
             imageObserver.unobserve(img);
           }
         }
       });
+    }, {
+      rootMargin: '50px 0px',
+      threshold: 0.01
     });
 
+    // Observe all lazy images
     document.querySelectorAll('img[data-src]').forEach(img => {
       imageObserver.observe(img);
+    });
+
+    // Lazy load iframes
+    const iframeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const iframe = entry.target;
+          if (iframe.dataset.src) {
+            iframe.src = iframe.dataset.src;
+            iframe.removeAttribute('data-src');
+            iframeObserver.unobserve(iframe);
+          }
+        }
+      });
+    }, {
+      rootMargin: '100px 0px',
+      threshold: 0.01
+    });
+
+    document.querySelectorAll('iframe[data-src]').forEach(iframe => {
+      iframeObserver.observe(iframe);
     });
 
     // Smooth scrolling for anchor links
@@ -1239,21 +1432,144 @@
       });
     });
 
-    // Loading overlay functions
-    function showLoading() {
-      document.getElementById('loading-overlay').classList.add('active');
+    // Loading overlay functions with better UX
+    function showLoading(message = 'Processing...', description = 'Please wait while we handle your request') {
+      const overlay = document.getElementById('loading-overlay');
+      const title = overlay.querySelector('#loading-title');
+      const desc = overlay.querySelector('#loading-description');
+      
+      if (title) title.textContent = message;
+      if (desc) desc.textContent = description;
+      
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
 
     function hideLoading() {
-      document.getElementById('loading-overlay').classList.remove('active');
+      const overlay = document.getElementById('loading-overlay');
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
     }
 
-    // Add loading to tool links
+    // Error handling with user-friendly messages
+    function showError(message, details = null) {
+      const errorModal = document.createElement('div');
+      errorModal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+      errorModal.innerHTML = `
+        <div class="bg-white rounded-2xl max-w-md w-full p-6">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+              <span class="text-red-600 text-2xl">⚠️</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900">Something went wrong</h3>
+          </div>
+          <p class="text-gray-600 mb-6">${message}</p>
+          ${details ? `<details class="mb-6"><summary class="cursor-pointer text-sm text-gray-500">Technical details</summary><pre class="mt-2 text-xs text-gray-400 overflow-auto">${details}</pre></details>` : ''}
+          <div class="flex gap-3">
+            <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors">
+              Close
+            </button>
+            <button onclick="window.location.reload()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+              Reload Page
+            </button>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(errorModal);
+      
+      // Auto-remove after 10 seconds
+      setTimeout(() => {
+        if (errorModal.parentNode) {
+          errorModal.remove();
+        }
+      }, 10000);
+    }
+
+    // Success notification
+    function showSuccess(message, duration = 3000) {
+      const notification = document.createElement('div');
+      notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+      notification.textContent = sanitizeInput(message);
+      
+      document.body.appendChild(notification);
+      
+      // Animate in
+      setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+      }, 100);
+      
+      // Auto-remove
+      setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.remove();
+          }
+        }, 300);
+      }, duration);
+    }
+
+    // Input sanitization and validation
+    function sanitizeInput(input) {
+      if (typeof input !== 'string') return '';
+      
+      // Remove potentially dangerous characters
+      return input
+        .replace(/[<>]/g, '') // Remove < and >
+        .replace(/javascript:/gi, '') // Remove javascript: protocol
+        .replace(/on\w+=/gi, '') // Remove event handlers
+        .trim()
+        .substring(0, 1000); // Limit length
+    }
+
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email) && email.length <= 254;
+    }
+
+    function validateLicenseKey(key) {
+      // Basic license key validation (alphanumeric, 20-50 characters)
+      const keyRegex = /^[A-Za-z0-9]{20,50}$/;
+      return keyRegex.test(key);
+    }
+
+    function sanitizeFilename(filename) {
+      // Remove dangerous characters and limit length
+      return filename
+        .replace(/[<>:"/\\|?*]/g, '') // Remove invalid filename characters
+        .replace(/\.\./g, '') // Remove path traversal attempts
+        .trim()
+        .substring(0, 255); // Limit length
+    }
+
+    // Add loading to tool links with error handling
     document.querySelectorAll('a[href*="/tools/"]').forEach(link => {
-      link.addEventListener('click', function() {
-        showLoading();
-        // Hide loading after a short delay (in real implementation, this would be when the page loads)
-        setTimeout(hideLoading, 1000);
+      link.addEventListener('click', function(e) {
+        const toolName = this.querySelector('h2')?.textContent || 'tool';
+        showLoading(`Loading ${toolName}...`, 'Preparing the tool for you');
+        
+        // Add error handling for failed navigation
+        const originalHref = this.href;
+        
+        // Simulate loading time and handle potential errors
+        setTimeout(() => {
+          // In a real implementation, you'd check if the page loaded successfully
+          // For now, we'll just hide the loading after a reasonable time
+          hideLoading();
+        }, 1500);
+        
+        // Add error handling for network issues
+        window.addEventListener('error', function handleError(e) {
+          if (e.message.includes('Failed to fetch') || e.message.includes('NetworkError')) {
+            showError(
+              'Unable to load the tool. Please check your internet connection and try again.',
+              e.message
+            );
+            hideLoading();
+            window.removeEventListener('error', handleError);
+          }
+        });
       });
     });
 
@@ -1291,13 +1607,39 @@
     const mobileMenu = document.getElementById('mobile-menu');
     
     mobileMenuBtn.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.contains('hidden');
       mobileMenu.classList.toggle('hidden');
+      mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
+      
+      // Focus management
+      if (!isHidden) {
+        const firstMenuItem = mobileMenu.querySelector('a, button');
+        if (firstMenuItem) firstMenuItem.focus();
+      }
     });
 
     // Close mobile menu when clicking outside
     document.addEventListener('click', (e) => {
       if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
         mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Keyboard navigation for mobile menu
+    mobileMenuBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        mobileMenuBtn.click();
+      }
+    });
+
+    // Close mobile menu with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenuBtn.focus();
       }
     });
 
@@ -1325,12 +1667,45 @@
     });
     
     // Category filtering
-    categoryBtns.forEach(btn => {
+    categoryBtns.forEach((btn, index) => {
       btn.addEventListener('click', () => {
-        categoryBtns.forEach(b => b.classList.remove('active'));
+        categoryBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
         currentCategory = btn.dataset.category;
         filterTools();
+      });
+
+      // Keyboard navigation for tabs
+      btn.addEventListener('keydown', (e) => {
+        let targetIndex = index;
+        
+        switch(e.key) {
+          case 'ArrowLeft':
+            e.preventDefault();
+            targetIndex = index > 0 ? index - 1 : categoryBtns.length - 1;
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            targetIndex = index < categoryBtns.length - 1 ? index + 1 : 0;
+            break;
+          case 'Home':
+            e.preventDefault();
+            targetIndex = 0;
+            break;
+          case 'End':
+            e.preventDefault();
+            targetIndex = categoryBtns.length - 1;
+            break;
+          default:
+            return;
+        }
+        
+        categoryBtns[targetIndex].focus();
+        categoryBtns[targetIndex].click();
       });
     });
     
@@ -1508,12 +1883,20 @@
       
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
+      
+      // Focus management
+      const closeBtn = modal.querySelector('button[aria-label="Close support modal"]');
+      if (closeBtn) closeBtn.focus();
     }
 
     function closeKoFiWidget() {
       const modal = document.getElementById('kofi-modal');
       modal.classList.add('hidden');
       document.body.style.overflow = 'auto';
+      
+      // Return focus to the element that opened the modal
+      const supportBtn = document.querySelector('button[aria-label="Support Webspind"]');
+      if (supportBtn) supportBtn.focus();
     }
 
     // Close modal when clicking outside
@@ -1537,12 +1920,20 @@
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
       trackEvent('premium_waitlist_opened');
+      
+      // Focus management
+      const closeBtn = modal.querySelector('button[aria-label="Close premium waitlist modal"]');
+      if (closeBtn) closeBtn.focus();
     }
 
     function closePremiumWaitlist() {
       const modal = document.getElementById('premium-modal');
       modal.classList.add('hidden');
       document.body.style.overflow = 'auto';
+      
+      // Return focus to the element that opened the modal
+      const upgradeBtn = document.querySelector('button[aria-label="Upgrade to Pro plan"]');
+      if (upgradeBtn) upgradeBtn.focus();
     }
 
     // Close premium modal when clicking outside
@@ -1552,44 +1943,94 @@
       }
     });
 
-    // Premium waitlist form submission
+    // Premium waitlist form submission with validation
     document.getElementById('premium-waitlist-form').addEventListener('submit', function(e) {
       e.preventDefault();
       
-      const email = document.getElementById('premium-email').value;
+      const emailInput = document.getElementById('premium-email');
+      const email = sanitizeInput(emailInput.value);
       const interests = Array.from(document.querySelectorAll('#premium-waitlist-form input[type="checkbox"]:checked'))
-        .map(cb => cb.value);
+        .map(cb => sanitizeInput(cb.value));
+      
+      // Validate email
+      if (!validateEmail(email)) {
+        showError('Please enter a valid email address.');
+        emailInput.focus();
+        return;
+      }
+      
+      // Validate interests (at least one should be selected)
+      if (interests.length === 0) {
+        showError('Please select at least one area of interest.');
+        return;
+      }
       
       // Store in localStorage for now (in production, send to your backend)
       const waitlistData = {
         email: email,
         interests: interests,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        userAgent: navigator.userAgent.substring(0, 100) // Truncated for privacy
       };
       
-      let waitlist = JSON.parse(localStorage.getItem('webspind-premium-waitlist') || '[]');
-      waitlist.push(waitlistData);
-      localStorage.setItem('webspind-premium-waitlist', JSON.stringify(waitlist));
-      
-      // Show success message
-      alert('Thanks for joining the waitlist! We\'ll notify you when premium features launch.');
-      closePremiumWaitlist();
-      
-      // Track conversion
-      trackPremiumConversion();
-      trackEvent('premium_waitlist_joined', { 
-        email: email, 
-        interests: interests 
-      });
+      try {
+        let waitlist = JSON.parse(localStorage.getItem('webspind-premium-waitlist') || '[]');
+        waitlist.push(waitlistData);
+        localStorage.setItem('webspind-premium-waitlist', JSON.stringify(waitlist));
+        
+        // Show success message
+        showSuccess('Thanks for joining the waitlist! We\'ll notify you when premium features launch.');
+        closePremiumWaitlist();
+        
+        // Track conversion
+        trackPremiumConversion();
+        trackEvent('premium_waitlist_joined', { 
+          email: email.substring(0, 3) + '***', // Partial email for privacy
+          interests: interests 
+        });
+      } catch (error) {
+        showError('Failed to save your information. Please try again.');
+        console.error('Waitlist save error:', error);
+      }
     });
 
-    // Initialize Ko-fi donation widget (subtle)
-    kofiWidgetOverlay.draw('webspind', {
-      'type': 'floating-chat',
-      'floating-chat.donateButton.text': 'Support',
-      'floating-chat.donateButton.background-color': '#1a1a1a',
-      'floating-chat.donateButton.text-color': '#fff',
-      'floating-chat.donateButton.position': 'bottom-right'
+    // Initialize Ko-fi donation widget (subtle) - only if available
+    function initializeKoFiWidget() {
+      try {
+        if (typeof kofiWidgetOverlay !== 'undefined') {
+          kofiWidgetOverlay.draw('webspind', {
+            'type': 'floating-chat',
+            'floating-chat.donateButton.text': 'Support',
+            'floating-chat.donateButton.background-color': '#1a1a1a',
+            'floating-chat.donateButton.text-color': '#fff',
+            'floating-chat.donateButton.position': 'bottom-right'
+          });
+          console.log('Ko-fi widget initialized successfully');
+        } else {
+          console.log('Ko-fi widget not available, using fallback support button');
+        }
+      } catch (error) {
+        console.log('Ko-fi widget initialization failed:', error);
+      }
+    }
+
+    // Initialize Ko-fi widget after a short delay to ensure script loads
+    setTimeout(initializeKoFiWidget, 1000);
+
+    // Global error handler to catch any unhandled errors
+    window.addEventListener('error', function(e) {
+      console.error('Global error caught:', e.error);
+      // Don't show error to user unless it's critical
+      if (e.error && e.error.message && e.error.message.includes('kofiWidgetOverlay')) {
+        console.log('Ko-fi widget error handled gracefully');
+      }
+    });
+
+    // Handle unhandled promise rejections
+    window.addEventListener('unhandledrejection', function(e) {
+      console.error('Unhandled promise rejection:', e.reason);
+      // Prevent the default browser behavior
+      e.preventDefault();
     });
 
     // Service Worker Registration for offline functionality
@@ -1598,21 +2039,93 @@
         navigator.serviceWorker.register('/sw.js')
           .then(registration => {
             console.log('SW registered: ', registration);
+            
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  showSuccess('New version available! Refresh to update.', 5000);
+                }
+              });
+            });
           })
           .catch(registrationError => {
             console.log('SW registration failed: ', registrationError);
+            showError('Service worker registration failed. Some features may not work offline.');
           });
       });
     }
 
-    // Performance monitoring
+    // Offline/Online status indicator
+    function updateOnlineStatus() {
+      const isOnline = navigator.onLine;
+      const statusIndicator = document.getElementById('online-status');
+      
+      if (statusIndicator) {
+        statusIndicator.textContent = isOnline ? 'Online' : 'Offline';
+        statusIndicator.className = isOnline 
+          ? 'fixed top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm z-50'
+          : 'fixed top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm z-50';
+      }
+      
+      if (!isOnline) {
+        showSuccess('You\'re offline, but you can still use cached tools!', 3000);
+      }
+    }
+
+    // Add online status indicator to the page
+    const statusIndicator = document.createElement('div');
+    statusIndicator.id = 'online-status';
+    statusIndicator.className = 'fixed top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm z-50 opacity-0 transition-opacity duration-300';
+    statusIndicator.textContent = 'Online';
+    document.body.appendChild(statusIndicator);
+
+    // Show status indicator briefly on load
+    setTimeout(() => {
+      statusIndicator.style.opacity = '1';
+      setTimeout(() => {
+        statusIndicator.style.opacity = '0';
+      }, 2000);
+    }, 1000);
+
+    // Listen for online/offline events
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+
+    // Performance monitoring and optimization
     if ('performance' in window) {
       window.addEventListener('load', () => {
         setTimeout(() => {
           const perfData = performance.getEntriesByType('navigation')[0];
-          console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+          const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+          console.log('Page load time:', loadTime, 'ms');
+          
+          // Track performance metrics
+          if (loadTime > 3000) {
+            console.warn('Slow page load detected:', loadTime, 'ms');
+          }
+          
+          // Report to analytics if available
+          if (typeof trackEvent === 'function') {
+            trackEvent('performance_metric', {
+              loadTime: loadTime,
+              domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+              firstPaint: performance.getEntriesByType('paint').find(entry => entry.name === 'first-paint')?.startTime || 0
+            });
+          }
         }, 0);
       });
+    }
+
+    // Optimize animations for better performance
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (prefersReducedMotion) {
+      // Disable animations for users who prefer reduced motion
+      document.documentElement.style.setProperty('--animation-duration', '0.01ms');
+      document.documentElement.style.setProperty('--animation-iteration-count', '1');
     }
 
     // Live usage statistics simulation

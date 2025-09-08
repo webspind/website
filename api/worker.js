@@ -11,19 +11,43 @@ const ALLOWED_ORIGINS = ['https://webspind.com', 'https://www.webspind.com'];
 // Initialize Stripe
 const stripe = new Stripe(STRIPE_SECRET_KEY);
 
-// CORS headers
+// CORS headers with security improvements
 const corsHeaders = {
   'Access-Control-Allow-Origin': 'https://webspind.com',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
   'Access-Control-Max-Age': '86400',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'X-XSS-Protection': '1; mode=block',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Content-Security-Policy': "default-src 'none'; script-src 'none'; object-src 'none';"
 };
 
 // Helper function to generate device identifier for free users
 function generateDeviceId(ip, userAgent) {
   const crypto = require('crypto');
-  const data = `${ip}-${userAgent}`;
+  // Sanitize inputs to prevent injection
+  const sanitizedIp = ip.replace(/[^0-9a-fA-F:.]/g, '');
+  const sanitizedUserAgent = userAgent.substring(0, 200); // Limit length
+  const data = `${sanitizedIp}-${sanitizedUserAgent}`;
   return crypto.createHmac('sha256', 'webspind-device-key').update(data).digest('hex');
+}
+
+// Input validation functions
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) && email.length <= 254;
+}
+
+function validateLicenseKey(key) {
+  const keyRegex = /^[A-Za-z0-9]{20,50}$/;
+  return keyRegex.test(key);
+}
+
+function sanitizeString(input) {
+  if (typeof input !== 'string') return '';
+  return input.replace(/[<>]/g, '').trim().substring(0, 1000);
 }
 
 // Helper function to get today's date key
@@ -130,17 +154,37 @@ export default {
 
 // API endpoint handlers
 async function handleUsagePeek(request) {
-  const { identifier, plan } = await request.json();
-  const usage = await getUsage(identifier, plan);
-  
-  return new Response(JSON.stringify({
-    plan: plan || 'free',
-    used: usage.used,
-    limit: usage.limit,
-    remaining: usage.limit - usage.used
-  }), {
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-  });
+  try {
+    const { identifier, plan } = await request.json();
+    
+    // Validate inputs
+    if (!identifier || typeof identifier !== 'string' || identifier.length > 100) {
+      return new Response(JSON.stringify({ error: 'Invalid identifier' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+    
+    const validPlans = ['free', 'pro'];
+    const sanitizedPlan = validPlans.includes(plan) ? plan : 'free';
+    
+    const usage = await getUsage(sanitizeString(identifier), sanitizedPlan);
+    
+    return new Response(JSON.stringify({
+      plan: sanitizedPlan,
+      used: usage.used,
+      limit: usage.limit,
+      remaining: usage.limit - usage.used
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
+  } catch (error) {
+    console.error('Usage peek error:', error);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
+  }
 }
 
 async function handleUsageConsume(request) {
