@@ -100,11 +100,16 @@ class WebspindCredits {
         this.credits = data.credits;
         this.freeCreditsUsed = data.freeCreditsUsed;
         this.saveCreditsToLocal();
+      } else {
+        // Fallback to local storage if API fails (offline/dev)
+        this.loadCreditsFromLocal();
+        this.updateUI();
       }
     } catch (error) {
-      console.error('Failed to load credits:', error);
-      // Fallback to local storage
+      console.warn('Credits API unreachable, using local fallback');
+      // Fallback to local storage (dev/offline)
       this.loadCreditsFromLocal();
+      this.updateUI();
     }
   }
   
