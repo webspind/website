@@ -427,16 +427,19 @@
       
       <div class="mb-6">
         <label class="block text-sm font-medium text-gray-700 mb-2">Enter text to analyze</label>
-        <textarea id="text-input" rows="8" placeholder="Paste your text here to analyze for AI-generated content..." 
+        <textarea id="text-input" rows="8" placeholder="Paste your text here to analyze for AI-generated content. For best results, use at least 100 characters..." 
                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"></textarea>
         <div class="mt-2 text-sm text-gray-500">
-          <span id="char-count">0</span> characters
+          <span id="char-count">0</span> characters (minimum 50 for analysis)
         </div>
       </div>
       
       <div class="flex flex-col sm:flex-row gap-4">
         <button id="analyze-btn" class="btn-primary flex-1" disabled>
           <span id="analyze-text">Analyze Text</span>
+        </button>
+        <button id="sample-btn" class="btn-secondary">
+          Sample Text
         </button>
         <button id="clear-btn" class="btn-secondary">
           Clear
@@ -462,6 +465,10 @@
           <div id="result-description" class="text-gray-600 mb-4"></div>
           
           <div id="analysis-details" class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">Confidence Level</span>
+              <span id="confidence-level" class="text-sm font-medium"></span>
+            </div>
             <div class="flex justify-between items-center">
               <span class="text-sm text-gray-600">Perplexity Score</span>
               <span id="perplexity-score" class="text-sm font-medium"></span>
@@ -544,64 +551,189 @@
       document.getElementById('loading-overlay').classList.remove('active');
     }
 
-    // AI Detection Algorithm
+    // Enhanced AI Detection Algorithm
     function analyzeText(text) {
-      // Simple AI detection algorithm based on various linguistic features
-      const words = text.toLowerCase().split(/\s+/);
-      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      // Clean and normalize text
+      const cleanText = text.replace(/[^\w\s.,!?;:'"-]/g, '').trim();
+      const words = cleanText.toLowerCase().split(/\s+/).filter(word => word.length > 0);
+      const sentences = cleanText.split(/[.!?]+/).filter(s => s.trim().length > 0);
       
-      // Calculate various metrics
-      const avgSentenceLength = words.length / sentences.length;
+      if (words.length < 10 || sentences.length < 2) {
+        return {
+          aiProbability: 0.5,
+          humanProbability: 0.5,
+          perplexity: '0.00',
+          burstiness: '0.00',
+          avgSentenceLength: '0.0',
+          vocabularyDiversity: '0.0%',
+          confidence: 'Low - insufficient text'
+        };
+      }
+      
+      // Calculate vocabulary diversity (Type-Token Ratio)
       const uniqueWords = new Set(words);
       const vocabularyDiversity = uniqueWords.size / words.length;
       
-      // Calculate perplexity (simplified)
+      // Calculate average sentence length
+      const avgSentenceLength = words.length / sentences.length;
+      
+      // Calculate perplexity (entropy-based)
       const wordFreq = {};
       words.forEach(word => {
         wordFreq[word] = (wordFreq[word] || 0) + 1;
       });
       
-      let perplexity = 0;
-      words.forEach(word => {
-        const prob = wordFreq[word] / words.length;
-        perplexity -= Math.log2(prob);
+      let entropy = 0;
+      const totalWords = words.length;
+      Object.values(wordFreq).forEach(freq => {
+        const prob = freq / totalWords;
+        entropy -= prob * Math.log2(prob);
       });
-      perplexity /= words.length;
+      const perplexity = Math.pow(2, entropy);
       
-      // Calculate burstiness (variance in sentence lengths)
+      // Calculate burstiness (coefficient of variation in sentence lengths)
       const sentenceLengths = sentences.map(s => s.split(/\s+/).length);
       const meanLength = sentenceLengths.reduce((a, b) => a + b, 0) / sentenceLengths.length;
       const variance = sentenceLengths.reduce((sum, len) => sum + Math.pow(len - meanLength, 2), 0) / sentenceLengths.length;
-      const burstiness = Math.sqrt(variance) / meanLength;
+      const stdDev = Math.sqrt(variance);
+      const burstiness = meanLength > 0 ? stdDev / meanLength : 0;
       
-      // AI indicators
-      const aiIndicators = [
-        avgSentenceLength > 20, // Very long sentences
-        vocabularyDiversity < 0.3, // Low vocabulary diversity
-        perplexity < 3, // Low perplexity (predictable text)
-        burstiness < 0.3, // Low burstiness (consistent sentence lengths)
-        text.includes('Furthermore') || text.includes('Moreover') || text.includes('Additionally'),
-        text.includes('In conclusion') || text.includes('To summarize'),
-        sentences.length > 0 && sentences.every(s => s.length > 50) // All sentences are long
-      ];
+      // Advanced AI detection features
+      const features = {
+        // Linguistic patterns
+        formalTransitions: (text.match(/\b(furthermore|moreover|additionally|consequently|therefore|thus|hence|nevertheless|nonetheless|in conclusion|to summarize|in summary|in essence|in other words)\b/gi) || []).length,
+        
+        // Repetitive patterns
+        repeatedPhrases: findRepeatedPhrases(text),
+        
+        // Sentence structure analysis
+        avgSentenceLength: avgSentenceLength,
+        sentenceLengthVariance: variance,
+        
+        // Vocabulary analysis
+        vocabularyDiversity: vocabularyDiversity,
+        uniqueWordRatio: uniqueWords.size / words.length,
+        
+        // Perplexity and burstiness
+        perplexity: perplexity,
+        burstiness: burstiness,
+        
+        // Punctuation patterns
+        exclamationCount: (text.match(/!/g) || []).length,
+        questionCount: (text.match(/\?/g) || []).length,
+        ellipsisCount: (text.match(/\.{3,}/g) || []).length,
+        
+        // Capitalization patterns
+        allCapsWords: (text.match(/\b[A-Z]{3,}\b/g) || []).length,
+        
+        // Contractions (humans use more contractions)
+        contractions: (text.match(/\b(won't|can't|don't|doesn't|didn't|isn't|aren't|wasn't|weren't|haven't|hasn't|hadn't|wouldn't|couldn't|shouldn't|I'm|you're|he's|she's|it's|we're|they're|I've|you've|we've|they've|I'll|you'll|he'll|she'll|we'll|they'll)\b/gi) || []).length,
+        
+        // Personal pronouns (humans use more)
+        personalPronouns: (text.match(/\b(I|me|my|mine|myself|you|your|yours|yourself|he|him|his|himself|she|her|hers|herself|we|us|our|ours|ourselves|they|them|their|theirs|themselves)\b/gi) || []).length,
+        
+        // Text length
+        wordCount: words.length,
+        sentenceCount: sentences.length
+      };
       
-      const aiScore = aiIndicators.filter(Boolean).length / aiIndicators.length;
-      const humanScore = 1 - aiScore;
+      // Calculate AI probability using weighted features
+      let aiScore = 0;
+      let totalWeight = 0;
+      
+      // Formal transitions (AI uses more)
+      const transitionScore = Math.min(features.formalTransitions / features.sentenceCount, 0.3);
+      aiScore += transitionScore * 0.15;
+      totalWeight += 0.15;
+      
+      // Repetitive phrases (AI tends to repeat)
+      const repetitionScore = Math.min(features.repeatedPhrases / features.wordCount, 0.1);
+      aiScore += repetitionScore * 0.1;
+      totalWeight += 0.1;
+      
+      // Sentence length consistency (AI is more consistent)
+      const lengthConsistency = features.burstiness < 0.4 ? 0.2 : 0;
+      aiScore += lengthConsistency * 0.1;
+      totalWeight += 0.1;
+      
+      // Vocabulary diversity (AI often has lower diversity)
+      const vocabScore = features.vocabularyDiversity < 0.4 ? 0.3 : 0;
+      aiScore += vocabScore * 0.15;
+      totalWeight += 0.15;
+      
+      // Perplexity (AI tends to have lower perplexity)
+      const perplexityScore = features.perplexity < 50 ? 0.3 : 0;
+      aiScore += perplexityScore * 0.1;
+      totalWeight += 0.1;
+      
+      // Contractions (humans use more)
+      const contractionScore = features.contractions / features.wordCount;
+      const humanContractionBonus = Math.min(contractionScore * 10, 0.2);
+      aiScore -= humanContractionBonus;
+      totalWeight += 0.1;
+      
+      // Personal pronouns (humans use more)
+      const pronounScore = features.personalPronouns / features.wordCount;
+      const humanPronounBonus = Math.min(pronounScore * 5, 0.15);
+      aiScore -= humanPronounBonus;
+      totalWeight += 0.1;
+      
+      // Exclamation marks (humans use more)
+      const exclamationScore = features.exclamationCount / features.sentenceCount;
+      const humanExclamationBonus = Math.min(exclamationScore * 2, 0.1);
+      aiScore -= humanExclamationBonus;
+      totalWeight += 0.05;
+      
+      // Normalize score
+      const normalizedAiScore = totalWeight > 0 ? Math.max(0, Math.min(1, aiScore / totalWeight)) : 0.5;
+      const humanScore = 1 - normalizedAiScore;
+      
+      // Determine confidence level
+      let confidence = 'Medium';
+      if (Math.abs(normalizedAiScore - 0.5) > 0.3) {
+        confidence = 'High';
+      } else if (Math.abs(normalizedAiScore - 0.5) < 0.1) {
+        confidence = 'Low';
+      }
       
       return {
-        aiProbability: aiScore,
+        aiProbability: normalizedAiScore,
         humanProbability: humanScore,
         perplexity: perplexity.toFixed(2),
         burstiness: burstiness.toFixed(2),
         avgSentenceLength: avgSentenceLength.toFixed(1),
-        vocabularyDiversity: (vocabularyDiversity * 100).toFixed(1) + '%'
+        vocabularyDiversity: (vocabularyDiversity * 100).toFixed(1) + '%',
+        confidence: confidence
       };
+    }
+    
+    // Helper function to find repeated phrases
+    function findRepeatedPhrases(text) {
+      const words = text.toLowerCase().split(/\s+/);
+      const phraseCounts = {};
+      let repeatedCount = 0;
+      
+      // Check for 2-word phrases
+      for (let i = 0; i < words.length - 1; i++) {
+        const phrase = words[i] + ' ' + words[i + 1];
+        phraseCounts[phrase] = (phraseCounts[phrase] || 0) + 1;
+      }
+      
+      // Count repeated phrases
+      Object.values(phraseCounts).forEach(count => {
+        if (count > 1) {
+          repeatedCount += count - 1;
+        }
+      });
+      
+      return repeatedCount;
     }
 
     // DOM elements
     const textInput = document.getElementById('text-input');
     const charCount = document.getElementById('char-count');
     const analyzeBtn = document.getElementById('analyze-btn');
+    const sampleBtn = document.getElementById('sample-btn');
     const clearBtn = document.getElementById('clear-btn');
     const resultsSection = document.getElementById('results-section');
     const resultCard = document.getElementById('result-card');
@@ -609,6 +741,7 @@
     const resultPercentage = document.getElementById('result-percentage');
     const progressFill = document.getElementById('progress-fill');
     const resultDescription = document.getElementById('result-description');
+    const confidenceLevel = document.getElementById('confidence-level');
     const perplexityScore = document.getElementById('perplexity-score');
     const burstinessScore = document.getElementById('burstiness-score');
     const sentenceLength = document.getElementById('sentence-length');
@@ -619,6 +752,14 @@
       const count = textInput.value.length;
       charCount.textContent = count;
       analyzeBtn.disabled = count < 50;
+    });
+
+    // Sample text button
+    sampleBtn.addEventListener('click', () => {
+      const sampleText = "Artificial intelligence has revolutionized numerous industries and continues to shape the future of technology. Furthermore, machine learning algorithms have become increasingly sophisticated, enabling computers to perform complex tasks that were previously thought to be exclusive to human intelligence. Additionally, the integration of AI systems into various applications has demonstrated remarkable potential for improving efficiency and accuracy. In conclusion, the continued advancement of artificial intelligence represents a significant milestone in technological development.";
+      textInput.value = sampleText;
+      charCount.textContent = sampleText.length;
+      analyzeBtn.disabled = false;
     });
 
     // Clear button
@@ -643,21 +784,42 @@
       setTimeout(() => {
         const results = analyzeText(text);
         
-        // Update UI
-        if (results.aiProbability > 0.6) {
+        // Update UI with improved logic
+        const aiPercentage = Math.round(results.aiProbability * 100);
+        const humanPercentage = Math.round(results.humanProbability * 100);
+        
+        if (results.aiProbability > 0.55) {
           resultCard.className = 'result-card ai';
           resultTitle.textContent = 'Likely AI-Generated';
-          resultPercentage.textContent = Math.round(results.aiProbability * 100) + '%';
-          resultDescription.textContent = 'This text shows characteristics commonly found in AI-generated content.';
+          resultPercentage.textContent = aiPercentage + '%';
+          resultDescription.textContent = 'This text shows characteristics commonly found in AI-generated content, including formal language patterns and consistent structure.';
           progressFill.className = 'progress-fill ai';
-          progressFill.style.width = (results.aiProbability * 100) + '%';
-        } else {
+          progressFill.style.width = aiPercentage + '%';
+        } else if (results.aiProbability < 0.45) {
           resultCard.className = 'result-card human';
           resultTitle.textContent = 'Likely Human-Written';
-          resultPercentage.textContent = Math.round(results.humanProbability * 100) + '%';
-          resultDescription.textContent = 'This text appears to be written by a human based on linguistic analysis.';
+          resultPercentage.textContent = humanPercentage + '%';
+          resultDescription.textContent = 'This text appears to be written by a human based on linguistic analysis, showing natural variation and personal expression.';
           progressFill.className = 'progress-fill human';
-          progressFill.style.width = (results.humanProbability * 100) + '%';
+          progressFill.style.width = humanPercentage + '%';
+        } else {
+          resultCard.className = 'result-card';
+          resultTitle.textContent = 'Uncertain';
+          resultPercentage.textContent = '~50%';
+          resultDescription.textContent = 'The analysis shows mixed characteristics. This could be either human-written or AI-generated content.';
+          progressFill.className = 'progress-fill';
+          progressFill.style.width = '50%';
+          progressFill.style.background = 'linear-gradient(90deg, #6b7280, #9ca3af)';
+        }
+        
+        // Update confidence level with color coding
+        confidenceLevel.textContent = results.confidence;
+        if (results.confidence === 'High') {
+          confidenceLevel.className = 'text-sm font-medium text-green-600';
+        } else if (results.confidence === 'Low') {
+          confidenceLevel.className = 'text-sm font-medium text-yellow-600';
+        } else {
+          confidenceLevel.className = 'text-sm font-medium text-blue-600';
         }
         
         perplexityScore.textContent = results.perplexity;

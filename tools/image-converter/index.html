@@ -51,63 +51,177 @@
   </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-    * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+    }
     
     .gradient-bg {
-      background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #533483, #667eea, #764ba2);
-      background-size: 400% 400%;
-      animation: gradient 15s ease infinite;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+      position: relative;
+    }
+    
+    .gradient-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
     }
     
     .glass {
+      background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.1);
     }
     
     .card {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 24px;
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .card:hover::before {
+      left: 100%;
     }
     
     .card:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-color: #3b82f6;
     }
     
     .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border: none;
-      color: white;
-      font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 16px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      background: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
+      position: relative;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
     }
     
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(26, 26, 26, 0.2);
+      background: #3b82f6;
+      border-color: #3b82f6;
     }
     
-    .btn-donate {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      border: none;
-      color: white;
-      font-weight: 700;
-      padding: 14px 28px;
-      border-radius: 20px;
+    .btn-secondary {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #1a1a1a;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(20px);
+      font-size: 14px;
+    }
+    
+    .btn-secondary:hover {
+      background: #f8fafc;
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+    }
+    
+    .floating-icon {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .webspind-logo {
+      position: relative;
+    }
+    
+    .webspind-logo::after {
+      content: '🕸️';
+      position: absolute;
+      top: -5px;
+      right: -25px;
+      font-size: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .tool-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
       transition: all 0.3s ease;
-      box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: white;
     }
     
-    .btn-donate:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 12px 30px rgba(240, 147, 251, 0.6);
+    .card:hover .tool-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
     }
     
     .drop-zone {
@@ -227,15 +341,15 @@
 </head>
 <body class="min-h-screen gradient-bg">
   <!-- Navigation -->
-  <nav class="sticky top-0 z-50 w-full glass border-b border-white/20">
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
-      <a href="/" class="font-black tracking-tight text-xl text-white text-shadow">Webspind</a>
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo">Webspind</a>
       <div class="hidden md:flex items-center gap-6 text-sm">
-        <a class="text-white/90 hover:text-white transition-colors font-medium" href="/">App Store</a>
-        <a class="text-white/90 hover:text-white transition-colors font-medium" href="/privacy.html">Privatliv</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/">Tools</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/privacy.html">Privacy</a>
       </div>
-      <a id="donate" href="DONATION_LINK" class="btn-donate">
-        💝 Donate what you want
+      <a href="/" class="btn-secondary">
+        ← Back to Tools
       </a>
     </div>
   </nav>
@@ -251,12 +365,11 @@
       </div>
       
       <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
-        <span class="hero-text">Image Converter</span>
+        <span class="text-gray-900">Image Converter</span>
       </h1>
       
-      <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-        Konverter billeder mellem <span class="font-bold text-white">JPG, PNG, WebP, GIF</span> format. 
-        Komprimer og optimer billeder lokalt i din browser.
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+        Convert images between JPG, PNG, WebP, GIF formats. Compress and optimize images locally in your browser.
       </p>
     </section>
 
@@ -502,14 +615,14 @@
     });
   </script>
 
-  <footer class="mt-20 border-t border-white/20">
+  <footer class="mt-20 border-t border-gray-200 relative z-10">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
-      <div class="text-white/80 text-sm mb-4">
-        © 2025 Webspind · Filer behandles lokalt · 
-        <a class="text-white hover:text-white/80 transition-colors underline" href="/privacy.html">Privatliv</a>
+      <div class="text-gray-600 text-sm mb-4">
+        © 2025 Webspind · Local processing · 
+        <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/privacy.html">Privacy</a>
       </div>
-      <div class="text-white/60 text-xs">
-        Lavet med ❤️ for at gøre dit arbejde lettere
+      <div class="text-gray-500 text-xs">
+        Professional tools for modern workflows
       </div>
     </div>
   </footer>

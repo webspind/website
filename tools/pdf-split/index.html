@@ -26,13 +26,229 @@
   <!-- Favicon -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out',
+            'slide-up': 'slideUp 1s ease-out',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'web-spin': 'webSpin 1s linear infinite',
+            'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
+            'scale-in': 'scaleIn 0.6s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(50px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-15px)' }
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+              '50%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)' }
+            },
+            webSpin: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            scaleIn: {
+              '0%': { opacity: '0', transform: 'scale(0.8)' },
+              '100%': { opacity: '1', transform: 'scale(1)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    .card { border:1px solid #e5e7eb; border-radius: 1.25rem; }
-    .shadow-soft { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-    .glass { backdrop-filter: blur(8px); background: rgba(255,255,255,.7);}
-    .btn { display:inline-flex; align-items:center; justify-content:center; border:1px solid #0f172a; border-radius: 0.75rem; padding:0.75rem 1rem; }
-    .muted { color: #64748b; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+      position: relative;
+    }
+    
+    .gradient-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .card {
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .card:hover::before {
+      left: 100%;
+    }
+    
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-color: #3b82f6;
+    }
+    
+    .btn {
+      background: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
+      position: relative;
+      overflow: hidden;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(26, 26, 26, 0.2);
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+    
+    .btn-secondary {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #1a1a1a;
+    }
+    
+    .btn-secondary:hover {
+      background: #f8fafc;
+      border-color: #3b82f6;
+    }
+    
+    .muted { color: #6b7280; }
     .kbd { border:1px solid #cbd5e1; border-bottom-width:2px; padding:0 0.375rem; border-radius:0.375rem; background:#f8fafc; }
+    
+    .floating-icon {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .webspind-logo {
+      position: relative;
+    }
+    
+    .webspind-logo::after {
+      content: '🕸️';
+      position: absolute;
+      top: -5px;
+      right: -25px;
+      font-size: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .tool-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+    }
+    
+    .card:hover .tool-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
     
     .web-spinner {
       width: 40px;
@@ -106,21 +322,39 @@
     }
   </style>
 </head>
-<body class="bg-gray-50 text-slate-900">
-  <div class="sticky top-0 z-50 w-full glass border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-2 flex items-center justify-between gap-3">
-      <a href="/" class="font-extrabold tracking-tight text-lg">Webspind</a>
-      <nav class="hidden md:flex items-center gap-4 text-sm">
-        <a class="hover:underline" href="/">App Store</a>
-        <a class="hover:underline" href="/privacy.html">Privatliv</a>
-      </nav>
-      <a id="donate" href="DONATION_LINK" class="btn">Donate what you want</a>
+<body class="min-h-screen gradient-bg">
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo">Webspind</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/">Tools</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/privacy.html">Privacy</a>
+      </div>
+      <a href="/" class="btn-secondary">
+        ← Back to Tools
+      </a>
     </div>
-  </div>
+  </nav>
 
-  <main class="max-w-5xl mx-auto px-4 md:px-6 py-10">
-    <h1 class="text-3xl md:text-4xl font-extrabold">PDF Split</h1>
-    <p class="mt-2 muted">Udtræk sider eller intervaller fra din PDF. Alt kører i browseren.</p>
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 md:px-6 py-16 relative z-10">
+    <!-- Header -->
+    <section class="text-center mb-12 fade-in">
+      <div class="floating-icon inline-block mb-6">
+        <div class="tool-icon">
+          ✂️
+        </div>
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
+        <span class="text-gray-900">PDF Split</span>
+      </h1>
+      
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+        Extract specific pages or page ranges from PDF documents. Secure, private, browser-based processing.
+      </p>
+    </section>
 
     <div class="mt-6 grid md:grid-cols-3 gap-6">
       <section class="md:col-span-2 card p-6 shadow-soft">
@@ -243,10 +477,15 @@
     });
   </script>
 
-  <footer class="mt-20 border-t border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-10 text-sm text-slate-600 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p>© 2025 Webspind · Filer behandles lokalt · <a class="underline" href="/privacy.html">Privatliv</a></p>
-      <a class="underline" href="/">App Store</a>
+  <footer class="mt-20 border-t border-gray-200 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
+      <div class="text-gray-600 text-sm mb-4">
+        © 2025 Webspind · Local processing · 
+        <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/privacy.html">Privacy</a>
+      </div>
+      <div class="text-gray-500 text-xs">
+        Professional tools for modern workflows
+      </div>
     </div>
   </footer>
 </body>
