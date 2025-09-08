@@ -63,6 +63,15 @@
     window.addEventListener('load', function() {
       const libraryStatus = document.getElementById('library-status');
       
+      // Configure PDF.js worker from CDN to avoid worker loading errors
+      if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions) {
+        try {
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        } catch (e) {
+          console.warn('Failed to set PDF.js workerSrc', e);
+        }
+      }
+      
       // Check if all required libraries are loaded
       const checkLibraries = () => {
         const missing = [];

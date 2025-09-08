@@ -367,6 +367,27 @@
       border-color: #3b82f6;
     }
     
+    .btn-secondary {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #1f2937;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      position: relative;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+      background: #f9fafb;
+      border-color: #d1d5db;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+    
     .btn-donate {
       background: #ef4444;
       border: 1px solid #ef4444;
@@ -463,6 +484,58 @@
       border-top: 3px solid #3b82f6;
       border-radius: 50%;
       animation: webSpin 1s linear infinite;
+    }
+    
+    .nav-shadow {
+      box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .nav-condensed {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+    
+    /* Brand shrink on desktop scroll */
+    .brand,
+    .brand-text {
+      transition: transform 0.2s ease, font-size 0.2s ease, letter-spacing 0.2s ease;
+      transform-origin: left center;
+    }
+    .brand-logo {
+      transition: transform 0.2s ease;
+      transform-origin: left center;
+    }
+    .brand-condensed .brand {
+      transform: scale(0.98);
+    }
+    .brand-condensed .brand-text {
+      transform: scale(0.98);
+    }
+    .brand-condensed .brand-logo {
+      transform: scale(0.9);
+    }
+    
+    /* Hero shrink on desktop */
+    .hero,
+    .hero-inner,
+    .hero-title,
+    .hero-sub,
+    .hero-actions {
+      transition: transform 0.25s ease, margin 0.25s ease, padding 0.25s ease, opacity 0.25s ease;
+      transform-origin: top left;
+    }
+    .hero-condensed .hero-inner {
+      margin-top: -8px;
+    }
+    .hero-condensed .hero-title {
+      transform: scale(0.96);
+    }
+    .hero-condensed .hero-sub {
+      transform: scale(0.98);
+      opacity: 0.96;
+    }
+    .hero-condensed .hero-actions {
+      transform: scale(0.98);
     }
     
     /* Improved contrast for better accessibility - WCAG AA compliant */
@@ -1085,19 +1158,27 @@
   </div>
 
   <!-- Navigation -->
-  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200" role="navigation" aria-label="Main navigation">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
-      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo" aria-label="Webspind - Home">
-        <img src="/assets/webspind-logo.svg" alt="" class="inline-block h-6 w-6 mr-1 align-[-2px]"> Webspind
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200 transition-shadow" role="navigation" aria-label="Main navigation" id="site-nav">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-3" id="nav-inner">
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo brand" aria-label="Webspind - Home">
+        <img src="/assets/webspind-logo.svg" alt="" class="inline-block h-6 w-6 mr-1 align-[-2px] brand-logo"> <span class="brand-text">Webspind</span>
       </a>
       
-      <!-- Search removed: streamlined nav -->
-      <div class="hidden md:flex flex-1 max-w-md mx-8"></div>
+      <!-- Inline Nav Links (Desktop) -->
+      <div class="hidden lg:flex items-center gap-6 ml-8">
+        <a href="#tools" class="text-sm text-gray-700 hover:text-gray-900 nav-link">All Tools</a>
+        <a href="/pricing.html" class="text-sm text-gray-700 hover:text-gray-900 nav-link">Pricing</a>
+        <a href="/privacy.html" class="text-sm text-gray-700 hover:text-gray-900 nav-link">Privacy</a>
+      </div>
 
       <!-- Mobile Menu Button -->
       <button id="mobile-menu-btn" class="md:hidden p-3 rounded-lg hover:bg-gray-100 touch-manipulation" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-menu">
-        <svg class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <span class="sr-only">Toggle menu</span>
+        <svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" id="icon-hamburger">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+        <svg class="h-6 w-6 text-gray-700 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" id="icon-close">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
       
@@ -1136,7 +1217,7 @@
       </div>
 
       <!-- More Menu Button -->
-      <div class="hidden md:block relative">
+      <div class="hidden md:block relative lg:hidden">
         <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true">
           <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
@@ -1188,30 +1269,31 @@
   </nav>
 
   <!-- Hero Section -->
-  <main id="main-content" class="max-w-7xl mx-auto px-4 md:px-6 py-16 relative z-10">
-    <section class="space-y-8 fade-in">
+  <main id="main-content" class="max-w-7xl mx-auto px-4 md:px-6 py-16 relative z-10 hero">
+    <section class="space-y-10 fade-in hero-inner">
       <!-- Intro Block (moved under tools) -->
-      <div class="text-center lg:text-left">
+      <div class="text-center lg:text-left grid lg:grid-cols-2 gap-10 items-start">
+        <div>
         <div class="floating-icon inline-block mb-6">
           <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl flex items-center justify-center text-3xl text-white">
             🕸️
           </div>
         </div>
 
-        <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-4">
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-3 md:mb-4 leading-tight hero-title">
           <span class="hero-text">Webspind</span>
           <br>
           <span class="text-gray-900">Fast, Private Document Tools</span>
         </h1>
         
-        <p class="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
+        <p class="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 leading-relaxed max-w-2xl hero-sub">
           Merge, split, OCR, convert images, generate QR — all in your browser. 
           <span class="font-bold text-gray-900">No uploads. No sign‑up.</span>
         </p>
 
         <!-- Quick Actions -->
-        <div class="mb-6">
-          <div class="flex flex-wrap gap-2 justify-center lg:justify-start">
+        <div class="mb-6 md:mb-8 hero-actions">
+          <div class="flex flex-wrap gap-2 md:gap-3 justify-center lg:justify-start">
             <a href="/tools/pdf-merge/" class="btn-secondary">Merge PDF</a>
             <a href="/tools/pdf-split/" class="btn-secondary">Split PDF</a>
             <a href="/tools/pdf-ocr/" class="btn-secondary">OCR PDF</a>
@@ -1221,15 +1303,15 @@
         </div>
         
         <!-- Hero CTA Button -->
-        <div class="mb-8">
-          <button onclick="scrollToTools()" class="btn-primary text-lg px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" data-translate="try-tools">
+        <div class="mb-8 md:mb-10">
+          <button onclick="scrollToTools()" class="btn-primary text-lg px-7 md:px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" data-translate="try-tools">
             Try Tools Now →
           </button>
           <p class="text-sm text-gray-500 mt-2">No registration required • Works offline</p>
         </div>
 
         <!-- Prominent Pro CTA: concise offer just under hero -->
-        <div class="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-xl p-5 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-xl p-5 md:p-6 mb-8 md:mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <div class="text-sm uppercase tracking-wide text-blue-700 font-semibold mb-1">Pro Pass</div>
             <div class="text-gray-700 text-sm">300 actions/day • Batch tools • OCR & redaction • Faster processing • No ads</div>
@@ -1241,11 +1323,16 @@
         </div>
         
         <!-- Stats -->
-        <div class="grid grid-cols-3 gap-4 mb-8 fade-in">
+        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 mb-8 md:mb-10 fade-in">
         <div class="stats-card tooltip">
           <div class="text-2xl font-bold text-gray-900 mb-1">9</div>
           <div class="text-gray-600 text-xs">Professional Tools</div>
           <span class="tooltiptext">PDF merge, split, rotate, OCR, image converter, QR generator, text tools, AI detector, and more</span>
+          <div class="stats-card tooltip hidden lg:block">
+            <div class="text-2xl font-bold text-gray-900 mb-1">24/7</div>
+            <div class="text-gray-600 text-xs">Always Available</div>
+            <span class="tooltiptext">Tools run in your browser, available any time without signup</span>
+          </div>
         </div>
         <div class="stats-card tooltip">
           <div class="text-2xl font-bold text-gray-900 mb-1">50K+</div>
@@ -1298,6 +1385,24 @@
             <p class="text-xs text-gray-500 mt-1">- Sarah M., Content Creator</p>
           </div>
         </div>
+
+        <!-- Right Column Quick Launcher (Desktop) -->
+        <aside class="hidden lg:block sticky top-24">
+          <div class="card p-5 space-y-3">
+            <div class="text-sm font-semibold text-gray-900">Quick Launcher</div>
+            <div class="grid grid-cols-2 gap-2">
+              <a href="/tools/pdf-merge/" class="btn-secondary text-sm">Merge PDF</a>
+              <a href="/tools/pdf-split/" class="btn-secondary text-sm">Split PDF</a>
+              <a href="/tools/pdf-ocr/" class="btn-secondary text-sm">OCR PDF</a>
+              <a href="/tools/pdf-pages/" class="btn-secondary text-sm">Reorder Pages</a>
+              <a href="/tools/image-converter/" class="btn-secondary text-sm">Convert Images</a>
+              <a href="/tools/qr-generator/" class="btn-secondary text-sm">Generate QR</a>
+            </div>
+            <div class="pt-2 border-t border-gray-200">
+              <button onclick="handleUpgradeClick()" class="btn-primary w-full">Upgrade to Pro</button>
+            </div>
+          </div>
+        </aside>
       </div>
 
       <!-- Tools Grid (now above intro) -->
@@ -2203,6 +2308,14 @@
         const firstMenuItem = mobileMenu.querySelector('a, button');
         if (firstMenuItem) firstMenuItem.focus();
       }
+
+      // Toggle hamburger/close icons
+      const iconHamburger = document.getElementById('icon-hamburger');
+      const iconClose = document.getElementById('icon-close');
+      if (iconHamburger && iconClose) {
+        iconHamburger.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
+      }
     });
 
     // Close mobile menu when clicking outside
@@ -2210,6 +2323,12 @@
       if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
         mobileMenu.classList.add('hidden');
         mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        const iconHamburger = document.getElementById('icon-hamburger');
+        const iconClose = document.getElementById('icon-close');
+        if (iconHamburger && iconClose) {
+          iconHamburger.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        }
       }
     });
 
@@ -2227,6 +2346,41 @@
         mobileMenu.classList.add('hidden');
         mobileMenuBtn.setAttribute('aria-expanded', 'false');
         mobileMenuBtn.focus();
+        const iconHamburger = document.getElementById('icon-hamburger');
+        const iconClose = document.getElementById('icon-close');
+        if (iconHamburger && iconClose) {
+          iconHamburger.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        }
+      }
+    });
+
+    // Close mobile menu when clicking an item
+    mobileMenu.addEventListener('click', (e) => {
+      const target = e.target.closest('a, button');
+      if (target) {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        const iconHamburger = document.getElementById('icon-hamburger');
+        const iconClose = document.getElementById('icon-close');
+        if (iconHamburger && iconClose) {
+          iconHamburger.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        }
+      }
+    });
+
+    // Reset mobile menu on resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        const iconHamburger = document.getElementById('icon-hamburger');
+        const iconClose = document.getElementById('icon-close');
+        if (iconHamburger && iconClose) {
+          iconHamburger.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        }
       }
     });
 
@@ -2537,12 +2691,44 @@
     let scrollDepth = 0;
     let maxScrollDepth = 0;
 
-    // Track scroll depth
+    // Track scroll depth and apply nav shadow + shrink on desktop
     window.addEventListener('scroll', () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       scrollDepth = Math.round((scrollTop / scrollHeight) * 100);
       maxScrollDepth = Math.max(maxScrollDepth, scrollDepth);
+
+      const nav = document.getElementById('site-nav');
+      const navInner = document.getElementById('nav-inner');
+      const bodyEl = document.body;
+      const applyDesktopCondense = window.innerWidth >= 1024;
+      if (nav) {
+        if (scrollTop > 4) {
+          nav.classList.add('nav-shadow');
+        } else {
+          nav.classList.remove('nav-shadow');
+        }
+      }
+      if (navInner) {
+        if (scrollTop > 24 && applyDesktopCondense) {
+          navInner.classList.add('nav-condensed');
+          bodyEl.classList.add('brand-condensed');
+        } else {
+          navInner.classList.remove('nav-condensed');
+          bodyEl.classList.remove('brand-condensed');
+        }
+      }
+
+      // Hero condense on desktop
+      if (applyDesktopCondense) {
+        if (scrollTop > 80) {
+          bodyEl.classList.add('hero-condensed');
+        } else {
+          bodyEl.classList.remove('hero-condensed');
+        }
+      } else {
+        bodyEl.classList.remove('hero-condensed');
+      }
     });
 
     // Track time on page
@@ -3050,6 +3236,13 @@
       moreMenuBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         const isHidden = moreMenu.classList.contains('hidden');
+        // Ensure language menu is closed when opening more menu
+        const languageMenuEl = document.getElementById('language-menu');
+        const languageBtnEl = document.getElementById('language-btn');
+        if (languageMenuEl && languageBtnEl) {
+          languageMenuEl.classList.add('hidden');
+          languageBtnEl.setAttribute('aria-expanded', 'false');
+        }
         moreMenu.classList.toggle('hidden');
         moreMenuBtn.setAttribute('aria-expanded', !isHidden);
       });
@@ -3080,6 +3273,13 @@
       languageBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         const isHidden = languageMenu.classList.contains('hidden');
+        // Ensure more menu is closed when opening language menu
+        const moreMenuEl = document.getElementById('more-menu');
+        const moreMenuBtnEl = document.getElementById('more-menu-btn');
+        if (moreMenuEl && moreMenuBtnEl) {
+          moreMenuEl.classList.add('hidden');
+          moreMenuBtnEl.setAttribute('aria-expanded', 'false');
+        }
         languageMenu.classList.toggle('hidden');
         languageBtn.setAttribute('aria-expanded', !isHidden);
       });
@@ -3089,6 +3289,15 @@
         if (!languageBtn.contains(e.target) && !languageMenu.contains(e.target)) {
           languageMenu.classList.add('hidden');
           languageBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close language menu with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !languageMenu.classList.contains('hidden')) {
+          languageMenu.classList.add('hidden');
+          languageBtn.setAttribute('aria-expanded', 'false');
+          languageBtn.focus();
         }
       });
     }
