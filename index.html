@@ -22,8 +22,12 @@
   <!-- Performance optimizations -->
   <link rel="preconnect" href="https://cdn.tailwindcss.com">
   <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://storage.ko-fi.com">
   <link rel="dns-prefetch" href="https://api.webspind.com">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   
   <!-- Language and locale -->
   <meta name="language" content="en">
@@ -63,6 +67,25 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Webspind">
+  
+  <!-- Additional SEO and Performance Meta Tags -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Webspind">
+  <meta name="msapplication-TileColor" content="#1a1a1a">
+  <meta name="msapplication-config" content="/browserconfig.xml">
+  
+  <!-- Critical CSS for above-the-fold content -->
+  <style>
+    /* Critical CSS for immediate rendering */
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, sans-serif; }
+    .gradient-bg { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%); }
+    .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); }
+    .card { background: #ffffff; border: 2px solid #e5e7eb; border-radius: 16px; }
+    .btn-primary { background: #1a1a1a; color: #ffffff; padding: 8px 16px; border-radius: 6px; }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
   
   <!-- Advanced Structured Data -->
   <script type="application/ld+json">
@@ -178,9 +201,86 @@
   }
   </script>
   
+  <!-- Additional Structured Data for Tools -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Webspind Professional Tools",
+    "description": "Collection of free professional tools for PDF processing, image conversion, text processing, and more",
+    "url": "https://webspind.com/",
+    "numberOfItems": 11,
+    "itemListElement": [
+      {
+        "@type": "SoftwareApplication",
+        "position": 1,
+        "name": "PDF Merge",
+        "url": "https://webspind.com/tools/pdf-merge/",
+        "description": "Combine multiple PDF documents into a single file",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 2,
+        "name": "PDF Split",
+        "url": "https://webspind.com/tools/pdf-split/",
+        "description": "Extract specific pages or page ranges from PDF documents",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 3,
+        "name": "PDF OCR",
+        "url": "https://webspind.com/tools/pdf-ocr/",
+        "description": "Extract text from scanned PDF documents using OCR technology",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 4,
+        "name": "Image Converter",
+        "url": "https://webspind.com/tools/image-converter/",
+        "description": "Convert images between different formats (JPG, PNG, WebP, etc.)",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 5,
+        "name": "QR Generator",
+        "url": "https://webspind.com/tools/qr-generator/",
+        "description": "Generate QR codes for URLs, text, and other data",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 6,
+        "name": "AI Detector",
+        "url": "https://webspind.com/tools/ai-detector/",
+        "description": "Detect AI-generated content using linguistic analysis",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser"
+      }
+    ]
+  }
+  </script>
+  
   <!-- Preload critical resources -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"></noscript>
+  
+  <!-- Preload critical images -->
+  <link rel="preload" as="image" href="/assets/webspind-logo.svg">
+  <link rel="preload" as="image" href="/og-image.jpg">
+  
+  <!-- Resource hints for better performance -->
+  <link rel="prefetch" href="/tools/pdf-merge/">
+  <link rel="prefetch" href="/tools/qr-generator/">
+  <link rel="prefetch" href="/tools/image-converter/">
   
   <!-- DNS prefetch for external resources -->
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -1269,7 +1369,7 @@
   </nav>
 
   <!-- Hero Section -->
-  <main id="main-content" class="max-w-7xl mx-auto px-4 md:px-6 py-16 relative z-10 hero">
+  <main id="main-content" class="max-w-7xl mx-auto px-4 md:px-6 py-16 relative z-10 hero" role="main" aria-label="Main content">
     <section class="space-y-10 fade-in hero-inner">
       <!-- Intro Block (moved under tools) -->
       <div class="text-center lg:text-left grid lg:grid-cols-2 gap-10 items-start">
@@ -2021,6 +2121,40 @@
       }
     }
 
+    // Performance monitoring
+    function logPerformanceMetrics() {
+      if ('performance' in window) {
+        window.addEventListener('load', () => {
+          setTimeout(() => {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            if (perfData) {
+              console.log('Performance Metrics:', {
+                domContentLoaded: Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart),
+                loadComplete: Math.round(perfData.loadEventEnd - perfData.loadEventStart),
+                totalTime: Math.round(perfData.loadEventEnd - perfData.fetchStart)
+              });
+            }
+          }, 0);
+        });
+      }
+    }
+
+    // Initialize performance monitoring
+    logPerformanceMetrics();
+
+    // Service Worker registration for better performance
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('SW registered: ', registration);
+          })
+          .catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+
     // Show skeleton loader immediately
     document.addEventListener('DOMContentLoaded', function() {
       // Hide skeleton after a minimum time to prevent flash
@@ -2148,20 +2282,20 @@
       const errorModal = document.createElement('div');
       errorModal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
       errorModal.innerHTML = `
-        <div class="bg-white rounded-2xl max-w-md w-full p-6">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6" role="dialog" aria-labelledby="error-title" aria-describedby="error-message">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
-              <span class="text-red-600 text-2xl">⚠️</span>
+              <span class="text-red-600 text-2xl" aria-hidden="true">⚠️</span>
             </div>
-            <h3 class="text-xl font-bold text-gray-900">Something went wrong</h3>
+            <h3 id="error-title" class="text-xl font-bold text-gray-900">Something went wrong</h3>
           </div>
-          <p class="text-gray-600 mb-6">${message}</p>
-          ${details ? `<details class="mb-6"><summary class="cursor-pointer text-sm text-gray-500">Technical details</summary><pre class="mt-2 text-xs text-gray-400 overflow-auto">${details}</pre></details>` : ''}
+          <p id="error-message" class="text-gray-600 mb-6">${sanitizeInput(message)}</p>
+          ${details ? `<details class="mb-6"><summary class="cursor-pointer text-sm text-gray-500">Technical details</summary><pre class="mt-2 text-xs text-gray-400 overflow-auto">${sanitizeInput(details)}</pre></details>` : ''}
           <div class="flex gap-3">
-            <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors">
+            <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors" aria-label="Close error dialog">
               Close
             </button>
-            <button onclick="window.location.reload()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+            <button onclick="window.location.reload()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors" aria-label="Reload page">
               Reload Page
             </button>
           </div>
@@ -2169,6 +2303,10 @@
       `;
       
       document.body.appendChild(errorModal);
+      
+      // Focus management for accessibility
+      const closeBtn = errorModal.querySelector('button');
+      if (closeBtn) closeBtn.focus();
       
       // Auto-remove after 10 seconds
       setTimeout(() => {
