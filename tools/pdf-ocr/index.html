@@ -528,7 +528,7 @@
       const bodyEl = document.body;
       const applyDesktopCondense = window.innerWidth >= 1024;
       if (nav) { if (scrollTop > 4) nav.classList.add('nav-shadow'); else nav.classList.remove('nav-shadow'); }
-      if (navInner) { if (scrollTop > 24 and applyDesktopCondense) { navInner.classList.add('nav-condensed'); bodyEl.classList.add('brand-condensed'); } else { navInner.classList.remove('nav-condensed'); bodyEl.classList.remove('brand-condensed'); } }
+      if (navInner) { if (scrollTop > 24 && applyDesktopCondense) { navInner.classList.add('nav-condensed'); bodyEl.classList.add('brand-condensed'); } else { navInner.classList.remove('nav-condensed'); bodyEl.classList.remove('brand-condensed'); } }
       if (applyDesktopCondense) { if (scrollTop > 80) bodyEl.classList.add('hero-condensed'); else bodyEl.classList.remove('hero-condensed'); } else { bodyEl.classList.remove('hero-condensed'); }
     });
     (function(){
