@@ -3,24 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Webspind - Free Professional PDF Tools, Image Converter, QR Generator & AI Detector | 100% Private</title>
-  <meta name="description" content="Free professional tools: PDF merge, split, rotate, image converter, QR generator, text toolkit, and AI detector. 100% secure, private, browser-based processing. No uploads required. Used by 50,000+ users monthly.">
-  <meta name="keywords" content="free PDF tools, PDF merge, PDF split, PDF rotate, image converter, QR generator, text tools, AI detector, document processing, online PDF editor, image format converter, QR code generator, AI content detector, text processing, professional tools, browser-based tools, secure PDF tools, private document processing, offline PDF tools, no registration required, instant PDF processing">
+  <title>Webspind - Free Professional PDF Tools, OCR, Image Converter, QR Generator & AI Detector | 100% Private</title>
+  <meta name="description" content="Free professional tools: PDF merge, split, rotate, OCR, image converter, QR generator, text toolkit, and AI detector. 100% secure, private, browser-based processing. No uploads required. Used by 50,000+ users monthly.">
+  <meta name="keywords" content="free PDF tools, PDF merge, PDF split, PDF rotate, PDF OCR, make PDF readable, make PDF copyable, image converter, QR generator, text tools, AI detector, document processing, online PDF editor, image format converter, QR code generator, AI content detector, text processing, professional tools, browser-based tools, secure PDF tools, private document processing, offline PDF tools, no registration required, instant PDF processing">
   <meta name="author" content="Webspind">
   <meta name="robots" content="index, follow">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://webspind.com/">
-  <meta property="og:title" content="Webspind - Professional PDF Tools, Image Converter, QR Generator & AI Detector">
-  <meta property="og:description" content="Free professional tools: PDF merge, split, rotate, image converter, QR generator, text toolkit, and AI detector. Secure, private, browser-based document processing.">
+  <meta property="og:title" content="Webspind - Professional PDF Tools, OCR, Image Converter, QR Generator & AI Detector">
+  <meta property="og:description" content="Free professional tools: PDF merge, split, rotate, OCR, image converter, QR generator, text toolkit, and AI detector. Secure, private, browser-based document processing.">
   <meta property="og:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://webspind.com/">
-  <meta property="twitter:title" content="Webspind - Professional PDF Tools, Image Converter, QR Generator & AI Detector">
-  <meta property="twitter:description" content="Free professional tools: PDF merge, split, rotate, image converter, QR generator, text toolkit, and AI detector. Secure, private, browser-based document processing.">
+  <meta property="twitter:title" content="Webspind - Professional PDF Tools, OCR, Image Converter, QR Generator & AI Detector">
+  <meta property="twitter:description" content="Free professional tools: PDF merge, split, rotate, OCR, image converter, QR generator, text toolkit, and AI detector. Secure, private, browser-based document processing.">
   <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Favicon and PWA Icons -->
@@ -124,7 +124,7 @@
   <link rel="dns-prefetch" href="//ko-fi.com">
   
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js' defer></script>
+  <script src="/js/freemium.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -672,9 +672,22 @@
       
       <div class="hidden md:flex items-center gap-6 text-sm">
         <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="#tools">Tools</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/pricing.html">Pricing</a>
         <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/privacy.html">Privacy</a>
       </div>
-      <button onclick="openKoFiWidget()" class="btn-primary hidden md:block">
+      
+      <!-- Quota Badge -->
+      <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block">
+        <span class="text-sm font-medium">Loading...</span>
+      </div>
+      
+      <!-- Upgrade Button -->
+      <button onclick="handleUpgradeClick()" class="btn-primary hidden md:block upgrade-btn">
+        Upgrade to Pro
+      </button>
+      
+      <!-- Support Button (secondary) -->
+      <button onclick="openSupport()" class="btn-secondary hidden md:block support-btn ml-2">
         Support
       </button>
     </div>
@@ -693,8 +706,12 @@
         </div>
         <div class="space-y-2">
           <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="#tools">Tools</a>
+          <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html">Pricing</a>
           <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html">Privacy</a>
-          <button onclick="openKoFiWidget()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium">
+          <button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn">
+            Upgrade to Pro
+          </button>
+          <button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn">
             Support
           </button>
         </div>
@@ -934,6 +951,25 @@
         </div>
       </a>
 
+      <a href="/tools/pdf-ocr/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in tool-card" data-category="pdf" data-keywords="pdf ocr make pdf readable copyable">
+        <div class="flex items-center mb-3">
+          <div class="tool-icon pdf-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px;">
+            📄
+          </div>
+          <div>
+            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px;">PDF</div>
+            <h2 class="text-lg font-bold text-gray-900">PDF OCR</h2>
+          </div>
+        </div>
+        <p class="text-gray-600 text-sm mb-3 leading-relaxed">
+          Make PDFs readable and copyable with OCR text extraction.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-gray-500">Text Extraction</div>
+          <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
+        </div>
+      </a>
+
       <a href="/tools/password-generator/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in tool-card" data-category="utility" data-keywords="password generator secure random">
         <div class="flex items-center mb-3">
           <div class="tool-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px; background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
@@ -1015,118 +1051,139 @@
       </div>
     </section>
 
-    <!-- Support Section -->
+    <!-- Upgrade Section -->
     <section class="mt-16 text-center fade-in">
       <div class="card p-8 max-w-4xl mx-auto">
         <div class="flex items-center justify-center mb-4">
           <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-green-500 rounded-xl flex items-center justify-center text-2xl text-white">
-            ⚡
+            🚀
           </div>
         </div>
         
         <h2 class="text-2xl font-bold mb-3 text-gray-900">
-          Keep These Tools Free & Growing
+          Need More Power?
         </h2>
         
         <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
-          Help maintain these professional tools and add new features. Every contribution helps keep the service running smoothly and enables us to build more amazing tools.
+          Get Pro Pass for 300 actions/day, batch processing, OCR tools, and faster processing. Or support us with a one-time contribution.
         </p>
         
-        <!-- Support Options -->
-        <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <!-- Upgrade Options -->
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
           <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
-            <div class="text-3xl mb-3">☕</div>
-            <h3 class="font-semibold text-gray-900 mb-2">Buy me a coffee</h3>
-            <p class="text-sm text-gray-600 mb-4">Quick one-time support</p>
-            <button onclick="openKoFiWidget(3)" class="btn-primary text-sm w-full">
-              $3 - Buy Coffee
+            <div class="text-3xl mb-3">⚡</div>
+            <h3 class="font-semibold text-gray-900 mb-2">Pro Pass</h3>
+            <p class="text-sm text-gray-600 mb-4">300 actions/day • Batch • OCR • No ads</p>
+            <button onclick="handleUpgradeClick()" class="btn-primary text-sm w-full">
+              €6.99/mo - Get Pro
             </button>
           </div>
           
           <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
-            <div class="text-3xl mb-3">🍕</div>
-            <h3 class="font-semibold text-gray-900 mb-2">Lunch support</h3>
-            <p class="text-sm text-gray-600 mb-4">Help with development time</p>
-            <button onclick="openKoFiWidget(10)" class="btn-primary text-sm w-full">
-              $10 - Buy Lunch
-            </button>
-          </div>
-          
-          <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-200">
-            <div class="text-3xl mb-3">🚀</div>
-            <h3 class="font-semibold text-gray-900 mb-2">Premium supporter</h3>
-            <p class="text-sm text-gray-600 mb-4">Help build new features</p>
-            <button onclick="openKoFiWidget(25)" class="btn-primary text-sm w-full">
-              $25 - Premium
+            <div class="text-3xl mb-3">☕</div>
+            <h3 class="font-semibold text-gray-900 mb-2">Support Us</h3>
+            <p class="text-sm text-gray-600 mb-4">One-time contribution to keep tools free</p>
+            <button onclick="openSupport()" class="btn-secondary text-sm w-full">
+              Support
             </button>
           </div>
         </div>
         
-        <!-- Premium Tier Preview -->
-        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 mb-6 border border-purple-200">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="font-semibold text-gray-900">🚀 Premium Features</h3>
-            <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded-full">Coming Soon</span>
-          </div>
-          <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-600 mb-4">
-            <div class="flex items-center gap-2">
-              <span class="text-purple-500">⚡</span>
-              <span>Larger file size limits (500MB+)</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-purple-500">⚡</span>
-              <span>Batch processing</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-purple-500">⚡</span>
-              <span>Priority processing</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-purple-500">⚡</span>
-              <span>API access</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-purple-500">⚡</span>
-              <span>Advanced AI features</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-purple-500">⚡</span>
-              <span>Custom branding</span>
-            </div>
-          </div>
-          <button onclick="openPremiumWaitlist()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-2 px-4 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all">
-            Join Premium Waitlist
-          </button>
-        </div>
-
+        <!-- Current Plan Info -->
         <div class="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-6 mb-6">
-          <h3 class="font-semibold text-gray-900 mb-3">What your support enables:</h3>
-          <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-600">
+          <h3 class="font-semibold text-gray-900 mb-3">Your current plan:</h3>
+          <div class="flex items-center justify-center gap-4 text-sm text-gray-600">
             <div class="flex items-center gap-2">
-              <span class="text-green-500">✓</span>
-              <span>New tool development</span>
+              <span class="text-blue-500">📊</span>
+              <span id="current-plan-display">Free - 3 actions/day</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-green-500">✓</span>
-              <span>Enhanced features</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-green-500">✓</span>
-              <span>Better performance</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-green-500">✓</span>
-              <span>Mobile optimization</span>
+              <span class="text-green-500">⏰</span>
+              <span id="reset-timer">Resets in 12h 34m</span>
             </div>
           </div>
         </div>
         
         <div class="text-xs text-gray-500">
-          Optional • Secure • Appreciated • No ads, no tracking, always free
+          All tools remain free • Pro features are optional • No ads, no tracking
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Include Upgrade Modal -->
+  <div id="upgrade-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl max-w-lg w-full">
+        <div class="flex justify-between items-center p-6 border-b">
+          <h3 class="text-xl font-bold text-gray-900">Out of free actions</h3>
+          <button onclick="window.webspindFreemium?.hideUpgradeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
+            ×
+          </button>
+        </div>
+        <div class="p-6">
+          <p class="text-gray-600 mb-6">You've reached today's 3 free actions. Get Pro Pass for 300/day, batch tools, OCR/redaction, faster processing, and no ads.</p>
+          
+          <div class="space-y-4 mb-6">
+            <div class="flex items-center gap-3">
+              <span class="text-green-500 text-xl">✓</span>
+              <span class="text-sm text-gray-700">300 actions per day</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-green-500 text-xl">✓</span>
+              <span class="text-sm text-gray-700">Batch processing</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-green-500 text-xl">✓</span>
+              <span class="text-sm text-gray-700">OCR & redaction tools</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-green-500 text-xl">✓</span>
+              <span class="text-sm text-gray-700">Faster processing</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-green-500 text-xl">✓</span>
+              <span class="text-sm text-gray-700">No ads</span>
+            </div>
+          </div>
+          
+          <div class="space-y-3">
+            <button onclick="window.location.href='/pricing.html'" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+              Upgrade to Pro - €6.99/mo
+            </button>
+            <button onclick="openLicenseModal()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors">
+              Activate License
+            </button>
+            <button onclick="window.webspindFreemium?.hideUpgradeModal()" class="w-full text-gray-500 hover:text-gray-700 py-2 transition-colors">
+              Keep exploring
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- License Activation Modal -->
+  <div id="license-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl max-w-md w-full">
+        <div class="flex justify-between items-center p-6 border-b">
+          <h3 class="text-xl font-bold text-gray-900">Activate License</h3>
+          <button onclick="closeLicenseModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
+            ×
+          </button>
+        </div>
+        <div class="p-6">
+          <p class="text-gray-600 mb-4">Enter your license key to activate Pro features:</p>
+          <input type="text" id="license-key-input" placeholder="Enter license key..." 
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4">
+          <button onclick="activateLicense()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+            Activate License
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Performance-optimized Intersection Observer for animations
@@ -1627,6 +1684,101 @@
 
     // Initialize recent tools display
     updateRecentToolsDisplay();
+
+    // Upgrade and modal functions
+    function handleUpgradeClick() {
+      // Check if user has used all free actions
+      if (window.webspindFreemium && window.webspindFreemium.usage.remaining <= 0) {
+        // Show upgrade modal if they're out of actions
+        window.webspindFreemium.showUpgradeModal('limit_reached');
+      } else {
+        // Show upgrade modal with different context for users who still have actions
+        window.webspindFreemium.showUpgradeModal('upgrade_clicked');
+      }
+    }
+
+    function openSupport() {
+      // Open Ko-fi widget or support modal
+      if (typeof openKoFiWidget === 'function') {
+        openKoFiWidget();
+      } else {
+        // Fallback to pricing page
+        window.location.href = '/pricing.html';
+      }
+    }
+
+    function openLicenseModal() {
+      document.getElementById('license-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLicenseModal() {
+      document.getElementById('license-modal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    function activateLicense() {
+      const licenseKey = document.getElementById('license-key-input').value.trim();
+      
+      if (!licenseKey) {
+        alert('Please enter a license key');
+        return;
+      }
+      
+      if (window.webspindFreemium) {
+        window.webspindFreemium.activateLicense(licenseKey).then(success => {
+          if (success) {
+            closeLicenseModal();
+            alert('License activated successfully!');
+            // Update the UI to reflect Pro status
+            updatePlanDisplay();
+          } else {
+            alert('Invalid license key. Please check and try again.');
+          }
+        });
+      }
+    }
+
+    function updatePlanDisplay() {
+      if (window.webspindFreemium) {
+        const planDisplay = document.getElementById('current-plan-display');
+        const resetTimer = document.getElementById('reset-timer');
+        
+        if (planDisplay) {
+          const plan = window.webspindFreemium.plan;
+          const usage = window.webspindFreemium.usage;
+          planDisplay.textContent = `${plan === 'pro' ? 'Pro' : 'Free'} - ${usage.limit} actions/day`;
+        }
+        
+        if (resetTimer) {
+          resetTimer.textContent = `Resets in ${window.webspindFreemium.getTimeUntilReset()}`;
+        }
+      }
+    }
+
+    // Close modals on outside click
+    document.getElementById('upgrade-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        window.webspindFreemium?.hideUpgradeModal();
+      }
+    });
+
+    document.getElementById('license-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLicenseModal();
+      }
+    });
+
+    // Close modals on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        window.webspindFreemium?.hideUpgradeModal();
+        closeLicenseModal();
+      }
+    });
+
+    // Update plan display when freemium system loads
+    setTimeout(updatePlanDisplay, 1000);
   </script>
 
   <footer class="mt-20 border-t border-gray-200 relative z-10">

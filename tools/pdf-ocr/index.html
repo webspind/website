@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Make PDF Readable - Free PDF OCR Tool | Extract & Copy Text from PDFs</title>
+  <meta name="description" content="Make your PDF readable and copyable! Free PDF OCR tool to extract text from scanned PDFs. Convert unreadable PDFs to searchable, copyable text documents instantly.">
+  <meta name="keywords" content="make pdf readable, make pdf scannable, make pdf able to copy, PDF OCR, extract text from PDF, PDF to text, scanned PDF, copy text from PDF, PDF text extraction, OCR tool, PDF converter, make PDF searchable, PDF text recognition">
+  <meta name="author" content="Webspind">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webspind.com/tools/pdf-ocr/">
+  <meta property="og:title" content="Make PDF Readable - Free PDF OCR Tool | Extract & Copy Text from PDFs">
+  <meta property="og:description" content="Make your PDF readable and copyable! Free PDF OCR tool to extract text from scanned PDFs. Convert unreadable PDFs to searchable, copyable text documents instantly.">
+  <meta property="og:image" content="https://webspind.com/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://webspind.com/tools/pdf-ocr/">
+  <meta property="twitter:title" content="Make PDF Readable - Free PDF OCR Tool | Extract & Copy Text from PDFs">
+  <meta property="twitter:description" content="Make your PDF readable and copyable! Free PDF OCR tool to extract text from scanned PDFs. Convert unreadable PDFs to searchable, copyable text documents instantly.">
+  <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Make PDF Readable - Free PDF OCR Tool",
+    "description": "Convert unreadable PDFs to copyable text! Extract text from scanned PDFs and make them searchable, readable, and copyable instantly.",
+    "url": "https://webspind.com/tools/pdf-ocr/",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Extract text from scanned PDFs",
+      "Make PDFs copyable and searchable",
+      "Convert unreadable PDFs to readable text",
+      "Support for multiple languages",
+      "Free online PDF OCR tool"
+    ]
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out',
+            'slide-up': 'slideUp 1s ease-out',
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'web-spin': 'webSpin 1s linear infinite',
+            'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
+            'scale-in': 'scaleIn 0.6s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(50px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-15px)' }
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+              '50%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)' }
+            },
+            webSpin: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            scaleIn: {
+              '0%': { opacity: '0', transform: 'scale(0.8)' },
+              '100%': { opacity: '1', transform: 'scale(1)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+      position: relative;
+    }
+    
+    .gradient-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .card {
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .card:hover::before {
+      left: 100%;
+    }
+    
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-color: #3b82f6;
+    }
+    
+    .btn-primary {
+      background: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
+      position: relative;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(26, 26, 26, 0.2);
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+    
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-secondary {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #1a1a1a;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(20px);
+      font-size: 14px;
+    }
+    
+    .btn-secondary:hover {
+      background: #f8fafc;
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+    }
+    
+    .web-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(59, 130, 246, 0.3);
+      border-top: 3px solid #3b82f6;
+      border-radius: 50%;
+      animation: webSpin 1s linear infinite;
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .loading-content {
+      text-align: center;
+      color: #1a1a1a;
+    }
+    
+    .loading-content h3 {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .loading-content p {
+      margin-top: 8px;
+      color: #6b7280;
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .slide-up {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease-out;
+    }
+    
+    .slide-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .floating-icon {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .webspind-logo {
+      position: relative;
+    }
+    
+    .webspind-logo::after {
+      content: '🕸️';
+      position: absolute;
+      top: -5px;
+      right: -25px;
+      font-size: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .tool-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: white;
+    }
+    
+    .card:hover .tool-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .drop-zone {
+      border: 2px dashed #d1d5db;
+      border-radius: 12px;
+      padding: 40px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      background: #f9fafb;
+    }
+    
+    .drop-zone:hover {
+      border-color: #3b82f6;
+      background: #f0f9ff;
+    }
+    
+    .drop-zone.dragover {
+      border-color: #3b82f6;
+      background: #dbeafe;
+      transform: scale(1.02);
+    }
+    
+    .result-card {
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+      transition: all 0.3s ease;
+    }
+    
+    .result-card.success {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.05);
+    }
+    
+    .result-card.error {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.05);
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 16px 0;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+    
+    .pdf-preview {
+      max-width: 100%;
+      max-height: 400px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+    
+    @media (max-width: 768px) {
+      .card:hover {
+        transform: translateY(-4px) scale(1.01);
+      }
+      
+      .btn-primary:hover {
+        transform: translateY(-1px);
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen gradient-bg">
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="web-spinner"></div>
+      <h3 id="loading-title">Processing PDF...</h3>
+      <p id="loading-message">Please wait while we extract text from your PDF</p>
+      <div class="progress-bar mt-4">
+        <div id="loading-progress" class="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo">Webspind</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/">Tools</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/privacy.html">Privacy</a>
+      </div>
+      <a href="/" class="btn-secondary">
+        ← Back to Tools
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 md:px-6 py-16 relative z-10">
+    <!-- Header -->
+    <section class="text-center mb-12 fade-in">
+      <div class="floating-icon inline-block mb-6">
+        <div class="tool-icon">
+          📄
+        </div>
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
+        <span class="text-gray-900">Make PDF Readable</span>
+      </h1>
+      
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+        Convert unreadable PDFs to copyable text! Extract text from scanned PDFs and make them searchable, readable, and copyable instantly.
+      </p>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Upload PDF File</h2>
+      
+      <div id="drop-zone" class="drop-zone">
+        <div class="text-4xl mb-4">📁</div>
+        <h3 class="text-lg font-semibold text-gray-700 mb-2">Drop your unreadable PDF here</h3>
+        <p class="text-gray-500 mb-4">or click to browse files and make them copyable</p>
+        <input type="file" id="file-input" accept=".pdf" class="hidden">
+        <button id="browse-btn" class="btn-primary">Browse Files</button>
+        <p class="text-sm text-gray-400 mt-4">Supports PDF files up to 10MB</p>
+      </div>
+      
+      <div id="file-info" class="hidden mt-4 p-4 bg-gray-50 rounded-lg">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="font-medium text-gray-900" id="file-name"></p>
+            <p class="text-sm text-gray-500" id="file-size"></p>
+          </div>
+          <button id="remove-file" class="btn-secondary text-sm">Remove</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Processing Options -->
+    <section class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Processing Options</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">OCR Language</label>
+          <select id="ocr-language" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="eng">English</option>
+            <option value="spa">Spanish</option>
+            <option value="fra">French</option>
+            <option value="deu">German</option>
+            <option value="ita">Italian</option>
+            <option value="por">Portuguese</option>
+            <option value="rus">Russian</option>
+            <option value="chi_sim">Chinese (Simplified)</option>
+            <option value="chi_tra">Chinese (Traditional)</option>
+            <option value="jpn">Japanese</option>
+            <option value="kor">Korean</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Processing Mode</label>
+          <select id="processing-mode" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="fast">Fast (Lower accuracy)</option>
+            <option value="balanced" selected>Balanced</option>
+            <option value="accurate">Accurate (Slower)</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="mt-6">
+        <button id="process-btn" class="btn-primary w-full" disabled>
+          <span id="process-text">Make PDF Readable & Copyable</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <div id="results-section" class="hidden">
+      <section class="card p-8 mb-8 fade-in">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900">Your PDF is Now Readable & Copyable!</h2>
+        
+        <div id="result-card" class="result-card">
+          <div class="flex items-center justify-between mb-4">
+            <h3 id="result-title" class="text-xl font-semibold"></h3>
+            <div class="flex gap-2">
+              <button id="copy-text" class="btn-secondary text-sm">Copy Text</button>
+              <button id="download-text" class="btn-secondary text-sm">Download</button>
+            </div>
+          </div>
+          
+          <div id="extracted-text" class="bg-gray-50 p-4 rounded-lg max-h-96 overflow-y-auto text-sm leading-relaxed"></div>
+          
+          <div id="processing-stats" class="mt-4 text-sm text-gray-600">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div>
+                <span class="font-medium">Pages Processed:</span>
+                <span id="pages-processed">0</span>
+              </div>
+              <div>
+                <span class="font-medium">Processing Time:</span>
+                <span id="processing-time">0s</span>
+              </div>
+              <div>
+                <span class="font-medium">Text Length:</span>
+                <span id="text-length">0 characters</span>
+              </div>
+              <div>
+                <span class="font-medium">Confidence:</span>
+                <span id="confidence-score">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEO Content Section -->
+    <section class="card p-8 mb-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">Make Your PDF Readable, Scannable & Copyable</h2>
+      
+      <div class="prose max-w-none text-gray-700">
+        <p class="text-lg mb-4">
+          <strong>Have a PDF that you can't copy text from?</strong> Our free PDF OCR tool solves this problem instantly. 
+          Whether your PDF is scanned, image-based, or simply unreadable, we can make it copyable and searchable.
+        </p>
+        
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-900">Common PDF Problems We Solve:</h3>
+            <ul class="space-y-2 text-gray-600">
+              <li>• <strong>Make PDF readable</strong> - Convert scanned documents to text</li>
+              <li>• <strong>Make PDF scannable</strong> - Extract text from image-based PDFs</li>
+              <li>• <strong>Make PDF able to copy</strong> - Enable text selection and copying</li>
+              <li>• <strong>Make PDF searchable</strong> - Add search functionality to your PDFs</li>
+              <li>• Convert unreadable PDFs to readable format</li>
+              <li>• Extract text from locked or protected PDFs</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-900">Perfect For:</h3>
+            <ul class="space-y-2 text-gray-600">
+              <li>• Scanned documents and forms</li>
+              <li>• Image-based PDF files</li>
+              <li>• Old documents that need digitization</li>
+              <li>• PDFs with non-selectable text</li>
+              <li>• Academic papers and research documents</li>
+              <li>• Legal documents and contracts</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <p class="text-blue-800">
+            <strong>💡 Pro Tip:</strong> Our tool works entirely in your browser - your PDF files never leave your device. 
+            This ensures complete privacy and security for your documents.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instructions -->
+    <section class="card p-8 fade-in">
+      <h2 class="text-2xl font-bold mb-6 text-gray-900">How It Works</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+            1️⃣
+          </div>
+          <h3 class="font-semibold mb-2 text-gray-900">Upload Unreadable PDF</h3>
+          <p class="text-gray-600 text-sm">Upload your scanned or unreadable PDF file to make it copyable and searchable</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+            2️⃣
+          </div>
+          <h3 class="font-semibold mb-2 text-gray-900">Make PDF Readable</h3>
+          <p class="text-gray-600 text-sm">Our OCR engine converts your PDF to readable, copyable text using advanced recognition</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
+            3️⃣
+          </div>
+          <h3 class="font-semibold mb-2 text-gray-900">Copy & Use Text</h3>
+          <p class="text-gray-600 text-sm">Copy, download, or search through your now-readable PDF text content</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all fade-in and slide-up elements
+    document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
+      observer.observe(el);
+    });
+
+    // DOM elements
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const browseBtn = document.getElementById('browse-btn');
+    const fileInfo = document.getElementById('file-info');
+    const fileName = document.getElementById('file-name');
+    const fileSize = document.getElementById('file-size');
+    const removeFile = document.getElementById('remove-file');
+    const processBtn = document.getElementById('process-btn');
+    const processText = document.getElementById('process-text');
+    const resultsSection = document.getElementById('results-section');
+    const resultCard = document.getElementById('result-card');
+    const resultTitle = document.getElementById('result-title');
+    const extractedText = document.getElementById('extracted-text');
+    const copyText = document.getElementById('copy-text');
+    const downloadText = document.getElementById('download-text');
+    const pagesProcessed = document.getElementById('pages-processed');
+    const processingTime = document.getElementById('processing-time');
+    const textLength = document.getElementById('text-length');
+    const confidenceScore = document.getElementById('confidence-score');
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const loadingTitle = document.getElementById('loading-title');
+    const loadingMessage = document.getElementById('loading-message');
+    const loadingProgress = document.getElementById('loading-progress');
+
+    let selectedFile = null;
+    let extractedTextContent = '';
+
+    // Loading overlay functions
+    function showLoading(title = 'Processing PDF...', message = 'Please wait while we extract text from your PDF') {
+      loadingTitle.textContent = title;
+      loadingMessage.textContent = message;
+      loadingOverlay.classList.add('active');
+    }
+
+    function hideLoading() {
+      loadingOverlay.classList.remove('active');
+    }
+
+    function updateProgress(percent) {
+      loadingProgress.style.width = percent + '%';
+    }
+
+    // File handling
+    function handleFile(file) {
+      if (file && file.type === 'application/pdf') {
+        selectedFile = file;
+        fileName.textContent = file.name;
+        fileSize.textContent = formatFileSize(file.size);
+        fileInfo.classList.remove('hidden');
+        processBtn.disabled = false;
+        resultsSection.classList.add('hidden');
+      } else {
+        alert('Please select a valid PDF file.');
+      }
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // Event listeners
+    browseBtn.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    removeFile.addEventListener('click', () => {
+      selectedFile = null;
+      fileInput.value = '';
+      fileInfo.classList.add('hidden');
+      processBtn.disabled = true;
+      resultsSection.classList.add('hidden');
+    });
+
+    // Drag and drop
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      
+      if (e.dataTransfer.files.length > 0) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    // Copy text
+    copyText.addEventListener('click', () => {
+      navigator.clipboard.writeText(extractedTextContent).then(() => {
+        copyText.textContent = 'Copied!';
+        setTimeout(() => {
+          copyText.textContent = 'Copy Text';
+        }, 2000);
+      });
+    });
+
+    // Download text
+    downloadText.addEventListener('click', () => {
+      const blob = new Blob([extractedTextContent], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = selectedFile.name.replace('.pdf', '_extracted.txt');
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    // Process PDF
+    processBtn.addEventListener('click', async () => {
+      if (!selectedFile) return;
+
+      showLoading('Processing PDF...', 'Extracting text from your PDF file');
+      updateProgress(0);
+
+      try {
+        const startTime = Date.now();
+        let allText = '';
+        let totalPages = 0;
+        let totalConfidence = 0;
+
+        // Convert PDF to images and process with OCR
+        const pdfData = await selectedFile.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+        totalPages = pdf.numPages;
+
+        for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+          updateProgress((pageNum / totalPages) * 80);
+          loadingMessage.textContent = `Processing page ${pageNum} of ${totalPages}...`;
+
+          const page = await pdf.getPage(pageNum);
+          const viewport = page.getViewport({ scale: 2.0 });
+          
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          await page.render({
+            canvasContext: context,
+            viewport: viewport
+          }).promise;
+
+          // Convert canvas to image data for OCR
+          const imageData = canvas.toDataURL('image/png');
+          
+          // Process with Tesseract.js
+          const { data: { text, confidence } } = await Tesseract.recognize(
+            imageData,
+            document.getElementById('ocr-language').value,
+            {
+              logger: m => {
+                if (m.status === 'recognizing text') {
+                  updateProgress(80 + (m.progress * 20));
+                }
+              }
+            }
+          );
+
+          allText += text + '\n\n';
+          totalConfidence += confidence;
+        }
+
+        const endTime = Date.now();
+        const processingTimeMs = endTime - startTime;
+
+        // Display results
+        extractedTextContent = allText.trim();
+        extractedText.textContent = extractedTextContent;
+        pagesProcessed.textContent = totalPages;
+        processingTime.textContent = (processingTimeMs / 1000).toFixed(1) + 's';
+        textLength.textContent = extractedTextContent.length.toLocaleString() + ' characters';
+        confidenceScore.textContent = Math.round(totalConfidence / totalPages) + '%';
+
+        resultCard.className = 'result-card success';
+        resultTitle.textContent = 'Text Extraction Complete';
+        
+        resultsSection.classList.remove('hidden');
+        hideLoading();
+
+      } catch (error) {
+        console.error('Error processing PDF:', error);
+        resultCard.className = 'result-card error';
+        resultTitle.textContent = 'Error Processing PDF';
+        extractedText.textContent = 'An error occurred while processing your PDF. Please try again with a different file.';
+        resultsSection.classList.remove('hidden');
+        hideLoading();
+      }
+    });
+  </script>
+
+  <footer class="mt-20 border-t border-gray-200 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
+      <div class="text-gray-600 text-sm mb-4">
+        © 2025 Webspind · Local processing · 
+        <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/privacy.html">Privacy</a>
+      </div>
+      <div class="text-gray-500 text-xs">
+        Professional tools for modern workflows
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!-- Upgrade Modal Component -->
+<!-- Include this in all tool pages -->
+
+<div id="upgrade-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full">
+      <div class="flex justify-between items-center p-6 border-b">
+        <h3 class="text-xl font-bold text-gray-900">Out of free actions</h3>
+        <button onclick="window.webspindFreemium?.hideUpgradeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
+          ×
+        </button>
+      </div>
+      <div class="p-6">
+        <p class="text-gray-600 mb-6">You've reached today's 3 free actions. Get Pro Pass for 300/day, batch tools, OCR/redaction, faster processing, and no ads.</p>
+        
+        <div class="space-y-4 mb-6">
+          <div class="flex items-center gap-3">
+            <span class="text-green-500 text-xl">✓</span>
+            <span class="text-sm text-gray-700">300 actions per day</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-green-500 text-xl">✓</span>
+            <span class="text-sm text-gray-700">Batch processing</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-green-500 text-xl">✓</span>
+            <span class="text-sm text-gray-700">OCR & redaction tools</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-green-500 text-xl">✓</span>
+            <span class="text-sm text-gray-700">Faster processing</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-green-500 text-xl">✓</span>
+            <span class="text-sm text-gray-700">No ads</span>
+          </div>
+        </div>
+        
+        <div class="space-y-3">
+          <button onclick="upgradeToPro()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+            Upgrade to Pro - €6.99/mo
+          </button>
+          <button onclick="openLicenseModal()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors">
+            Activate License
+          </button>
+          <button onclick="window.webspindFreemium?.hideUpgradeModal()" class="w-full text-gray-500 hover:text-gray-700 py-2 transition-colors">
+            Keep exploring
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- License Activation Modal -->
+<div id="license-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full">
+      <div class="flex justify-between items-center p-6 border-b">
+        <h3 class="text-xl font-bold text-gray-900">Activate License</h3>
+        <button onclick="closeLicenseModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
+          ×
+        </button>
+      </div>
+      <div class="p-6">
+        <p class="text-gray-600 mb-4">Enter your license key to activate Pro features:</p>
+        <input type="text" id="license-key-input" placeholder="Enter license key..." 
+               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4">
+        <button onclick="activateLicense()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
+          Activate License
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Upgrade functions
+function upgradeToPro() {
+  window.location.href = '/pricing';
+}
+
+function openLicenseModal() {
+  document.getElementById('license-modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLicenseModal() {
+  document.getElementById('license-modal').classList.add('hidden');
+  document.body.style.overflow = 'auto';
+}
+
+function activateLicense() {
+  const licenseKey = document.getElementById('license-key-input').value.trim();
+  
+  if (!licenseKey) {
+    alert('Please enter a license key');
+    return;
+  }
+  
+  if (window.webspindFreemium) {
+    window.webspindFreemium.activateLicense(licenseKey).then(success => {
+      if (success) {
+        closeLicenseModal();
+        alert('License activated successfully!');
+      } else {
+        alert('Invalid license key. Please check and try again.');
+      }
+    });
+  }
+}
+
+// Close modals on outside click
+document.getElementById('upgrade-modal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    window.webspindFreemium?.hideUpgradeModal();
+  }
+});
+
+document.getElementById('license-modal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeLicenseModal();
+  }
+});
+
+// Close modals on escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    window.webspindFreemium?.hideUpgradeModal();
+    closeLicenseModal();
+  }
+});
+</script>

@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pricing - Webspind Professional Tools</title>
+  <meta name="description" content="Choose the perfect plan for your document processing needs. Free tier with 3 actions/day, Pro Pass with 300 actions/day, or Lifetime access.">
+  <meta name="keywords" content="webspind pricing, pro pass, lifetime access, PDF tools pricing, document processing plans">
+  <meta name="author" content="Webspind">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://webspind.com/pricing">
+  <meta property="og:title" content="Pricing - Webspind Professional Tools">
+  <meta property="og:description" content="Choose the perfect plan for your document processing needs. Free tier with 3 actions/day, Pro Pass with 300 actions/day, or Lifetime access.">
+  <meta property="og:image" content="https://webspind.com/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://webspind.com/pricing">
+  <meta property="twitter:title" content="Pricing - Webspind Professional Tools">
+  <meta property="twitter:description" content="Choose the perfect plan for your document processing needs. Free tier with 3 actions/day, Pro Pass with 300 actions/day, or Lifetime access.">
+  <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/freemium.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out',
+            'slide-up': 'slideUp 1s ease-out',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(50px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+              '50%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
+      position: relative;
+    }
+    
+    .gradient-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .card {
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-color: #3b82f6;
+    }
+    
+    .card.popular {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px #3b82f6, 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+    }
+    
+    .card.popular::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #3b82f6;
+      color: white;
+      padding: 4px 16px;
+      border-radius: 0 0 8px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 10;
+    }
+    
+    .btn-primary {
+      background: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
+      position: relative;
+      overflow: hidden;
+      font-size: 16px;
+      width: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(26, 26, 26, 0.2);
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+    
+    .btn-secondary {
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      color: #6b7280;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      font-size: 16px;
+      width: 100%;
+    }
+    
+    .btn-secondary:hover {
+      border-color: #3b82f6;
+      color: #3b82f6;
+      transform: translateY(-1px);
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    
+    .feature-list li::before {
+      content: '✓';
+      color: #10b981;
+      font-weight: bold;
+      margin-right: 8px;
+      width: 16px;
+    }
+    
+    .price-highlight {
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .pulse-glow {
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen gradient-bg">
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900">Webspind</a>
+      
+      <div class="flex items-center gap-6 text-sm">
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium" href="/">Home</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium" href="/#tools">Tools</a>
+        <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium" href="/privacy.html">Privacy</a>
+      </div>
+      
+      <!-- Quota Badge -->
+      <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+        <span class="text-sm font-medium">Loading...</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="max-w-7xl mx-auto px-4 md:px-6 py-16">
+    <div class="text-center mb-16 fade-in">
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
+        <span class="price-highlight">Simple Pricing</span>
+        <br>
+        <span class="text-gray-900">For Everyone</span>
+      </h1>
+      
+      <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+        Choose the perfect plan for your document processing needs. Start free, upgrade when you need more power.
+      </p>
+      
+      <!-- Toggle for Annual/Monthly -->
+      <div class="flex items-center justify-center gap-4 mb-8">
+        <span class="text-gray-600">Monthly</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" id="billing-toggle" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+        </label>
+        <span class="text-gray-600">Annual <span class="text-green-600 font-semibold">(Save 41%)</span></span>
+      </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+      <!-- Free Plan -->
+      <div class="card p-8 fade-in">
+        <div class="text-center mb-8">
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">Free</h3>
+          <div class="text-4xl font-black text-gray-900 mb-2">€0</div>
+          <p class="text-gray-600">3 actions/day across all tools</p>
+        </div>
+        
+        <ul class="feature-list mb-8">
+          <li>3 actions per day</li>
+          <li>All PDF tools</li>
+          <li>Image conversion</li>
+          <li>QR generation</li>
+          <li>AI detection</li>
+          <li>Text processing</li>
+          <li>100% private & secure</li>
+          <li>No registration required</li>
+        </ul>
+        
+        <button class="btn-secondary" disabled>
+          Current Plan
+        </button>
+      </div>
+
+      <!-- Pro Pass Plan -->
+      <div class="card popular p-8 fade-in">
+        <div class="text-center mb-8">
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">Pro Pass</h3>
+          <div class="text-4xl font-black price-highlight mb-2">
+            <span class="monthly-price">€6.99</span>
+            <span class="annual-price hidden">€4.08</span>
+            <span class="text-lg text-gray-600">/mo</span>
+          </div>
+          <p class="text-gray-600">300 actions/day • Everything across PDF + AI tools • one plan</p>
+          <div class="annual-savings hidden text-sm text-green-600 font-semibold mt-2">
+            That's €4.08/mo billed annually at €49—save 41% vs monthly.
+          </div>
+        </div>
+        
+        <ul class="feature-list mb-8">
+          <li>300 actions per day</li>
+          <li>Everything in Free</li>
+          <li>Batch processing</li>
+          <li>OCR & redaction tools</li>
+          <li>Larger file sizes (4GB)</li>
+          <li>Faster processing</li>
+          <li>No ads</li>
+          <li>Priority support</li>
+        </ul>
+        
+        <button class="btn-primary" onclick="upgradeToPro()">
+          Upgrade to Pro
+        </button>
+      </div>
+
+      <!-- Lifetime Plan -->
+      <div class="card p-8 fade-in">
+        <div class="text-center mb-8">
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">Lifetime</h3>
+          <div class="text-4xl font-black text-gray-900 mb-2">€79</div>
+          <p class="text-gray-600">One-time payment • Limited early-bird licenses</p>
+          <div class="text-sm text-orange-600 font-semibold mt-2">
+            Limited early-bird licenses (€79–€99) • web-only entitlements • while supplies last.
+          </div>
+        </div>
+        
+        <ul class="feature-list mb-8">
+          <li>Everything in Pro</li>
+          <li>One-time payment</li>
+          <li>No recurring fees</li>
+          <li>Web-only entitlements</li>
+          <li>Early-bird pricing</li>
+          <li>Limited availability</li>
+          <li>Lifetime updates</li>
+          <li>Priority features</li>
+        </ul>
+        
+        <button class="btn-primary" onclick="upgradeToLifetime()">
+          Get Lifetime
+        </button>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="max-w-4xl mx-auto fade-in">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Frequently Asked Questions</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">What counts as an "action"?</h3>
+          <p class="text-gray-600 text-sm">An action is any completed operation: merging PDFs, converting images, generating QR codes, or analyzing text. OCR and AI detection count as 2 actions due to their computational intensity.</p>
+        </div>
+        
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">When do my actions reset?</h3>
+          <p class="text-gray-600 text-sm">Actions reset daily at UTC midnight. You'll see a countdown timer showing when your next reset occurs.</p>
+        </div>
+        
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">Can I cancel anytime?</h3>
+          <p class="text-gray-600 text-sm">Yes! Pro Pass subscriptions can be cancelled anytime. You'll keep Pro access until the end of your billing period.</p>
+        </div>
+        
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">What's included in Lifetime?</h3>
+          <p class="text-gray-600 text-sm">Lifetime includes all Pro features forever with a one-time payment. It's limited to web-only access and has limited availability.</p>
+        </div>
+        
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">Is my data still private?</h3>
+          <p class="text-gray-600 text-sm">Absolutely! All processing still happens locally in your browser. We never see or store your files, regardless of your plan.</p>
+        </div>
+        
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">What payment methods do you accept?</h3>
+          <p class="text-gray-600 text-sm">We accept all major credit cards through Stripe. Your payment information is secure and never stored on our servers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Support Section -->
+    <div class="text-center mt-16 fade-in">
+      <div class="card p-8 max-w-2xl mx-auto">
+        <h2 class="text-2xl font-bold mb-4 text-gray-900">
+          Still have questions?
+        </h2>
+        <p class="text-gray-600 mb-6">
+          We're here to help! Contact us if you need assistance with your plan or have any questions.
+        </p>
+        <button class="btn-secondary" onclick="openSupport()">
+          Contact Support
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- License Activation Modal -->
+  <div id="license-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl max-w-md w-full">
+        <div class="flex justify-between items-center p-6 border-b">
+          <h3 class="text-xl font-bold text-gray-900">Activate License</h3>
+          <button onclick="closeLicenseModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
+            ×
+          </button>
+        </div>
+        <div class="p-6">
+          <p class="text-gray-600 mb-4">Enter your license key to activate Pro features:</p>
+          <input type="text" id="license-key-input" placeholder="Enter license key..." 
+                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4">
+          <button onclick="activateLicense()" class="btn-primary">
+            Activate License
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="mt-20 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
+      <div class="text-gray-600 text-sm mb-4">
+        © 2025 Webspind · 
+        <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/privacy.html">Privacy</a>
+      </div>
+      <div class="text-gray-500 text-xs">
+        Professional tools for modern workflows
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Pricing toggle functionality
+    const billingToggle = document.getElementById('billing-toggle');
+    const monthlyPrices = document.querySelectorAll('.monthly-price');
+    const annualPrices = document.querySelectorAll('.annual-price');
+    const annualSavings = document.querySelectorAll('.annual-savings');
+
+    billingToggle.addEventListener('change', function() {
+      if (this.checked) {
+        // Show annual pricing
+        monthlyPrices.forEach(el => el.classList.add('hidden'));
+        annualPrices.forEach(el => el.classList.remove('hidden'));
+        annualSavings.forEach(el => el.classList.remove('hidden'));
+      } else {
+        // Show monthly pricing
+        monthlyPrices.forEach(el => el.classList.remove('hidden'));
+        annualPrices.forEach(el => el.classList.add('hidden'));
+        annualSavings.forEach(el => el.classList.add('hidden'));
+      }
+    });
+
+    // Upgrade functions
+    function upgradeToPro() {
+      const isAnnual = billingToggle.checked;
+      const priceId = isAnnual ? 'price_annual_pro' : 'price_monthly_pro'; // Replace with actual Stripe price IDs
+      
+      if (window.webspindFreemium) {
+        window.webspindFreemium.createCheckout('pro', priceId);
+      }
+    }
+
+    function upgradeToLifetime() {
+      const priceId = 'price_lifetime'; // Replace with actual Stripe price ID
+      
+      if (window.webspindFreemium) {
+        window.webspindFreemium.createCheckout('lifetime', priceId);
+      }
+    }
+
+    function openSupport() {
+      // Open support modal or redirect to support
+      alert('Support functionality would be implemented here');
+    }
+
+    // License activation functions
+    function openLicenseModal() {
+      document.getElementById('license-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLicenseModal() {
+      document.getElementById('license-modal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    function activateLicense() {
+      const licenseKey = document.getElementById('license-key-input').value.trim();
+      
+      if (!licenseKey) {
+        alert('Please enter a license key');
+        return;
+      }
+      
+      if (window.webspindFreemium) {
+        window.webspindFreemium.activateLicense(licenseKey).then(success => {
+          if (success) {
+            closeLicenseModal();
+            alert('License activated successfully!');
+          } else {
+            alert('Invalid license key. Please check and try again.');
+          }
+        });
+      }
+    }
+
+    // Animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Close modal on outside click
+    document.getElementById('license-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLicenseModal();
+      }
+    });
+  </script>
+</body>
+</html>
