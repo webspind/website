@@ -1,0 +1,131 @@
+<!-- Buy Credits Modal -->
+<div id="buy-credits-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-2xl p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+    <div class="text-center mb-8">
+      <div class="text-6xl mb-4">💳</div>
+      <h3 class="text-3xl font-bold mb-4 text-gray-800">Buy Credits</h3>
+      <p class="text-gray-600 mb-6">
+        Choose a credit package that works for you. Credits never expire and can be used for any tool.
+      </p>
+    </div>
+
+    <!-- Credit Packages -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Starter Pack -->
+      <div class="credit-package border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 transition-all cursor-pointer" data-package="starter">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-gray-800 mb-2">10 Credits</div>
+          <div class="text-3xl font-bold text-blue-600 mb-2">$2.99</div>
+          <div class="text-sm text-gray-500 mb-4">$0.30 per credit</div>
+          <div class="text-xs text-gray-600">Perfect for trying out tools</div>
+        </div>
+      </div>
+
+      <!-- Popular Pack -->
+      <div class="credit-package border-2 border-blue-500 rounded-xl p-6 hover:border-blue-600 transition-all cursor-pointer relative" data-package="popular">
+        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+          <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium">Most Popular</span>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-gray-800 mb-2">50 Credits</div>
+          <div class="text-3xl font-bold text-blue-600 mb-2">$9.99</div>
+          <div class="text-sm text-gray-500 mb-4">$0.20 per credit</div>
+          <div class="text-xs text-gray-600">Best value for regular users</div>
+        </div>
+      </div>
+
+      <!-- Pro Pack -->
+      <div class="credit-package border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 transition-all cursor-pointer" data-package="pro">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-gray-800 mb-2">100 Credits</div>
+          <div class="text-3xl font-bold text-blue-600 mb-2">$16.99</div>
+          <div class="text-sm text-gray-500 mb-4">$0.17 per credit</div>
+          <div class="text-xs text-gray-600">Great for power users</div>
+        </div>
+      </div>
+
+      <!-- Enterprise Pack -->
+      <div class="credit-package border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 transition-all cursor-pointer" data-package="enterprise">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-gray-800 mb-2">250 Credits</div>
+          <div class="text-3xl font-bold text-blue-600 mb-2">$34.99</div>
+          <div class="text-sm text-gray-500 mb-4">$0.14 per credit</div>
+          <div class="text-xs text-gray-600">Best for teams & businesses</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Credit Usage Info -->
+    <div class="bg-gray-50 rounded-xl p-6 mb-6">
+      <h4 class="text-lg font-semibold mb-4 text-gray-800">How Credits Work</h4>
+      <div class="grid md:grid-cols-2 gap-4 text-sm">
+        <div>
+          <h5 class="font-medium text-gray-700 mb-2">Free Tools (0 credits):</h5>
+          <ul class="text-gray-600 space-y-1">
+            <li>• AI Detector</li>
+            <li>• Password Generator</li>
+            <li>• QR Generator</li>
+            <li>• Text Tools</li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="font-medium text-gray-700 mb-2">Premium Tools (1 credit each):</h5>
+          <ul class="text-gray-600 space-y-1">
+            <li>• PDF Merge/Split/OCR</li>
+            <li>• Image Converter/Resizer</li>
+            <li>• Background Remover</li>
+            <li>• All future premium tools</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button id="purchase-credits-btn" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-8 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium" disabled>
+        Select a Package
+      </button>
+      <button class="bg-gray-200 text-gray-700 py-3 px-8 rounded-lg hover:bg-gray-300 transition-all duration-200" onclick="window.webspindCredits.hideBuyCreditsModal()">
+        Maybe Later
+      </button>
+    </div>
+
+    <!-- Security Notice -->
+    <div class="text-center mt-6">
+      <p class="text-xs text-gray-500">
+        🔒 Secure payment powered by Stripe • Credits never expire • Cancel anytime
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Credit package selection
+document.addEventListener('DOMContentLoaded', () => {
+  const packages = document.querySelectorAll('.credit-package');
+  const purchaseBtn = document.getElementById('purchase-credits-btn');
+  let selectedPackage = null;
+
+  packages.forEach(pkg => {
+    pkg.addEventListener('click', () => {
+      // Remove selection from all packages
+      packages.forEach(p => p.classList.remove('border-blue-500', 'bg-blue-50'));
+      
+      // Add selection to clicked package
+      pkg.classList.add('border-blue-500', 'bg-blue-50');
+      
+      // Update purchase button
+      selectedPackage = pkg.dataset.package;
+      purchaseBtn.disabled = false;
+      purchaseBtn.textContent = `Buy ${pkg.querySelector('.text-2xl').textContent}`;
+    });
+  });
+
+  // Purchase button
+  purchaseBtn.addEventListener('click', () => {
+    if (selectedPackage && window.webspindCredits) {
+      window.webspindCredits.createCheckout(selectedPackage);
+    }
+  });
+});
+</script>

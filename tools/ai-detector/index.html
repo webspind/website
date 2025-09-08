@@ -522,6 +522,7 @@
     </section>
   </main>
 
+  <script src="/js/freemium.js"></script>
   <script>
     // Intersection Observer for animations
     const observerOptions = {
@@ -812,11 +813,25 @@
     });
 
     // Analyze button
-    analyzeBtn.addEventListener('click', () => {
+    analyzeBtn.addEventListener('click', async () => {
       const text = textInput.value.trim();
       if (text.length < 50) {
         alert('Please enter at least 50 characters for accurate analysis.');
         return;
+      }
+
+      // Check usage before proceeding
+      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(1)) {
+        window.webspindFreemium.showUpgradeModal('limit_reached');
+        return;
+      }
+
+      // Consume usage
+      if (window.webspindFreemium) {
+        const canProceed = await window.webspindFreemium.consumeUsage(1);
+        if (!canProceed) {
+          return;
+        }
       }
 
       showLoading();

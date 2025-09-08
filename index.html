@@ -19,10 +19,16 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://webspind.com/">
   
+  <!-- Performance optimizations -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://storage.ko-fi.com">
+  <link rel="dns-prefetch" href="https://api.webspind.com">
+  
   <!-- Language and locale -->
   <meta name="language" content="en">
-  <meta name="geo.region" content="US">
-  <meta name="geo.placename" content="United States">
+  <meta name="geo.region" content="Global">
+  <meta name="geo.placename" content="Worldwide">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -459,6 +465,183 @@
       animation: webSpin 1s linear infinite;
     }
     
+    /* Improved contrast for better accessibility */
+    .text-gray-600 {
+      color: #4b5563 !important; /* Improved from #6b7280 for better contrast */
+    }
+    
+    .text-gray-500 {
+      color: #6b7280 !important; /* Improved from #9ca3af for better contrast */
+    }
+    
+    /* Enhanced focus states for keyboard navigation */
+    .btn-primary:focus,
+    .btn-secondary:focus,
+    .btn-donate:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+    }
+    
+    /* Better visual hierarchy with improved spacing */
+    .tool-card {
+      transition: all 0.2s ease;
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Tooltip styles */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: #1f2937;
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      padding: 8px 12px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -100px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #1f2937 transparent transparent transparent;
+    }
+    
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    /* Loading states */
+    .loading-skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+    
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    
+    /* Dark theme styles */
+    [data-theme="dark"] {
+      --bg-primary: #1a1a1a;
+      --bg-secondary: #2d2d2d;
+      --text-primary: #ffffff;
+      --text-secondary: #d1d5db;
+      --border-color: #374151;
+    }
+    
+    [data-theme="dark"] body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    
+    [data-theme="dark"] .card {
+      background-color: var(--bg-secondary);
+      border-color: var(--border-color);
+    }
+    
+    [data-theme="dark"] .text-gray-900 {
+      color: var(--text-primary) !important;
+    }
+    
+    [data-theme="dark"] .text-gray-800 {
+      color: var(--text-primary) !important;
+    }
+    
+    [data-theme="dark"] .text-gray-700 {
+      color: var(--text-secondary) !important;
+    }
+    
+    [data-theme="dark"] .text-gray-600 {
+      color: #9ca3af !important;
+    }
+    
+    [data-theme="dark"] .bg-white {
+      background-color: var(--bg-secondary) !important;
+    }
+    
+    [data-theme="dark"] .border-gray-200 {
+      border-color: var(--border-color) !important;
+    }
+    
+    [data-theme="dark"] .glass {
+      background: rgba(45, 45, 45, 0.8);
+      backdrop-filter: blur(20px);
+    }
+    
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+      .tool-card {
+        min-height: 120px; /* Ensure touch targets are large enough */
+      }
+      
+      .btn-primary,
+      .btn-secondary {
+        min-height: 44px; /* iOS recommended touch target size */
+        padding: 12px 16px;
+      }
+      
+      .stats-card {
+        padding: 16px 12px;
+      }
+      
+      /* Improve mobile navigation */
+      #mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 50;
+        display: none;
+      }
+      
+      #mobile-menu.show {
+        display: block;
+      }
+      
+      #mobile-menu-content {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 280px;
+        height: 100%;
+        background: white;
+        padding: 20px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      }
+      
+      #mobile-menu.show #mobile-menu-content {
+        transform: translateX(0);
+      }
+    }
+    
     .loading-overlay {
       position: fixed;
       top: 0;
@@ -828,7 +1011,7 @@
       </div>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+      <button id="mobile-menu-btn" class="md:hidden p-3 rounded-lg hover:bg-gray-100 touch-manipulation" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-menu">
         <svg class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
@@ -838,6 +1021,9 @@
         <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="#tools" role="menuitem">Tools</a>
         <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/pricing.html" role="menuitem">Pricing</a>
         <a class="text-gray-700 hover:text-gray-900 transition-colors font-medium nav-link" href="/privacy.html" role="menuitem">Privacy</a>
+        <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Toggle dark mode" title="Toggle dark/light theme">
+          <span id="theme-icon" class="text-lg">🌙</span>
+        </button>
       </div>
       
       <!-- Quota Badge -->
@@ -910,18 +1096,21 @@
         
         <!-- Stats -->
         <div class="grid grid-cols-3 gap-4 mb-8 fade-in">
-          <div class="stats-card">
-            <div class="text-2xl font-bold text-gray-900 mb-1">9</div>
-            <div class="text-gray-600 text-xs">Professional Tools</div>
-          </div>
-          <div class="stats-card">
-            <div class="text-2xl font-bold text-gray-900 mb-1">50K+</div>
-            <div class="text-gray-600 text-xs">Monthly Users</div>
-          </div>
-          <div class="stats-card">
-            <div class="text-2xl font-bold text-gray-900 mb-1">100%</div>
-            <div class="text-gray-600 text-xs">Privacy Safe</div>
-          </div>
+        <div class="stats-card tooltip">
+          <div class="text-2xl font-bold text-gray-900 mb-1">9</div>
+          <div class="text-gray-600 text-xs">Professional Tools</div>
+          <span class="tooltiptext">PDF merge, split, rotate, OCR, image converter, QR generator, text tools, AI detector, and more</span>
+        </div>
+        <div class="stats-card tooltip">
+          <div class="text-2xl font-bold text-gray-900 mb-1">50K+</div>
+          <div class="text-gray-600 text-xs">Monthly Users</div>
+          <span class="tooltiptext">Trusted by professionals worldwide for secure document processing</span>
+        </div>
+        <div class="stats-card tooltip">
+          <div class="text-2xl font-bold text-gray-900 mb-1">100%</div>
+          <div class="text-gray-600 text-xs">Privacy Safe</div>
+          <span class="tooltiptext">All processing happens locally in your browser - no file uploads</span>
+        </div>
         </div>
         
         <!-- Enhanced Social Proof -->
@@ -1174,6 +1363,25 @@
           <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
         </div>
       </a>
+
+      <a href="/tools/background-remover/" class="card group p-4 hover:scale-105 transition-all duration-500 fade-in tool-card" data-category="image" data-keywords="background remover transparent background ai">
+        <div class="flex items-center mb-3">
+          <div class="tool-icon text-white mr-3" style="width: 40px; height: 40px; font-size: 16px; background: linear-gradient(135deg, #667eea, #764ba2);">
+            🎭
+          </div>
+          <div>
+            <div class="feature-badge" style="font-size: 10px; padding: 2px 6px; background: linear-gradient(135deg, #667eea, #764ba2); color: white;">PRO</div>
+            <h2 class="text-lg font-bold text-gray-900">Background Remover</h2>
+          </div>
+        </div>
+        <p class="text-gray-600 text-sm mb-3 leading-relaxed">
+          Remove backgrounds from images instantly with AI. Perfect for product photos and portraits.
+        </p>
+        <div class="flex items-center justify-between">
+          <div class="text-xs text-gray-500">AI-Powered</div>
+          <div class="text-lg group-hover:translate-x-2 transition-transform">→</div>
+        </div>
+      </a>
         </div>
       </div>
     </section>
@@ -1279,17 +1487,17 @@
   </main>
 
   <!-- Include Upgrade Modal -->
-  <div id="upgrade-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+  <div id="upgrade-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="upgrade-title" aria-describedby="upgrade-description">
     <div class="flex items-center justify-center min-h-screen p-4">
       <div class="bg-white rounded-2xl max-w-lg w-full">
         <div class="flex justify-between items-center p-6 border-b">
-          <h3 class="text-xl font-bold text-gray-900">Out of free actions</h3>
-          <button onclick="window.webspindFreemium?.hideUpgradeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
-            ×
+          <h3 id="upgrade-title" class="text-xl font-bold text-gray-900">Daily Limit Reached</h3>
+          <button onclick="window.webspindFreemium?.hideUpgradeModal()" class="text-gray-400 hover:text-gray-600 text-2xl" aria-label="Close upgrade modal">
+            <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="p-6">
-          <p class="text-gray-600 mb-6">You've reached today's 3 free actions. Get Pro Pass for 300/day, batch tools, OCR/redaction, faster processing, and no ads.</p>
+          <p id="upgrade-description" class="text-gray-600 mb-6">You've reached today's 3 free actions. Get Pro Pass for 300/day, batch tools, OCR/redaction, faster processing, and no ads.</p>
           
           <div class="space-y-4 mb-6">
             <div class="flex items-center gap-3">
@@ -2292,6 +2500,43 @@
 
     // Update plan display when freemium system loads
     setTimeout(updatePlanDisplay, 1000);
+
+    // Theme toggle functionality
+    function initializeTheme() {
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      
+      // Apply saved theme
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeIcon(savedTheme);
+      
+      // Theme toggle event listener
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          updateThemeIcon(newTheme);
+        });
+      }
+    }
+    
+    function updateThemeIcon(theme) {
+      const themeIcon = document.getElementById('theme-icon');
+      if (themeIcon) {
+        themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+      }
+    }
+
+    // Initialize theme when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeTheme);
+    } else {
+      initializeTheme();
+    }
   </script>
 
   <footer class="mt-20 border-t border-gray-200 relative z-10">

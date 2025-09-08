@@ -392,6 +392,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="/js/freemium.js"></script>
   <script>
     const fileInput = document.getElementById('file');
     const rangesInput = document.getElementById('ranges');
@@ -437,6 +438,20 @@
     document.getElementById('extract').addEventListener('click', async () => {
       if (!sourceDoc) return alert('Vælg en PDF');
       
+      // Check usage before proceeding
+      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(1)) {
+        window.webspindFreemium.showUpgradeModal('limit_reached');
+        return;
+      }
+
+      // Consume usage
+      if (window.webspindFreemium) {
+        const canProceed = await window.webspindFreemium.consumeUsage(1);
+        if (!canProceed) {
+          return;
+        }
+      }
+      
       // Show loading overlay
       const loadingOverlay = document.getElementById('loading-overlay');
       loadingOverlay.classList.add('show');
@@ -457,6 +472,20 @@
 
     document.getElementById('perpage').addEventListener('click', async () => {
       if (!sourceDoc) return alert('Vælg en PDF');
+      
+      // Check usage before proceeding
+      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(1)) {
+        window.webspindFreemium.showUpgradeModal('limit_reached');
+        return;
+      }
+
+      // Consume usage
+      if (window.webspindFreemium) {
+        const canProceed = await window.webspindFreemium.consumeUsage(1);
+        if (!canProceed) {
+          return;
+        }
+      }
       
       // Show loading overlay
       const loadingOverlay = document.getElementById('loading-overlay');

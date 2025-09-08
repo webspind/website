@@ -484,6 +484,7 @@
     </section>
   </main>
 
+  <script src="/js/freemium.js"></script>
   <script>
     let selectedFiles = [];
     let fileObjects = {};
@@ -628,6 +629,20 @@
       if (selectedFiles.length === 0) {
         alert('Please select at least one image to resize.');
         return;
+      }
+
+      // Check usage before proceeding
+      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(1)) {
+        window.webspindFreemium.showUpgradeModal('limit_reached');
+        return;
+      }
+
+      // Consume usage
+      if (window.webspindFreemium) {
+        const canProceed = await window.webspindFreemium.consumeUsage(1);
+        if (!canProceed) {
+          return;
+        }
       }
 
       showLoading();

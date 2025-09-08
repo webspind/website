@@ -27,6 +27,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script src="/js/freemium.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -398,19 +399,19 @@
         <div class="card p-8">
           <!-- Type Selection -->
           <div class="mb-8">
-            <h3 class="text-lg font-semibold mb-4 text-gray-800">Vælg type:</h3>
+            <h3 class="text-lg font-semibold mb-4 text-gray-800">Choose Type:</h3>
             <div class="flex flex-wrap gap-3">
               <div class="type-tab active" data-type="url">
                 🌐 URL
               </div>
               <div class="type-tab" data-type="text">
-                📝 Tekst
+                📝 Text
               </div>
               <div class="type-tab" data-type="wifi">
                 📶 WiFi
               </div>
               <div class="type-tab" data-type="contact">
-                👤 Kontakt
+                👤 Contact
               </div>
             </div>
           </div>
@@ -422,33 +423,33 @@
           </div>
 
           <div id="text-form" class="form-content hidden">
-            <label class="block text-lg font-semibold mb-4 text-gray-800">Tekst:</label>
-            <textarea id="text-input" placeholder="Indtast din tekst her..." class="w-full p-4 border border-gray-300 rounded-xl text-lg h-32"></textarea>
+            <label class="block text-lg font-semibold mb-4 text-gray-800">Text:</label>
+            <textarea id="text-input" placeholder="Enter your text here..." class="w-full p-4 border border-gray-300 rounded-xl text-lg h-32"></textarea>
           </div>
 
           <div id="wifi-form" class="form-content hidden">
             <div class="grid md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-semibold mb-2 text-gray-800">Netværksnavn (SSID):</label>
-                <input type="text" id="wifi-ssid" placeholder="Mit WiFi" class="w-full p-3 border border-gray-300 rounded-lg">
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Network Name (SSID):</label>
+                <input type="text" id="wifi-ssid" placeholder="My WiFi" class="w-full p-3 border border-gray-300 rounded-lg">
               </div>
               <div>
-                <label class="block text-sm font-semibold mb-2 text-gray-800">Adgangskode:</label>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Password:</label>
                 <input type="password" id="wifi-password" placeholder="password123" class="w-full p-3 border border-gray-300 rounded-lg">
               </div>
               <div>
-                <label class="block text-sm font-semibold mb-2 text-gray-800">Sikkerhedstype:</label>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Security Type:</label>
                 <select id="wifi-security" class="w-full p-3 border border-gray-300 rounded-lg">
                   <option value="WPA">WPA/WPA2</option>
                   <option value="WEP">WEP</option>
-                  <option value="nopass">Ingen adgangskode</option>
+                  <option value="nopass">No Password</option>
                 </select>
               </div>
               <div>
-                <label class="block text-sm font-semibold mb-2 text-gray-800">Skjult netværk:</label>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Hidden Network:</label>
                 <select id="wifi-hidden" class="w-full p-3 border border-gray-300 rounded-lg">
-                  <option value="false">Nej</option>
-                  <option value="true">Ja</option>
+                  <option value="false">No</option>
+                  <option value="true">Yes</option>
                 </select>
               </div>
             </div>
@@ -457,12 +458,12 @@
           <div id="contact-form" class="form-content hidden">
             <div class="grid md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm font-semibold mb-2 text-gray-800">Navn:</label>
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Name:</label>
                 <input type="text" id="contact-name" placeholder="John Doe" class="w-full p-3 border border-gray-300 rounded-lg">
               </div>
               <div>
-                <label class="block text-sm font-semibold mb-2 text-gray-800">Telefon:</label>
-                <input type="tel" id="contact-phone" placeholder="+45 12 34 56 78" class="w-full p-3 border border-gray-300 rounded-lg">
+                <label class="block text-sm font-semibold mb-2 text-gray-800">Phone:</label>
+                <input type="tel" id="contact-phone" placeholder="+1 234 567 8900" class="w-full p-3 border border-gray-300 rounded-lg">
               </div>
               <div>
                 <label class="block text-sm font-semibold mb-2 text-gray-800">Email:</label>
@@ -478,7 +479,7 @@
           <!-- Size Selection -->
           <div class="mt-8">
             <label class="block text-lg font-semibold mb-4 text-gray-800">
-              Størrelse: <span id="size-value">256</span>px
+              Size: <span id="size-value">256</span>px
             </label>
             <input type="range" id="size" min="128" max="512" value="256" step="32" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
           </div>
@@ -486,7 +487,7 @@
           <!-- Generate Button -->
           <div class="mt-8">
             <button id="generate" class="btn-primary w-full py-4 text-lg">
-              🚀 Generer QR Kode
+              🚀 Generate QR Code
             </button>
           </div>
 
@@ -515,28 +516,28 @@
           <ul class="space-y-3 text-sm text-gray-600">
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>QR koder genereres lokalt i din browser</span>
+              <span>QR codes are generated locally in your browser</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>WiFi QR koder gør det nemt at dele netværk</span>
+              <span>WiFi QR codes make it easy to share networks</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>Kontakt QR koder kan importeres direkte</span>
+              <span>Contact QR codes can be imported directly</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>Større QR koder er nemmere at scanne</span>
+              <span>Larger QR codes are easier to scan</span>
             </li>
           </ul>
         </div>
 
         <!-- Donation Card -->
         <div class="card p-6 bg-gradient-to-br from-pink-50 to-purple-50 border-pink-200">
-          <h2 class="text-xl font-bold mb-4 text-gray-800">💝 Støt Webspind</h2>
+          <h2 class="text-xl font-bold mb-4 text-gray-800">💝 Support Webspind</h2>
           <p class="text-sm text-gray-600 mb-4">
-            Synes du værktøjet er nyttigt? Overvej at donere for at hjælpe med at holde det kørende!
+            Find the tool useful? Consider donating to help keep it running!
           </p>
           <a href="DONATION_LINK" class="btn-donate w-full text-center block">
             💝 Donate what you want
@@ -550,8 +551,8 @@
   <div id="loading-overlay" class="loading-overlay">
     <div class="loading-content">
       <div class="web-spinner"></div>
-      <h3 class="text-xl font-bold mt-6 text-gray-800">Genererer QR kode...</h3>
-      <p class="text-gray-600 mt-2">Vent venligst mens vi laver din QR kode</p>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">Generating QR code...</h3>
+      <p class="text-gray-600 mt-2">Please wait while we create your QR code</p>
     </div>
   </div>
 
@@ -604,7 +605,7 @@
           const hidden = document.getElementById('wifi-hidden').value;
           
           if (!ssid) {
-            alert('Indtast netværksnavn');
+            alert('Please enter network name');
             return;
           }
           
@@ -627,6 +628,20 @@
           if (website) data += `\nURL:${website}`;
           data += '\nEND:VCARD';
           break;
+      }
+
+      // Check usage before proceeding
+      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(1)) {
+        window.webspindFreemium.showUpgradeModal('limit_reached');
+        return;
+      }
+
+      // Consume usage
+      if (window.webspindFreemium) {
+        const canProceed = await window.webspindFreemium.consumeUsage(1);
+        if (!canProceed) {
+          return;
+        }
       }
 
       // Show loading overlay

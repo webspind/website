@@ -383,23 +383,23 @@
                 🖼️
               </div>
             </div>
-            <h3 class="text-xl font-bold mb-2 text-gray-800">Slip dine billeder her</h3>
-            <p class="text-gray-600 mb-6">eller klik for at vælge filer</p>
+            <h3 class="text-xl font-bold mb-2 text-gray-800">Drop your images here</h3>
+            <p class="text-gray-600 mb-6">or click to browse files</p>
             <label class="btn-primary cursor-pointer">
-              🖼️ Vælg billeder
+              🖼️ Choose Images
               <input id="files" type="file" accept="image/*" multiple class="hidden">
             </label>
           </div>
 
           <!-- Format Selection -->
           <div class="mt-8">
-            <h3 class="text-lg font-semibold mb-4 text-gray-800">Vælg output format:</h3>
+            <h3 class="text-lg font-semibold mb-4 text-gray-800">Choose output format:</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-400 transition-colors">
                 <input type="radio" name="format" value="jpeg" class="mr-3" checked>
                 <div>
                   <div class="font-semibold">JPEG</div>
-                  <div class="text-sm text-gray-500">Komprimeret</div>
+                  <div class="text-sm text-gray-500">Compressed</div>
                 </div>
               </label>
               <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-400 transition-colors">
@@ -413,7 +413,7 @@
                 <input type="radio" name="format" value="webp" class="mr-3">
                 <div>
                   <div class="font-semibold">WebP</div>
-                  <div class="text-sm text-gray-500">Moderne</div>
+                  <div class="text-sm text-gray-500">Modern</div>
                 </div>
               </label>
               <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-blue-400 transition-colors">
@@ -429,7 +429,7 @@
           <!-- Quality Slider -->
           <div class="mt-8">
             <label class="block text-lg font-semibold mb-4 text-gray-800">
-              Kvalitet: <span id="quality-value">80</span>%
+              Quality: <span id="quality-value">80</span>%
             </label>
             <input type="range" id="quality" min="10" max="100" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
           </div>
@@ -440,10 +440,10 @@
           <!-- Action Buttons -->
           <div class="mt-8 flex flex-col sm:flex-row gap-4">
             <button id="convert" class="btn-primary flex-1 py-4 text-lg">
-              🚀 Konverter alle
+              🚀 Convert All
             </button>
             <button id="clear" class="btn-secondary flex-1 py-4 text-lg">
-              🗑️ Ryd alle
+              🗑️ Clear All
             </button>
           </div>
         </div>
@@ -457,28 +457,28 @@
           <ul class="space-y-3 text-sm text-gray-600">
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>JPEG er bedst til fotos</span>
+              <span>JPEG is best for photos</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>PNG er bedst til grafik med gennemsigtighed</span>
+              <span>PNG is best for graphics with transparency</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>WebP giver mindre filstørrelse</span>
+              <span>WebP provides smaller file sizes</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="text-green-500 mt-1">✓</span>
-              <span>Alle billeder behandles lokalt</span>
+              <span>All images processed locally</span>
             </li>
           </ul>
         </div>
 
         <!-- Donation Card -->
         <div class="card p-6 bg-gradient-to-br from-pink-50 to-purple-50 border-pink-200">
-          <h2 class="text-xl font-bold mb-4 text-gray-800">💝 Støt Webspind</h2>
+          <h2 class="text-xl font-bold mb-4 text-gray-800">💝 Support Webspind</h2>
           <p class="text-sm text-gray-600 mb-4">
-            Synes du værktøjet er nyttigt? Overvej at donere for at hjælpe med at holde det kørende!
+            Find the tool useful? Consider donating to help keep it running!
           </p>
           <a href="DONATION_LINK" class="btn-donate w-full text-center block">
             💝 Donate what you want
@@ -492,11 +492,12 @@
   <div id="loading-overlay" class="loading-overlay">
     <div class="loading-content">
       <div class="web-spinner"></div>
-      <h3 class="text-xl font-bold mt-6 text-gray-800">Konverterer billeder...</h3>
-      <p class="text-gray-600 mt-2">Vent venligst mens vi behandler dine billeder</p>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">Converting images...</h3>
+      <p class="text-gray-600 mt-2">Please wait while we process your images</p>
     </div>
   </div>
 
+  <script src="/js/freemium.js"></script>
   <script>
     const drop = document.getElementById('drop');
     const input = document.getElementById('files');
@@ -572,8 +573,22 @@
     // Convert button
     document.getElementById('convert').addEventListener('click', async () => {
       if (!items.length) {
-        alert('Tilføj mindst 1 billede');
+        alert('Add at least 1 image');
         return;
+      }
+
+      // Check usage before proceeding
+      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(1)) {
+        window.webspindFreemium.showUpgradeModal('limit_reached');
+        return;
+      }
+
+      // Consume usage
+      if (window.webspindFreemium) {
+        const canProceed = await window.webspindFreemium.consumeUsage(1);
+        if (!canProceed) {
+          return;
+        }
       }
 
       // Show loading overlay

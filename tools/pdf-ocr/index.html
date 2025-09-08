@@ -54,6 +54,39 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
   <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="/js/freemium.js"></script>
+  <script>
+    // Ensure PDF-lib is available globally
+    window.PDFLib = window.PDFLib || window.pdfLib;
+    
+    // Wait for all libraries to load
+    window.addEventListener('load', function() {
+      const libraryStatus = document.getElementById('library-status');
+      
+      // Check if all required libraries are loaded
+      const checkLibraries = () => {
+        const missing = [];
+        if (typeof window.PDFLib === 'undefined') missing.push('PDF-lib');
+        if (typeof window.pdfjsLib === 'undefined') missing.push('PDF.js');
+        if (typeof window.Tesseract === 'undefined') missing.push('Tesseract.js');
+        
+        if (missing.length > 0) {
+          console.warn('Missing libraries:', missing.join(', '));
+          libraryStatus.classList.remove('hidden');
+          libraryStatus.querySelector('p').innerHTML = 
+            `<span class="font-medium">⚠️ Loading libraries...</span> Missing: ${missing.join(', ')}. Please wait...`;
+        } else {
+          console.log('All PDF OCR libraries loaded successfully');
+          libraryStatus.classList.add('hidden');
+        }
+      };
+      
+      // Check immediately and after a delay
+      checkLibraries();
+      setTimeout(checkLibraries, 1000);
+      setTimeout(checkLibraries, 3000);
+    });
+  </script>
   <script>
     tailwind.config = {
       theme: {
@@ -536,6 +569,11 @@
         <button id="process-btn" class="btn-primary w-full" disabled>
           <span id="process-text">Make PDF Searchable & Readable</span>
         </button>
+        <div id="library-status" class="hidden mt-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <p class="text-sm text-yellow-800">
+            <span class="font-medium">⚠️ Loading libraries...</span> Please wait for all components to load before processing.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -809,6 +847,20 @@
     processBtn.addEventListener('click', async () => {
       if (!selectedFile) return;
 
+      // Check usage before proceeding
+      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(1)) {
+        window.webspindFreemium.showUpgradeModal('limit_reached');
+        return;
+      }
+
+      // Consume usage
+      if (window.webspindFreemium) {
+        const canProceed = await window.webspindFreemium.consumeUsage(1);
+        if (!canProceed) {
+          return;
+        }
+      }
+
       showLoading('Processing PDF...', 'Making your PDF readable and copyable');
       updateProgress(0);
 
@@ -818,14 +870,27 @@
         let totalPages = 0;
         let totalConfidence = 0;
 
+        // Check if required libraries are loaded
+        if (typeof window.PDFLib === 'undefined') {
+          throw new Error('PDF-lib library not loaded. Please refresh the page and try again.');
+        }
+        
+        if (typeof window.pdfjsLib === 'undefined') {
+          throw new Error('PDF.js library not loaded. Please refresh the page and try again.');
+        }
+        
+        if (typeof window.Tesseract === 'undefined') {
+          throw new Error('Tesseract.js library not loaded. Please refresh the page and try again.');
+        }
+
         // Load the original PDF with PDF-lib
         const pdfData = await selectedFile.arrayBuffer();
-        const pdfDoc = await PDFLib.PDFDocument.load(pdfData);
+        const pdfDoc = await window.PDFLib.PDFDocument.load(pdfData);
         const pages = pdfDoc.getPages();
         totalPages = pages.length;
 
         // Also load with PDF.js for rendering
-        const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+        const pdf = await window.pdfjsLib.getDocument({ data: pdfData }).promise;
 
         for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
           updateProgress((pageNum / totalPages) * 70);
@@ -848,7 +913,7 @@
           const imageData = canvas.toDataURL('image/png');
           
           // Process with Tesseract.js
-          const { data: { text, confidence } } = await Tesseract.recognize(
+          const { data: { text, confidence } } = await window.Tesseract.recognize(
             imageData,
             document.getElementById('ocr-language').value,
             {
@@ -879,7 +944,7 @@
                   x: 50,
                   y: height - 50 - (lineIndex * lineHeight),
                   size: fontSize,
-                  color: PDFLib.rgb(0, 0, 0),
+                  color: window.PDFLib.rgb(0, 0, 0),
                   opacity: 0, // Make text invisible but selectable
                 });
               }
@@ -914,7 +979,20 @@
         console.error('Error processing PDF:', error);
         resultCard.className = 'result-card error';
         resultTitle.textContent = 'Error Processing PDF';
-        extractedText.textContent = 'An error occurred while processing your PDF. Please try again with a different file.';
+        
+        // Provide more specific error messages
+        let errorMessage = 'An error occurred while processing your PDF. ';
+        if (error.message.includes('library not loaded')) {
+          errorMessage += error.message;
+        } else if (error.message.includes('Invalid PDF')) {
+          errorMessage += 'The PDF file appears to be corrupted or invalid. Please try with a different file.';
+        } else if (error.message.includes('password')) {
+          errorMessage += 'This PDF is password protected. Please remove the password and try again.';
+        } else {
+          errorMessage += 'Please try again with a different file.';
+        }
+        
+        extractedText.textContent = errorMessage;
         resultsSection.classList.remove('hidden');
         hideLoading();
       }

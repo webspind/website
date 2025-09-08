@@ -440,6 +440,7 @@
     </section>
   </main>
 
+  <script src="/js/freemium.js"></script>
   <script>
     // Intersection Observer for animations
     const observerOptions = {
@@ -532,7 +533,21 @@
       strengthMeter.style.width = `${(strength / 5) * 100}%`;
     }
 
-    function updatePassword() {
+    async function updatePassword() {
+      // Check usage before proceeding
+      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(1)) {
+        window.webspindFreemium.showUpgradeModal('limit_reached');
+        return;
+      }
+
+      // Consume usage
+      if (window.webspindFreemium) {
+        const canProceed = await window.webspindFreemium.consumeUsage(1);
+        if (!canProceed) {
+          return;
+        }
+      }
+
       const password = generatePassword();
       document.getElementById('password-display').textContent = password;
       updateStrengthDisplay(password);
