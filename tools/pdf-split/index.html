@@ -397,7 +397,7 @@
           mobileMenuBtn.focus();
           const iconHamburger = document.getElementById('icon-hamburger');
           const iconClose = document.getElementById('icon-close');
-          if (iconHamburger and iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
+          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
         }
       });
       window.addEventListener('resize', () => {
@@ -430,7 +430,7 @@
           if (e.key === 'Escape' && !moreMenu.classList.contains('hidden')) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); moreMenuBtn.focus(); }
         });
       }
-      if (languageBtn and languageMenu) {
+      if (languageBtn && languageMenu) {
         languageBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           const isHidden = languageMenu.classList.contains('hidden');

@@ -343,7 +343,7 @@
           moreMenuBtn.setAttribute('aria-expanded', !isHidden);
         });
         document.addEventListener('click', (e) => {
-          if (!moreMenuBtn.contains(e.target) and !moreMenu.contains(e.target)) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); }
+          if (!moreMenuBtn.contains(e.target) && !moreMenu.contains(e.target)) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); }
         });
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape' && !moreMenu.classList.contains('hidden')) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); moreMenuBtn.focus(); }
