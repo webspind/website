@@ -338,25 +338,135 @@
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
   </style>
+  <style>
+    .nav-shadow { box-shadow: 0 12px 30px -12px rgba(0,0,0,0.2); }
+    .nav-condensed { padding-top: 8px !important; padding-bottom: 8px !important; }
+    .brand, .brand-text { transition: transform 0.2s ease, font-size 0.2s ease, letter-spacing 0.2s ease; transform-origin: left center; }
+    .brand-logo { transition: transform 0.2s ease; transform-origin: left center; }
+    .brand-condensed .brand { transform: scale(0.98); }
+    .brand-condensed .brand-text { transform: scale(0.98); }
+    .brand-condensed .brand-logo { transform: scale(0.9); }
+  </style>
 </head>
 <body class="min-h-screen gradient-bg">
   <!-- Navigation -->
-  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
-      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo"><img src="/assets/webspind-logo.svg" alt="" class="inline-block h-6 w-6 mr-1 align-[-2px]"> Webspind</a>
+  <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200 transition-shadow" role="navigation" aria-label="Main navigation" id="site-nav">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-3" id="nav-inner">
+      <a href="/" class="font-black tracking-tight text-xl text-gray-900 webspind-logo brand" aria-label="Webspind - Home"><img src="/assets/webspind-logo.svg" alt="" class="inline-block h-6 w-6 mr-1 align-[-2px] brand-logo"> <span class="brand-text">Webspind</span></a>
+      <button id="mobile-menu-btn" class="md:hidden p-3 rounded-lg hover:bg-gray-100 touch-manipulation" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobile-menu"><span class="sr-only">Toggle menu</span><svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" id="icon-hamburger"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg><svg class="h-6 w-6 text-gray-700 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" id="icon-close"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
       <div class="hidden lg:flex items-center gap-6 ml-8">
         <a href="/" class="text-sm text-gray-700 hover:text-gray-900 nav-link">All Tools</a>
         <a href="/pricing.html" class="text-sm text-gray-700 hover:text-gray-900 nav-link">Pricing</a>
         <a href="/privacy.html" class="text-sm text-gray-700 hover:text-gray-900 nav-link">Privacy</a>
       </div>
-      <div class="hidden md:flex items-center gap-3">
-        <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block"><span class="text-sm font-medium">Loading...</span></div>
+      <div class="hidden md:flex items-center gap-2">
         <button class="buy-credits-btn bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors" aria-label="Buy credits">Buy Credits</button>
+        <button onclick="scrollToTools()" class="btn-secondary" aria-label="Get started with tools">Get Started</button>
         <button onclick="handleUpgradeClick()" class="btn-primary pulse-glow upgrade-btn" aria-label="Upgrade to Pro plan">Upgrade to Pro</button>
-        <a href="/" class="btn-secondary">← Back to Tools</a>
       </div>
+      <div class="hidden md:block relative">
+        <button id="language-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Select language" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg><span class="ml-1 text-sm text-gray-600" id="current-lang">EN</span></button>
+        <div id="language-menu" class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="language-btn"><div class="py-1"><button onclick="changeLanguage('en')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇺🇸 English</button><button onclick="changeLanguage('es')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇪🇸 Español</button><button onclick="changeLanguage('fr')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇫🇷 Français</button><button onclick="changeLanguage('de')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇩🇪 Deutsch</button><button onclick="changeLanguage('zh')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇨🇳 中文</button></div></div>
+      </div>
+      <div class="hidden md:block relative lg:hidden">
+        <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg></button>
+        <div id="more-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="more-menu-btn"><div class="py-1"><a href="#tools" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">All Tools</a><a href="/pricing.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Pricing</a><a href="/privacy.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Privacy</a><hr class="my-1"><button onclick="handleUpgradeClick()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Upgrade to Pro</button><button onclick="openSupport()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Support</button></div></div>
+      </div>
+      <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block" role="status" aria-live="polite"><span class="text-sm font-medium">Loading...</span></div>
     </div>
   </nav>
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const nav = document.getElementById('site-nav');
+      const navInner = document.getElementById('nav-inner');
+      const bodyEl = document.body;
+      const applyDesktopCondense = window.innerWidth >= 1024;
+      if (nav) { if (scrollTop > 4) nav.classList.add('nav-shadow'); else nav.classList.remove('nav-shadow'); }
+      if (navInner) { if (scrollTop > 24 && applyDesktopCondense) { navInner.classList.add('nav-condensed'); bodyEl.classList.add('brand-condensed'); } else { navInner.classList.remove('nav-condensed'); bodyEl.classList.remove('brand-condensed'); } }
+      if (applyDesktopCondense) { if (scrollTop > 80) bodyEl.classList.add('hero-condensed'); else bodyEl.classList.remove('hero-condensed'); } else { bodyEl.classList.remove('hero-condensed'); }
+    });
+    (function(){
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (!mobileMenuBtn || !mobileMenu) return;
+      mobileMenuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
+        const iconHamburger = document.getElementById('icon-hamburger');
+        const iconClose = document.getElementById('icon-close');
+        if (iconHamburger && iconClose) { iconHamburger.classList.toggle('hidden'); iconClose.classList.toggle('hidden'); }
+      });
+      document.addEventListener('click', (e) => {
+        if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+          mobileMenu.classList.add('hidden');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+          const iconHamburger = document.getElementById('icon-hamburger');
+          const iconClose = document.getElementById('icon-close');
+          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+          mobileMenuBtn.focus();
+          const iconHamburger = document.getElementById('icon-hamburger');
+          const iconClose = document.getElementById('icon-close');
+          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
+        }
+      });
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+          mobileMenu.classList.add('hidden');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+          const iconHamburger = document.getElementById('icon-hamburger');
+          const iconClose = document.getElementById('icon-close');
+          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
+        }
+      });
+    })();
+    (function(){
+      const moreMenuBtn = document.getElementById('more-menu-btn');
+      const moreMenu = document.getElementById('more-menu');
+      const languageBtn = document.getElementById('language-btn');
+      const languageMenu = document.getElementById('language-menu');
+      if (moreMenuBtn && moreMenu) {
+        moreMenuBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isHidden = moreMenu.classList.contains('hidden');
+          if (languageMenu) { languageMenu.classList.add('hidden'); languageBtn?.setAttribute('aria-expanded','false'); }
+          moreMenu.classList.toggle('hidden');
+          moreMenuBtn.setAttribute('aria-expanded', !isHidden);
+        });
+        document.addEventListener('click', (e) => {
+          if (!moreMenuBtn.contains(e.target) && !moreMenu.contains(e.target)) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); }
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && !moreMenu.classList.contains('hidden')) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); moreMenuBtn.focus(); }
+        });
+      }
+      if (languageBtn && languageMenu) {
+        languageBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isHidden = languageMenu.classList.contains('hidden');
+          if (moreMenu) { moreMenu.classList.add('hidden'); moreMenuBtn?.setAttribute('aria-expanded','false'); }
+          languageMenu.classList.toggle('hidden');
+          languageBtn.setAttribute('aria-expanded', !isHidden);
+        });
+        document.addEventListener('click', (e) => {
+          if (!languageBtn.contains(e.target) && !languageMenu.contains(e.target)) { languageMenu.classList.add('hidden'); languageBtn.setAttribute('aria-expanded','false'); }
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && !languageMenu.classList.contains('hidden')) { languageMenu.classList.add('hidden'); languageBtn.setAttribute('aria-expanded','false'); languageBtn.focus(); }
+        });
+      }
+    })();
+    function scrollToTools(){ window.location.href = '/'; }
+    function openSupport(){ window.location.href = '/pricing.html'; }
+  </script>
+  <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn"><div class="px-4 py-4 space-y-4"><div class="relative hidden"></div><div class="space-y-2" role="menuitem"><button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium buy-credits-btn" role="menuitem">Buy Credits</button><button onclick="scrollToTools(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" role="menuitem">All Tools</button><a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a><a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a><hr class="my-2"><button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">Upgrade to Pro</button><button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">Support</button></div></div>
 
   <!-- Main Content -->
   <main class="max-w-6xl mx-auto px-4 md:px-6 py-16">
