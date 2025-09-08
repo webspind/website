@@ -9,6 +9,11 @@ class WebspindCredits {
     this.credits = parseInt(localStorage.getItem('webspind-credits') || '3'); // 3 free credits
     this.freeCreditsUsed = parseInt(localStorage.getItem('webspind-free-used') || '0');
     this.freeCreditsLimit = 3; // 3 free credits for new users
+    this.plan = localStorage.getItem('webspind-plan') || 'free';
+    this.usage = {
+      limit: this.freeCreditsLimit,
+      remaining: Math.max(0, this.freeCreditsLimit - this.freeCreditsUsed)
+    };
     
     this.init();
   }
@@ -18,12 +23,46 @@ class WebspindCredits {
     await this.loadCredits();
     this.updateUI();
     this.setupEventListeners();
+    this.addProBannerIfToolPage();
     
     // Check for session_id in URL (post-checkout)
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get('session_id');
     if (sessionId) {
       await this.handlePostCheckout(sessionId);
+    }
+  }
+
+  // Update local usage representation
+  updateUsage() {
+    this.usage.limit = this.freeCreditsLimit;
+    this.usage.remaining = Math.max(0, this.freeCreditsLimit - this.freeCreditsUsed);
+  }
+
+  // Add subtle Pro banner on tool pages
+  addProBannerIfToolPage() {
+    try {
+      const isToolPage = window.location.pathname.startsWith('/tools/');
+      if (!isToolPage) return;
+      if (document.getElementById('pro-banner')) return;
+      const main = document.querySelector('main');
+      if (!main) return;
+      const banner = document.createElement('div');
+      banner.id = 'pro-banner';
+      banner.className = 'mb-6';
+      banner.innerHTML = `
+        <div class="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="text-sm text-gray-800">
+            <span class="font-semibold">Pro</span> unlocks 300 actions/day, batch processing, OCR & redaction, faster processing and no ads.
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors" onclick="window.webspindFreemium?.showBuyCreditsModal('buy_clicked'); window.location.href='/pricing.html'">Upgrade to Pro</button>
+            <a class="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors" href="/pricing.html">See Plans</a>
+          </div>
+        </div>`;
+      main.insertBefore(banner, main.firstElementChild?.nextSibling || main.firstChild);
+    } catch (e) {
+      console.error('Failed to add Pro banner:', e);
     }
   }
   
@@ -79,6 +118,7 @@ class WebspindCredits {
   saveCreditsToLocal() {
     localStorage.setItem('webspind-credits', this.credits.toString());
     localStorage.setItem('webspind-free-used', this.freeCreditsUsed.toString());
+    this.updateUsage();
   }
   
   // Check if user can perform an action (without consuming credits)
@@ -110,6 +150,7 @@ class WebspindCredits {
         this.freeCreditsUsed = result.freeCreditsUsed;
         this.saveCreditsToLocal();
         this.updateUI();
+        this.updateUsage();
         
         if (!result.allowed) {
           this.showBuyCreditsModal();
@@ -137,6 +178,7 @@ class WebspindCredits {
     this.credits -= amount;
     this.saveCreditsToLocal();
     this.updateUI();
+    this.updateUsage();
     return true;
   }
   
@@ -148,11 +190,15 @@ class WebspindCredits {
       const isNewUser = this.freeCreditsUsed < this.freeCreditsLimit;
       const freeCreditsRemaining = Math.max(0, this.freeCreditsLimit - this.freeCreditsUsed);
       
+      const resetsIn = this.getTimeUntilReset();
       quotaBadge.innerHTML = `
         <span class="text-sm font-medium">
           ${isNewUser ? `Free: ${freeCreditsRemaining} left` : ''} • 
-          Credits: ${this.credits}
+          Credits: ${this.credits} • Resets in ${resetsIn}
         </span>
+        <button class="ml-2 underline text-xs text-blue-600 hover:text-blue-700 buy-credits-btn" aria-label="Buy credits">
+          Buy
+        </button>
       `;
     }
     
@@ -167,6 +213,42 @@ class WebspindCredits {
     supportButtons.forEach(btn => {
       btn.style.display = 'inline-block';
     });
+  }
+
+  // Upgrade modal controls (compat with existing pages)
+  showUpgradeModal(context = 'upgrade_clicked') {
+    const modal = document.getElementById('upgrade-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Fallback to pricing
+      window.location.href = '/pricing.html';
+    }
+  }
+
+  hideUpgradeModal() {
+    const modal = document.getElementById('upgrade-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  }
+
+  // License activation placeholder
+  async activateLicense(licenseKey) {
+    console.warn('License activation is not configured. Key:', licenseKey);
+    return false;
+  }
+
+  // Time until next UTC midnight string
+  getTimeUntilReset() {
+    const now = new Date();
+    const next = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1, 0, 0, 0));
+    const diffMs = next.getTime() - now.getTime();
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+    return `${hours}h ${minutes}m`;
   }
   
   // Show buy credits modal
@@ -281,6 +363,15 @@ class WebspindCredits {
       const modal = document.getElementById('buy-credits-modal');
       if (modal && e.target === modal) {
         this.hideBuyCreditsModal();
+      }
+    });
+
+    // Global handler: open Buy Credits modal
+    document.addEventListener('click', (e) => {
+      const buyBtn = e.target.closest('.buy-credits-btn');
+      if (buyBtn) {
+        e.preventDefault();
+        this.showBuyCreditsModal('buy_clicked');
       }
     });
   }

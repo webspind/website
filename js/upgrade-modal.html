@@ -5,13 +5,18 @@
   <div class="flex items-center justify-center min-h-screen p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full">
       <div class="flex justify-between items-center p-6 border-b">
-        <h3 class="text-xl font-bold text-gray-900">Out of free actions</h3>
+        <h3 class="text-xl font-bold text-gray-900">Daily Limit Reached</h3>
         <button onclick="window.webspindFreemium?.hideUpgradeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
           ×
         </button>
       </div>
       <div class="p-6">
-        <p class="text-gray-600 mb-6">You've reached today's 3 free actions. Get Pro Pass for 300/day, batch tools, OCR/redaction, faster processing, and no ads.</p>
+        <p class="text-gray-600 mb-4">You've reached today's 3 free actions. Upgrade to Pro for 300/day, batch tools, OCR/redaction, faster processing, and no ads.</p>
+        <div class="flex items-center gap-3 text-xs text-gray-500 mb-6">
+          <span>⭐ 4.8/5 average rating</span>
+          <span>•</span>
+          <span>Trusted by 50K+ users</span>
+        </div>
         
         <div class="space-y-4 mb-6">
           <div class="flex items-center gap-3">
@@ -38,8 +43,11 @@
         
         <div class="space-y-3">
           <button onclick="upgradeToPro()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors">
-            Upgrade to Pro - €6.99/mo
+            Upgrade to Pro — €6.99/mo
           </button>
+          <a href="/pricing.html" class="w-full inline-flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors">
+            See all plans
+          </a>
           <button onclick="openLicenseModal()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors">
             Activate License
           </button>

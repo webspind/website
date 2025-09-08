@@ -1,3 +1,8 @@
+Assets
+------
+
+- Add the new vector logo at `assets/webspind-logo.svg`. Suggested SVG is a simple, clean wordmark mark with a geometric web icon.
+
 # Webspind App Store v1
 
 **Helt statiske værktøjer** klar til GitHub → Netlify. Ingen server, ingen backend. Alt kører i browseren.

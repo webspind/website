@@ -52,6 +52,9 @@ function integrateFreemiumSystem() {
   // Add upgrade buttons to navigation
   addUpgradeButtons();
   
+  // Add subtle Pro banner under header
+  addProBanner();
+  
   // Wrap tool actions with usage checks
   wrapToolActions();
   
@@ -71,6 +74,28 @@ function addQuotaBadge() {
     // Insert before the last child (usually the support button)
     nav.insertBefore(quotaBadge, nav.lastElementChild);
   }
+}
+
+// Add subtle upsell banner across tools
+function addProBanner() {
+  if (document.getElementById('pro-banner')) return;
+  const main = document.querySelector('main');
+  if (!main) return;
+  const banner = document.createElement('div');
+  banner.id = 'pro-banner';
+  banner.className = 'mb-6';
+  banner.innerHTML = `
+    <div class="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div class="text-sm text-gray-800">
+        Need to process more or larger files? <span class="font-semibold">Pro allows 300 actions/day</span>, batch processing, OCR/redaction, faster processing and no ads.
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button class="btn-primary w-full sm:w-auto" onclick="handleUpgradeClick()">Upgrade to Pro</button>
+        <a class="btn-secondary w-full sm:w-auto" href="/pricing.html">See Plans</a>
+      </div>
+    </div>
+  `;
+  main.insertBefore(banner, main.firstElementChild?.nextSibling || main.firstChild);
 }
 
 // Add upgrade buttons to navigation
