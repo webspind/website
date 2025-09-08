@@ -1,201 +1,395 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Background Remover - Remove Image Backgrounds | Webspind</title>
-  <meta name="description" content="Remove backgrounds from images instantly with AI. Professional background removal tool for photos, products, and portraits. Pro feature with high-quality results.">
-  <meta name="keywords" content="remove background, background remover, transparent background, AI background removal, photo editing, image processing">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Background Remover - Remove Image Backgrounds | Webspind">
-  <meta property="og:description" content="Remove backgrounds from images instantly with AI. Professional background removal tool for photos, products, and portraits.">
-  <meta property="og:image" content="https://webspind.com/og-image.jpg">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Background Remover - Remove Image Backgrounds | Webspind Professional Tools</title>
+  <meta name="description" content="Free background remover tool. Remove backgrounds from images automatically. Support for JPG, PNG formats. Secure, private, browser-based processing.">
+  <meta name="keywords" content="background remover, remove background, transparent background, image background removal, free background remover, online background remover">
+  <meta name="author" content="Webspind">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
   <meta property="og:url" content="https://webspind.com/tools/background-remover/">
-  
+  <meta property="og:title" content="Background Remover - Remove Image Backgrounds | Webspind Professional Tools">
+  <meta property="og:description" content="Free background remover tool. Remove backgrounds from images automatically. Support for JPG, PNG formats. Secure, private, browser-based processing.">
+  <meta property="og:image" content="https://webspind.com/og-image.jpg">
+
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Background Remover - Remove Image Backgrounds | Webspind">
-  <meta name="twitter:description" content="Remove backgrounds from images instantly with AI. Professional background removal tool for photos, products, and portraits.">
-  <meta name="twitter:image" content="https://webspind.com/og-image.jpg">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://webspind.com/tools/background-remover/">
+  <meta property="twitter:title" content="Background Remover - Remove Image Backgrounds | Webspind Professional Tools">
+  <meta property="twitter:description" content="Free background remover tool. Remove backgrounds from images automatically. Support for JPG, PNG formats. Secure, private, browser-based processing.">
+  <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Favicon -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <!-- Core Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/js/freemium.js"></script>
+  <script src="/js/tool-template.js"></script>
+
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
           animation: {
-            'gradient': 'gradient 8s ease infinite',
+            'fade-in': 'fadeIn 0.8s ease-out',
+            'slide-up': 'slideUp 1s ease-out',
             'float': 'float 6s ease-in-out infinite',
-            'pulse-slow': 'pulse 3s ease-in-out infinite'
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'web-spin': 'webSpin 1s linear infinite',
+            'bounce-subtle': 'bounceSubtle 2s ease-in-out infinite',
+            'scale-in': 'scaleIn 0.6s ease-out',
           },
           keyframes: {
-            gradient: {
-              '0%, 100%': { 'background-position': '0% 50%' },
-              '50%': { 'background-position': '100% 50%' }
+            fadeIn: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(50px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
             },
             float: {
               '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-20px)' }
+              '50%': { transform: 'translateY(-15px)' }
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+              '50%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)' }
+            },
+            webSpin: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-5px)' }
+            },
+            scaleIn: {
+              '0%': { transform: 'scale(0.9)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
             }
           }
         }
       }
     }
   </script>
+
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: #ffffff;
+      color: #1a1a1a;
+    }
+
     .gradient-bg {
-      background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
-      background-size: 400% 400%;
-      animation: gradient 8s ease infinite;
-    }
-    
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    
-    .premium-badge {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .premium-lock {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
       position: relative;
-      overflow: hidden;
     }
-    
-    .premium-lock::before {
+
+    .gradient-bg::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-      backdrop-filter: blur(2px);
-      z-index: 1;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
     }
-    
-    .premium-lock .premium-overlay {
+
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .card:hover::before {
+      left: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border-color: #3b82f6;
+    }
+
+    .btn-primary {
+      background: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
+      position: relative;
+      overflow: hidden;
+      font-size: 14px;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(26, 26, 26, 0.2);
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #1a1a1a;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(20px);
+      font-size: 14px;
+    }
+
+    .btn-secondary:hover {
+      background: #f8fafc;
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+    }
+
+    .floating-icon {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .webspind-logo {
+      position: relative;
+    }
+
+    .webspind-logo::after {
+      content: '🕸️';
+      position: absolute;
+      top: -5px;
+      right: -25px;
+      font-size: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .tool-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      color: white;
+    }
+
+    .card:hover .tool-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #3b82f6;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .hero-text {
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .floating-icon {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .text-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .tool-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      color: white;
+    }
+
+    .qr-preview {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+
+    .type-tab {
+      padding: 12px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .type-tab.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-color: #667eea;
+    }
+
+    .type-tab:not(.active) {
+      background: rgba(255, 255, 255, 0.5);
+      color: #666;
+    }
+
+    .type-tab:not(.active):hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+    }
+
+    .web-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    .web-spinner::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      border-top: 2px solid #764ba2;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 0.5s linear infinite reverse;
+    }
+
+    .web-spinner::after {
+      content: '🕸️';
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: 2;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      font-size: 12px;
+      animation: pulse 2s ease-in-out infinite;
     }
-    
-    .drop-zone {
-      border: 3px dashed rgba(102, 126, 234, 0.3);
-      border-radius: 24px;
-      padding: 48px 24px;
-      text-align: center;
-      transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(10px);
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
-    
-    .drop-zone.dragover {
-      border-color: #667eea;
-      background: rgba(102, 126, 234, 0.1);
-      transform: scale(1.02);
-    }
-    
+
     .loading-overlay {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      z-index: 1000;
+      align-items: center;
+      z-index: 9999;
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
     }
-    
+
     .loading-overlay.show {
       opacity: 1;
       visibility: visible;
     }
-    
+
     .loading-content {
-      background: white;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
       padding: 40px;
-      border-radius: 20px;
       text-align: center;
-      max-width: 400px;
-      width: 90%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
-    
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: #e5e7eb;
-      border-radius: 4px;
-      overflow: hidden;
-      margin: 20px 0;
-    }
-    
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #667eea, #764ba2);
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-    
-    .result-image {
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-    
-    .comparison-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin: 20px 0;
-    }
-    
-    .comparison-item {
-      text-align: center;
-    }
-    
-    .comparison-item h3 {
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #374151;
-    }
-    
-    @media (max-width: 768px) {
-      .comparison-container {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-  <style>
-    .fade-in, .slide-up { opacity: 1 !important; transform: none !important; }
-  </style>
-  <style>
+
+    /* Navigation styles */
     .nav-shadow { box-shadow: 0 12px 30px -12px rgba(0,0,0,0.2); }
     .nav-condensed { padding-top: 8px !important; padding-bottom: 8px !important; }
     .brand, .brand-text { transition: transform 0.2s ease, font-size 0.2s ease, letter-spacing 0.2s ease; transform-origin: left center; }
@@ -203,9 +397,15 @@
     .brand-condensed .brand { transform: scale(0.98); }
     .brand-condensed .brand-text { transform: scale(0.98); }
     .brand-condensed .brand-logo { transform: scale(0.9); }
+    .content-root { position: relative; z-index: 1; }
+    .loading-overlay { pointer-events: none; }
+    .loading-overlay.show { pointer-events: auto; }
+
+    /* Safety override - ensure content is visible */
+    .fade-in, .slide-up { opacity: 1 !important; transform: none !important; }
   </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="min-h-screen gradient-bg">
   <!-- Navigation -->
   <nav class="sticky top-0 z-50 w-full glass border-b border-gray-200 transition-shadow" role="navigation" aria-label="Main navigation" id="site-nav">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-3" id="nav-inner">
@@ -226,563 +426,96 @@
         <div id="language-menu" class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="language-btn"><div class="py-1"><button onclick="changeLanguage('en')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇺🇸 English</button><button onclick="changeLanguage('es')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇪🇸 Español</button><button onclick="changeLanguage('fr')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇫🇷 Français</button><button onclick="changeLanguage('de')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇩🇪 Deutsch</button><button onclick="changeLanguage('zh')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇨🇳 中文</button></div></div>
       </div>
       <div class="hidden md:block relative lg:hidden">
-        <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg></button>
+        <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a 1 1 0 110-2 1 1 0 010 2zm0 7a 1 1 0 110-2 1 1 0 010 2z"></path></svg></button>
         <div id="more-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="more-menu-btn"><div class="py-1"><a href="#tools" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">All Tools</a><a href="/pricing.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Pricing</a><a href="/privacy.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Privacy</a><hr class="my-1"><button onclick="handleUpgradeClick()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Upgrade to Pro</button><button onclick="openSupport()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Support</button></div></div>
       </div>
       <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block" role="status" aria-live="polite"><span class="text-sm font-medium">Loading...</span></div>
     </div>
   </nav>
-  <script>
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const nav = document.getElementById('site-nav');
-      const navInner = document.getElementById('nav-inner');
-      const bodyEl = document.body;
-      const applyDesktopCondense = window.innerWidth >= 1024;
-      if (nav) { if (scrollTop > 4) nav.classList.add('nav-shadow'); else nav.classList.remove('nav-shadow'); }
-      if (navInner) { if (scrollTop > 24 && applyDesktopCondense) { navInner.classList.add('nav-condensed'); bodyEl.classList.add('brand-condensed'); } else { navInner.classList.remove('nav-condensed'); bodyEl.classList.remove('brand-condensed'); } }
-      if (applyDesktopCondense) { if (scrollTop > 80) bodyEl.classList.add('hero-condensed'); else bodyEl.classList.remove('hero-condensed'); } else { bodyEl.classList.remove('hero-condensed'); }
-    });
-    (function(){
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      if (!mobileMenuBtn || !mobileMenu) return;
-      mobileMenuBtn.addEventListener('click', () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        mobileMenu.classList.toggle('hidden');
-        mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
-        const iconHamburger = document.getElementById('icon-hamburger');
-        const iconClose = document.getElementById('icon-close');
-        if (iconHamburger && iconClose) { iconHamburger.classList.toggle('hidden'); iconClose.classList.toggle('hidden'); }
-      });
-      document.addEventListener('click', (e) => {
-        if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          const iconHamburger = document.getElementById('icon-hamburger');
-          const iconClose = document.getElementById('icon-close');
-          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
-        }
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          mobileMenuBtn.focus();
-          const iconHamburger = document.getElementById('icon-hamburger');
-          const iconClose = document.getElementById('icon-close');
-          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
-        }
-      });
-      window.addEventListener('resize', () => {
-        if (window.innerWidth >= 768) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          const iconHamburger = document.getElementById('icon-hamburger');
-          const iconClose = document.getElementById('icon-close');
-          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
-        }
-      });
-    })();
-    (function(){
-      const moreMenuBtn = document.getElementById('more-menu-btn');
-      const moreMenu = document.getElementById('more-menu');
-      const languageBtn = document.getElementById('language-btn');
-      const languageMenu = document.getElementById('language-menu');
-      if (moreMenuBtn && moreMenu) {
-        moreMenuBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isHidden = moreMenu.classList.contains('hidden');
-          if (languageMenu) { languageMenu.classList.add('hidden'); languageBtn?.setAttribute('aria-expanded','false'); }
-          moreMenu.classList.toggle('hidden');
-          moreMenuBtn.setAttribute('aria-expanded', !isHidden);
-        });
-        document.addEventListener('click', (e) => {
-          if (!moreMenuBtn.contains(e.target) && !moreMenu.contains(e.target)) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); }
-        });
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && !moreMenu.classList.contains('hidden')) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); moreMenuBtn.focus(); }
-        });
-      }
-      if (languageBtn && languageMenu) {
-        languageBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isHidden = languageMenu.classList.contains('hidden');
-          if (moreMenu) { moreMenu.classList.add('hidden'); moreMenuBtn?.setAttribute('aria-expanded','false'); }
-          languageMenu.classList.toggle('hidden');
-          languageBtn.setAttribute('aria-expanded', !isHidden);
-        });
-        document.addEventListener('click', (e) => {
-          if (!languageBtn.contains(e.target) && !languageMenu.contains(e.target)) { languageMenu.classList.add('hidden'); languageBtn.setAttribute('aria-expanded','false'); }
-        });
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && !languageMenu.classList.contains('hidden')) { languageMenu.classList.add('hidden'); languageBtn.setAttribute('aria-expanded','false'); languageBtn.focus(); }
-        });
-      }
-    })();
-    function scrollToTools(){ window.location.href = '/'; }
-    function openSupport(){ window.location.href = '/pricing.html'; }
-  </script>
-  <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn"><div class="px-4 py-4 space-y-4"><div class="relative hidden"></div><div class="space-y-2" role="menuitem"><button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium buy-credits-btn" role="menuitem">Buy Credits</button><button onclick="scrollToTools(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" role="menuitem">All Tools</button><a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a><a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a><hr class="my-2"><button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">Upgrade to Pro</button><button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">Support</button></div></div>
+
+  <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn">
+    <div class="px-4 py-4 space-y-4">
+      <div class="relative hidden"></div>
+      <div class="space-y-2" role="menuitem">
+        <button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium buy-credits-btn" role="menuitem">Buy Credits</button>
+        <button onclick="scrollToTools(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" role="menuitem">All Tools</button>
+        <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a>
+        <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a>
+        <hr class="my-2">
+        <button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">Upgrade to Pro</button>
+        <button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">Support</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="max-w-6xl mx-auto px-4 md:px-6 py-16 content-root">
     <!-- Hero Section -->
-    <div class="text-center mb-12">
-      <div class="premium-badge inline-block mb-4">
-        🔒 Pro Feature
+    <section class="text-center mb-16">
+      <div class="floating-icon inline-block mb-6">
+        <div class="tool-icon mx-auto">
+          ✂️
+        </div>
       </div>
-      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-        <span class="hero-text">Background Remover</span>
+
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
+        <span class="text-gray-900">Background Remover</span>
       </h1>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-        Remove backgrounds from images instantly with AI. Perfect for product photos, portraits, and professional editing.
+
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+        Remove backgrounds from images automatically. Perfect for product photos, portraits, or any image that needs a transparent background.
       </p>
-    </div>
+    </section>
 
-    <!-- Tool Container -->
-    <div class="max-w-4xl mx-auto">
-      <div class="bg-white rounded-2xl shadow-xl p-8">
-        <!-- Upload Section -->
-        <div class="mb-8">
-          <div id="drop-zone" class="drop-zone">
-            <div class="text-center">
-              <div class="text-6xl mb-4">🖼️</div>
-              <h3 class="text-xl font-bold mb-2 text-gray-800">Drop your image here</h3>
-              <p class="text-gray-600 mb-6">or click to browse files</p>
-              <label class="btn-primary cursor-pointer">
-                📁 Choose Image
-                <input type="file" id="file-input" accept="image/*" class="hidden">
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Premium Lock Overlay -->
-        <div id="premium-lock" class="premium-lock">
-          <div class="premium-overlay">
-            <div class="text-4xl mb-4">🔒</div>
-            <h3 class="text-xl font-bold mb-2 text-gray-800">Premium Feature</h3>
-            <p class="text-gray-600 mb-4">
-              Background removal is a Pro feature. Upgrade to access AI-powered background removal with unlimited usage.
-            </p>
-            <button class="upgrade-btn bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200">
-              Upgrade to Pro
-            </button>
-          </div>
-        </div>
-
-        <!-- Process Button -->
-        <div class="text-center mb-8">
-          <button id="process-btn" class="btn-primary text-lg px-8 py-4" disabled>
-            🚀 Remove Background
-          </button>
-        </div>
-
-        <!-- Results Section -->
-        <div id="results-section" class="hidden">
-          <div class="comparison-container">
-            <div class="comparison-item">
-              <h3>Original</h3>
-              <img id="original-image" class="result-image" alt="Original image">
-            </div>
-            <div class="comparison-item">
-              <h3>Background Removed</h3>
-              <img id="result-image" class="result-image" alt="Background removed">
-            </div>
-          </div>
-          
-          <div class="text-center mt-6">
-            <button id="download-btn" class="btn-primary">
-              💾 Download Result
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Features Section -->
-    <div class="mt-16 grid md:grid-cols-3 gap-8">
-      <div class="text-center p-6 bg-white rounded-xl shadow-lg">
-        <div class="text-4xl mb-4">🤖</div>
-        <h3 class="text-xl font-bold mb-2">AI-Powered</h3>
-        <p class="text-gray-600">Advanced AI technology for precise background removal</p>
-      </div>
-      <div class="text-center p-6 bg-white rounded-xl shadow-lg">
-        <div class="text-4xl mb-4">⚡</div>
-        <h3 class="text-xl font-bold mb-2">Instant Results</h3>
-        <p class="text-gray-600">Get professional results in seconds</p>
-      </div>
-      <div class="text-center p-6 bg-white rounded-lg shadow-lg">
-        <div class="text-4xl mb-4">🎯</div>
-        <h3 class="text-xl font-bold mb-2">High Quality</h3>
-        <p class="text-gray-600">Perfect for professional use and e-commerce</p>
-      </div>
-    </div>
+    {{TOOL_CONTENT}}
   </main>
 
   <!-- Loading Overlay -->
   <div id="loading-overlay" class="loading-overlay">
     <div class="loading-content">
-      <div class="text-4xl mb-4">🔄</div>
-      <h3 class="text-xl font-bold mb-2 text-gray-800">Removing Background...</h3>
-      <p class="text-gray-600 mb-4">Please wait while we process your image</p>
-      <div class="progress-bar">
-        <div id="progress-fill" class="progress-fill"></div>
-      </div>
-      <p id="progress-text" class="text-sm text-gray-500">Processing...</p>
-    </div>
-  </div>
-
-  <!-- Buy Credits Modal -->
-  <div id="buy-credits-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white rounded-2xl p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-      <div class="text-center mb-8">
-        <div class="text-6xl mb-4">💳</div>
-        <h3 class="text-3xl font-bold mb-4 text-gray-800">Buy Credits</h3>
-        <p class="text-gray-600 mb-6">
-          Choose a credit package that works for you. Credits never expire and can be used for any tool.
-        </p>
-      </div>
-
-      <!-- Credit Packages -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <!-- Starter Pack -->
-        <div class="credit-package border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 transition-all cursor-pointer" data-package="starter">
-          <div class="text-center">
-            <div class="text-2xl font-bold text-gray-800 mb-2">10 Credits</div>
-            <div class="text-3xl font-bold text-blue-600 mb-2">$2.99</div>
-            <div class="text-sm text-gray-500 mb-4">$0.30 per credit</div>
-            <div class="text-xs text-gray-600">Perfect for trying out tools</div>
-          </div>
-        </div>
-
-        <!-- Popular Pack -->
-        <div class="credit-package border-2 border-blue-500 rounded-xl p-6 hover:border-blue-600 transition-all cursor-pointer relative" data-package="popular">
-          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
-            <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-medium">Most Popular</span>
-          </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold text-gray-800 mb-2">50 Credits</div>
-            <div class="text-3xl font-bold text-blue-600 mb-2">$9.99</div>
-            <div class="text-sm text-gray-500 mb-4">$0.20 per credit</div>
-            <div class="text-xs text-gray-600">Best value for regular users</div>
-          </div>
-        </div>
-
-        <!-- Pro Pack -->
-        <div class="credit-package border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 transition-all cursor-pointer" data-package="pro">
-          <div class="text-center">
-            <div class="text-2xl font-bold text-gray-800 mb-2">100 Credits</div>
-            <div class="text-3xl font-bold text-blue-600 mb-2">$16.99</div>
-            <div class="text-sm text-gray-500 mb-4">$0.17 per credit</div>
-            <div class="text-xs text-gray-600">Great for power users</div>
-          </div>
-        </div>
-
-        <!-- Enterprise Pack -->
-        <div class="credit-package border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 transition-all cursor-pointer" data-package="enterprise">
-          <div class="text-center">
-            <div class="text-2xl font-bold text-gray-800 mb-2">250 Credits</div>
-            <div class="text-3xl font-bold text-blue-600 mb-2">$34.99</div>
-            <div class="text-sm text-gray-500 mb-4">$0.14 per credit</div>
-            <div class="text-xs text-gray-600">Best for teams & businesses</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Credit Usage Info -->
-      <div class="bg-gray-50 rounded-xl p-6 mb-6">
-        <h4 class="text-lg font-semibold mb-4 text-gray-800">How Credits Work</h4>
-        <div class="grid md:grid-cols-2 gap-4 text-sm">
-          <div>
-            <h5 class="font-medium text-gray-700 mb-2">Free Tools (0 credits):</h5>
-            <ul class="text-gray-600 space-y-1">
-              <li>• AI Detector</li>
-              <li>• Password Generator</li>
-              <li>• QR Generator</li>
-              <li>• Text Tools</li>
-            </ul>
-          </div>
-          <div>
-            <h5 class="font-medium text-gray-700 mb-2">Premium Tools (1 credit each):</h5>
-            <ul class="text-gray-600 space-y-1">
-              <li>• PDF Merge/Split/OCR</li>
-              <li>• Image Converter/Resizer</li>
-              <li>• Background Remover</li>
-              <li>• All future premium tools</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button id="purchase-credits-btn" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-8 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium" disabled>
-          Select a Package
-        </button>
-        <button class="bg-gray-200 text-gray-700 py-3 px-8 rounded-lg hover:bg-gray-300 transition-all duration-200" onclick="window.webspindCredits.hideBuyCreditsModal()">
-          Maybe Later
-        </button>
-      </div>
-
-      <!-- Security Notice -->
-      <div class="text-center mt-6">
-        <p class="text-xs text-gray-500">
-          🔒 Secure payment powered by Stripe • Credits never expire • Cancel anytime
-        </p>
-      </div>
+      <div class="web-spinner"></div>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">{{TOOL_LOADING_MESSAGE}}</h3>
+      <p class="text-gray-600 mt-2">{{TOOL_LOADING_SUBMESSAGE}}</p>
     </div>
   </div>
 
   <script>
-    // API Configuration
-    const API_CONFIG = {
-      // Get your free API key from: https://clipdrop.co/apis/docs/remove-background
-      CLIPDROP_API_KEY: 'YOUR_CLIPDROP_API_KEY', // Replace with your actual API key
-      API_ENDPOINT: 'https://clipdrop-api.co/remove-background/v1'
+    // Tool-specific configuration
+    const TOOL_CONFIG = {
+      name: '{{TOOL_NAME}}',
+      actionCost: {{TOOL_ACTION_COST}}, // Cost per action (1 for most tools, 2 for AI/OCR)
+      isPremiumFeature: {{TOOL_IS_PREMIUM}}, // true for Pro-only features
+      batchEnabled: {{TOOL_BATCH_ENABLED}} // true if tool supports batch processing
     };
-    
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('file-input');
-    const processBtn = document.getElementById('process-btn');
-    const resultsSection = document.getElementById('results-section');
-    const originalImage = document.getElementById('original-image');
-    const resultImage = document.getElementById('result-image');
-    const downloadBtn = document.getElementById('download-btn');
-    const loadingOverlay = document.getElementById('loading-overlay');
-    const progressFill = document.getElementById('progress-fill');
-    const progressText = document.getElementById('progress-text');
-    const premiumLock = document.getElementById('premium-lock');
-    
-    let selectedFile = null;
-    let processedImageBlob = null;
 
-    // Check if user has credits
-    function checkCredits() {
-      if (window.webspindCredits && window.webspindCredits.canPerformAction(1)) {
-        premiumLock.style.display = 'none';
-        return true;
-      } else {
-        premiumLock.style.display = 'block';
-        return false;
-      }
-    }
+    // Tool-specific JavaScript
+    {{TOOL_JAVASCRIPT}}
+  </script>
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-      checkCredits();
-      
-      // Update UI when credit system loads
-      if (window.webspindCredits) {
-        window.webspindCredits.updateUI();
-      }
-    });
+  <!-- Footer -->
+  <footer class="mt-20 border-t border-gray-200 relative z-10">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
+      <div class="text-gray-600 text-sm mb-4">
+        © 2025 Webspind · Local processing ·
+        <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/privacy.html">Privacy</a>
+      </div>
+      <div class="text-gray-500 text-xs">
+        Professional tools for modern workflows
+      </div>
+    </div>
+  </footer>
 
-    // File input handling
-    fileInput.addEventListener('change', (e) => {
-      if (e.target.files.length > 0) {
-        handleFile(e.target.files[0]);
-      }
-    });
-
-    // Drag and drop handling
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.classList.add('dragover');
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-      dropZone.classList.remove('dragover');
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('dragover');
-      
-      if (e.dataTransfer.files.length > 0) {
-        handleFile(e.dataTransfer.files[0]);
-      }
-    });
-
-    // Handle file selection
-    function handleFile(file) {
-      if (!file.type.startsWith('image/')) {
-        alert('Please select an image file');
-        return;
-      }
-
-      selectedFile = file;
-      
-      // Show preview
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        originalImage.src = e.target.result;
-        resultsSection.classList.remove('hidden');
-      };
-      reader.readAsDataURL(file);
-      
-      processBtn.disabled = false;
-    }
-
-    // Process button
-    processBtn.addEventListener('click', async () => {
-      if (!selectedFile) return;
-
-      // Check credits first
-      if (!checkCredits()) {
-        window.webspindCredits.showBuyCreditsModal('premium_feature');
-        return;
-      }
-
-      // Consume credits
-      if (window.webspindCredits) {
-        const canProceed = await window.webspindCredits.consumeCredits(1);
-        if (!canProceed) {
-          return;
-        }
-      }
-
-      showLoading();
-      
+  <!-- Safety: ensure content is not hidden due to any leftover classes -->
+  <script>
+    (function(){
       try {
-        // Call real background removal API
-        await removeBackgroundWithAPI();
-        
-        hideLoading();
-        showResults();
-      } catch (error) {
-        hideLoading();
-        alert('Error removing background: ' + error.message);
-      }
-    });
-
-    // Real background removal using Clipdrop API
-    async function removeBackgroundWithAPI() {
-      // Check if API key is configured
-      if (API_CONFIG.CLIPDROP_API_KEY === 'YOUR_CLIPDROP_API_KEY') {
-        throw new Error('API key not configured. Please set up your Clipdrop API key.');
-      }
-      
-      updateProgress(10, 'Preparing image...');
-      
-      try {
-        // Create FormData for the API request
-        const formData = new FormData();
-        formData.append('image_file', selectedFile);
-        
-        updateProgress(30, 'Sending to AI service...');
-        
-        // Make API call to Clipdrop
-        const response = await fetch(API_CONFIG.API_ENDPOINT, {
-          method: 'POST',
-          headers: {
-            'x-api-key': API_CONFIG.CLIPDROP_API_KEY
-          },
-          body: formData
+        document.querySelectorAll('.hidden').forEach(el => {
+          if (el.id !== 'mobile-menu' && !el.closest('#mobile-menu')) return;
         });
-        
-        updateProgress(70, 'Processing with AI...');
-        
-        if (!response.ok) {
-          throw new Error(`API Error: ${response.status} - ${response.statusText}`);
-        }
-        
-        updateProgress(90, 'Finalizing result...');
-        
-        // Get the processed image blob
-        const blob = await response.blob();
-        processedImageBlob = blob;
-        
-        // Create object URL for display
-        const imageUrl = URL.createObjectURL(blob);
-        resultImage.src = imageUrl;
-        
-        updateProgress(100, 'Complete!');
-        
-        return blob;
-        
-      } catch (error) {
-        console.error('Background removal failed:', error);
-        
-        // Fallback: Show error and try alternative method
-        if (error.message.includes('API Error')) {
-          throw new Error('Background removal service is currently unavailable. Please try again later.');
-        } else {
-          throw new Error('Failed to remove background. Please check your internet connection and try again.');
-        }
-      }
-    }
-
-    // Download button
-    downloadBtn.addEventListener('click', () => {
-      if (processedImageBlob) {
-        const url = URL.createObjectURL(processedImageBlob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'background-removed.png';
-        a.click();
-        URL.revokeObjectURL(url);
-      }
-    });
-
-    // Utility functions
-    function showLoading() {
-      loadingOverlay.classList.add('show');
-      updateProgress(0, 'Starting...');
-    }
-
-    function hideLoading() {
-      loadingOverlay.classList.remove('show');
-    }
-
-    function updateProgress(percent, text) {
-      progressFill.style.width = percent + '%';
-      progressText.textContent = text;
-    }
-
-    function showResults() {
-      resultsSection.classList.remove('hidden');
-      resultsSection.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Buy credits button handlers
-    document.querySelectorAll('.buy-credits-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (window.webspindCredits) {
-          window.webspindCredits.showBuyCreditsModal('buy_clicked');
-        }
-      });
-    });
-
-    // Credit package selection
-    document.addEventListener('DOMContentLoaded', () => {
-      const packages = document.querySelectorAll('.credit-package');
-      const purchaseBtn = document.getElementById('purchase-credits-btn');
-      let selectedPackage = null;
-
-      packages.forEach(pkg => {
-        pkg.addEventListener('click', () => {
-          // Remove selection from all packages
-          packages.forEach(p => p.classList.remove('border-blue-500', 'bg-blue-50'));
-          
-          // Add selection to clicked package
-          pkg.classList.add('border-blue-500', 'bg-blue-50');
-          
-          // Update purchase button
-          selectedPackage = pkg.dataset.package;
-          purchaseBtn.disabled = false;
-          purchaseBtn.textContent = `Buy ${pkg.querySelector('.text-2xl').textContent}`;
-        });
-      });
-
-      // Purchase button
-      purchaseBtn.addEventListener('click', () => {
-        if (selectedPackage && window.webspindCredits) {
-          window.webspindCredits.createCheckout(selectedPackage);
-        }
-      });
-    });
+        const mainEl = document.querySelector('main');
+        if (mainEl) mainEl.style.display = 'block';
+      } catch(e) {}
+    })();
   </script>
 </body>
 </html>

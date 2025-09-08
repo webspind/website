@@ -8,7 +8,7 @@
   <meta name="keywords" content="password generator, secure password, random password, strong password, password creator, free password tool">
   <meta name="author" content="Webspind">
   <meta name="robots" content="index, follow">
-  
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://webspind.com/tools/password-generator/">
@@ -25,8 +25,12 @@
 
   <!-- Favicon -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  
+
+  <!-- Core Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/js/freemium.js"></script>
+  <script src="/js/tool-template.js"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -66,34 +70,35 @@
             },
             bounceSubtle: {
               '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-10px)' }
+              '50%': { transform: 'translateY(-5px)' }
             },
             scaleIn: {
-              '0%': { opacity: '0', transform: 'scale(0.8)' },
-              '100%': { opacity: '1', transform: 'scale(1)' }
+              '0%': { transform: 'scale(0.9)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
             }
           }
         }
       }
     }
   </script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-    
+
     * {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
-    
+
     body {
       background: #ffffff;
       color: #1a1a1a;
     }
-    
+
     .gradient-bg {
       background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
       position: relative;
     }
-    
+
     .gradient-bg::before {
       content: '';
       position: absolute;
@@ -101,17 +106,17 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-image: 
+      background-image:
         radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
     }
-    
+
     .glass {
       background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(20px);
       border: 1px solid rgba(0, 0, 0, 0.1);
     }
-    
+
     .card {
       background: #ffffff;
       border: 2px solid #e5e7eb;
@@ -121,7 +126,7 @@
       overflow: hidden;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
-    
+
     .card::before {
       content: '';
       position: absolute;
@@ -132,17 +137,17 @@
       background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
       transition: left 0.6s;
     }
-    
+
     .card:hover::before {
       left: 100%;
     }
-    
+
     .card:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       border-color: #3b82f6;
     }
-    
+
     .btn-primary {
       background: #1a1a1a;
       border: 1px solid #1a1a1a;
@@ -156,7 +161,7 @@
       overflow: hidden;
       font-size: 14px;
     }
-    
+
     .btn-primary::before {
       content: '';
       position: absolute;
@@ -167,24 +172,18 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
       transition: left 0.5s;
     }
-    
+
     .btn-primary:hover::before {
       left: 100%;
     }
-    
+
     .btn-primary:hover {
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(26, 26, 26, 0.2);
       background: #3b82f6;
       border-color: #3b82f6;
     }
-    
-    .btn-primary:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-    
+
     .btn-secondary {
       background: #ffffff;
       border: 1px solid #e5e7eb;
@@ -196,21 +195,21 @@
       backdrop-filter: blur(20px);
       font-size: 14px;
     }
-    
+
     .btn-secondary:hover {
       background: #f8fafc;
       border-color: #3b82f6;
       transform: translateY(-1px);
     }
-    
+
     .floating-icon {
       animation: float 6s ease-in-out infinite;
     }
-    
+
     .webspind-logo {
       position: relative;
     }
-    
+
     .webspind-logo::after {
       content: '🕸️';
       position: absolute;
@@ -219,10 +218,10 @@
       font-size: 16px;
       animation: float 3s ease-in-out infinite;
     }
-    
+
     .tool-icon {
-      width: 60px;
-      height: 60px;
+      width: 48px;
+      height: 48px;
       border-radius: 16px;
       display: flex;
       align-items: center;
@@ -230,19 +229,19 @@
       font-size: 24px;
       margin-bottom: 16px;
       transition: all 0.3s ease;
-      background: linear-gradient(135deg, #10b981, #059669);
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
       color: white;
     }
-    
+
     .card:hover .tool-icon {
       transform: scale(1.1) rotate(5deg);
     }
-    
+
     .nav-link {
       position: relative;
       transition: all 0.3s ease;
     }
-    
+
     .nav-link::after {
       content: '';
       position: absolute;
@@ -253,52 +252,144 @@
       background: #3b82f6;
       transition: width 0.3s ease;
     }
-    
+
     .nav-link:hover::after {
       width: 100%;
     }
-    
-    .password-display {
-      background: #f8fafc;
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 16px;
-      font-family: 'Courier New', monospace;
-      font-size: 18px;
-      word-break: break-all;
-      min-height: 60px;
+
+    .hero-text {
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .floating-icon {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .text-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .tool-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
+      font-size: 24px;
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      color: white;
     }
-    
-    .strength-meter {
-      height: 8px;
-      border-radius: 4px;
+
+    .qr-preview {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+
+    .type-tab {
+      padding: 12px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .type-tab.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-color: #667eea;
+    }
+
+    .type-tab:not(.active) {
+      background: rgba(255, 255, 255, 0.5);
+      color: #666;
+    }
+
+    .type-tab:not(.active):hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+    }
+
+    .web-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    .web-spinner::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      border-top: 2px solid #764ba2;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 0.5s linear infinite reverse;
+    }
+
+    .web-spinner::after {
+      content: '🕸️';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
       transition: all 0.3s ease;
     }
-    
-    .strength-weak { background: linear-gradient(90deg, #ef4444, #dc2626); }
-    .strength-fair { background: linear-gradient(90deg, #f59e0b, #d97706); }
-    .strength-good { background: linear-gradient(90deg, #eab308, #ca8a04); }
-    .strength-strong { background: linear-gradient(90deg, #22c55e, #16a34a); }
-    .strength-very-strong { background: linear-gradient(90deg, #10b981, #059669); }
-    
-    @media (max-width: 768px) {
-      .card:hover {
-        transform: translateY(-4px) scale(1.01);
-      }
-      
-      .btn-primary:hover {
-        transform: translateY(-1px);
-      }
+
+    .loading-overlay.show {
+      opacity: 1;
+      visibility: visible;
     }
-  </style>
-  <style>
-    .fade-in, .slide-up { opacity: 1 !important; transform: none !important; }
-  </style>
-  <style>
+
+    .loading-content {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Navigation styles */
     .nav-shadow { box-shadow: 0 12px 30px -12px rgba(0,0,0,0.2); }
     .nav-condensed { padding-top: 8px !important; padding-bottom: 8px !important; }
     .brand, .brand-text { transition: transform 0.2s ease, font-size 0.2s ease, letter-spacing 0.2s ease; transform-origin: left center; }
@@ -306,6 +397,12 @@
     .brand-condensed .brand { transform: scale(0.98); }
     .brand-condensed .brand-text { transform: scale(0.98); }
     .brand-condensed .brand-logo { transform: scale(0.9); }
+    .content-root { position: relative; z-index: 1; }
+    .loading-overlay { pointer-events: none; }
+    .loading-overlay.show { pointer-events: auto; }
+
+    /* Safety override - ensure content is visible */
+    .fade-in, .slide-up { opacity: 1 !important; transform: none !important; }
   </style>
 </head>
 <body class="min-h-screen gradient-bg">
@@ -329,411 +426,77 @@
         <div id="language-menu" class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="language-btn"><div class="py-1"><button onclick="changeLanguage('en')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇺🇸 English</button><button onclick="changeLanguage('es')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇪🇸 Español</button><button onclick="changeLanguage('fr')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇫🇷 Français</button><button onclick="changeLanguage('de')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇩🇪 Deutsch</button><button onclick="changeLanguage('zh')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇨🇳 中文</button></div></div>
       </div>
       <div class="hidden md:block relative lg:hidden">
-        <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg></button>
+        <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a 1 1 0 110-2 1 1 0 010 2zm0 7a 1 1 0 110-2 1 1 0 010 2z"></path></svg></button>
         <div id="more-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="more-menu-btn"><div class="py-1"><a href="#tools" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">All Tools</a><a href="/pricing.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Pricing</a><a href="/privacy.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Privacy</a><hr class="my-1"><button onclick="handleUpgradeClick()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Upgrade to Pro</button><button onclick="openSupport()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Support</button></div></div>
       </div>
       <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block" role="status" aria-live="polite"><span class="text-sm font-medium">Loading...</span></div>
     </div>
   </nav>
-  <script>
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const nav = document.getElementById('site-nav');
-      const navInner = document.getElementById('nav-inner');
-      const bodyEl = document.body;
-      const applyDesktopCondense = window.innerWidth >= 1024;
-      if (nav) { if (scrollTop > 4) nav.classList.add('nav-shadow'); else nav.classList.remove('nav-shadow'); }
-      if (navInner) { if (scrollTop > 24 && applyDesktopCondense) { navInner.classList.add('nav-condensed'); bodyEl.classList.add('brand-condensed'); } else { navInner.classList.remove('nav-condensed'); bodyEl.classList.remove('brand-condensed'); } }
-      if (applyDesktopCondense) { if (scrollTop > 80) bodyEl.classList.add('hero-condensed'); else bodyEl.classList.remove('hero-condensed'); } else { bodyEl.classList.remove('hero-condensed'); }
-    });
-    (function(){
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      if (!mobileMenuBtn || !mobileMenu) return;
-      mobileMenuBtn.addEventListener('click', () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        mobileMenu.classList.toggle('hidden');
-        mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
-        const iconHamburger = document.getElementById('icon-hamburger');
-        const iconClose = document.getElementById('icon-close');
-        if (iconHamburger && iconClose) { iconHamburger.classList.toggle('hidden'); iconClose.classList.toggle('hidden'); }
-      });
-      document.addEventListener('click', (e) => {
-        if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          const iconHamburger = document.getElementById('icon-hamburger');
-          const iconClose = document.getElementById('icon-close');
-          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
-        }
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          mobileMenuBtn.focus();
-          const iconHamburger = document.getElementById('icon-hamburger');
-          const iconClose = document.getElementById('icon-close');
-          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
-        }
-      });
-      window.addEventListener('resize', () => {
-        if (window.innerWidth >= 768) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          const iconHamburger = document.getElementById('icon-hamburger');
-          const iconClose = document.getElementById('icon-close');
-          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
-        }
-      });
-    })();
-    (function(){
-      const moreMenuBtn = document.getElementById('more-menu-btn');
-      const moreMenu = document.getElementById('more-menu');
-      const languageBtn = document.getElementById('language-btn');
-      const languageMenu = document.getElementById('language-menu');
-      if (moreMenuBtn && moreMenu) {
-        moreMenuBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isHidden = moreMenu.classList.contains('hidden');
-          if (languageMenu) { languageMenu.classList.add('hidden'); languageBtn?.setAttribute('aria-expanded','false'); }
-          moreMenu.classList.toggle('hidden');
-          moreMenuBtn.setAttribute('aria-expanded', !isHidden);
-        });
-        document.addEventListener('click', (e) => {
-          if (!moreMenuBtn.contains(e.target) && !moreMenu.contains(e.target)) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); }
-        });
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && !moreMenu.classList.contains('hidden')) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); moreMenuBtn.focus(); }
-        });
-      }
-      if (languageBtn && languageMenu) {
-        languageBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isHidden = languageMenu.classList.contains('hidden');
-          if (moreMenu) { moreMenu.classList.add('hidden'); moreMenuBtn?.setAttribute('aria-expanded','false'); }
-          languageMenu.classList.toggle('hidden');
-          languageBtn.setAttribute('aria-expanded', !isHidden);
-        });
-        document.addEventListener('click', (e) => {
-          if (!languageBtn.contains(e.target) && !languageMenu.contains(e.target)) { languageMenu.classList.add('hidden'); languageBtn.setAttribute('aria-expanded','false'); }
-        });
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && !languageMenu.classList.contains('hidden')) { languageMenu.classList.add('hidden'); languageBtn.setAttribute('aria-expanded','false'); languageBtn.focus(); }
-        });
-      }
-    })();
-    function scrollToTools(){ window.location.href = '/'; }
-    function openSupport(){ window.location.href = '/pricing.html'; }
-  </script>
-  <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn"><div class="px-4 py-4 space-y-4"><div class="relative hidden"></div><div class="space-y-2" role="menuitem"><button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium buy-credits-btn" role="menuitem">Buy Credits</button><button onclick="scrollToTools(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" role="menuitem">All Tools</button><a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a><a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a><hr class="my-2"><button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">Upgrade to Pro</button><button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">Support</button></div></div>
+
+  <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn">
+    <div class="px-4 py-4 space-y-4">
+      <div class="relative hidden"></div>
+      <div class="space-y-2" role="menuitem">
+        <button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium buy-credits-btn" role="menuitem">Buy Credits</button>
+        <button onclick="scrollToTools(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" role="menuitem">All Tools</button>
+        <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a>
+        <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a>
+        <hr class="my-2">
+        <button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">Upgrade to Pro</button>
+        <button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">Support</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Content -->
-  <main class="max-w-4xl mx-auto px-4 md:px-6 py-16 relative z-10">
-    <!-- Header -->
-    <section class="text-center mb-12 fade-in">
+  <main class="max-w-6xl mx-auto px-4 md:px-6 py-16 content-root">
+    <!-- Hero Section -->
+    <section class="text-center mb-16">
       <div class="floating-icon inline-block mb-6">
-        <div class="tool-icon">
+        <div class="tool-icon mx-auto">
           🔐
         </div>
       </div>
-      
+
       <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
         <span class="text-gray-900">Password Generator</span>
       </h1>
-      
+
       <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-        Generate secure, random passwords with customizable options. All processing happens locally in your browser.
+        Generate secure, random passwords with customizable length and character sets. 100% private and secure - passwords never leave your device.
       </p>
     </section>
 
-    <!-- Generator Section -->
-    <section class="card p-8 mb-8 fade-in">
-      <h2 class="text-2xl font-bold mb-6 text-gray-900">Generate Secure Password</h2>
-      
-      <!-- Password Display -->
-      <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Generated Password</label>
-        <div class="password-display" id="password-display">
-          Click "Generate Password" to create a secure password
-        </div>
-        <div class="mt-2 flex justify-between items-center">
-          <div class="text-sm text-gray-500">
-            Strength: <span id="strength-text">-</span>
-          </div>
-          <button id="copy-password" class="btn-secondary text-sm" disabled>
-            Copy to Clipboard
-          </button>
-        </div>
-        <div class="mt-2">
-          <div class="strength-meter w-full" id="strength-meter"></div>
-        </div>
-      </div>
-      
-      <!-- Options -->
-      <div class="grid md:grid-cols-2 gap-6 mb-6">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">
-            Password Length: <span id="length-value">16</span>
-          </label>
-          <input type="range" id="length-slider" min="8" max="64" value="16" 
-                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-        </div>
-        
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Character Sets</label>
-          <div class="space-y-2">
-            <label class="flex items-center">
-              <input type="checkbox" id="uppercase" checked class="mr-2">
-              <span class="text-sm">Uppercase (A-Z)</span>
-            </label>
-            <label class="flex items-center">
-              <input type="checkbox" id="lowercase" checked class="mr-2">
-              <span class="text-sm">Lowercase (a-z)</span>
-            </label>
-            <label class="flex items-center">
-              <input type="checkbox" id="numbers" checked class="mr-2">
-              <span class="text-sm">Numbers (0-9)</span>
-            </label>
-            <label class="flex items-center">
-              <input type="checkbox" id="symbols" checked class="mr-2">
-              <span class="text-sm">Symbols (!@#$%^&*)</span>
-            </label>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Presets -->
-      <div class="mb-6">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Quick Presets</label>
-        <div class="flex flex-wrap gap-2">
-          <button class="preset-btn" data-preset="basic">Basic (12 chars)</button>
-          <button class="preset-btn" data-preset="strong">Strong (16 chars)</button>
-          <button class="preset-btn" data-preset="maximum">Maximum (32 chars)</button>
-          <button class="preset-btn" data-preset="memorable">Memorable</button>
-        </div>
-      </div>
-      
-      <!-- Action Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4">
-        <button id="generate-btn" class="btn-primary flex-1">
-          Generate New Password
-        </button>
-        <button id="regenerate-btn" class="btn-secondary" disabled>
-          Regenerate
-        </button>
-      </div>
-    </section>
-
-    <!-- Instructions -->
-    <section class="card p-8 fade-in">
-      <h2 class="text-2xl font-bold mb-6 text-gray-900">How It Works</h2>
-      
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
-            1️⃣
-          </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Customize Options</h3>
-          <p class="text-gray-600 text-sm">Set length and choose character sets for your password</p>
-        </div>
-        
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
-            2️⃣
-          </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Generate Securely</h3>
-          <p class="text-gray-600 text-sm">Password is created using cryptographically secure random generation</p>
-        </div>
-        
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto">
-            3️⃣
-          </div>
-          <h3 class="font-semibold mb-2 text-gray-900">Copy & Use</h3>
-          <p class="text-gray-600 text-sm">Copy the password and use it for your accounts</p>
-        </div>
-      </div>
-    </section>
+    {{TOOL_CONTENT}}
   </main>
 
-  <script src="/js/freemium.js"></script>
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="web-spinner"></div>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">{{TOOL_LOADING_MESSAGE}}</h3>
+      <p class="text-gray-600 mt-2">{{TOOL_LOADING_SUBMESSAGE}}</p>
+    </div>
+  </div>
+
   <script>
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+    // Tool-specific configuration
+    const TOOL_CONFIG = {
+      name: '{{TOOL_NAME}}',
+      actionCost: {{TOOL_ACTION_COST}}, // Cost per action (1 for most tools, 2 for AI/OCR)
+      isPremiumFeature: {{TOOL_IS_PREMIUM}}, // true for Pro-only features
+      batchEnabled: {{TOOL_BATCH_ENABLED}} // true if tool supports batch processing
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    // Observe all fade-in and slide-up elements
-    document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
-      observer.observe(el);
-    });
-
-    // Password generation logic
-    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
-    const numbers = '0123456789';
-    const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-    const memorable = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-
-    function generatePassword() {
-      const length = parseInt(document.getElementById('length-slider').value);
-      const useUppercase = document.getElementById('uppercase').checked;
-      const useLowercase = document.getElementById('lowercase').checked;
-      const useNumbers = document.getElementById('numbers').checked;
-      const useSymbols = document.getElementById('symbols').checked;
-      
-      let charset = '';
-      if (useUppercase) charset += uppercase;
-      if (useLowercase) charset += lowercase;
-      if (useNumbers) charset += numbers;
-      if (useSymbols) charset += symbols;
-      
-      if (charset === '') {
-        alert('Please select at least one character set.');
-        return;
-      }
-      
-      let password = '';
-      const array = new Uint32Array(length);
-      crypto.getRandomValues(array);
-      
-      for (let i = 0; i < length; i++) {
-        password += charset[array[i] % charset.length];
-      }
-      
-      return password;
-    }
-
-    function calculateStrength(password) {
-      let score = 0;
-      const length = password.length;
-      
-      // Length scoring
-      if (length >= 8) score += 1;
-      if (length >= 12) score += 1;
-      if (length >= 16) score += 1;
-      if (length >= 20) score += 1;
-      
-      // Character variety scoring
-      if (/[a-z]/.test(password)) score += 1;
-      if (/[A-Z]/.test(password)) score += 1;
-      if (/[0-9]/.test(password)) score += 1;
-      if (/[^a-zA-Z0-9]/.test(password)) score += 1;
-      
-      // Pattern penalties
-      if (/(.)\1{2,}/.test(password)) score -= 1; // Repeated characters
-      if (/123|abc|qwe/i.test(password)) score -= 1; // Common patterns
-      
-      return Math.max(0, Math.min(5, score));
-    }
-
-    function updateStrengthDisplay(password) {
-      const strength = calculateStrength(password);
-      const strengthText = document.getElementById('strength-text');
-      const strengthMeter = document.getElementById('strength-meter');
-      
-      const levels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong', 'Very Strong'];
-      const colors = ['strength-weak', 'strength-weak', 'strength-fair', 'strength-good', 'strength-strong', 'strength-very-strong'];
-      
-      strengthText.textContent = levels[strength];
-      strengthMeter.className = `strength-meter w-full ${colors[strength]}`;
-      strengthMeter.style.width = `${(strength / 5) * 100}%`;
-    }
-
-    async function updatePassword() {
-      // Check usage before proceeding
-      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(1)) {
-        window.webspindFreemium.showUpgradeModal('limit_reached');
-        return;
-      }
-
-      // Consume usage
-      if (window.webspindFreemium) {
-        const canProceed = await window.webspindFreemium.consumeUsage(1);
-        if (!canProceed) {
-          return;
-        }
-      }
-
-      const password = generatePassword();
-      document.getElementById('password-display').textContent = password;
-      updateStrengthDisplay(password);
-      document.getElementById('copy-password').disabled = false;
-      document.getElementById('regenerate-btn').disabled = false;
-    }
-
-    // Event listeners
-    document.getElementById('length-slider').addEventListener('input', (e) => {
-      document.getElementById('length-value').textContent = e.target.value;
-    });
-
-    document.getElementById('generate-btn').addEventListener('click', updatePassword);
-    document.getElementById('regenerate-btn').addEventListener('click', updatePassword);
-
-    document.getElementById('copy-password').addEventListener('click', async () => {
-      const password = document.getElementById('password-display').textContent;
-      try {
-        await navigator.clipboard.writeText(password);
-        const btn = document.getElementById('copy-password');
-        const originalText = btn.textContent;
-        btn.textContent = 'Copied!';
-        btn.style.background = '#10b981';
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.style.background = '';
-        }, 2000);
-      } catch (err) {
-        alert('Failed to copy password. Please select and copy manually.');
-      }
-    });
-
-    // Preset buttons
-    document.querySelectorAll('.preset-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const preset = btn.dataset.preset;
-        
-        switch(preset) {
-          case 'basic':
-            document.getElementById('length-slider').value = 12;
-            document.getElementById('length-value').textContent = '12';
-            break;
-          case 'strong':
-            document.getElementById('length-slider').value = 16;
-            document.getElementById('length-value').textContent = '16';
-            break;
-          case 'maximum':
-            document.getElementById('length-slider').value = 32;
-            document.getElementById('length-value').textContent = '32';
-            break;
-          case 'memorable':
-            document.getElementById('length-slider').value = 20;
-            document.getElementById('length-value').textContent = '20';
-            document.getElementById('symbols').checked = false;
-            break;
-        }
-        
-        updatePassword();
-      });
-    });
-
-    // Generate initial password
-    updatePassword();
+    // Tool-specific JavaScript
+    {{TOOL_JAVASCRIPT}}
   </script>
 
+  <!-- Footer -->
   <footer class="mt-20 border-t border-gray-200 relative z-10">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
       <div class="text-gray-600 text-sm mb-4">
-        © 2025 Webspind · Local processing · 
+        © 2025 Webspind · Local processing ·
         <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/privacy.html">Privacy</a>
       </div>
       <div class="text-gray-500 text-xs">
@@ -741,5 +504,18 @@
       </div>
     </div>
   </footer>
+
+  <!-- Safety: ensure content is not hidden due to any leftover classes -->
+  <script>
+    (function(){
+      try {
+        document.querySelectorAll('.hidden').forEach(el => {
+          if (el.id !== 'mobile-menu' && !el.closest('#mobile-menu')) return;
+        });
+        const mainEl = document.querySelector('main');
+        if (mainEl) mainEl.style.display = 'block';
+      } catch(e) {}
+    })();
+  </script>
 </body>
 </html>

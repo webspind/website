@@ -3,29 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PDF Pages - Reorder, Rotate & Manage PDF Pages | Webspind Professional Tools</title>
-  <meta name="description" content="Free PDF page management tool. Reorder, rotate, delete, and manage PDF pages with precision. Secure, private, browser-based processing.">
-  <meta name="keywords" content="PDF pages, reorder PDF, rotate PDF, delete PDF pages, PDF page management, free PDF tools, online PDF editor">
+  <title>PDF Pages - Extract & Reorder PDF Pages | Webspind Professional Tools</title>
+  <meta name="description" content="Free PDF pages tool. Extract, reorder, and manipulate PDF pages. Remove pages, rearrange order, or extract specific pages from PDF documents.">
+  <meta name="keywords" content="PDF pages, extract PDF pages, reorder PDF pages, remove PDF pages, PDF page manipulation, free PDF tools">
   <meta name="author" content="Webspind">
   <meta name="robots" content="index, follow">
-  
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://webspind.com/tools/pdf-pages/">
-  <meta property="og:title" content="PDF Pages - Reorder, Rotate & Manage PDF Pages | Webspind Professional Tools">
-  <meta property="og:description" content="Free PDF page management tool. Reorder, rotate, delete, and manage PDF pages with precision. Secure, private, browser-based processing.">
+  <meta property="og:title" content="PDF Pages - Extract & Reorder PDF Pages | Webspind Professional Tools">
+  <meta property="og:description" content="Free PDF pages tool. Extract, reorder, and manipulate PDF pages. Remove pages, rearrange order, or extract specific pages from PDF documents.">
   <meta property="og:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://webspind.com/tools/pdf-pages/">
-  <meta property="twitter:title" content="PDF Pages - Reorder, Rotate & Manage PDF Pages | Webspind Professional Tools">
-  <meta property="twitter:description" content="Free PDF page management tool. Reorder, rotate, delete, and manage PDF pages with precision. Secure, private, browser-based processing.">
+  <meta property="twitter:title" content="PDF Pages - Extract & Reorder PDF Pages | Webspind Professional Tools">
+  <meta property="twitter:description" content="Free PDF pages tool. Extract, reorder, and manipulate PDF pages. Remove pages, rearrange order, or extract specific pages from PDF documents.">
   <meta property="twitter:image" content="https://webspind.com/og-image.jpg">
 
   <!-- Favicon -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <!-- Core Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="/js/freemium.js"></script>
+  <script src="/js/tool-template.js"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -65,34 +71,35 @@
             },
             bounceSubtle: {
               '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-10px)' }
+              '50%': { transform: 'translateY(-5px)' }
             },
             scaleIn: {
-              '0%': { opacity: '0', transform: 'scale(0.8)' },
-              '100%': { opacity: '1', transform: 'scale(1)' }
+              '0%': { transform: 'scale(0.9)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' }
             }
           }
         }
       }
     }
   </script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-    
+
     * {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
-    
+
     body {
       background: #ffffff;
       color: #1a1a1a;
     }
-    
+
     .gradient-bg {
       background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #ffffff 100%);
       position: relative;
     }
-    
+
     .gradient-bg::before {
       content: '';
       position: absolute;
@@ -100,17 +107,17 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-image: 
+      background-image:
         radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
     }
-    
+
     .glass {
       background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(20px);
       border: 1px solid rgba(0, 0, 0, 0.1);
     }
-    
+
     .card {
       background: #ffffff;
       border: 2px solid #e5e7eb;
@@ -120,7 +127,7 @@
       overflow: hidden;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
-    
+
     .card::before {
       content: '';
       position: absolute;
@@ -131,18 +138,18 @@
       background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
       transition: left 0.6s;
     }
-    
+
     .card:hover::before {
       left: 100%;
     }
-    
+
     .card:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       border-color: #3b82f6;
     }
-    
-    .btn {
+
+    .btn-primary {
       background: #1a1a1a;
       border: 1px solid #1a1a1a;
       color: #ffffff;
@@ -154,12 +161,9 @@
       position: relative;
       overflow: hidden;
       font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
     }
-    
-    .btn::before {
+
+    .btn-primary::before {
       content: '';
       position: absolute;
       top: 0;
@@ -169,40 +173,44 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
       transition: left 0.5s;
     }
-    
-    .btn:hover::before {
+
+    .btn-primary:hover::before {
       left: 100%;
     }
-    
-    .btn:hover {
+
+    .btn-primary:hover {
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(26, 26, 26, 0.2);
       background: #3b82f6;
       border-color: #3b82f6;
     }
-    
+
     .btn-secondary {
       background: #ffffff;
       border: 1px solid #e5e7eb;
       color: #1a1a1a;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(20px);
+      font-size: 14px;
     }
-    
+
     .btn-secondary:hover {
       background: #f8fafc;
       border-color: #3b82f6;
+      transform: translateY(-1px);
     }
-    
-    .muted { color: #6b7280; }
-    .kbd { border:1px solid #cbd5e1; border-bottom-width:2px; padding:0 0.375rem; border-radius:0.375rem; background:#f8fafc; }
-    
+
     .floating-icon {
       animation: float 6s ease-in-out infinite;
     }
-    
+
     .webspind-logo {
       position: relative;
     }
-    
+
     .webspind-logo::after {
       content: '🕸️';
       position: absolute;
@@ -211,10 +219,10 @@
       font-size: 16px;
       animation: float 3s ease-in-out infinite;
     }
-    
+
     .tool-icon {
-      width: 60px;
-      height: 60px;
+      width: 48px;
+      height: 48px;
       border-radius: 16px;
       display: flex;
       align-items: center;
@@ -222,19 +230,19 @@
       font-size: 24px;
       margin-bottom: 16px;
       transition: all 0.3s ease;
-      background: linear-gradient(135deg, #ef4444, #dc2626);
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
       color: white;
     }
-    
+
     .card:hover .tool-icon {
       transform: scale(1.1) rotate(5deg);
     }
-    
+
     .nav-link {
       position: relative;
       transition: all 0.3s ease;
     }
-    
+
     .nav-link::after {
       content: '';
       position: absolute;
@@ -245,15 +253,144 @@
       background: #3b82f6;
       transition: width 0.3s ease;
     }
-    
+
     .nav-link:hover::after {
       width: 100%;
     }
-  </style>
-  <style>
-    .fade-in, .slide-up { opacity: 1 !important; transform: none !important; }
-  </style>
-  <style>
+
+    .hero-text {
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .floating-icon {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .text-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .tool-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      color: white;
+    }
+
+    .qr-preview {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+    }
+
+    .type-tab {
+      padding: 12px 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .type-tab.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-color: #667eea;
+    }
+
+    .type-tab:not(.active) {
+      background: rgba(255, 255, 255, 0.5);
+      color: #666;
+    }
+
+    .type-tab:not(.active):hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+    }
+
+    .web-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    .web-spinner::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      border-top: 2px solid #764ba2;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 0.5s linear infinite reverse;
+    }
+
+    .web-spinner::after {
+      content: '🕸️';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .loading-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .loading-content {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Navigation styles */
     .nav-shadow { box-shadow: 0 12px 30px -12px rgba(0,0,0,0.2); }
     .nav-condensed { padding-top: 8px !important; padding-bottom: 8px !important; }
     .brand, .brand-text { transition: transform 0.2s ease, font-size 0.2s ease, letter-spacing 0.2s ease; transform-origin: left center; }
@@ -261,6 +398,12 @@
     .brand-condensed .brand { transform: scale(0.98); }
     .brand-condensed .brand-text { transform: scale(0.98); }
     .brand-condensed .brand-logo { transform: scale(0.9); }
+    .content-root { position: relative; z-index: 1; }
+    .loading-overlay { pointer-events: none; }
+    .loading-overlay.show { pointer-events: auto; }
+
+    /* Safety override - ensure content is visible */
+    .fade-in, .slide-up { opacity: 1 !important; transform: none !important; }
   </style>
 </head>
 <body class="min-h-screen gradient-bg">
@@ -284,241 +427,77 @@
         <div id="language-menu" class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="language-btn"><div class="py-1"><button onclick="changeLanguage('en')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇺🇸 English</button><button onclick="changeLanguage('es')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇪🇸 Español</button><button onclick="changeLanguage('fr')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇫🇷 Français</button><button onclick="changeLanguage('de')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇩🇪 Deutsch</button><button onclick="changeLanguage('zh')" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">🇨🇳 中文</button></div></div>
       </div>
       <div class="hidden md:block relative lg:hidden">
-        <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path></svg></button>
+        <button id="more-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="More options" aria-expanded="false" aria-haspopup="true"><svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a 1 1 0 110-2 1 1 0 010 2zm0 7a 1 1 0 110-2 1 1 0 010 2z"></path></svg></button>
         <div id="more-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50" role="menu" aria-labelledby="more-menu-btn"><div class="py-1"><a href="#tools" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">All Tools</a><a href="/pricing.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Pricing</a><a href="/privacy.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Privacy</a><hr class="my-1"><button onclick="handleUpgradeClick()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Upgrade to Pro</button><button onclick="openSupport()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem">Support</button></div></div>
       </div>
       <div id="quota-badge" class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hidden md:block" role="status" aria-live="polite"><span class="text-sm font-medium">Loading...</span></div>
     </div>
   </nav>
-  <script>
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const nav = document.getElementById('site-nav');
-      const navInner = document.getElementById('nav-inner');
-      const bodyEl = document.body;
-      const applyDesktopCondense = window.innerWidth >= 1024;
-      if (nav) { if (scrollTop > 4) nav.classList.add('nav-shadow'); else nav.classList.remove('nav-shadow'); }
-      if (navInner) { if (scrollTop > 24 && applyDesktopCondense) { navInner.classList.add('nav-condensed'); bodyEl.classList.add('brand-condensed'); } else { navInner.classList.remove('nav-condensed'); bodyEl.classList.remove('brand-condensed'); } }
-      if (applyDesktopCondense) { if (scrollTop > 80) bodyEl.classList.add('hero-condensed'); else bodyEl.classList.remove('hero-condensed'); } else { bodyEl.classList.remove('hero-condensed'); }
-    });
-    (function(){
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      if (!mobileMenuBtn || !mobileMenu) return;
-      mobileMenuBtn.addEventListener('click', () => {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        mobileMenu.classList.toggle('hidden');
-        mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
-        const iconHamburger = document.getElementById('icon-hamburger');
-        const iconClose = document.getElementById('icon-close');
-        if (iconHamburger && iconClose) { iconHamburger.classList.toggle('hidden'); iconClose.classList.toggle('hidden'); }
-      });
-      document.addEventListener('click', (e) => {
-        if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          const iconHamburger = document.getElementById('icon-hamburger');
-          const iconClose = document.getElementById('icon-close');
-          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
-        }
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          mobileMenuBtn.focus();
-          const iconHamburger = document.getElementById('icon-hamburger');
-          const iconClose = document.getElementById('icon-close');
-          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
-        }
-      });
-      window.addEventListener('resize', () => {
-        if (window.innerWidth >= 768) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuBtn.setAttribute('aria-expanded', 'false');
-          const iconHamburger = document.getElementById('icon-hamburger');
-          const iconClose = document.getElementById('icon-close');
-          if (iconHamburger && iconClose) { iconHamburger.classList.remove('hidden'); iconClose.classList.add('hidden'); }
-        }
-      });
-    })();
-    (function(){
-      const moreMenuBtn = document.getElementById('more-menu-btn');
-      const moreMenu = document.getElementById('more-menu');
-      const languageBtn = document.getElementById('language-btn');
-      const languageMenu = document.getElementById('language-menu');
-      if (moreMenuBtn && moreMenu) {
-        moreMenuBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isHidden = moreMenu.classList.contains('hidden');
-          if (languageMenu) { languageMenu.classList.add('hidden'); languageBtn?.setAttribute('aria-expanded','false'); }
-          moreMenu.classList.toggle('hidden');
-          moreMenuBtn.setAttribute('aria-expanded', !isHidden);
-        });
-        document.addEventListener('click', (e) => {
-          if (!moreMenuBtn.contains(e.target) && !moreMenu.contains(e.target)) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); }
-        });
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && !moreMenu.classList.contains('hidden')) { moreMenu.classList.add('hidden'); moreMenuBtn.setAttribute('aria-expanded','false'); moreMenuBtn.focus(); }
-        });
-      }
-      if (languageBtn && languageMenu) {
-        languageBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const isHidden = languageMenu.classList.contains('hidden');
-          if (moreMenu) { moreMenu.classList.add('hidden'); moreMenuBtn?.setAttribute('aria-expanded','false'); }
-          languageMenu.classList.toggle('hidden');
-          languageBtn.setAttribute('aria-expanded', !isHidden);
-        });
-        document.addEventListener('click', (e) => {
-          if (!languageBtn.contains(e.target) && !languageMenu.contains(e.target)) { languageMenu.classList.add('hidden'); languageBtn.setAttribute('aria-expanded','false'); }
-        });
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && !languageMenu.classList.contains('hidden')) { languageMenu.classList.add('hidden'); languageBtn.setAttribute('aria-expanded','false'); languageBtn.focus(); }
-        });
-      }
-    })();
-    function scrollToTools(){ window.location.href = '/'; }
-    function openSupport(){ window.location.href = '/pricing.html'; }
-  </script>
-  <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn"><div class="px-4 py-4 space-y-4"><div class="relative hidden"></div><div class="space-y-2" role="menuitem"><button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium buy-credits-btn" role="menuitem">Buy Credits</button><button onclick="scrollToTools(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" role="menuitem">All Tools</button><a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a><a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a><hr class="my-2"><button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">Upgrade to Pro</button><button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">Support</button></div></div>
+
+  <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200" role="menu" aria-labelledby="mobile-menu-btn">
+    <div class="px-4 py-4 space-y-4">
+      <div class="relative hidden"></div>
+      <div class="space-y-2" role="menuitem">
+        <button class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium buy-credits-btn" role="menuitem">Buy Credits</button>
+        <button onclick="scrollToTools(); document.getElementById('mobile-menu').classList.add('hidden');" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" role="menuitem">All Tools</button>
+        <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/pricing.html" role="menuitem">Pricing</a>
+        <a class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium" href="/privacy.html" role="menuitem">Privacy</a>
+        <hr class="my-2">
+        <button onclick="handleUpgradeClick()" class="w-full text-left px-4 py-3 text-white bg-gray-900 hover:bg-gray-800 rounded-lg font-medium upgrade-btn" role="menuitem" aria-label="Upgrade to Pro plan">Upgrade to Pro</button>
+        <button onclick="openSupport()" class="w-full text-left px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg font-medium support-btn" role="menuitem" aria-label="Support Webspind">Support</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Content -->
-  <main class="max-w-4xl mx-auto px-4 md:px-6 py-16 relative z-10">
-    <!-- Header -->
-    <section class="text-center mb-12 fade-in">
+  <main class="max-w-6xl mx-auto px-4 md:px-6 py-16 content-root">
+    <!-- Hero Section -->
+    <section class="text-center mb-16">
       <div class="floating-icon inline-block mb-6">
-        <div class="tool-icon">
-          🔄
+        <div class="tool-icon mx-auto">
+          📑
         </div>
       </div>
-      
+
       <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6">
         <span class="text-gray-900">PDF Pages</span>
       </h1>
-      
+
       <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-        Reorder, rotate, and delete PDF pages with precision. All processing happens locally in your browser.
+        Extract, reorder, and manipulate PDF pages. Remove unwanted pages, rearrange page order, or extract specific pages from your PDF documents.
       </p>
     </section>
 
-    <div class="mt-6 grid md:grid-cols-3 gap-6">
-      <section class="md:col-span-2 card p-6 shadow-soft">
-        <label class="block text-sm font-medium">Vælg PDF</label>
-        <input id="file" type="file" accept="application/pdf" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-2">
-
-        <ul id="pages" class="mt-6 space-y-2"></ul>
-
-        <div class="mt-6 flex gap-3">
-          <button id="export" class="btn">Gem som ny PDF</button>
-          <button id="clear" class="btn" style="border-color:#cbd5e1">Ryd</button>
-        </div>
-      </section>
-
-      <aside class="card p-6 shadow-soft">
-        <h2 class="font-semibold">Tips</h2>
-        <ul class="mt-2 text-sm muted list-disc pl-5 space-y-1">
-          <li>Brug ↑/↓ for at flytte sider.</li>
-          <li>Roter 90° pr. klik.</li>
-          <li>Slet fjerner siden fra output.</li>
-        </ul>
-      </aside>
-    </div>
+    {{TOOL_CONTENT}}
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
-  <script src="/js/freemium.js"></script>
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="web-spinner"></div>
+      <h3 class="text-xl font-bold mt-6 text-gray-800">{{TOOL_LOADING_MESSAGE}}</h3>
+      <p class="text-gray-600 mt-2">{{TOOL_LOADING_SUBMESSAGE}}</p>
+    </div>
+  </div>
+
   <script>
-    const fileInput = document.getElementById('file');
-    const list = document.getElementById('pages');
-    let src = null;
-    let model = []; // {index, rotation:0|90|180|270, keep:true}
+    // Tool-specific configuration
+    const TOOL_CONFIG = {
+      name: '{{TOOL_NAME}}',
+      actionCost: {{TOOL_ACTION_COST}}, // Cost per action (1 for most tools, 2 for AI/OCR)
+      isPremiumFeature: {{TOOL_IS_PREMIUM}}, // true for Pro-only features
+      batchEnabled: {{TOOL_BATCH_ENABLED}} // true if tool supports batch processing
+    };
 
-    function render() {
-      list.innerHTML = '';
-      model.forEach((m, idx) => {
-        const li = document.createElement('li');
-        li.className = 'border border-slate-200 rounded-xl p-3 flex items-center justify-between gap-3';
-        li.innerHTML = \`
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center text-sm">\${m.index+1}</div>
-            <div class="min-w-0">
-              <div class="font-medium">Side \${m.index+1}</div>
-              <div class="text-xs muted">Rotation: \${m.rotation}°</div>
-            </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <button data-act="up" data-idx="\${idx}" class="rounded-lg border border-slate-200 px-2 py-1">↑</button>
-            <button data-act="down" data-idx="\${idx}" class="rounded-lg border border-slate-200 px-2 py-1">↓</button>
-            <button data-act="rot" data-idx="\${idx}" class="rounded-lg border border-slate-200 px-2 py-1">Roter</button>
-            <button data-act="del" data-idx="\${idx}" class="rounded-lg border border-red-200 text-red-700 px-2 py-1">Slet</button>
-          </div>\`;
-        list.appendChild(li);
-      });
-    }
-
-    fileInput.addEventListener('change', async (e) => {
-      const f = e.target.files[0];
-      if (!f) return;
-      const bytes = await f.arrayBuffer();
-      src = await PDFLib.PDFDocument.load(bytes);
-      const n = src.getPageCount();
-      model = Array.from({length:n}, (_,i)=>({ index:i, rotation:0, keep:true }));
-      render();
-    });
-
-    list.addEventListener('click', e => {
-      const btn = e.target.closest('button'); if (!btn) return;
-      const idx = +btn.dataset.idx; const act = btn.dataset.act;
-      if (act==='up' && idx>0) [model[idx-1], model[idx]] = [model[idx], model[idx-1]];
-      if (act==='down' && idx<model.length-1) [model[idx+1], model[idx]] = [model[idx], model[idx+1]];
-      if (act==='rot') model[idx].rotation = (model[idx].rotation + 90) % 360;
-      if (act==='del') model.splice(idx,1);
-      render();
-    });
-
-    document.getElementById('clear').addEventListener('click', () => { model = []; render(); });
-
-    document.getElementById('export').addEventListener('click', async () => {
-      if (!src) return alert('Vælg en PDF');
-      
-      // Check usage before proceeding
-      if (window.webspindFreemium && !window.webspindFreemium.canPerformAction(1)) {
-        window.webspindFreemium.showUpgradeModal('limit_reached');
-        return;
-      }
-
-      // Consume usage
-      if (window.webspindFreemium) {
-        const canProceed = await window.webspindFreemium.consumeUsage(1);
-        if (!canProceed) {
-          return;
-        }
-      }
-      
-      const out = await PDFLib.PDFDocument.create();
-      const idxs = model.map(m=>m.index);
-      const copied = await out.copyPages(src, idxs);
-      for (let i=0;i<copied.length;i++) {
-        const p = copied[i];
-        const rot = model[i].rotation || 0;
-        if (rot) p.setRotation(PDFLib.degrees(rot));
-        out.addPage(p);
-      }
-      const bytes = await out.save();
-      const blob = new Blob([bytes], { type: 'application/pdf' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'edited.pdf';
-      a.click();
-      URL.revokeObjectURL(a.href);
-    });
+    // Tool-specific JavaScript
+    {{TOOL_JAVASCRIPT}}
   </script>
 
+  <!-- Footer -->
   <footer class="mt-20 border-t border-gray-200 relative z-10">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 text-center">
       <div class="text-gray-600 text-sm mb-4">
-        © 2025 Webspind · Local processing · 
+        © 2025 Webspind · Local processing ·
         <a class="text-gray-900 hover:text-gray-700 transition-colors underline" href="/privacy.html">Privacy</a>
       </div>
       <div class="text-gray-500 text-xs">
@@ -526,5 +505,18 @@
       </div>
     </div>
   </footer>
+
+  <!-- Safety: ensure content is not hidden due to any leftover classes -->
+  <script>
+    (function(){
+      try {
+        document.querySelectorAll('.hidden').forEach(el => {
+          if (el.id !== 'mobile-menu' && !el.closest('#mobile-menu')) return;
+        });
+        const mainEl = document.querySelector('main');
+        if (mainEl) mainEl.style.display = 'block';
+      } catch(e) {}
+    })();
+  </script>
 </body>
 </html>
