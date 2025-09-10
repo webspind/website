@@ -43,31 +43,26 @@
     <main style="padding-top: 100px; min-height: 100vh;">
         <div class="container">
             <!-- Tool Header -->
-            <div class="tool-header" style="text-align: center; margin-bottom: 40px;">
-                <div class="tool-icon-large" style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                    <i class="fas fa-file-pdf" style="font-size: 2rem; color: white;"></i>
+            <div class="tool-header" style="text-align: center; margin-bottom: 48px;">
+                <div class="tool-icon-large" style="width: 80px; height: 80px; background: #f5f5f5; border: 2px solid #000000; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                    <i class="fas fa-file-pdf" style="font-size: 2rem; color: #000000;"></i>
                 </div>
-                <h1 style="font-size: 2.5rem; margin-bottom: 15px; color: #1e293b;">PDF Merger</h1>
-                <p style="font-size: 1.1rem; color: #64748b; max-width: 600px; margin: 0 auto;">Combine multiple PDF files into one document quickly and securely. Drag and drop your files or click to browse.</p>
+                <h1 style="font-size: 2.5rem; margin-bottom: 16px; color: #000000; font-weight: 800; letter-spacing: -0.03em;">PDF Merger</h1>
+                <p style="font-size: 1.125rem; color: #666666; max-width: 600px; margin: 0 auto;">Combine multiple PDF files into one document. Drag and drop or click to browse.</p>
             </div>
 
             <!-- Upload Section -->
-            <div class="upload-section" style="background: white; border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <div class="upload-section" style="background: white; border: 2px solid #000000; padding: 40px; margin-bottom: 32px;">
                 <div id="file-upload-container"></div>
                 
                 <!-- Merge Options -->
-                <div class="merge-options" style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e2e8f0;">
-                    <h3 style="margin-bottom: 20px; color: #1e293b;">Merge Options</h3>
-                    <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
-                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <div class="merge-options" style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #e5e5e5;">
+                    <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.875rem; color: #666666;">
                             <input type="checkbox" id="preserve-bookmarks" checked>
                             <span>Preserve bookmarks</span>
                         </label>
-                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                            <input type="checkbox" id="preserve-forms" checked>
-                            <span>Preserve form fields</span>
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.875rem; color: #666666;">
                             <input type="checkbox" id="optimize-size">
                             <span>Optimize file size</span>
                         </label>
@@ -111,33 +106,6 @@
                 </div>
             </div>
 
-            <!-- Features Section -->
-            <div class="features-section" style="margin-top: 60px;">
-                <h2 style="text-align: center; margin-bottom: 40px; color: #1e293b;">Why Choose Our PDF Merger?</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                    <div style="text-align: center; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-                        <div style="width: 60px; height: 60px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                            <i class="fas fa-shield-alt" style="font-size: 1.5rem; color: #2563eb;"></i>
-                        </div>
-                        <h3 style="margin-bottom: 15px; color: #1e293b;">100% Secure</h3>
-                        <p style="color: #64748b;">Your files are processed securely and deleted immediately after processing. No data is stored on our servers.</p>
-                    </div>
-                    <div style="text-align: center; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-                        <div style="width: 60px; height: 60px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                            <i class="fas fa-bolt" style="font-size: 1.5rem; color: #2563eb;"></i>
-                        </div>
-                        <h3 style="margin-bottom: 15px; color: #1e293b;">Lightning Fast</h3>
-                        <p style="color: #64748b;">Merge your PDF files in seconds with our optimized processing engine. No waiting, no delays.</p>
-                    </div>
-                    <div style="text-align: center; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-                        <div style="width: 60px; height: 60px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                            <i class="fas fa-mobile-alt" style="font-size: 1.5rem; color: #2563eb;"></i>
-                        </div>
-                        <h3 style="margin-bottom: 15px; color: #1e293b;">Mobile Friendly</h3>
-                        <p style="color: #64748b;">Works perfectly on all devices - desktop, tablet, and mobile. Access your tools anywhere.</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 
