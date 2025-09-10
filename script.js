@@ -1,3 +1,6 @@
+// Apple-Style JavaScript for Webspind
+// Modern, smooth interactions inspired by Apple's design philosophy
+
 // Global variables
 let userCredits = 3; // Daily free credits
 let dailyResetTime = new Date();
@@ -8,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     setupEventListeners();
     checkDailyReset();
-    initializeModernFeatures();
+    initializeAppleFeatures();
 });
 
 // Initialize app
@@ -49,16 +52,17 @@ function setupEventListeners() {
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function() {
             navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
         });
     }
     
     // Modal close functionality
     const modal = document.getElementById('paymentModal');
-    const closeBtn = document.querySelector('.close');
+    const closeBtn = document.querySelector('.modal-close');
     
     if (closeBtn) {
         closeBtn.addEventListener('click', function() {
-            modal.style.display = 'none';
+            closeModal();
         });
     }
     
@@ -66,23 +70,32 @@ function setupEventListeners() {
     if (modal) {
         window.addEventListener('click', function(event) {
             if (event.target === modal) {
-                modal.style.display = 'none';
+                closeModal();
             }
         });
     }
     
-    // Smooth scrolling for navigation links
+    // Enhanced smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                smoothScrollTo(target);
             }
         });
+    });
+}
+
+// Apple-style smooth scrolling
+function smoothScrollTo(target) {
+    const headerOffset = 80;
+    const elementPosition = target.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
     });
 }
 
@@ -100,7 +113,7 @@ function checkDailyReset() {
         dailyResetTime.setDate(dailyResetTime.getDate() + 1);
         saveCredits();
         
-        showMessage('Your daily credits have been reset! You now have 3 free credits.', 'success');
+        showAppleMessage('Your daily credits have been reset! You now have 3 free credits.', 'success');
     }
 }
 
@@ -123,26 +136,42 @@ function showPaymentModal() {
     const modal = document.getElementById('paymentModal');
     if (modal) {
         modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Animate modal in
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10);
+    }
+}
+
+// Close modal
+function closeModal() {
+    const modal = document.getElementById('paymentModal');
+    if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+        
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
     }
 }
 
 // Process payment (template for Stripe integration)
 function processPayment(credits, price) {
     // This is a template - you'll need to integrate with Stripe
-    showMessage('Payment processing... This will be connected to your Stripe account.', 'info');
+    showAppleMessage('Payment processing... This will be connected to your Stripe account.', 'info');
     
     // Simulate successful payment
     setTimeout(() => {
         userCredits += credits;
         updateCreditsDisplay();
         saveCredits();
-        showMessage(`Payment successful! You now have ${userCredits} credits.`, 'success');
+        showAppleMessage(`Payment successful! You now have ${userCredits} credits.`, 'success');
         
         // Close modal
-        const modal = document.getElementById('paymentModal');
-        if (modal) {
-            modal.style.display = 'none';
-        }
+        closeModal();
     }, 2000);
 }
 
@@ -162,27 +191,209 @@ function useCredits(amount = 1) {
     return false;
 }
 
-// Show message
-function showMessage(message, type = 'info') {
+// Apple-style message system
+function showAppleMessage(message, type = 'info', duration = 5000) {
     // Remove existing messages
-    const existingMessages = document.querySelectorAll('.message');
+    const existingMessages = document.querySelectorAll('.apple-message');
     existingMessages.forEach(msg => msg.remove());
     
     // Create new message
     const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${type}`;
-    messageDiv.textContent = message;
+    messageDiv.className = `apple-message ${type}`;
+    messageDiv.innerHTML = `
+        <div class="message-content">
+            <div class="message-icon">
+                <i class="fas ${getMessageIcon(type)}"></i>
+            </div>
+            <div class="message-text">${message}</div>
+            <button class="message-close" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
     
     // Insert at top of page
     const body = document.body;
     body.insertBefore(messageDiv, body.firstChild);
     
-    // Auto remove after 5 seconds
+    // Animate in
+    setTimeout(() => {
+        messageDiv.classList.add('show');
+    }, 100);
+    
+    // Auto remove after duration
     setTimeout(() => {
         if (messageDiv.parentNode) {
-            messageDiv.remove();
+            messageDiv.classList.remove('show');
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 300);
         }
-    }, 5000);
+    }, duration);
+}
+
+function getMessageIcon(type) {
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-exclamation-circle',
+        info: 'fa-info-circle',
+        warning: 'fa-exclamation-triangle'
+    };
+    return icons[type] || icons.info;
+}
+
+// Apple-style features initialization
+function initializeAppleFeatures() {
+    // Initialize scroll animations
+    initializeScrollAnimations();
+    
+    // Initialize tool card interactions
+    initializeToolCardInteractions();
+    
+    // Initialize parallax effects
+    initializeParallaxEffects();
+    
+    // Initialize loading animations
+    initializeLoadingAnimations();
+    
+    // Initialize navbar effects
+    initializeNavbarEffects();
+}
+
+// Scroll animations using Intersection Observer
+function initializeScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    const animatedElements = document.querySelectorAll('.tool-card, .pricing-card, .section-header');
+    animatedElements.forEach(el => {
+        el.classList.add('animate-on-scroll');
+        observer.observe(el);
+    });
+}
+
+// Enhanced tool card interactions
+function initializeToolCardInteractions() {
+    const toolCards = document.querySelectorAll('.tool-card');
+    
+    toolCards.forEach(card => {
+        // Add subtle hover effects
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+        
+        // Add click tracking
+        const toolLink = card.querySelector('.tool-link');
+        if (toolLink) {
+            toolLink.addEventListener('click', function(e) {
+                const toolName = card.dataset.tool;
+                trackToolUsage(toolName, 'click');
+            });
+        }
+    });
+}
+
+// Parallax effects for hero section
+function initializeParallaxEffects() {
+    const floatingCards = document.querySelectorAll('.floating-card');
+    
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * 0.5;
+        
+        floatingCards.forEach((card, index) => {
+            const speed = 0.3 + (index * 0.1);
+            card.style.transform = `translateY(${rate * speed}px)`;
+        });
+    });
+}
+
+// Loading animations for better perceived performance
+function initializeLoadingAnimations() {
+    // Add loading class to body initially
+    document.body.classList.add('loading');
+    
+    // Remove loading class when everything is loaded
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+        }, 500);
+    });
+}
+
+// Navbar effects
+function initializeNavbarEffects() {
+    const navbar = document.querySelector('.navbar');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            navbar.style.backdropFilter = 'blur(20px)';
+        } else {
+            navbar.style.background = 'rgba(255, 255, 255, 0.8)';
+            navbar.style.backdropFilter = 'blur(20px)';
+        }
+    });
+}
+
+// Enhanced tool tracking with modern analytics
+function trackToolUsage(toolName, action = 'view') {
+    // Enhanced tracking with more context
+    const trackingData = {
+        tool: toolName,
+        action: action,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        screenResolution: `${screen.width}x${screen.height}`,
+        viewport: `${window.innerWidth}x${window.innerHeight}`,
+        credits: userCredits
+    };
+    
+    // Store in localStorage for analytics
+    const usageHistory = JSON.parse(localStorage.getItem('webspind_usage') || '[]');
+    usageHistory.push(trackingData);
+    
+    // Keep only last 100 entries
+    if (usageHistory.length > 100) {
+        usageHistory.splice(0, usageHistory.length - 100);
+    }
+    
+    localStorage.setItem('webspind_usage', JSON.stringify(usageHistory));
+    
+    // Track with existing system
+    trackEvent('Tool Usage', action, toolName);
+}
+
+// Analytics tracking (template for Google Analytics)
+function trackEvent(category, action, label) {
+    // This is a template - integrate with your analytics
+    console.log(`Analytics: ${category} - ${action} - ${label}`);
+    
+    // Example Google Analytics 4 event
+    if (typeof gtag !== 'undefined') {
+        gtag('event', action, {
+            event_category: category,
+            event_label: label
+        });
+    }
 }
 
 // File upload utilities
@@ -234,12 +445,12 @@ function createFileUploadArea(containerId, options = {}) {
     function handleFiles(newFiles) {
         Array.from(newFiles).forEach(file => {
             if (options.maxSize && file.size > options.maxSize) {
-                showMessage(`File ${file.name} is too large. Maximum size is ${formatFileSize(options.maxSize)}.`, 'error');
+                showAppleMessage(`File ${file.name} is too large. Maximum size is ${formatFileSize(options.maxSize)}.`, 'error');
                 return;
             }
             
             if (options.allowedTypes && !options.allowedTypes.includes(file.type)) {
-                showMessage(`File type ${file.type} is not supported.`, 'error');
+                showAppleMessage(`File type ${file.type} is not supported.`, 'error');
                 return;
             }
             
@@ -308,7 +519,7 @@ function formatFileSize(bytes) {
 // Process file with credit check
 function processFileWithCredits(processFunction, requiredCredits = 1) {
     if (!hasEnoughCredits(requiredCredits)) {
-        showMessage(`You need ${requiredCredits} credit(s) to download this file. You have ${userCredits} credits remaining.`, 'error');
+        showAppleMessage(`You need ${requiredCredits} credit(s) to download this file. You have ${userCredits} credits remaining.`, 'error');
         showPaymentModal();
         return false;
     }
@@ -362,20 +573,6 @@ function simulateProcessing(duration = 2000) {
     });
 }
 
-// Analytics tracking (template for Google Analytics)
-function trackEvent(category, action, label) {
-    // This is a template - integrate with your analytics
-    console.log(`Analytics: ${category} - ${action} - ${label}`);
-    
-    // Example Google Analytics 4 event
-    if (typeof gtag !== 'undefined') {
-        gtag('event', action, {
-            event_category: category,
-            event_label: label
-        });
-    }
-}
-
 // SEO and performance optimizations
 function optimizeImages() {
     const images = document.querySelectorAll('img');
@@ -391,227 +588,11 @@ document.addEventListener('DOMContentLoaded', function() {
     optimizeImages();
 });
 
-// Modern JavaScript Features
-function initializeModernFeatures() {
-    // Initialize scroll animations
-    initializeScrollAnimations();
-    
-    // Initialize tool card interactions
-    initializeToolCardInteractions();
-    
-    // Initialize parallax effects
-    initializeParallaxEffects();
-    
-    // Initialize smooth scrolling enhancements
-    initializeSmoothScrolling();
-    
-    // Initialize loading animations
-    initializeLoadingAnimations();
-}
-
-// Scroll animations using Intersection Observer
-function initializeScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.tool-card, .stat, .pricing-card');
-    animatedElements.forEach(el => {
-        el.classList.add('animate-on-scroll');
-        observer.observe(el);
-    });
-}
-
-// Enhanced tool card interactions
-function initializeToolCardInteractions() {
-    const toolCards = document.querySelectorAll('.tool-card');
-    
-    toolCards.forEach(card => {
-        // Add ripple effect on click
-        card.addEventListener('click', function(e) {
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.classList.add('ripple');
-            
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-
-        // Add tilt effect on mouse move
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
-            
-            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-        });
-
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-        });
-    });
-}
-
-// Parallax effects for hero section
-function initializeParallaxEffects() {
-    const heroPattern = document.querySelector('.hero-pattern');
-    
-    if (heroPattern) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            heroPattern.style.transform = `translateY(${rate}px)`;
-        });
-    }
-}
-
-// Enhanced smooth scrolling
-function initializeSmoothScrolling() {
-    // Override existing smooth scrolling with enhanced version
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const headerOffset = 80;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-// Loading animations for better perceived performance
-function initializeLoadingAnimations() {
-    // Add loading class to body initially
-    document.body.classList.add('loading');
-    
-    // Remove loading class when everything is loaded
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            document.body.classList.remove('loading');
-            document.body.classList.add('loaded');
-        }, 500);
-    });
-}
-
-// Enhanced message system with modern styling
-function showModernMessage(message, type = 'info', duration = 5000) {
-    // Remove existing messages
-    const existingMessages = document.querySelectorAll('.modern-message');
-    existingMessages.forEach(msg => msg.remove());
-    
-    // Create new message
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `modern-message ${type}`;
-    messageDiv.innerHTML = `
-        <div class="message-content">
-            <div class="message-icon">
-                <i class="fas ${getMessageIcon(type)}"></i>
-            </div>
-            <div class="message-text">${message}</div>
-            <button class="message-close" onclick="this.parentElement.parentElement.remove()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    `;
-    
-    // Insert at top of page
-    const body = document.body;
-    body.insertBefore(messageDiv, body.firstChild);
-    
-    // Animate in
-    setTimeout(() => {
-        messageDiv.classList.add('show');
-    }, 100);
-    
-    // Auto remove after duration
-    setTimeout(() => {
-        if (messageDiv.parentNode) {
-            messageDiv.classList.remove('show');
-            setTimeout(() => {
-                if (messageDiv.parentNode) {
-                    messageDiv.remove();
-                }
-            }, 300);
-        }
-    }, duration);
-}
-
-function getMessageIcon(type) {
-    const icons = {
-        success: 'fa-check-circle',
-        error: 'fa-exclamation-circle',
-        info: 'fa-info-circle',
-        warning: 'fa-exclamation-triangle'
-    };
-    return icons[type] || icons.info;
-}
-
-// Enhanced tool tracking with modern analytics
-function trackToolUsage(toolName, action = 'view') {
-    // Enhanced tracking with more context
-    const trackingData = {
-        tool: toolName,
-        action: action,
-        timestamp: new Date().toISOString(),
-        userAgent: navigator.userAgent,
-        screenResolution: `${screen.width}x${screen.height}`,
-        viewport: `${window.innerWidth}x${window.innerHeight}`,
-        credits: userCredits
-    };
-    
-    // Store in localStorage for analytics
-    const usageHistory = JSON.parse(localStorage.getItem('webspind_usage') || '[]');
-    usageHistory.push(trackingData);
-    
-    // Keep only last 100 entries
-    if (usageHistory.length > 100) {
-        usageHistory.splice(0, usageHistory.length - 100);
-    }
-    
-    localStorage.setItem('webspind_usage', JSON.stringify(usageHistory));
-    
-    // Track with existing system
-    trackEvent('Tool Usage', action, toolName);
-}
-
 // Export functions for use in tool pages
 window.WebspindUtils = {
     hasEnoughCredits,
     useCredits,
-    showMessage: showModernMessage,
+    showMessage: showAppleMessage,
     createFileUploadArea,
     formatFileSize,
     processFileWithCredits,
