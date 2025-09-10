@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     setupEventListeners();
     checkDailyReset();
+    initializeModernFeatures();
 });
 
 // Initialize app
@@ -390,11 +391,227 @@ document.addEventListener('DOMContentLoaded', function() {
     optimizeImages();
 });
 
+// Modern JavaScript Features
+function initializeModernFeatures() {
+    // Initialize scroll animations
+    initializeScrollAnimations();
+    
+    // Initialize tool card interactions
+    initializeToolCardInteractions();
+    
+    // Initialize parallax effects
+    initializeParallaxEffects();
+    
+    // Initialize smooth scrolling enhancements
+    initializeSmoothScrolling();
+    
+    // Initialize loading animations
+    initializeLoadingAnimations();
+}
+
+// Scroll animations using Intersection Observer
+function initializeScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for animation
+    const animatedElements = document.querySelectorAll('.tool-card, .stat, .pricing-card');
+    animatedElements.forEach(el => {
+        el.classList.add('animate-on-scroll');
+        observer.observe(el);
+    });
+}
+
+// Enhanced tool card interactions
+function initializeToolCardInteractions() {
+    const toolCards = document.querySelectorAll('.tool-card');
+    
+    toolCards.forEach(card => {
+        // Add ripple effect on click
+        card.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+
+        // Add tilt effect on mouse move
+        card.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+        });
+    });
+}
+
+// Parallax effects for hero section
+function initializeParallaxEffects() {
+    const heroPattern = document.querySelector('.hero-pattern');
+    
+    if (heroPattern) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            heroPattern.style.transform = `translateY(${rate}px)`;
+        });
+    }
+}
+
+// Enhanced smooth scrolling
+function initializeSmoothScrolling() {
+    // Override existing smooth scrolling with enhanced version
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerOffset = 80;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// Loading animations for better perceived performance
+function initializeLoadingAnimations() {
+    // Add loading class to body initially
+    document.body.classList.add('loading');
+    
+    // Remove loading class when everything is loaded
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+        }, 500);
+    });
+}
+
+// Enhanced message system with modern styling
+function showModernMessage(message, type = 'info', duration = 5000) {
+    // Remove existing messages
+    const existingMessages = document.querySelectorAll('.modern-message');
+    existingMessages.forEach(msg => msg.remove());
+    
+    // Create new message
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `modern-message ${type}`;
+    messageDiv.innerHTML = `
+        <div class="message-content">
+            <div class="message-icon">
+                <i class="fas ${getMessageIcon(type)}"></i>
+            </div>
+            <div class="message-text">${message}</div>
+            <button class="message-close" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+    
+    // Insert at top of page
+    const body = document.body;
+    body.insertBefore(messageDiv, body.firstChild);
+    
+    // Animate in
+    setTimeout(() => {
+        messageDiv.classList.add('show');
+    }, 100);
+    
+    // Auto remove after duration
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.classList.remove('show');
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 300);
+        }
+    }, duration);
+}
+
+function getMessageIcon(type) {
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-exclamation-circle',
+        info: 'fa-info-circle',
+        warning: 'fa-exclamation-triangle'
+    };
+    return icons[type] || icons.info;
+}
+
+// Enhanced tool tracking with modern analytics
+function trackToolUsage(toolName, action = 'view') {
+    // Enhanced tracking with more context
+    const trackingData = {
+        tool: toolName,
+        action: action,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        screenResolution: `${screen.width}x${screen.height}`,
+        viewport: `${window.innerWidth}x${window.innerHeight}`,
+        credits: userCredits
+    };
+    
+    // Store in localStorage for analytics
+    const usageHistory = JSON.parse(localStorage.getItem('webspind_usage') || '[]');
+    usageHistory.push(trackingData);
+    
+    // Keep only last 100 entries
+    if (usageHistory.length > 100) {
+        usageHistory.splice(0, usageHistory.length - 100);
+    }
+    
+    localStorage.setItem('webspind_usage', JSON.stringify(usageHistory));
+    
+    // Track with existing system
+    trackEvent('Tool Usage', action, toolName);
+}
+
 // Export functions for use in tool pages
 window.WebspindUtils = {
     hasEnoughCredits,
     useCredits,
-    showMessage,
+    showMessage: showModernMessage,
     createFileUploadArea,
     formatFileSize,
     processFileWithCredits,
@@ -403,5 +620,6 @@ window.WebspindUtils = {
     hideLoading,
     simulateProcessing,
     trackEvent,
+    trackToolUsage,
     userCredits: () => userCredits
 };
