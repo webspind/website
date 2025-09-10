@@ -113,17 +113,31 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Coming Soon */}
-          <div className="text-center mt-12">
-            <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-200 mb-2">
-                🚧 Coming Soon
-              </h3>
-              <p className="text-yellow-700 dark:text-yellow-300">
-                We&apos;re building the tools now. Each tool will have its own page for easy discovery on Google.
-              </p>
-            </div>
-          </div>
+              {/* Available Tools */}
+              <div className="text-center mt-12">
+                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-green-800 dark:text-green-200 mb-2">
+                    ✅ Tools Available Now
+                  </h3>
+                  <p className="text-green-700 dark:text-green-300 mb-4">
+                    Try our PDF tools right now! All processing happens in your browser for maximum privacy.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <a 
+                      href="/tools/pdf-merge" 
+                      className="inline-flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                    >
+                      Merge PDFs
+                    </a>
+                    <a 
+                      href="/tools/pdf-split" 
+                      className="inline-flex items-center justify-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                    >
+                      Split PDFs
+                    </a>
+                  </div>
+                </div>
+              </div>
         </main>
 
         {/* Footer */}
