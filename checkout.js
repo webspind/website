@@ -1,6 +1,6 @@
 (function(){
   async function tryFetch(url, options){
-    try{ const r = await fetch(url, options); return r; }catch{ return { ok:false, status:0, json: async()=>({}) }; }
+    try{ const r = await fetch(url, options); return r; }catch(e){ return { ok:false, status:0, text: async()=>String(e), json: async()=>({ error:String(e) }) }; }
   }
 
   async function startCheckout(priceId){
@@ -9,11 +9,15 @@
       const payload = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ priceId }) };
       let res = await tryFetch('/api/stripe/create-checkout', payload);
       if(!res.ok) res = await tryFetch('/.netlify/functions/create-checkout', payload);
-      if(!res.ok) throw new Error('Checkout failed');
+      if(!res.ok){
+        const body = (await (res.text ? res.text() : Promise.resolve(''))) || '';
+        alert(`Could not start checkout. Status ${res.status}. ${body}`);
+        return;
+      }
       const data = await res.json();
       if(data.url){ window.location.href = data.url; }
       else alert('Unexpected response');
-    }catch(err){ console.error(err); alert('Could not start checkout.'); }
+    }catch(err){ console.error(err); alert(`Could not start checkout. ${String(err)}`); }
   }
 
   async function applySessionFromURL(){
