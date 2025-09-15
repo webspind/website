@@ -1,10 +1,14 @@
 (function(){
+  async function tryFetch(url, options){
+    try{ const r = await fetch(url, options); return r; }catch{ return { ok:false, status:0, json: async()=>({}) }; }
+  }
+
   async function startCheckout(priceId){
     try{
-      const res = await fetch('/api/stripe/create-checkout', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ priceId })
-      });
+      if(!priceId){ alert('Missing priceId'); return; }
+      const payload = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ priceId }) };
+      let res = await tryFetch('/api/stripe/create-checkout', payload);
+      if(!res.ok) res = await tryFetch('/.netlify/functions/create-checkout', payload);
       if(!res.ok) throw new Error('Checkout failed');
       const data = await res.json();
       if(data.url){ window.location.href = data.url; }
@@ -16,7 +20,8 @@
     const sid = new URLSearchParams(location.search).get('session_id');
     if(!sid) return;
     try{
-      const res = await fetch(`/api/stripe/confirm?session_id=${encodeURIComponent(sid)}`);
+      let res = await tryFetch(`/api/stripe/confirm?session_id=${encodeURIComponent(sid)}`);
+      if(!res.ok) res = await tryFetch(`/.netlify/functions/confirm?session_id=${encodeURIComponent(sid)}`);
       if(!res.ok) throw new Error('confirm failed');
       const data = await res.json();
       localStorage.setItem('licenseJWT', data.token);
