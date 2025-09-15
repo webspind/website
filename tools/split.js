@@ -79,6 +79,38 @@
     update();
   }
 
+  // Rectangular multi-select on thumbs
+  (function(){
+    let start=null, box=null;
+    els.thumbs.addEventListener('mousedown', (e)=>{
+      if(e.button!==0) return;
+      start = { x: e.clientX, y: e.clientY };
+      box = document.createElement('div');
+      box.style.position='fixed'; box.style.left=start.x+'px'; box.style.top=start.y+'px';
+      box.style.width='0px'; box.style.height='0px'; box.style.border='2px dashed var(--brand)'; box.style.background='rgba(59,130,246,.08)'; box.style.zIndex='20';
+      document.body.appendChild(box);
+      e.preventDefault();
+    });
+    window.addEventListener('mousemove', (e)=>{
+      if(!start||!box) return;
+      const x1 = Math.min(start.x, e.clientX), y1 = Math.min(start.y, e.clientY);
+      const x2 = Math.max(start.x, e.clientX), y2 = Math.max(start.y, e.clientY);
+      box.style.left=x1+'px'; box.style.top=y1+'px'; box.style.width=(x2-x1)+'px'; box.style.height=(y2-y1)+'px';
+    });
+    window.addEventListener('mouseup', (e)=>{
+      if(!start||!box) return;
+      const rect = box.getBoundingClientRect();
+      document.body.removeChild(box); box=null; start=null;
+      // select thumbs that intersect rectangle
+      for(const item of els.thumbs.querySelectorAll('.thumb')){
+        const r = item.getBoundingClientRect();
+        const overlap = !(r.right < rect.left || r.left > rect.right || r.bottom < rect.top || r.top > rect.bottom);
+        if(overlap){ item.classList.add('selected'); }
+      }
+      syncRangeFromThumbs();
+    });
+  })();
+
   async function split(){
     const { PDFDocument } = PDFLib;
     const src = await PDFDocument.load(srcBytes);
