@@ -156,6 +156,9 @@ img, canvas, video { max-width: 100%; height: auto; display: block; }
 .dropzone { border: 1px dashed #cfd8e6; border-radius: var(--r-md); padding: var(--space-5); text-align: center; }
 .dropzone:hover { background: var(--panel-press); }
 .dropzone input { display: block; width: 100%; margin-bottom: 8px; }
+.dropzone.big { padding: var(--space-7); border-style: solid; border-width: 2px; }
+.center-stage { max-width: 760px; margin: 0 auto; display: grid; gap: var(--space-5); }
+.actions { display: flex; gap: var(--space-3); }
 
 /* ---------- Canvas / Viewer ---------- */
 .canvas-area { min-height: 70vh; display: flex; flex-direction: column; overflow: hidden; }
@@ -185,12 +188,20 @@ img, canvas, video { max-width: 100%; height: auto; display: block; }
 
 /* ---------- Pricing ---------- */
 .pricing { padding: var(--space-7) 0; }
-.pricing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+.pricing-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-6); }
 @media (max-width: 800px) { .pricing-cards { grid-template-columns: 1fr; } }
-.card { padding: var(--space-5); border-radius: var(--r-md); box-shadow: var(--shadow-1); }
+.card { padding: var(--space-5); border-radius: var(--r-md); box-shadow: var(--shadow-1); border:1px solid var(--border); background: var(--panel); }
 .card h3 { margin: 4px 0 8px; font-size: var(--h2); }
 .card ul { margin: 0 0 12px 18px; color: var(--muted); }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+
+/* Icon pill for app-store style cards */
+.pill {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, #eef4ff, #e7efff);
+  color: #3b82f6; font-weight: 800; font-size: 13px;
+}
 
 /* ---------- Footer ---------- */
 .site-footer { border-top: 1px solid var(--border); padding: var(--space-6) 0; background: color-mix(in srgb, var(--bg) 90%, #ffffff); }

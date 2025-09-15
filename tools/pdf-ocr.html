@@ -17,73 +17,43 @@
     <section class="hero">
       <div class="container hero-inner">
         <h1>PDF OCR</h1>
-        <p>Make scanned PDFs searchable by adding an invisible text layer. Files never leave your device.</p>
+        <p>Make scanned PDFs searchable. Files never leave your device.</p>
       </div>
     </section>
 
     <section class="tool">
-      <div class="container tool-grid">
-        <aside class="sidebar">
-          <h2>Upload</h2>
-          <div id="dropzone" class="dropzone" aria-label="Drop PDF here">
+      <div class="container center-stage">
+        <div class="card" id="stepUpload">
+          <h2>1. Upload your PDF</h2>
+          <div id="dropzone" class="dropzone big" aria-label="Drop PDF here">
             <input id="fileInput" type="file" accept="application/pdf" aria-label="Choose PDF" />
-            <p>Drag & drop or click to select a PDF</p>
+            <p><strong>Drag & drop</strong> your PDF here, or click to choose</p>
+            <p class="muted" id="fileInfo">Max ~300 pages recommended</p>
           </div>
-          <div class="file-meta">
-            <div>File: <span id="fileName">—</span></div>
-            <div>Pages: <span id="pageCount">0</span></div>
-          </div>
+        </div>
 
-          <div class="divider"></div>
-
-          <h3>OCR Settings</h3>
-          <label>DPI
-            <select id="dpiSelect">
-              <option value="150">150 (faster)</option>
-              <option value="200" selected>200 (default)</option>
-              <option value="300">300 (print)</option>
-            </select>
-          </label>
-          <label>Language
-            <select id="langSelect">
-              <option value="eng" selected>English (eng)</option>
-            </select>
-          </label>
-
-          <div class="divider"></div>
-
-          <h3>Notes</h3>
-          <ul class="muted">
-            <li>Large files may take several minutes. Keep this tab open.</li>
-            <li>Output preserves original images; only a hidden text layer is added.</li>
-          </ul>
-        </aside>
-
-        <section class="canvas-area">
-          <div class="toolbar">
-            <div class="tool-buttons">
-              <button id="startBtn" class="btn primary" disabled>Start OCR</button>
+        <div class="card hidden" id="stepSettings">
+          <h2>2. Language</h2>
+          <div class="stack-3">
+            <label>Language
+              <select id="langSelect">
+                <option value="eng" selected>English (eng)</option>
+              </select>
+            </label>
+            <div class="muted">We’ll add an invisible text layer on top of your original pages.</div>
+            <div class="actions">
+              <button id="startBtn" class="btn primary">Start OCR</button>
               <button id="cancelBtn" class="btn small" disabled>Cancel</button>
             </div>
-            <div class="zoom">
-              <span id="statusText" class="muted">Idle</span>
-            </div>
-            <div class="page-nav">
-              <span>Preview</span>
-            </div>
+            <div class="muted" id="statusText">Idle</div>
           </div>
-          <div id="viewer" class="viewer">
-            <div id="pageContainer" class="page-container">
-              <canvas id="pdfCanvas"></canvas>
-            </div>
-          </div>
-        </section>
+        </div>
 
-        <aside class="sidebar">
-          <h2>Export</h2>
-          <p class="muted">After OCR completes, export the searchable PDF.</p>
-          <button id="exportBtn" class="btn" disabled>Download OCR PDF</button>
-        </aside>
+        <div class="card hidden" id="stepExport">
+          <h2>3. Download</h2>
+          <p class="muted">Your PDF is now searchable.</p>
+          <button id="exportBtn" class="btn">Download OCR PDF</button>
+        </div>
       </div>
 
       <div id="progress" class="progress" hidden>
@@ -110,6 +80,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
   <script src="ocr.js"></script>
+  <canvas id="pdfCanvas" style="display:none"></canvas>
 </body>
 </html>
 

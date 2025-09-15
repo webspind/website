@@ -1,11 +1,11 @@
 (function(){
   const els = {
-    year: document.getElementById('year'),
     dropzone: document.getElementById('dropzone'),
     fileInput: document.getElementById('fileInput'),
-    fileName: document.getElementById('fileName'),
-    pageCount: document.getElementById('pageCount'),
-    dpiSelect: document.getElementById('dpiSelect'),
+    fileInfo: document.getElementById('fileInfo'),
+    stepUpload: document.getElementById('stepUpload'),
+    stepSettings: document.getElementById('stepSettings'),
+    stepExport: document.getElementById('stepExport'),
     langSelect: document.getElementById('langSelect'),
     startBtn: document.getElementById('startBtn'),
     cancelBtn: document.getElementById('cancelBtn'),
@@ -16,7 +16,6 @@
     progressBar: document.getElementById('progressBar'),
     progressText: document.getElementById('progressText'),
   };
-  if(els.year) els.year.textContent = new Date().getFullYear();
 
   let pdfDoc = null;
   let pdfData = null;
@@ -37,19 +36,20 @@
 
   function reset(){
     pdfDoc = null; pdfData = null; cancelFlag = false; ocrPages = null;
-    els.fileName.textContent = '—'; els.pageCount.textContent = '0';
     els.startBtn.disabled = true; els.cancelBtn.disabled = true; els.exportBtn.disabled = true;
     ctx.clearRect(0,0,els.canvas.width, els.canvas.height);
+    els.stepUpload.classList.remove('hidden');
+    els.stepSettings.classList.add('hidden');
+    els.stepExport.classList.add('hidden');
   }
 
   async function loadPdf(file){
     reset();
     if(file.type !== 'application/pdf'){ alert('Please choose a PDF.'); return; }
-    els.fileName.textContent = file.name;
+    els.fileInfo.textContent = file.name;
     pdfData = new Uint8Array(await file.arrayBuffer());
     const loadingTask = pdfjsLib.getDocument({ data: pdfData });
     pdfDoc = await loadingTask.promise;
-    els.pageCount.textContent = String(pdfDoc.numPages);
     const page = await pdfDoc.getPage(1);
     const viewport = page.getViewport({ scale: 1 });
     const baseScale = Math.min(900 / viewport.width, 1);
@@ -57,6 +57,8 @@
     els.canvas.width = Math.floor(scaled.width);
     els.canvas.height = Math.floor(scaled.height);
     await page.render({ canvasContext: ctx, viewport: scaled }).promise;
+    els.stepUpload.classList.add('hidden');
+    els.stepSettings.classList.remove('hidden');
     els.startBtn.disabled = false;
     setStatus('Ready');
   }
@@ -64,7 +66,7 @@
   async function doOCR(){
     if(!pdfDoc) return;
     cancelFlag = false; els.cancelBtn.disabled = false; els.exportBtn.disabled = true;
-    const dpi = Number(els.dpiSelect.value);
+    const dpi = 200;
     const lang = els.langSelect.value || 'eng';
     const worker = await Tesseract.createWorker({ logger: m => {
       if(m.status && m.progress != null){ setStatus(`${m.status} ${(m.progress*100).toFixed(0)}%`); }
@@ -103,6 +105,8 @@
     hideProgress();
     els.cancelBtn.disabled = true;
     els.exportBtn.disabled = false;
+    els.stepSettings.classList.add('hidden');
+    els.stepExport.classList.remove('hidden');
     setStatus('OCR complete. Ready to export.');
   }
 
