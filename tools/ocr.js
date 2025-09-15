@@ -44,23 +44,34 @@
   }
 
   async function loadPdf(file){
-    reset();
-    if(file.type !== 'application/pdf'){ alert('Please choose a PDF.'); return; }
-    els.fileInfo.textContent = file.name;
-    pdfData = new Uint8Array(await file.arrayBuffer());
-    const loadingTask = pdfjsLib.getDocument({ data: pdfData });
-    pdfDoc = await loadingTask.promise;
-    const page = await pdfDoc.getPage(1);
-    const viewport = page.getViewport({ scale: 1 });
-    const baseScale = Math.min(900 / viewport.width, 1);
-    const scaled = page.getViewport({ scale: baseScale });
-    els.canvas.width = Math.floor(scaled.width);
-    els.canvas.height = Math.floor(scaled.height);
-    await page.render({ canvasContext: ctx, viewport: scaled }).promise;
-    els.stepUpload.classList.add('hidden');
-    els.stepSettings.classList.remove('hidden');
-    els.startBtn.disabled = false;
-    setStatus('Ready');
+    try{
+      reset();
+      els.fileInfo.textContent = file.name || 'PDF';
+      const buf = await file.arrayBuffer();
+      // Light signature check for %PDF
+      const signature = new TextDecoder('ascii').decode(new Uint8Array(buf.slice(0,5)));
+      if(!signature.includes('%PDF')){
+        // still try; some PDFs may not show classic header at first bytes
+      }
+      pdfData = new Uint8Array(buf);
+      const loadingTask = pdfjsLib.getDocument({ data: pdfData });
+      pdfDoc = await loadingTask.promise;
+      const page = await pdfDoc.getPage(1);
+      const viewport = page.getViewport({ scale: 1 });
+      const baseScale = Math.min(900 / viewport.width, 1);
+      const scaled = page.getViewport({ scale: baseScale });
+      els.canvas.width = Math.floor(scaled.width);
+      els.canvas.height = Math.floor(scaled.height);
+      await page.render({ canvasContext: ctx, viewport: scaled }).promise;
+      els.stepUpload.classList.add('hidden');
+      els.stepSettings.classList.remove('hidden');
+      els.startBtn.disabled = false;
+      setStatus('Ready');
+    }catch(e){
+      console.error('PDF load error', e);
+      alert('Could not open this file as PDF. Please try a different file.');
+      reset();
+    }
   }
 
   async function doOCR(){
@@ -162,11 +173,13 @@
   els.dropzone.addEventListener('dragover', e => { e.preventDefault(); });
   els.dropzone.addEventListener('drop', e => {
     e.preventDefault();
-    const f = e.dataTransfer.files?.[0];
+    const files = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files : [];
+    const f = files[0];
     if(f) loadPdf(f);
   });
   els.fileInput.addEventListener('change', e => {
-    const f = e.target.files?.[0];
+    const files = e.target && e.target.files ? e.target.files : [];
+    const f = files[0];
     if(f) loadPdf(f);
   });
   els.startBtn.addEventListener('click', ()=>{ doOCR(); });
