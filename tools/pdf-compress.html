@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compress PDF — Smart shrink (Browser‑Only)</title>
+  <meta name="description" content="Reduce PDF size by recompressing images and rasterizing heavy pages, all in your browser.">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div data-nav data-root=".."></div>
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Compress PDF</h1>
+        <p>Smartly reduce file size while keeping quality acceptable. Private — no uploads.</p>
+      </div>
+    </section>
+    <section class="tool">
+      <div class="container center-stage">
+        <div class="card">
+          <h2>1. Choose a PDF</h2>
+          <div id="dropzone" class="dropzone big">
+            <input id="fileInput" type="file" accept="application/pdf" />
+            <p><strong>Drag & drop</strong> your PDF here, or click to choose</p>
+            <p class="muted" id="info">—</p>
+          </div>
+        </div>
+        <div class="card">
+          <h2>2. Settings</h2>
+          <div class="stack-3">
+            <label>Mode
+              <select id="mode">
+                <option value="auto" selected>Auto (balanced)</option>
+                <option value="max">Max compression</option>
+                <option value="custom">Custom</option>
+              </select>
+            </label>
+            <div id="customRow" class="stack-3 hidden">
+              <label>DPI (rasterization)
+                <select id="dpi">
+                  <option value="120">120</option>
+                  <option value="150" selected>150</option>
+                  <option value="200">200</option>
+                </select>
+              </label>
+              <label>Image quality (JPEG)
+                <input id="quality" type="range" min="0.5" max="0.95" step="0.05" value="0.8" />
+              </label>
+            </div>
+            <div class="actions">
+              <button id="compressBtn" class="btn primary" disabled>Compress & Download</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../nav.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="../credits.js"></script>
+  <script src="compress.js"></script>
+</body>
+</html>
+

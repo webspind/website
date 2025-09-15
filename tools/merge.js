@@ -53,6 +53,8 @@
 
   async function merge(){
     const { PDFDocument } = PDFLib;
+    const ticket = window.Credits ? window.Credits.request() : { ok:true, source:'free' };
+    if(!ticket.ok) return;
     const out = await PDFDocument.create();
     for(const f of files){
       const bytes = new Uint8Array(await f.arrayBuffer());
@@ -62,6 +64,7 @@
     }
     const result = await out.save();
     saveAs(new Blob([result], { type: 'application/pdf' }), 'merged.pdf');
+    if(window.Credits) window.Credits.commit(ticket);
   }
 
   els.mergeBtn.addEventListener('click', merge);

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pricing — Credits for Pro tools</title>
+  <meta name="description" content="Buy credits to unlock full PDF tools. 100% browser-only.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div data-nav></div>
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Pricing</h1>
+        <p>Free includes 3 exports/day. Buy credits to unlock full documents.</p>
+      </div>
+    </section>
+    <section class="pricing">
+      <div class="container">
+        <div class="pricing-cards">
+          <div class="card">
+            <h3>Free</h3>
+            <ul>
+              <li>3 exports/day</li>
+              <li>Works offline</li>
+              <li>OCR, Merge, Split, Reorder, Rotate, Compress</li>
+            </ul>
+            <a href="/" class="btn">Try now</a>
+          </div>
+          <div class="card">
+            <h3>10 credits</h3>
+            <ul>
+              <li>Good for small batches</li>
+              <li>Never expires</li>
+              <li>Use on any tool</li>
+            </ul>
+            <button class="btn primary" onclick="startCheckout(window.PRICE_10)">Buy</button>
+          </div>
+          <div class="card">
+            <h3>40 credits</h3>
+            <ul>
+              <li>Best value starter</li>
+              <li>Never expires</li>
+              <li>Use on any tool</li>
+            </ul>
+            <button class="btn primary" onclick="startCheckout(window.PRICE_40)">Buy</button>
+          </div>
+          <div class="card">
+            <h3>120 credits</h3>
+            <ul>
+              <li>Power user</li>
+              <li>Never expires</li>
+              <li>Use on any tool</li>
+            </ul>
+            <button class="btn primary" onclick="startCheckout(window.PRICE_120)">Buy</button>
+          </div>
+          <div class="card">
+            <h3>400 credits</h3>
+            <ul>
+              <li>Pro</li>
+              <li>Never expires</li>
+              <li>Use on any tool</li>
+            </ul>
+            <button class="btn primary" onclick="startCheckout(window.PRICE_400)">Buy</button>
+          </div>
+        </div>
+        <p id="unlockStatus" class="muted" style="margin-top:12px"></p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Private PDF Tools</div>
+      <div class="links">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </div>
+    </div>
+  </footer>
+  <script src="nav.js"></script>
+  <script src="config.js"></script>
+  <script>
+    // Set your Price IDs here (or via config.js)
+    window.PRICE_10 = window.PRICE_10 || '';
+    window.PRICE_40 = window.PRICE_40 || '';
+    window.PRICE_120 = window.PRICE_120 || '';
+    window.PRICE_400 = window.PRICE_400 || '';
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="checkout.js"></script>
+</body>
+</html>
+

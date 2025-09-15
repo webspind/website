@@ -1,6 +1,10 @@
-// Frontend configuration for demo. Replace with your Stripe Price ID.
-// You can also inject these via a build step if desired.
-window.STRIPE_DEFAULT_PRICE_ID = ""; // e.g. 'price_1PvXYZ...'
-window.STRIPE_PUBLISHABLE_KEY = ""; // Not required for redirect-based Checkout in this setup
+// Frontend configuration. Set your Price IDs here for the Pricing page buttons.
+// You can alternatively inject these via env and hydrate on the page.
+window.STRIPE_PUBLISHABLE_KEY = "pk_test_51S4pQrEvo3YAiMiXlE2UxJh1TZ6P5JKAdcdZ5nIhAnJXdW7MbQBKkbU2vLSNzLqis8pw573QV1reRMYYw5bNdzKc00xwzESZDy";
+// Example: map button handlers to these IDs
+window.PRICE_10 = window.PRICE_10 || ""; // e.g. price_...
+window.PRICE_40 = window.PRICE_40 || "";
+window.PRICE_120 = window.PRICE_120 || "";
+window.PRICE_400 = window.PRICE_400 || "";
 
 

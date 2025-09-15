@@ -97,6 +97,8 @@
 
   async function rotate(){
     const { PDFDocument, degrees } = PDFLib;
+    const ticket = window.Credits ? window.Credits.request() : { ok:true, source:'free' };
+    if(!ticket.ok) return;
     const src = await PDFDocument.load(srcBytes);
     const deg = parseInt(els.deg.value, 10) || 0;
     const pages = parseRanges(els.rangeInput.value);
@@ -109,6 +111,7 @@
     });
     const bytes = await out.save();
     saveAs(new Blob([bytes], { type: 'application/pdf' }), 'rotated.pdf');
+    if(window.Credits) window.Credits.commit(ticket);
   }
 
   els.rotateBtn.addEventListener('click', rotate);

@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "jsonwebtoken": "^9.0.2",
-    "stripe": "^16.0.0"
+    "stripe": "^16.0.0",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "serve": "^14.2.3"

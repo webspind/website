@@ -53,12 +53,15 @@
 
   async function exportPdf(){
     const { PDFDocument } = PDFLib;
+    const ticket = window.Credits ? window.Credits.request() : { ok:true, source:'free' };
+    if(!ticket.ok) return;
     const src = await PDFDocument.load(srcBytes);
     const out = await PDFDocument.create();
     const copied = await out.copyPages(src, order);
     copied.forEach(p=> out.addPage(p));
     const bytes = await out.save();
     saveAs(new Blob([bytes], { type: 'application/pdf' }), 'reordered.pdf');
+    if(window.Credits) window.Credits.commit(ticket);
   }
 
   els.exportBtn.addEventListener('click', exportPdf);

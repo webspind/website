@@ -113,6 +113,8 @@
 
   async function split(){
     const { PDFDocument } = PDFLib;
+    const ticket = window.Credits ? window.Credits.request() : { ok:true, source:'free' };
+    if(!ticket.ok) return;
     const src = await PDFDocument.load(srcBytes);
     const pages = parseRanges(els.rangeInput.value);
     const out = await PDFDocument.create();
@@ -120,6 +122,7 @@
     copied.forEach(p=> out.addPage(p));
     const bytes = await out.save();
     saveAs(new Blob([bytes], { type:'application/pdf' }), 'split.pdf');
+    if(window.Credits) window.Credits.commit(ticket);
   }
 
   els.splitBtn.addEventListener('click', split);

@@ -153,10 +153,13 @@
         });
       }
     }
+    const ticket = window.Credits ? window.Credits.request() : { ok:true, source:'free' };
+    if(!ticket.ok){ hideProgress(); return; }
     const bytes = await outPdf.save({ addDefaultPage:false, useObjectStreams:false });
     hideProgress();
     const blob = new Blob([bytes], { type: 'application/pdf' });
     saveAs(blob, 'ocr.pdf');
+    if(window.Credits) window.Credits.commit(ticket);
     setStatus('Exported.');
   }
 
