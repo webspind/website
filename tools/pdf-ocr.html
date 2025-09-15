@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PDF OCR — Make Scanned PDFs Searchable (Browser‑Only)</title>
+  <meta name="description" content="Add an invisible, searchable text layer to scanned PDFs entirely in your browser. Original images preserved.">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <div data-nav data-root=".."></div>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>PDF OCR</h1>
+        <p>Make scanned PDFs searchable by adding an invisible text layer. Files never leave your device.</p>
+      </div>
+    </section>
+
+    <section class="tool">
+      <div class="container tool-grid">
+        <aside class="sidebar">
+          <h2>Upload</h2>
+          <div id="dropzone" class="dropzone" aria-label="Drop PDF here">
+            <input id="fileInput" type="file" accept="application/pdf" aria-label="Choose PDF" />
+            <p>Drag & drop or click to select a PDF</p>
+          </div>
+          <div class="file-meta">
+            <div>File: <span id="fileName">—</span></div>
+            <div>Pages: <span id="pageCount">0</span></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <h3>OCR Settings</h3>
+          <label>DPI
+            <select id="dpiSelect">
+              <option value="150">150 (faster)</option>
+              <option value="200" selected>200 (default)</option>
+              <option value="300">300 (print)</option>
+            </select>
+          </label>
+          <label>Language
+            <select id="langSelect">
+              <option value="eng" selected>English (eng)</option>
+            </select>
+          </label>
+
+          <div class="divider"></div>
+
+          <h3>Notes</h3>
+          <ul class="muted">
+            <li>Large files may take several minutes. Keep this tab open.</li>
+            <li>Output preserves original images; only a hidden text layer is added.</li>
+          </ul>
+        </aside>
+
+        <section class="canvas-area">
+          <div class="toolbar">
+            <div class="tool-buttons">
+              <button id="startBtn" class="btn primary" disabled>Start OCR</button>
+              <button id="cancelBtn" class="btn small" disabled>Cancel</button>
+            </div>
+            <div class="zoom">
+              <span id="statusText" class="muted">Idle</span>
+            </div>
+            <div class="page-nav">
+              <span>Preview</span>
+            </div>
+          </div>
+          <div id="viewer" class="viewer">
+            <div id="pageContainer" class="page-container">
+              <canvas id="pdfCanvas"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <h2>Export</h2>
+          <p class="muted">After OCR completes, export the searchable PDF.</p>
+          <button id="exportBtn" class="btn" disabled>Download OCR PDF</button>
+        </aside>
+      </div>
+
+      <div id="progress" class="progress" hidden>
+        <div id="progressBar" class="bar" style="width:0%"></div>
+        <div id="progressText" class="text">Preparing…</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Private PDF Tools</div>
+      <div class="links">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../nav.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';</script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="ocr.js"></script>
+</body>
+</html>
+
