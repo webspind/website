@@ -234,3 +234,32 @@ img, canvas, video { max-width: 100%; height: auto; display: block; }
 .hidden { display: none !important; }
 .center { display: flex; align-items: center; justify-content: center; }
 .stack-3 > * + * { margin-top: var(--space-3); }
+
+/* ---------- Game (Three.js mini game) ---------- */
+.game-section { position: relative; min-height: 60vh; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--border); background: #0b0d10; }
+.game-section canvas.game { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* Mobile controls */
+.game-section #controls { position: absolute; bottom: 20px; min-width: 100%; display: flex; align-items: flex-end; justify-content: center; }
+.game-section #controls div { display: grid; grid-template-columns: 50px 50px 50px; gap: 10px; }
+.game-section #controls button { width: 100%; height: 40px; background-color: #fff; border: 1px solid lightgray; box-shadow: 3px 5px 0px 0px rgba(0,0,0,.75); cursor: pointer; outline: none; border-radius: 8px; }
+.game-section #controls button:first-of-type { grid-column: 1/-1; }
+
+/* HUD */
+.game-section #score { position: absolute; top: 20px; left: 20px; font-family: 'Press Start 2P', cursive; font-size: 2em; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.6); }
+
+/* Result overlay */
+.game-section #result-container { position: absolute; min-width: 100%; min-height: 100%; top: 0; display: flex; align-items: center; justify-content: center; visibility: hidden; }
+.game-section #result { display: flex; flex-direction: column; align-items: center; background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: var(--shadow-2); }
+.game-section #result button { background-color: #ef4444; color: #fff; border: 0; border-radius: 10px; padding: 14px 28px; font-family: inherit; font-size: inherit; cursor: pointer; }
+
+/* YouTube badge (shown only on taller viewports) */
+.game-section #youtube, .game-section #youtube-card { display: none; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; color: black; }
+@media (min-height: 425px) {
+  .game-section #youtube { z-index: 50; width: 100px; display: block; height: 70px; position: absolute; bottom: 20px; right: 20px; background: red; border-radius: 50% / 11%; transform: scale(0.8); transition: transform .5s; }
+  .game-section #youtube:hover, .game-section #youtube:focus { transform: scale(0.9); color: black; }
+  .game-section #youtube::before { content: ""; display: block; position: absolute; top: 7.5%; left: -6%; width: 112%; height: 85%; background: red; border-radius: 9% / 50%; }
+  .game-section #youtube::after { content: ""; display: block; position: absolute; top: 20px; left: 40px; width: 45px; height: 30px; border: 15px solid transparent; box-sizing: border-box; border-left: 30px solid white; }
+  .game-section #youtube span { font-size: 0; position: absolute; width: 0; height: 0; overflow: hidden; }
+  .game-section #youtube:hover + #youtube-card { z-index: 49; display: block; position: absolute; bottom: 12px; right: 10px; padding: 25px 130px 25px 25px; width: 300px; background-color: white; border-radius: 10px; box-shadow: var(--shadow-2); }
+}
