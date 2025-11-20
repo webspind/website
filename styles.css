@@ -462,6 +462,63 @@ section.visible {
 }
 
 /* ============================================
+   VISUAL DATA LINKS (The "Cool" Display)
+   ============================================ */
+
+.action-links {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.text-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.text-link::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    margin-right: 10px;
+    box-shadow: 0 0 10px var(--accent);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.text-link:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.text-link:hover::before {
+    opacity: 1;
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.text-link:active {
+    transform: translateY(0);
+}
+
+/* ============================================
    FOOTER
    ============================================ */
 
