@@ -404,6 +404,64 @@ section.visible {
 }
 
 /* ============================================
+   PROCESS SECTION
+   ============================================ */
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.process-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.process-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.process-img-container {
+    height: 250px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--glass-border);
+    background: #222;
+}
+
+.process-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    opacity: 0.8;
+}
+
+.process-card:hover .process-img {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.process-info {
+    padding: 20px;
+}
+
+.process-info h3 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.process-info p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* ============================================
    FOOTER
    ============================================ */
 
