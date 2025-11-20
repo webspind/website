@@ -3,169 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curating Data - Assignment Four</title>
+    <title>Curating Data | Assignment 4</title>
     
-    <!-- Google Fonts for that Museum feel -->
+    <!-- Contemporary Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com/css2">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
+    
     <script>
-        // Simple script to add a "fade in" effect as you scroll
+        // Smooth reveal animation
         document.addEventListener('DOMContentLoaded', function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.classList.add('visible');
                     }
                 });
-            });
+            }, { threshold: 0.1 });
 
-            document.querySelectorAll('section').forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(20px)';
-                section.style.transition = 'all 0.8s ease-out';
-                observer.observe(section);
+            document.querySelectorAll('section, .curator-block').forEach(el => {
+                observer.observe(el);
             });
         });
     </script>
 </head>
-<body class="museum-theme">
-    
-    <!-- Header is now the "Grand Entrance" -->
-    <header class="museum-header">
-        <div class="header-content">
-            <h1>Curating Data</h1>
-            <div class="divider-line"></div>
-            <p class="subtitle">Assignment Four &bull; Aarhus University</p>
-        </div>
-    </header>
+<body>
 
-    <!-- Navigation is minimal and elegant -->
-    <nav class="museum-nav">
+    <!-- Navigation -->
+    <nav class="modern-nav">
+        <div class="nav-logo">CURATING DATA</div>
         <ul>
-            <li><a href="#home">Gallery Entrance</a></li>
-            <li><a href="#about">Curator's Statement</a></li>
-            <li><a href="#collection">The Collection</a></li>
-            <li><a href="#info">Visitor Info</a></li>
+            <li><a href="#statement">Statement</a></li>
+            <li><a href="#jakob">Jakob</a></li>
+            <li><a href="#mikkel">Mikkel</a></li>
+            <li><a href="#sebastian">Sebastian</a></li>
+            <li><a href="#tobias">Tobias</a></li>
         </ul>
     </nav>
 
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>Making Sense of Knowledge</h1>
+            <div class="hero-quote-container">
+                <img src="Freunde-von-Freunden-Okwui-Enwezor-Enwezor_Maximilian_Geuter.webp" alt="Okwui Enwezor" class="hero-image">
+                <blockquote class="hero-quote">
+                    "Participating and witnessing histories unfold."
+                    <cite>&mdash; Okwui Enwezor</cite>
+                </blockquote>
+            </div>
+            <p class="hero-subtitle">A Collective Archive of Practice & Theory</p>
+            <div class="scroll-indicator">↓</div>
+        </div>
+    </header>
+
     <main>
-        <!-- Introduction -->
-        <section id="home" class="intro-section">
-            <div class="plaque large-plaque">
-                <h2>Making Sense of Knowledge</h2>
-                <p>This exhibition represents a curated journey through a semester of practice, theory, and research in Data Curation. Here, we take stock of collected, categorised, and visualised data to articulate our main findings.</p>
-            </div>
-        </section>
-
-        <!-- Curatorial Statement Section -->
-        <section id="about" class="about-section">
-            <div class="plaque medium-plaque">
+        <!-- Collective Statement -->
+        <section id="statement" class="statement-section">
+            <div class="glass-panel">
                 <h2>Curatorial Statement</h2>
-                <p class="drop-cap">[PLACEHOLDER: <strong>Conceptualise your efforts.</strong> As a curator looking back at the semester, what histories unfolded in your learning? How are you framing this knowledge conceptually and theoretically?]</p>
-                
-                <p>[PLACEHOLDER: <strong>Engage critically with theory.</strong> Incorporate relevant texts from the syllabus here. Link your practice to the theoretical concepts discussed in class.]</p>
-
-                <p>[PLACEHOLDER: <strong>Communicate your vision.</strong> What are the main takeaways you want to archive and share? How does this selection situate your work in relation to the course, your Obsidian notes, and your assignments?]</p>
+                <div class="text-content">
+                    <p class="lead">This exhibition represents the culmination of a semester's work in Data Curation at Aarhus University. As a collective of four curators, we have revisited our individual archives—datasets, reports, and visualizations—to articulate the histories that unfolded in our learning.</p>
+                    
+                    <p>[PLACEHOLDER: <strong>Conceptual Framework</strong>. How do we define our curatorial approach? Are we archivists, storytellers, or data critics? Incorporate references to course readings here.]</p>
+                    
+                    <p>[PLACEHOLDER: <strong>The Collective Narrative</strong>. Despite our individual paths, what shared themes emerge? How does this collection reflect the broader challenges of curating data in a digital age?]</p>
+                </div>
             </div>
         </section>
 
-        <!-- The "Wall" of Art -->
-        <section id="collection" class="gallery-wall">
-            <div class="section-title">
-                <h2>The Collection</h2>
+        <!-- Curator 1: Jakob -->
+        <section id="jakob" class="curator-section">
+            <div class="curator-header">
+                <h2>Jakob Munch-Brandt</h2>
+                <p class="curator-role">Curator</p>
             </div>
             
             <div class="gallery-grid">
-                <!-- Art Piece 1 -->
-                <div class="gallery-item">
-                    <div class="frame-container">
-                        <div class="gold-frame">
-                            <div class="canvas">
-                                <!-- Replace with <img src="..." alt="..."> -->
-                                <div class="placeholder-art">
-                                    <span>Assignment I</span>
-                                </div>
+                <!-- Assignment 1 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <!-- PDF Embed -->
+                        <object data="Jakobs assignments/Assignment 1/JakobMunch-Brandt_Report_A1.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Jakobs assignments/Assignment 1/JakobMunch-Brandt_Report_A1.pdf" target="_blank" class="view-btn">Download Report</a>
                             </div>
-                        </div>
-                        <div class="lighting-effect"></div>
+                        </object>
                     </div>
-                    <div class="museum-label">
-                        <h3>[PLACEHOLDER: Assignment/Artifact Title]</h3>
-                        <p class="artist">Source: [PLACEHOLDER: e.g., Obsidian Notes / Assignment 1]</p>
-                        <p class="date">Created: [PLACEHOLDER: Date]</p>
-                        <div class="label-desc">
-                            <p>[PLACEHOLDER: Connect this artifact to your curatorial statement. How does it demonstrate a key learning outcome or theoretical concept?]</p>
+                    <div class="artifact-info">
+                        <h3>The Personal Archive</h3>
+                        <span class="tag">Assignment 1</span>
+                        <p>[PLACEHOLDER: Reflection on the Wardrobe Collection. How did categorizing personal items shape your understanding of metadata?]</p>
+                        <div class="action-links">
+                            <a href="Jakobs assignments/Assignment 1/JakobMunchBrandt_WardrobeCollection_A1.xlsx" class="text-link">Download Data (XLSX) &rarr;</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Art Piece 2 -->
-                <div class="gallery-item">
-                    <div class="frame-container">
-                        <div class="gold-frame">
-                            <div class="canvas">
-                                <div class="placeholder-art">
-                                    <span>Assignment II</span>
-                                </div>
+                <!-- Assignment 2 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Jakobs assignments/Assignment 2/Method assignment - Categorizing Dekoloniale Biographies in Wikidata.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Jakobs assignments/Assignment 2/Method assignment - Categorizing Dekoloniale Biographies in Wikidata.pdf" target="_blank" class="view-btn">View Method</a>
                             </div>
-                        </div>
-                        <div class="lighting-effect"></div>
+                        </object>
                     </div>
-                    <div class="museum-label">
-                        <h3>[PLACEHOLDER: Assignment/Artifact Title]</h3>
-                        <p class="artist">Source: [PLACEHOLDER: e.g., Dataset / Activity]</p>
-                        <p class="date">Created: [PLACEHOLDER: Date]</p>
-                        <div class="label-desc">
-                            <p>[PLACEHOLDER: Connect this artifact to your curatorial statement. How does it demonstrate a key learning outcome or theoretical concept?]</p>
+                    <div class="artifact-info">
+                        <h3>Categorizing History</h3>
+                        <span class="tag">Assignment 2</span>
+                        <p>[PLACEHOLDER: Reflection on Wikidata and Decolonial Biographies. Discuss the politics of categorization.]</p>
+                    </div>
+                </div>
+
+                <!-- Assignment 3 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Jakobs assignments/Assignment 3/Assignment 3 - VIsual analytics (1).pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Jakobs assignments/Assignment 3/Assignment 3 - VIsual analytics (1).pdf" target="_blank" class="view-btn">View Visuals</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Visualizing Complexity</h3>
+                        <span class="tag">Assignment 3</span>
+                        <p>[PLACEHOLDER: Reflection on Visual Analytics. How does visualization change the narrative of the data?]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curator 2: Mikkel -->
+        <section id="mikkel" class="curator-section alt-bg">
+            <div class="curator-header">
+                <h2>Mikkel Tagesen Knudsen</h2>
+                <p class="curator-role">Curator</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Assignment 1 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Mikkel's assignments/Assignment 1/MikkelTagesenKnudsen_Report_A1v2.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Mikkel's assignments/Assignment 1/MikkelTagesenKnudsen_Report_A1v2.pdf" target="_blank" class="view-btn">View Report</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Collection Strategy</h3>
+                        <span class="tag">Assignment 1</span>
+                        <p>[PLACEHOLDER: Reflection on collecting wardrobe data. What challenges arose in defining the dataset?]</p>
+                        <div class="action-links">
+                            <a href="Mikkel's assignments/Assignment 1/MikkelTagesenKnudsen_WardrobeClothes_A1.xlsx" class="text-link">Download Data (XLSX) &rarr;</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Art Piece 3 -->
-                <div class="gallery-item">
-                    <div class="frame-container">
-                        <div class="gold-frame">
-                            <div class="canvas">
-                                <div class="placeholder-art">
-                                    <span>Assignment III</span>
-                                </div>
+                <!-- Assignment 2 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Mikkel's assignments/Assignment 2/Assignment 2 Mikkel Tagesen Knudsen.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Mikkel's assignments/Assignment 2/Assignment 2 Mikkel Tagesen Knudsen.pdf" target="_blank" class="view-btn">View Assignment</a>
                             </div>
-                        </div>
-                        <div class="lighting-effect"></div>
+                        </object>
                     </div>
-                    <div class="museum-label">
-                        <h3>[PLACEHOLDER: Assignment/Artifact Title]</h3>
-                        <p class="artist">Source: [PLACEHOLDER: e.g., Obsidian Notes / Reading]</p>
-                        <p class="date">Created: [PLACEHOLDER: Date]</p>
-                        <div class="label-desc">
-                            <p>[PLACEHOLDER: Connect this artifact to your curatorial statement. How does it demonstrate a key learning outcome or theoretical concept?]</p>
+                    <div class="artifact-info">
+                        <h3>Data Structures</h3>
+                        <span class="tag">Assignment 2</span>
+                        <p>[PLACEHOLDER: Reflection on Assignment 2. Connect this work to course concepts like taxonomy or ontology.]</p>
+                    </div>
+                </div>
+
+                <!-- Assignment 3 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Mikkel's assignments/Assignment 3/Assignment 3_Mikkel Tagesen Knudsen.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Mikkel's assignments/Assignment 3/Assignment 3_Mikkel Tagesen Knudsen.pdf" target="_blank" class="view-btn">View Paper</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Analytical Lenses</h3>
+                        <span class="tag">Assignment 3</span>
+                        <p>[PLACEHOLDER: Reflection on visualization. What insights were revealed through the visual medium?]</p>
+                        <div class="action-links">
+                            <a href="Mikkel's assignments/Assignment 3/attatchment of assignment 3.pdf" target="_blank" class="text-link">View Attachment &rarr;</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Visitor Info (Contact) -->
-        <section id="info" class="info-section">
-            <div class="plaque small-plaque">
-                <h2>Exhibition Details</h2>
-                <ul class="details-list">
-                    <li><strong>Course:</strong> Curating Data</li>
-                    <li><strong>Institution:</strong> Aarhus University</li>
-                    <li><strong>Curators/Creators:</strong> Jakob Munch-Brandt, Mikkel Tagesen Knudsen, Sebastian Kjær, Tobias Kyhn Mikkelsen</li>
-                    <li><strong>Assignment:</strong> Assignment Four</li>
-                    <li>[PLACEHOLDER: Your details]</li>
-                </ul>
+        <!-- Curator 3: Sebastian -->
+        <section id="sebastian" class="curator-section">
+            <div class="curator-header">
+                <h2>Sebastian Kjær</h2>
+                <p class="curator-role">Curator</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Assignment 1 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Seb's assignments/Assignment 1/SebastianKjær_Report_A1.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Seb's assignments/Assignment 1/SebastianKjær_Report_A1.pdf" target="_blank" class="view-btn">View Report</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Object-Oriented Data</h3>
+                        <span class="tag">Assignment 1</span>
+                        <p>[PLACEHOLDER: Reflection on the Golf Clubs dataset. How does specific domain knowledge influence curation?]</p>
+                        <div class="action-links">
+                            <a href="Seb's assignments/Assignment 1/SebastianKjær_GolfClubs_A1.xlsx" class="text-link">Download Data (XLSX) &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assignment 2 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Seb's assignments/Assignment 2/Assignment 2.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Seb's assignments/Assignment 2/Assignment 2.pdf" target="_blank" class="view-btn">View Assignment</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Structured Knowledge</h3>
+                        <span class="tag">Assignment 2</span>
+                        <p>[PLACEHOLDER: Reflection on Assignment 2. How did you structure knowledge in this task?]</p>
+                    </div>
+                </div>
+
+                <!-- Assignment 3 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Seb's assignments/Assignment 3/Assignment 3.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Seb's assignments/Assignment 3/Assignment 3.pdf" target="_blank" class="view-btn">View Assignment</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Visual Interpretation</h3>
+                        <span class="tag">Assignment 3</span>
+                        <p>[PLACEHOLDER: Reflection on Assignment 3. What visual storytelling techniques were employed?]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curator 4: Tobias -->
+        <section id="tobias" class="curator-section alt-bg">
+            <div class="curator-header">
+                <h2>Tobias Kyhn Mikkelsen</h2>
+                <p class="curator-role">Curator</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Assignment 1 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Tobias' assignments/Assignment 1/TobiasMikkelsen_Report_A1.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Tobias' assignments/Assignment 1/TobiasMikkelsen_Report_A1.pdf" target="_blank" class="view-btn">View Report</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Categorizing Sport</h3>
+                        <span class="tag">Assignment 1</span>
+                        <p>[PLACEHOLDER: Reflection on Golf Balls data. Discuss the granularity of data collection.]</p>
+                        <div class="action-links">
+                            <a href="Tobias' assignments/Assignment 1/TobiasMikkelsen_GolfBalls_A1.pdf" target="_blank" class="text-link">View Data PDF &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assignment 2 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Tobias' assignments/Assignment 2/Assignment 2 - Curating data.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Tobias' assignments/Assignment 2/Assignment 2 - Curating data.pdf" target="_blank" class="view-btn">View Assignment</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Curatorial Method</h3>
+                        <span class="tag">Assignment 2</span>
+                        <p>[PLACEHOLDER: Reflection on Assignment 2. How does this work relate to the curator's role?]</p>
+                    </div>
+                </div>
+
+                <!-- Assignment 3 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Tobias' assignments/Assignment 3/Assignment 3 - Curating data.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Tobias' assignments/Assignment 3/Assignment 3 - Curating data.pdf" target="_blank" class="view-btn">View Assignment</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Data Narratives</h3>
+                        <span class="tag">Assignment 3</span>
+                        <p>[PLACEHOLDER: Reflection on Assignment 3. How does the visualization support the data narrative?]</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Curating Data Exhibition. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-left">
+                <p><strong>Curating Data</strong> | Assignment 4</p>
+                <p>Aarhus University, Autumn 2025</p>
+            </div>
+            <div class="footer-right">
+                <p>Group Members:</p>
+                <ul>
+                    <li>Jakob Munch-Brandt</li>
+                    <li>Mikkel Tagesen Knudsen</li>
+                    <li>Sebastian Kjær</li>
+                    <li>Tobias Kyhn Mikkelsen</li>
+                </ul>
+            </div>
+        </div>
     </footer>
+
 </body>
 </html>
