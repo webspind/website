@@ -1,5 +1,5 @@
 /* ============================================
-   MUSEUM THEME STYLESHEET
+   MUSEUM THEME STYLESHEET - ENGAGING EDITION
    ============================================ */
 
 :root {
@@ -7,12 +7,13 @@
     --wall-color: #1a1a1a; /* Dark charcoal wall */
     --wall-texture: #222;
     --text-color: #e0e0e0;
-    --accent-gold: #c5a059;
+    --accent-gold: #d4af37; /* Brighter, more engaging gold */
     --accent-gold-dark: #8a6e36;
     --frame-shadow: rgba(0, 0, 0, 0.7);
-    --spotlight: rgba(255, 255, 255, 0.05);
-    --plaque-bg: #f4f4f4;
+    --spotlight: rgba(255, 255, 255, 0.08); /* Slightly stronger spotlight */
+    --plaque-bg: #f9f9f9;
     --plaque-text: #222;
+    --highlight-color: #ff4d4d; /* Velvet rope red for accents */
 }
 
 * {
@@ -32,6 +33,25 @@ body {
 }
 
 /* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spotlightFlicker {
+    0%, 100% { opacity: 0.08; }
+    50% { opacity: 0.12; }
+}
+
+@keyframes goldShimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+/* ============================================
    TYPOGRAPHY
    ============================================ */
 
@@ -44,25 +64,42 @@ h1, h2, h3 {
 
 h1 {
     color: var(--accent-gold);
-    font-size: 3em;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    font-size: 3.5em;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); /* Gold glow */
+    margin-bottom: 10px;
+    animation: fadeIn 1.5s ease-out;
 }
 
 h2 {
-    font-size: 1.8em;
-    border-bottom: 1px solid var(--accent-gold);
+    font-size: 2em;
+    border-bottom: 2px solid var(--accent-gold);
     display: inline-block;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+h2::after {
+    /* Decorative flourish below header */
+    content: '♦';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--wall-color);
+    padding: 0 10px;
+    color: var(--accent-gold);
+    font-size: 0.8em;
 }
 
 .drop-cap::first-letter {
     font-family: 'Playfair Display', serif;
-    font-size: 3.5em;
+    font-size: 4em;
     float: left;
     line-height: 0.8;
-    margin-right: 10px;
-    color: var(--accent-gold-dark);
+    margin-right: 15px;
+    color: var(--accent-gold);
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
 }
 
 /* ============================================
@@ -70,24 +107,25 @@ h2 {
    ============================================ */
 
 .museum-header {
-    padding: 80px 20px;
+    padding: 100px 20px;
     text-align: center;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-    border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+    position: relative;
 }
 
 .divider-line {
-    width: 100px;
+    width: 150px;
     height: 2px;
-    background-color: var(--accent-gold);
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
     margin: 20px auto;
 }
 
 .subtitle {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 1.2em;
-    color: #aaa;
+    font-size: 1.3em;
+    color: #bbb;
+    animation: fadeIn 2s ease-out;
 }
 
 /* ============================================
@@ -95,32 +133,57 @@ h2 {
    ============================================ */
 
 .museum-nav {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+}
+
+.museum-nav:hover {
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 .museum-nav ul {
     display: flex;
     justify-content: center;
     list-style: none;
-    padding: 15px 0;
+    padding: 20px 0;
 }
 
 .museum-nav a {
     color: var(--text-color);
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 10px 25px;
     font-family: 'Cinzel', serif;
-    font-size: 0.9em;
-    transition: color 0.3s;
+    font-size: 0.95em;
+    transition: all 0.3s;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+.museum-nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 5px;
+    left: 50%;
+    background-color: var(--accent-gold);
+    transition: all 0.3s;
+    transform: translateX(-50%);
 }
 
 .museum-nav a:hover {
     color: var(--accent-gold);
+    text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+.museum-nav a:hover::after {
+    width: 80%;
 }
 
 /* ============================================
@@ -130,15 +193,23 @@ h2 {
 main {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 60px 20px;
+    padding: 80px 20px;
 }
 
 section {
-    margin-bottom: 100px;
+    margin-bottom: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    /* Use JavaScript to trigger this on scroll for better effect, 
+       but default animation works for now */
 }
+
+section:nth-child(1) { animation-delay: 0.2s; }
+section:nth-child(2) { animation-delay: 0.4s; }
+section:nth-child(3) { animation-delay: 0.6s; }
 
 /* ============================================
    PLAQUES (Text Boxes)
@@ -147,47 +218,48 @@ section {
 .plaque {
     background-color: var(--plaque-bg);
     color: var(--plaque-text);
-    padding: 40px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    padding: 60px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
     border: 1px solid #ddd;
     position: relative;
     max-width: 800px;
     /* Subtle paper texture */
-    background-image: linear-gradient(#f4f4f4 2px, transparent 2px),
-    linear-gradient(90deg, #f4f4f4 2px, transparent 2px),
-    linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23e6e6e6' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+    transform: rotate(-0.5deg); /* Tiniest tilt for realism */
+    transition: transform 0.3s ease;
 }
 
-/* Metallic screws in corners of plaques */
+.plaque:hover {
+    transform: rotate(0deg) scale(1.01); /* Straighten and lift on hover */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+}
+
+/* Metallic screws */
 .plaque::before, .plaque::after {
     content: '';
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: radial-gradient(circle at 30% 30%, #ddd, #888);
-    box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    border: 1px solid #666;
 }
-.plaque::before { top: 10px; left: 10px; }
-.plaque::after { top: 10px; right: 10px; }
+.plaque::before { top: 15px; left: 15px; }
+.plaque::after { top: 15px; right: 15px; }
 
-.intro-section .plaque {
-    text-align: center;
-}
+.intro-section .plaque { text-align: center; font-size: 1.1em; }
+.about-section .plaque { text-align: justify; }
 
-.about-section .plaque {
-    text-align: justify;
-}
-
-.details-list {
-    list-style: none;
-}
+.details-list { list-style: none; }
 .details-list li {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
 }
+.details-list strong { color: #555; }
 
 /* ============================================
    GALLERY WALL (The "Mona Lisa" Effect)
@@ -197,7 +269,7 @@ section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 80px;
+    gap: 100px; /* More breathing room */
     width: 100%;
 }
 
@@ -206,14 +278,40 @@ section {
     flex-direction: column;
     align-items: center;
     max-width: 400px;
+    perspective: 1000px; /* Enable 3D effects */
 }
 
 /* THE FRAME */
 .frame-container {
     position: relative;
-    margin-bottom: 40px;
-    /* This creates the spotlight on the floor/wall behind */
-    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+    margin-bottom: 50px;
+    filter: drop-shadow(0 30px 40px rgba(0,0,0,0.8));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer; /* Indicates interactivity */
+}
+
+/* Hover Effect: Lift the painting off the wall */
+.gallery-item:hover .frame-container {
+    transform: translateY(-10px) scale(1.02);
+    filter: drop-shadow(0 40px 60px rgba(0,0,0,0.9));
+}
+
+/* The Spotlight Effect */
+.lighting-effect {
+    position: absolute;
+    top: -150%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--spotlight) 0%, transparent 60%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.gallery-item:hover .lighting-effect {
+    opacity: 1; /* Turn on spotlight on hover */
+    animation: spotlightFlicker 4s infinite;
 }
 
 .gold-frame {
@@ -223,25 +321,31 @@ section {
     border: 1px solid #444;
     box-shadow: 
         0 0 0 2px #555, /* Thin outer rim */
-        0 5px 15px rgba(0,0,0,0.5); /* Drop shadow */
+        inset 0 0 20px rgba(0,0,0,0.8); /* Inner shadow */
     position: relative;
-    border-radius: 1px;
+    border-radius: 2px;
+    transition: border-color 0.3s;
+}
+
+/* Gold accent on hover */
+.gallery-item:hover .gold-frame {
+    border-color: var(--accent-gold);
 }
 
 .canvas {
     background-color: #fff;
-    width: 300px;
-    height: 400px; /* Portrait orientation */
+    width: 320px; /* Slightly wider */
+    height: 420px;
     overflow: hidden;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid #eee;
+    position: relative;
 }
 
 .placeholder-art {
-    color: #aaa;
+    color: #888;
     font-family: 'Cinzel', serif;
     text-align: center;
     width: 100%;
@@ -249,51 +353,46 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #e0e0e0;
-    /* Simulate canvas texture */
-    background-image: 
-        linear-gradient(rgba(255,255,255,0.5) 2px, transparent 2px), 
-        linear-gradient(90deg, rgba(255,255,255,0.5) 2px, transparent 2px), 
-        linear-gradient(rgba(255,255,255,0.28) 1px, transparent 1px), 
-        linear-gradient(90deg, rgba(255,255,255,0.28) 1px, transparent 1px);
-    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+    background-color: #e6e6e6;
+    transition: transform 5s ease;
+    /* Abstract pattern */
+    background-image: radial-gradient(#ccc 10%, transparent 11%), radial-gradient(#ccc 10%, transparent 11%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
 }
 
-.placeholder-art img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Spotlight reflection on the glass/varnish */
-.gold-frame::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 100%);
-    pointer-events: none;
+/* Slow zoom on image when hovering */
+.gallery-item:hover .placeholder-art {
+    transform: scale(1.1);
 }
 
 /* THE MUSEUM LABEL */
 .museum-label {
-    background-color: #fbfbfb;
+    background-color: #fff;
     color: #333;
-    padding: 15px;
-    width: 250px;
-    box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     font-family: 'Lato', sans-serif;
     font-size: 0.9em;
-    border: 1px solid #ddd;
+    border-left: 3px solid var(--accent-gold); /* Elegant accent line */
     text-align: left;
+    transition: all 0.3s;
+    opacity: 0.9;
+}
+
+.gallery-item:hover .museum-label {
+    opacity: 1;
+    transform: translateY(5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .museum-label h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-weight: 700;
-    margin-bottom: 5px;
-    color: #000;
+    margin-bottom: 8px;
+    color: #111;
     text-transform: none;
     letter-spacing: 0;
 }
@@ -301,20 +400,25 @@ section {
 .museum-label .artist {
     font-style: italic;
     font-size: 0.9em;
-    margin-bottom: 2px;
+    color: #555;
+    margin-bottom: 4px;
 }
 
 .museum-label .date {
-    font-size: 0.85em;
-    color: #666;
-    margin-bottom: 10px;
+    font-size: 0.8em;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: block;
 }
 
 .museum-label .label-desc {
-    font-size: 0.85em;
-    line-height: 1.4;
+    font-size: 0.9em;
+    line-height: 1.5;
     border-top: 1px solid #eee;
-    padding-top: 8px;
+    padding-top: 10px;
+    color: #444;
 }
 
 /* ============================================
@@ -323,11 +427,16 @@ section {
 
 footer {
     text-align: center;
-    padding: 40px;
-    font-size: 0.8em;
-    color: #666;
+    padding: 60px 20px;
+    font-size: 0.9em;
+    color: #888;
     border-top: 1px solid #333;
-    margin-top: 50px;
+    margin-top: 80px;
+    background-color: #111;
+}
+
+footer p {
+    margin-bottom: 10px;
 }
 
 /* ============================================
@@ -335,7 +444,8 @@ footer {
    ============================================ */
 
 @media (max-width: 768px) {
-    h1 { font-size: 2em; }
+    h1 { font-size: 2.5em; }
     .museum-nav ul { flex-direction: column; text-align: center; }
-    .canvas { width: 250px; height: 350px; }
+    .canvas { width: 260px; height: 360px; }
+    .gallery-grid { gap: 60px; }
 }
