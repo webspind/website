@@ -14,7 +14,7 @@
     --card-hover: rgba(255, 255, 255, 0.08);
     
     /* Desktop-First Spacing */
-    --container-width: 1600px; /* Wider container for desktop */
+    --container-width: 1400px; /* Reduced width for better readability */
     --section-spacing: 180px;
 }
 
@@ -61,6 +61,7 @@ h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
+
 h3 {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
@@ -390,6 +391,130 @@ section.visible {
     border-radius: 4px;
 }
 
+/* NEW QUOTE STYLE */
+.artifact-quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 15px;
+    margin: 15px 0;
+    font-style: italic;
+    color: var(--text-primary);
+    background: rgba(59, 130, 246, 0.05); /* Subtle blue background */
+    padding: 15px;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 20px; /* Add space for references below */
+}
+
+/* ============================================
+   PROCESS SECTION
+   ============================================ */
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.process-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.process-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.process-img-container {
+    height: 250px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--glass-border);
+    background: #222;
+}
+
+.process-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    opacity: 0.8;
+}
+
+.process-card:hover .process-img {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.process-info {
+    padding: 20px;
+}
+
+.process-info h3 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.process-info p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* ============================================
+   REFERENCE SECTION (Inside Artifact Cards)
+   ============================================ */
+
+.reference-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reference-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    display: block;
+}
+
+.reference-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: start;
+}
+
+.author-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--glass-border);
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.reference-item:hover .author-img {
+    filter: grayscale(0%);
+}
+
+.citation-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    font-family: 'Inter', sans-serif;
+}
+
+.citation-text i {
+    font-style: italic;
+    color: var(--text-primary);
+}
+
 /* ============================================
    FOOTER
    ============================================ */
@@ -422,9 +547,8 @@ footer {
     color: var(--text-secondary);
     margin-bottom: 5px;
 }
+
 /* ============================================
    RESPONSIVE (REMOVED FOR DESKTOP ONLY)
    ============================================ */
 /* No mobile styles needed as per instruction */
-
-
