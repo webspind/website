@@ -1,110 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- This tells the browser what character set to use -->
     <meta charset="UTF-8">
-    <!-- This makes the website look good on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- This is the title that appears in the browser tab -->
     <title>Curating Data - Assignment Four</title>
-    <!-- This links to our CSS file for styling -->
+    
+    <!-- Google Fonts for that Museum feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/css2">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <!-- Header section - appears at the top of the page -->
-    <header>
-        <h1>Curating Data</h1>
-        <p class="subtitle">Assignment Four - Aarhus University</p>
+<body class="museum-theme">
+    
+    <!-- Header is now the "Grand Entrance" -->
+    <header class="museum-header">
+        <div class="header-content">
+            <h1>Curating Data</h1>
+            <div class="divider-line"></div>
+            <p class="subtitle">Assignment Four &bull; Aarhus University</p>
+        </div>
     </header>
 
-    <!-- Navigation menu -->
-    <nav>
+    <!-- Navigation is minimal and elegant -->
+    <nav class="museum-nav">
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#items">Items</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home">Gallery Entrance</a></li>
+            <li><a href="#about">Curator's Statement</a></li>
+            <li><a href="#collection">The Collection</a></li>
+            <li><a href="#info">Visitor Info</a></li>
         </ul>
     </nav>
 
-    <!-- Main content area -->
     <main>
-        <!-- Introduction section -->
+        <!-- Introduction -->
         <section id="home" class="intro-section">
-            <h2>Welcome</h2>
-            <p>This is a curated data collection showcasing [PLACEHOLDER: describe the type of data you're curating - e.g., datasets, visualizations, data stories, etc.]. Each item has been carefully selected to represent [PLACEHOLDER: your theme, research question, or data narrative].</p>
+            <div class="plaque large-plaque">
+                <h2>Welcome to the Gallery</h2>
+                <p>You have entered a digital exhibition of curated data. This collection showcases [PLACEHOLDER: describe the type of data - e.g., datasets, visualizations]. Each piece has been carefully selected to represent [PLACEHOLDER: your theme or narrative].</p>
+            </div>
         </section>
 
-        <!-- About section -->
+        <!-- About Section -->
         <section id="about" class="about-section">
-            <h2>About This Data Collection</h2>
-            <p>[PLACEHOLDER: Write about your curating methodology. Why did you choose these particular datasets/visualizations/stories? What connects them? What data narrative are you trying to tell?]</p>
-            <p>[PLACEHOLDER: Describe your selection criteria, data sources, or the significance of these curated items in the context of data curation practices.]</p>
-            <p>[PLACEHOLDER: Explain any patterns, themes, or insights that emerge from viewing these items together.]</p>
+            <div class="plaque medium-plaque">
+                <h2>Curator's Statement</h2>
+                <p class="drop-cap">[PLACEHOLDER: Write about your methodology. Why did you choose these particular datasets? What connects them? What narrative are you telling?]</p>
+                <p>[PLACEHOLDER: Describe your selection criteria, data sources, and the significance of these items in the context of data curation.]</p>
+            </div>
         </section>
 
-        <!-- Items showcase section -->
-        <section id="items" class="items-section">
-            <h2>Curated Data Items</h2>
+        <!-- The "Wall" of Art -->
+        <section id="collection" class="gallery-wall">
+            <div class="section-title">
+                <h2>The Masterpieces</h2>
+            </div>
             
-            <!-- Item 1 -->
-            <article class="item-card">
-                <div class="item-image">
-                    <!-- Placeholder for image/visualization - replace with actual image or embed visualization -->
-                    <div class="placeholder-image">Data Visualization/Image Placeholder</div>
+            <div class="gallery-grid">
+                <!-- Art Piece 1 -->
+                <div class="gallery-item">
+                    <div class="frame-container">
+                        <div class="gold-frame">
+                            <div class="canvas">
+                                <!-- Replace with <img src="..." alt="..."> -->
+                                <div class="placeholder-art">
+                                    <span>Visualization I</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lighting-effect"></div>
+                    </div>
+                    <div class="museum-label">
+                        <h3>[PLACEHOLDER: Title 1]</h3>
+                        <p class="artist">Source: [PLACEHOLDER: Data Source]</p>
+                        <p class="date">Circa [PLACEHOLDER: Date]</p>
+                        <div class="label-desc">
+                            <p>[PLACEHOLDER: Description of the first data item. Explain its significance to the collection.]</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="item-content">
-                    <h3>[PLACEHOLDER: Dataset/Visualization/Story Title 1]</h3>
-                    <p><strong>Source:</strong> [PLACEHOLDER: Data source or creator]</p>
-                    <p><strong>Date:</strong> [PLACEHOLDER: Date or time period]</p>
-                    <p>[PLACEHOLDER: Description of the first data item. Explain what data it contains, why it's significant, and why it's included in your curated collection. What does it contribute to your overall narrative?]</p>
-                </div>
-            </article>
 
-            <!-- Item 2 -->
-            <article class="item-card">
-                <div class="item-image">
-                    <div class="placeholder-image">Data Visualization/Image Placeholder</div>
+                <!-- Art Piece 2 -->
+                <div class="gallery-item">
+                    <div class="frame-container">
+                        <div class="gold-frame">
+                            <div class="canvas">
+                                <div class="placeholder-art">
+                                    <span>Visualization II</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lighting-effect"></div>
+                    </div>
+                    <div class="museum-label">
+                        <h3>[PLACEHOLDER: Title 2]</h3>
+                        <p class="artist">Source: [PLACEHOLDER: Data Source]</p>
+                        <p class="date">Circa [PLACEHOLDER: Date]</p>
+                        <div class="label-desc">
+                            <p>[PLACEHOLDER: Description of the second data item. Explain its significance to the collection.]</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="item-content">
-                    <h3>[PLACEHOLDER: Dataset/Visualization/Story Title 2]</h3>
-                    <p><strong>Source:</strong> [PLACEHOLDER: Data source or creator]</p>
-                    <p><strong>Date:</strong> [PLACEHOLDER: Date or time period]</p>
-                    <p>[PLACEHOLDER: Description of the second data item. Explain what data it contains, why it's significant, and why it's included in your curated collection. What does it contribute to your overall narrative?]</p>
-                </div>
-            </article>
 
-            <!-- Item 3 -->
-            <article class="item-card">
-                <div class="item-image">
-                    <div class="placeholder-image">Data Visualization/Image Placeholder</div>
+                <!-- Art Piece 3 -->
+                <div class="gallery-item">
+                    <div class="frame-container">
+                        <div class="gold-frame">
+                            <div class="canvas">
+                                <div class="placeholder-art">
+                                    <span>Visualization III</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lighting-effect"></div>
+                    </div>
+                    <div class="museum-label">
+                        <h3>[PLACEHOLDER: Title 3]</h3>
+                        <p class="artist">Source: [PLACEHOLDER: Data Source]</p>
+                        <p class="date">Circa [PLACEHOLDER: Date]</p>
+                        <div class="label-desc">
+                            <p>[PLACEHOLDER: Description of the third data item. Explain its significance to the collection.]</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="item-content">
-                    <h3>[PLACEHOLDER: Dataset/Visualization/Story Title 3]</h3>
-                    <p><strong>Source:</strong> [PLACEHOLDER: Data source or creator]</p>
-                    <p><strong>Date:</strong> [PLACEHOLDER: Date or time period]</p>
-                    <p>[PLACEHOLDER: Description of the third data item. Explain what data it contains, why it's significant, and why it's included in your curated collection. What does it contribute to your overall narrative?]</p>
-                </div>
-            </article>
-
-            <!-- Add more items as needed by copying the article.item-card structure above -->
+            </div>
         </section>
 
-        <!-- Contact section -->
-        <section id="contact" class="contact-section">
-            <h2>About This Assignment</h2>
-            <p><strong>Course:</strong> Curating Data</p>
-            <p><strong>Institution:</strong> Aarhus University</p>
-            <p><strong>Assignment Creators:</strong> Jakob Munch-Brandt, Mikkel Tagesen Knudsen, Sebastian Kjær, Tobias Kyhn Mikkelsen</p>
-            <p>[PLACEHOLDER: Add your name, student number, or any other relevant information about your submission.]</p>
+        <!-- Visitor Info (Contact) -->
+        <section id="info" class="info-section">
+            <div class="plaque small-plaque">
+                <h2>Exhibition Details</h2>
+                <ul class="details-list">
+                    <li><strong>Course:</strong> Curating Data</li>
+                    <li><strong>Institution:</strong> Aarhus University</li>
+                    <li><strong>Curators/Creators:</strong> Jakob Munch-Brandt, Mikkel Tagesen Knudsen, Sebastian Kjær, Tobias Kyhn Mikkelsen</li>
+                    <li><strong>Assignment:</strong> Assignment Four</li>
+                    <li>[PLACEHOLDER: Your details]</li>
+                </ul>
+            </div>
         </section>
     </main>
 
-    <!-- Footer - appears at the bottom -->
     <footer>
-        <p>&copy; 2025 Curating Data Assignment - Aarhus University</p>
-        <p>Course: Curating Data | Assignment Four</p>
+        <p>&copy; 2025 Curating Data Exhibition. All rights reserved.</p>
     </footer>
 </body>
 </html>
-
