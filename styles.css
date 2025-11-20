@@ -463,12 +463,12 @@ section.visible {
 }
 
 /* ============================================
-   REFERENCE SECTION (Inside Artifact Cards)
+   INLINE REFERENCE BLOCK (INSIDE CARDS)
    ============================================ */
 
 .reference-section {
     margin-top: 20px;
-    padding-top: 20px;
+    padding-top: 15px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -477,42 +477,89 @@ section.visible {
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--text-secondary);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     display: block;
 }
 
-.reference-item {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-    align-items: start;
+.inline-citation {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
 }
 
-.author-img {
-    width: 50px;
-    height: 50px;
+.inline-citation i {
+    color: var(--text-primary);
+}
+
+/* ============================================
+   GLOBAL BIBLIOGRAPHY SECTION
+   ============================================ */
+
+.reference-list-section {
+    margin-top: 100px;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 80px;
+}
+
+.reference-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+.reference-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.reference-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.ref-author-img {
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px solid var(--glass-border);
+    border: 2px solid var(--glass-border);
     filter: grayscale(100%);
     transition: filter 0.3s ease;
-    flex-shrink: 0; /* Prevent shrinking */
+    flex-shrink: 0;
 }
 
-.reference-item:hover .author-img {
+.reference-card:hover .ref-author-img {
     filter: grayscale(0%);
+    border-color: var(--accent);
 }
 
-.citation-text {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
+.ref-content {
+    flex-grow: 1;
+}
+
+.ref-citation {
     font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
 }
 
-.citation-text i {
-    font-style: italic;
+.ref-citation i {
     color: var(--text-primary);
+}
+
+.placeholder-ref {
+    border-style: dashed;
+    opacity: 0.5;
+    justify-content: center;
+    text-align: center;
 }
 
 /* ============================================
