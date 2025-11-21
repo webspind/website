@@ -231,10 +231,15 @@ section.visible {
    STATEMENT SECTION (MANIFESTO STYLE)
    ============================================ */
 
+.statement-section {
+    /* Override default section spacing to reduce vertical gap */
+    padding: 40px 20px 60px;
+}
+
 .statement-section .glass-panel {
     border: none;
     background: transparent;
-    padding: 40px 0; /* Reduced to remove large gap under hero */
+    padding: 0; /* No extra vertical padding inside, spacing handled by .statement-section */
     text-align: center;
 }
 
