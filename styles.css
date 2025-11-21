@@ -234,7 +234,7 @@ section.visible {
 .statement-section .glass-panel {
     border: none;
     background: transparent;
-    padding: 100px 0;
+    padding: 40px 0; /* Reduced to remove large gap under hero */
     text-align: center;
 }
 
