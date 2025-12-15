@@ -8,7 +8,7 @@
     --bg-color: #0a0a0a;
     --bg-alt: #111111;
     --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
+    --text-secondary: #e0e0e0;
     --accent: #4a9eff;
     --accent-glow: rgba(74, 158, 255, 0.3);
     --glass-bg: rgba(255, 255, 255, 0.02);
@@ -797,7 +797,7 @@ section.visible {
    ============================================ */
 
 .credits-section {
-    padding: 180px 40px;
+    padding: 100px 40px;
     text-align: center;
     position: relative;
 }
