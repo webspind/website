@@ -12,18 +12,82 @@
     <link rel="stylesheet" href="styles.css">
     
     <script>
-        // Smooth reveal animation
+        // Luxurious scroll animations and interactions
         document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced intersection observer with staggered animations
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+                entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 100);
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { 
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
 
-            document.querySelectorAll('section, .curator-block').forEach(el => {
+            document.querySelectorAll('section').forEach(el => {
                 observer.observe(el);
+            });
+
+            // Stagger card animations
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, index * 80);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.artifact-card').forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                cardObserver.observe(card);
+            });
+
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offsetTop = target.offsetTop - 100;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Parallax effect for hero image
+            let lastScroll = 0;
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const heroImage = document.querySelector('.hero-image');
+                if (heroImage && scrolled < window.innerHeight) {
+                    heroImage.style.transform = `translateY(${scrolled * 0.3}px)`;
+                    heroImage.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+                }
+                lastScroll = scrolled;
+            });
+
+            // Navbar fade on scroll
+            const nav = document.querySelector('.modern-nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    nav.style.background = 'rgba(10, 10, 10, 0.95)';
+                    nav.style.borderBottomColor = 'rgba(255, 255, 255, 0.15)';
+                } else {
+                    nav.style.background = 'rgba(10, 10, 10, 0.7)';
+                    nav.style.borderBottomColor = 'rgba(255, 255, 255, 0.08)';
+                }
             });
         });
     </script>
@@ -35,10 +99,10 @@
         <div class="nav-logo">CURATING DATA</div>
         <ul>
             <li><a href="#statement">Statement</a></li>
-            <li><a href="#jakob">Jakob</a></li>
-            <li><a href="#mikkel">Mikkel</a></li>
-            <li><a href="#sebastian">Sebastian</a></li>
-            <li><a href="#tobias">Tobias</a></li>
+            <li><a href="#assignment1">Collection</a></li>
+            <li><a href="#assignment2">Categorization</a></li>
+            <li><a href="#assignment3">Visualization</a></li>
+            <li><a href="#references">Bibliography</a></li>
         </ul>
     </nav>
 
@@ -64,95 +128,34 @@
                 <div class="text-content">
                     <p class="lead">This exhibition represents the culmination of a semester's work in the <strong>Curating Data</strong> elective at Aarhus University. As a collective of four students, we have revisited our individual archives—datasets, reports, and visualizations—to articulate the histories that unfolded in our learning during this course, taught by Midas Nouwens and Magdalena Regina Tyzlik-Carver.</p>
                     
-                    <p>Throughout the semester, our curating data efforts have been shaped by the understanding that data are not neutral facts but constructed artefacts. Guided by Wernimont’s notion of quantification as world-making and Kitchin’s definition of data as capta, we have approached data practices as interpretive, political, and situated. Working with the Curating Data Model has allowed us to conceptualise our assignments, workshops, and fieldwork within a shared taxonomy of data practices, highlighting how collection, classification, cleaning, and visualisation actively shape meaning.</p>
+                    <p>Throughout the semester, our curating data efforts have been shaped by the understanding that data are not neutral facts but constructed artefacts. Guided by Wernimont's notion of quantification as world-making and Kitchin's definition of data as capta, we have approached data practices as interpretive, political, and situated. Working with the Curating Data Model has allowed us to conceptualise our assignments, workshops, and fieldwork within a shared taxonomy of data practices, highlighting how collection, classification, cleaning, and visualisation actively shape meaning.</p>
                     
                     <p>Our practical work has involved critically observing and performing data practices, identifying the assumptions embedded within them, and contributing to the ongoing expansion of the model. In this way, we have come to see curating data as a critical, reflective, and methodological practice that negotiates theory and technique to reveal how data come into being and how they participate in making worlds.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Process & Methodology -->
-        <section id="process" class="process-section alt-bg">
-            <div class="curator-header">
-                <h2>The Process Archive</h2>
-                <p class="curator-role">Methodology</p>
-            </div>
-            
-            <div class="process-grid">
-                <div class="process-card">
-                    <div class="process-img-container">
-                        <img src="process_Methodology/lecture_notes.png" alt="Digital Lecture Notes" class="process-img">
-                    </div>
-                    <div class="process-info">
-                        <h3>Digital Origins</h3>
-                        <p>Early lecture notes capturing the foundational theory in Google Docs.</p>
-                    </div>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-img-container">
-                        <img src="process_Methodology/group_notes.png" alt="Shared Group Notes" class="process-img">
-                    </div>
-                    <div class="process-info">
-                        <h3>Collective Thinking</h3>
-                        <p>Collaborative Google Docs for Assignment 2, negotiating categories and structure.</p>
-                    </div>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-img-container">
-                        <img src="process_Methodology/canva_draft_1.png" alt="Canva Visual Process 1" class="process-img">
-                    </div>
-                    <div class="process-info">
-                        <h3>Visual Drafting</h3>
-                        <p>Iterative design process in Canva for visual analytics.</p>
-                    </div>
-                </div>
-                
-                <div class="process-card">
-                    <div class="process-img-container">
-                        <img src="process_Methodology/canva_draft_2.png" alt="Canva Visual Process 2" class="process-img">
-                    </div>
-                    <div class="process-info">
-                        <h3>Refining the Narrative</h3>
-                        <p>Moving from raw data to communicated insight through design tools.</p>
-                    </div>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-img-container">
-                        <img src="process_Methodology/powerbi_1.png" alt="PowerBI Dashboard 1" class="process-img">
-                    </div>
-                    <div class="process-info">
-                        <h3>Data Analytics</h3>
-                        <p>Exploring the dataset in PowerBI to identify patterns and outliers for Assignment 3.</p>
-                    </div>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-img-container">
-                        <img src="process_Methodology/powerbi_2.png" alt="PowerBI Dashboard 2" class="process-img">
-                    </div>
-                    <div class="process-info">
-                        <h3>Visual Exploration</h3>
-                        <p>Testing different visualization types to determine the most effective representation.</p>
-                    </div>
+        <!-- Assignment 1: Collecting Objects and Building Dataset -->
+        <section id="assignment1" class="assignment-section">
+            <div class="assignment-header">
+                <div class="assignment-number">01</div>
+                <div class="assignment-title-group">
+                    <h2>Collecting Objects and Building Dataset</h2>
+                    <p class="assignment-subtitle">How we learned that data is never neutral</p>
                 </div>
             </div>
-        </section>
 
-        <!-- Curator 1: Jakob -->
-        <section id="jakob" class="curator-section">
-            <div class="curator-header">
-                <h2>Jakob Munch-Brandt</h2>
-                <p class="curator-role">Curator</p>
+            <div class="process-intro">
+                <div class="process-intro-image">
+                    <img src="process_Methodology/lecture_notes.png" alt="Lecture Notes">
+                </div>
+                <p class="process-intro-text">We started with theory. Lecture notes helped us understand that data is capta—actively captured, not simply given.</p>
             </div>
             
             <div class="gallery-grid">
-                <!-- Assignment 1 -->
+                <!-- Jakob A1 -->
                 <div class="artifact-card">
                     <div class="artifact-preview">
-                        <!-- PDF Embed -->
                         <object data="Jakobs_assignments/Assignment_1/JakobMunch-Brandt_Report_A1.pdf" type="application/pdf" width="100%" height="100%">
                             <div class="pdf-fallback">
                                 <p>Your browser doesn't support embedded PDFs.</p>
@@ -162,84 +165,23 @@
                     </div>
                     <div class="artifact-info">
                         <h3>The Personal Archive</h3>
-                        <span class="tag">Assignment 1</span>
+                        <span class="curator-name">Jakob Munch-Brandt</span>
                         <blockquote class="artifact-quote">
-                            "Working with my clothes as data taught me that data is never objective. When I actively had to select information categories about my clothes, it turned to capta instead data, just as Kitchin describes: “Data in its Latin root are all the potential data that can be sourced from a phenomenon, and capta are all those data that are actually captured” (Kitchin, 2025, p. 25).<br><br>
-                            I also realized that my categories as metadata aren’t neutral, but reflects my personal viewpoints about the clothes, which points to what Acker talks about here: “Because metadata are created and used by humans, they inherently advance particular worldviews onto the ideas, artifacts, and experiences that are used to describe.” (Acker, 2021, p. 1)"
+                            "Working with my clothes as data taught me that data is never objective. When I actively had to select information categories about my clothes, it turned to capta instead data, just as Kitchin describes: "Data in its Latin root are all the potential data that can be sourced from a phenomenon, and capta are all those data that are actually captured" (Kitchin, 2025, p. 25).<br><br>
+                            I also realized that my categories as metadata aren't neutral, but reflects my personal viewpoints about the clothes, which points to what Acker talks about here: "Because metadata are created and used by humans, they inherently advance particular worldviews onto the ideas, artifacts, and experiences that are used to describe." (Acker, 2021, p. 1)"
                         </blockquote>
                         <div class="reference-section">
                             <span class="reference-title">References</span>
                             <p class="inline-citation">Kitchin, R. (2025). <i>Critical data studies: An A to Z guide to concepts and methods.</i> Polity Press.</p>
                             <p class="inline-citation">Acker, A. (2021). Metadata. In N. B. Thylstrup et al. (Eds.), <i>Uncertain archives: Critical keywords for big data</i> (pp. 33-42). MIT Press.</p>
                         </div>
-                        
                         <div class="action-links">
                             <a href="Jakobs_assignments/Assignment_1/JakobMunchBrandt_WardrobeCollection_A1.xlsx" class="text-link">Download Data (XLSX)</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Assignment 2 -->
-                <div class="artifact-card">
-                    <div class="artifact-preview">
-                        <object data="Jakobs_assignments/Assignment_2/Method assignment - Categorizing Dekoloniale Biographies in Wikidata.pdf" type="application/pdf" width="100%" height="100%">
-                            <div class="pdf-fallback">
-                                <p>Your browser doesn't support embedded PDFs.</p>
-                                <a href="Jakobs_assignments/Assignment_2/Method assignment - Categorizing Dekoloniale Biographies in Wikidata.pdf" target="_blank" class="view-btn">View Method</a>
-                            </div>
-                        </object>
-                    </div>
-                    <div class="artifact-info">
-                        <h3>Categorizing History</h3>
-                        <span class="tag">Assignment 2</span>
-                        <blockquote class="artifact-quote">
-                            "Translating Joseph Bilé’s Dekoloniale biography into Wikidata made it clear that curating data is never a neutral transfer of facts. Following Nadim’s notion of datafication and Loukissas’ argument that all data are local, I became aware of how ontologies, properties, and platform constraints both enable new connections and quietly erase parts of his story." <br><br>
-                            &mdash; Jakob Munch-Brandt
-                        </blockquote>
-                        <div class="reference-section">
-                            <span class="reference-title">References</span>
-                            <p class="inline-citation">Nadim, T. (2021). The datafication of nature: Data formations and new scales in natural history. <i>Journal of the Royal Anthropological Institute, 27</i>(S1), 62–75.</p>
-                            <p class="inline-citation">Loukissas, Y. A. (2019). <i>All data are local: Thinking critically in a data-driven society.</i> MIT Press.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Assignment 3 -->
-                <div class="artifact-card">
-                    <div class="artifact-preview">
-                        <object data="Jakobs_assignments/Assignment_3/Assignment 3 - VIsual analytics (1).pdf" type="application/pdf" width="100%" height="100%">
-                            <div class="pdf-fallback">
-                                <p>Your browser doesn't support embedded PDFs.</p>
-                                <a href="Jakobs_assignments/Assignment_3/Assignment 3 - VIsual analytics (1).pdf" target="_blank" class="view-btn">View Visuals</a>
-                            </div>
-                        </object>
-                    </div>
-                    <div class="artifact-info">
-                        <h3>Visualizing Complexity</h3>
-                        <span class="tag">Assignment 3</span>
-                        <blockquote class="artifact-quote">
-                            "In my first visual analytic I follow Shneiderman’s mantra of “overview first, zoom and filter, then details-on-demand” and keep close to Tufte’s ideal of a high data-ink ratio. In the second, I shift from analysis to visceralisation, using a mountain metaphor to evoke emotion and show how framing can make depression among high-achieving students feel more or less prevalent." <br><br>
-                            &mdash; Jakob Munch-Brandt
-                        </blockquote>
-                        <div class="reference-section">
-                            <span class="reference-title">References</span>
-                            <p class="inline-citation">Shneiderman, B. (1996). The eyes have it: A task by data type taxonomy for information visualizations. In <i>Proceedings 1996 IEEE Symposium on Visual Languages</i> (pp. 336–343).</p>
-                            <p class="inline-citation">Tufte, E. R. (2018). <i>The visual display of quantitative information</i> (2nd ed.). Graphics Press.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Curator 2: Mikkel -->
-        <section id="mikkel" class="curator-section alt-bg">
-            <div class="curator-header">
-                <h2>Mikkel Tagesen Knudsen</h2>
-                <p class="curator-role">Curator</p>
-            </div>
-            
-            <div class="gallery-grid">
-                <!-- Assignment 1 -->
+                <!-- Mikkel A1 -->
                 <div class="artifact-card">
                     <div class="artifact-preview">
                         <object data="Mikkels_assignments/Assignment_1/Assignment 1_revised.pdf" type="application/pdf" width="100%" height="100%">
@@ -251,7 +193,7 @@
                     </div>
                     <div class="artifact-info">
                         <h3>Collection Strategy</h3>
-                        <span class="tag">Assignment 1</span>
+                        <span class="curator-name">Mikkel Tagesen Knudsen</span>
                         <blockquote class="artifact-quote">
                             "Jacqueline Wernimont argues that quantification is an interpretive practice of world-making (Wernimont, 2021), while Robert Kitchin insists that data is not simply given but actively generated, or capta (Kitchin, 2022)." <br><br>
                             &mdash; Mikkel Tagesen Knudsen
@@ -267,68 +209,7 @@
                     </div>
                 </div>
 
-                <!-- Assignment 2 -->
-                <div class="artifact-card">
-                    <div class="artifact-preview">
-                        <object data="Mikkels_assignments/Assignment_2/Assignment 2_revised.pdf" type="application/pdf" width="100%" height="100%">
-                            <div class="pdf-fallback">
-                                <p>Your browser doesn't support embedded PDFs.</p>
-                                <a href="Mikkels_assignments/Assignment_2/Assignment 2_revised.pdf" target="_blank" class="view-btn">View Assignment</a>
-                            </div>
-                        </object>
-                    </div>
-                    <div class="artifact-info">
-                        <h3>Data Structures</h3>
-                        <span class="tag">Assignment 2</span>
-                        <blockquote class="artifact-quote">
-                            "By working through these categories, we realized that categorization itself produced new insights; for example, identifying Bilé’s connection to other activists revealed the extent of his transnational political involvement. As Bowker and Star note, every act of classification both reveals and conceals aspects of the world; it makes certain narratives legible while obscuring others." <br><br>
-                            &mdash; Mikkel Tagesen Knudsen
-                        </blockquote>
-                        <div class="reference-section">
-                            <span class="reference-title">References</span>
-                            <p class="inline-citation">Bowker, G. C., & Star, S. L. (1999). <i>Sorting Things Out: Classification and Its Consequences.</i> MIT Press.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Assignment 3 -->
-                <div class="artifact-card">
-                    <div class="artifact-preview">
-                        <object data="Mikkels_assignments/Assignment_3/Assignment 3_Mikkel Tagesen Knudsen_revised.pdf" type="application/pdf" width="100%" height="100%">
-                            <div class="pdf-fallback">
-                                <p>Your browser doesn't support embedded PDFs.</p>
-                                <a href="Mikkels_assignments/Assignment_3/Assignment 3_Mikkel Tagesen Knudsen_revised.pdf" target="_blank" class="view-btn">View Paper</a>
-                            </div>
-                        </object>
-                    </div>
-                    <div class="artifact-info">
-                        <h3>Analytical Lenses</h3>
-                        <span class="tag">Assignment 3</span>
-                        <blockquote class="artifact-quote">
-                            "Instead of focusing on analytical precision, the goal is to visceralise the data, to evoke emotion and provoke reflection on what the dataset does not show. This aligns with feminist data principles that argue for the importance of emotion and embodiment in understanding data (D’Ignazio & Klein, 2020)." <br><br>
-                            &mdash; Mikkel Tagesen Knudsen
-                        </blockquote>
-                        <div class="reference-section">
-                            <span class="reference-title">References</span>
-                            <p class="inline-citation">D’Ignazio, C., & Klein, L. F. (2020). <i>Data Feminism.</i> MIT Press.</p>
-                        </div>
-                        <div class="action-links">
-                            <a href="Mikkels_assignments/Assignment_3/attatchment of assignment 3.pdf" target="_blank" class="text-link">View Attachment</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Curator 3: Sebastian -->
-        <section id="sebastian" class="curator-section">
-            <div class="curator-header">
-                <h2>Sebastian Kjær</h2>
-                <p class="curator-role">Curator</p>
-            </div>
-            
-            <div class="gallery-grid">
-                <!-- Assignment 1 -->
+                <!-- Sebastian A1 -->
                 <div class="artifact-card">
                     <div class="artifact-preview">
                         <object data="Sebs_assignments/Assignment_1/SebastianKjær_Report_A1.pdf" type="application/pdf" width="100%" height="100%">
@@ -340,9 +221,9 @@
                     </div>
                     <div class="artifact-info">
                         <h3>Object-Oriented Data</h3>
-                        <span class="tag">Assignment 1</span>
+                        <span class="curator-name">Sebastian Kjær</span>
                         <blockquote class="artifact-quote">
-                            "Finally, Rowley’s paper about the DIKW hierarchy gives a framework for understanding how my dataset moves from raw measurements to knowledge. According to Rowley, the transformation from data to information and knowledge is nonlinear and depends on context and interpretation (Rowley, 2007). In this dataset, the measurements only become information when I analyze relationships such as loft and length in relation to distance, and they turn into knowledge when I translate them into practical advice on choosing a club when playing." <br><br>
+                            "Finally, Rowley's paper about the DIKW hierarchy gives a framework for understanding how my dataset moves from raw measurements to knowledge. According to Rowley, the transformation from data to information and knowledge is nonlinear and depends on context and interpretation (Rowley, 2007). In this dataset, the measurements only become information when I analyze relationships such as loft and length in relation to distance, and they turn into knowledge when I translate them into practical advice on choosing a club when playing." <br><br>
                             &mdash; Sebastian Kjær
                         </blockquote>
                         <div class="reference-section">
@@ -355,61 +236,7 @@
                     </div>
                 </div>
 
-                <!-- Assignment 2 -->
-                <div class="artifact-card">
-                    <div class="artifact-preview">
-                        <object data="Sebs_assignments/Assignment_2/Assignment 2.pdf" type="application/pdf" width="100%" height="100%">
-                            <div class="pdf-fallback">
-                                <p>Your browser doesn't support embedded PDFs.</p>
-                                <a href="Sebs_assignments/Assignment_2/Assignment 2.pdf" target="_blank" class="view-btn">View Assignment</a>
-                            </div>
-                        </object>
-                    </div>
-                    <div class="artifact-info">
-                        <h3>Structured Knowledge</h3>
-                        <span class="tag">Assignment 2</span>
-                        <blockquote class="artifact-quote">
-                            "Overall, the assignment has given us a concrete understanding of how data structuring can function as a critical method. It requires both technical precision and ethical reflection. By translating Joseph Bilé's biography into structured data, we have contributed to making an African and decolonial memory culture more visible in a global digital context." <br><br>
-                            &mdash; Sebastian Kjær
-                        </blockquote>
-                    </div>
-                </div>
-
-                <!-- Assignment 3 -->
-                <div class="artifact-card">
-                    <div class="artifact-preview">
-                        <object data="Sebs_assignments/Assignment_3/Assignment 3.pdf" type="application/pdf" width="100%" height="100%">
-                            <div class="pdf-fallback">
-                                <p>Your browser doesn't support embedded PDFs.</p>
-                                <a href="Sebs_assignments/Assignment_3/Assignment 3.pdf" target="_blank" class="view-btn">View Assignment</a>
-                            </div>
-                        </object>
-                    </div>
-                    <div class="artifact-info">
-                        <h3>Visual Interpretation</h3>
-                        <span class="tag">Assignment 3</span>
-                        <blockquote class="artifact-quote">
-                            "Visually, this draws upon “Data Feminism” principles such as Rethink Binaries and Examine Power. It shows how a seemingly technical decision to register gender as “Male” or “Female” is simultaneously an ethical and political decision. By using visualizations in a somewhat untraditional way, I aim to highlight a form of data criticism that hopefully creates feelings of absence and exclusion in the viewer." <br><br>
-                            &mdash; Sebastian Kjær
-                        </blockquote>
-                        <div class="reference-section">
-                            <span class="reference-title">References</span>
-                            <p class="inline-citation">D’Ignazio, C., & Klein, L. F. (2020). <i>Data Feminism.</i> MIT Press.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Curator 4: Tobias -->
-        <section id="tobias" class="curator-section alt-bg">
-            <div class="curator-header">
-                <h2>Tobias Kyhn Mikkelsen</h2>
-                <p class="curator-role">Curator</p>
-            </div>
-            
-            <div class="gallery-grid">
-                <!-- Assignment 1 -->
+                <!-- Tobias A1 -->
                 <div class="artifact-card">
                     <div class="artifact-preview">
                         <object data="Tobias_assignments/Assignment_1/TobiasMikkelsen_Report_A1.pdf" type="application/pdf" width="100%" height="100%">
@@ -421,18 +248,113 @@
                     </div>
                     <div class="artifact-info">
                         <h3>Categorizing Sport</h3>
-                        <span class="tag">Assignment 1</span>
+                        <span class="curator-name">Tobias Kyhn Mikkelsen</span>
                         <blockquote class="artifact-quote">
-                            "Data are never just data. It is shaped by decisions, categories, and judgments. My spreadsheet is not only about golf balls, but also about the way I chose to describe them." <br><br>
-                            &mdash; Tobias Kyhn Mikkelsen
+                            "Data are never just data. It is shaped by decisions, categories, and judgments. My spreadsheet is not only about golf balls, but also about the way I chose to describe them."
                         </blockquote>
                         <div class="action-links">
                             <a href="Tobias_assignments/Assignment_1/TobiasMikkelsen_GolfBalls_A1.pdf" target="_blank" class="text-link">View Data PDF</a>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Assignment 2 -->
+        <!-- Transition -->
+        <section class="transition-section alt-bg">
+            <div class="transition-content">
+                <p class="transition-text">After collecting, we learned to structure. Categories reveal and conceal.</p>
+            </div>
+        </section>
+
+        <!-- Assignment 2: Categorization – Referencing Knowledge Resources -->
+        <section id="assignment2" class="assignment-section alt-bg">
+            <div class="assignment-header">
+                <div class="assignment-number">02</div>
+                <div class="assignment-title-group">
+                    <h2>Categorization – Referencing Knowledge Resources in Linked Open Data</h2>
+                    <p class="assignment-subtitle">How classification shapes what becomes visible</p>
+                </div>
+            </div>
+
+            <div class="process-intro">
+                <div class="process-intro-image">
+                    <img src="process_Methodology/group_notes.png" alt="Group Notes">
+                </div>
+                <p class="process-intro-text">We worked together. Collaborative notes show how we negotiated categories and structure.</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Jakob A2 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Jakobs_assignments/Assignment_2/Method assignment - Categorizing Dekoloniale Biographies in Wikidata.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Jakobs_assignments/Assignment_2/Method assignment - Categorizing Dekoloniale Biographies in Wikidata.pdf" target="_blank" class="view-btn">View Method</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Categorizing History</h3>
+                        <span class="curator-name">Jakob Munch-Brandt</span>
+                        <blockquote class="artifact-quote">
+                            "Translating Joseph Bilé's Dekoloniale biography into Wikidata made it clear that curating data is never a neutral transfer of facts. Following Nadim's notion of datafication and Loukissas' argument that all data are local, I became aware of how ontologies, properties, and platform constraints both enable new connections and quietly erase parts of his story." <br><br>
+                            &mdash; Jakob Munch-Brandt
+                        </blockquote>
+                        <div class="reference-section">
+                            <span class="reference-title">References</span>
+                            <p class="inline-citation">Nadim, T. (2021). The datafication of nature: Data formations and new scales in natural history. <i>Journal of the Royal Anthropological Institute, 27</i>(S1), 62–75.</p>
+                            <p class="inline-citation">Loukissas, Y. A. (2019). <i>All data are local: Thinking critically in a data-driven society.</i> MIT Press.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mikkel A2 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Mikkels_assignments/Assignment_2/Assignment 2_revised.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Mikkels_assignments/Assignment_2/Assignment 2_revised.pdf" target="_blank" class="view-btn">View Assignment</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Data Structures</h3>
+                        <span class="curator-name">Mikkel Tagesen Knudsen</span>
+                        <blockquote class="artifact-quote">
+                            "By working through these categories, we realized that categorization itself produced new insights; for example, identifying Bilé's connection to other activists revealed the extent of his transnational political involvement. As Bowker and Star note, every act of classification both reveals and conceals aspects of the world; it makes certain narratives legible while obscuring others." <br><br>
+                            &mdash; Mikkel Tagesen Knudsen
+                        </blockquote>
+                        <div class="reference-section">
+                            <span class="reference-title">References</span>
+                            <p class="inline-citation">Bowker, G. C., & Star, S. L. (1999). <i>Sorting Things Out: Classification and Its Consequences.</i> MIT Press.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sebastian A2 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Sebs_assignments/Assignment_2/Assignment 2.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Sebs_assignments/Assignment_2/Assignment 2.pdf" target="_blank" class="view-btn">View Assignment</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Structured Knowledge</h3>
+                        <span class="curator-name">Sebastian Kjær</span>
+                        <blockquote class="artifact-quote">
+                            "Overall, the assignment has given us a concrete understanding of how data structuring can function as a critical method. It requires both technical precision and ethical reflection. By translating Joseph Bilé's biography into structured data, we have contributed to making an African and decolonial memory culture more visible in a global digital context." <br><br>
+                            &mdash; Sebastian Kjær
+                        </blockquote>
+                    </div>
+                </div>
+
+                <!-- Tobias A2 -->
                 <div class="artifact-card">
                     <div class="artifact-preview">
                         <object data="Tobias_assignments/Assignment_2/Assignment 2 - Curating data.pdf" type="application/pdf" width="100%" height="100%">
@@ -444,15 +366,119 @@
                     </div>
                     <div class="artifact-info">
                         <h3>Curatorial Method</h3>
-                        <span class="tag">Assignment 2</span>
+                        <span class="curator-name">Tobias Kyhn Mikkelsen</span>
                         <blockquote class="artifact-quote">
                             "This assignment made clear that curating data is a form of knowledge production, one that requires both technical skill and critical reflection on how digital infrastructures shape what, and who, becomes part of shared history." <br><br>
                             &mdash; Tobias Kyhn Mikkelsen
                         </blockquote>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Assignment 3 -->
+        <!-- Transition -->
+        <section class="transition-section">
+            <div class="transition-content">
+                <p class="transition-text">From analysis to feeling. How visualization becomes visceralization.</p>
+            </div>
+        </section>
+
+        <!-- Assignment 3: Visualising and Visceralising -->
+        <section id="assignment3" class="assignment-section">
+            <div class="assignment-header">
+                <div class="assignment-number">03</div>
+                <div class="assignment-title-group">
+                    <h2>Visualising and Visceralising</h2>
+                    <p class="assignment-subtitle">How we learned to make data felt</p>
+                </div>
+            </div>
+
+            <div class="process-intro">
+                <div class="process-intro-grid">
+                    <img src="process_Methodology/powerbi_1.png" alt="PowerBI Dashboard">
+                    <img src="process_Methodology/canva_draft_1.png" alt="Canva Draft">
+                </div>
+                <p class="process-intro-text">We explored in PowerBI. We designed in Canva. We moved from analysis to emotion.</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <!-- Jakob A3 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Jakobs_assignments/Assignment_3/Assignment 3 - VIsual analytics (1).pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Jakobs_assignments/Assignment_3/Assignment 3 - VIsual analytics (1).pdf" target="_blank" class="view-btn">View Visuals</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Visualizing Complexity</h3>
+                        <span class="curator-name">Jakob Munch-Brandt</span>
+                        <blockquote class="artifact-quote">
+                            "In my first visual analytic I follow Shneiderman's mantra of "overview first, zoom and filter, then details-on-demand" and keep close to Tufte's ideal of a high data-ink ratio. In the second, I shift from analysis to visceralisation, using a mountain metaphor to evoke emotion and show how framing can make depression among high-achieving students feel more or less prevalent." <br><br>
+                            &mdash; Jakob Munch-Brandt
+                        </blockquote>
+                        <div class="reference-section">
+                            <span class="reference-title">References</span>
+                            <p class="inline-citation">Shneiderman, B. (1996). The eyes have it: A task by data type taxonomy for information visualizations. In <i>Proceedings 1996 IEEE Symposium on Visual Languages</i> (pp. 336–343).</p>
+                            <p class="inline-citation">Tufte, E. R. (2018). <i>The visual display of quantitative information</i> (2nd ed.). Graphics Press.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mikkel A3 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Mikkels_assignments/Assignment_3/Assignment 3_Mikkel Tagesen Knudsen_revised.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Mikkels_assignments/Assignment_3/Assignment 3_Mikkel Tagesen Knudsen_revised.pdf" target="_blank" class="view-btn">View Paper</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Analytical Lenses</h3>
+                        <span class="curator-name">Mikkel Tagesen Knudsen</span>
+                        <blockquote class="artifact-quote">
+                            "Instead of focusing on analytical precision, the goal is to visceralise the data, to evoke emotion and provoke reflection on what the dataset does not show. This aligns with feminist data principles that argue for the importance of emotion and embodiment in understanding data (D'Ignazio & Klein, 2020)." <br><br>
+                            &mdash; Mikkel Tagesen Knudsen
+                        </blockquote>
+                        <div class="reference-section">
+                            <span class="reference-title">References</span>
+                            <p class="inline-citation">D'Ignazio, C., & Klein, L. F. (2020). <i>Data Feminism.</i> MIT Press.</p>
+                        </div>
+                        <div class="action-links">
+                            <a href="Mikkels_assignments/Assignment_3/attatchment of assignment 3.pdf" target="_blank" class="text-link">View Attachment</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sebastian A3 -->
+                <div class="artifact-card">
+                    <div class="artifact-preview">
+                        <object data="Sebs_assignments/Assignment_3/Assignment 3.pdf" type="application/pdf" width="100%" height="100%">
+                            <div class="pdf-fallback">
+                                <p>Your browser doesn't support embedded PDFs.</p>
+                                <a href="Sebs_assignments/Assignment_3/Assignment 3.pdf" target="_blank" class="view-btn">View Assignment</a>
+                            </div>
+                        </object>
+                    </div>
+                    <div class="artifact-info">
+                        <h3>Visual Interpretation</h3>
+                        <span class="curator-name">Sebastian Kjær</span>
+                        <blockquote class="artifact-quote">
+                            "Visually, this draws upon "Data Feminism" principles such as Rethink Binaries and Examine Power. It shows how a seemingly technical decision to register gender as "Male" or "Female" is simultaneously an ethical and political decision. By using visualizations in a somewhat untraditional way, I aim to highlight a form of data criticism that hopefully creates feelings of absence and exclusion in the viewer." <br><br>
+                            &mdash; Sebastian Kjær
+                        </blockquote>
+                        <div class="reference-section">
+                            <span class="reference-title">References</span>
+                            <p class="inline-citation">D'Ignazio, C., & Klein, L. F. (2020). <i>Data Feminism.</i> MIT Press.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tobias A3 -->
                 <div class="artifact-card">
                     <div class="artifact-preview">
                         <object data="Tobias_assignments/Assignment_3/Assignment 3 - Curating data.pdf" type="application/pdf" width="100%" height="100%">
@@ -464,7 +490,7 @@
                     </div>
                     <div class="artifact-info">
                         <h3>Data Narratives</h3>
-                        <span class="tag">Assignment 3</span>
+                        <span class="curator-name">Tobias Kyhn Mikkelsen</span>
                         <blockquote class="artifact-quote">
                             "While the first supports understanding, the second provokes thought." <br><br>
                             &mdash; Tobias Kyhn Mikkelsen
@@ -475,7 +501,7 @@
         </section>
 
         <!-- References / Bibliography Section -->
-        <section id="references" class="reference-list-section">
+        <section id="references" class="reference-list-section alt-bg">
             <div class="curator-header">
                 <h2>Bibliography</h2>
                 <p class="curator-role">Sources & Theory</p>
@@ -506,7 +532,7 @@
                     <img src="Jakobs_assignments/Assignment_1/amelia_acker.webp" alt="Amelia Acker" class="ref-author-img">
                     <div class="ref-content">
                         <p class="ref-citation">
-                            Acker, A. (2021). Metadata. In N. B. Thylstrup, D. Agostinho, A. Ring, C. D’Ignazio, & K. Veel (Eds.), <i>Uncertain archives: Critical keywords for big data</i> (pp. 33–42). MIT Press.
+                            Acker, A. (2021). Metadata. In N. B. Thylstrup, D. Agostinho, A. Ring, C. D'Ignazio, & K. Veel (Eds.), <i>Uncertain archives: Critical keywords for big data</i> (pp. 33–42). MIT Press.
                         </p>
                     </div>
                 </div>
@@ -538,11 +564,11 @@
                     </div>
                 </div>
 
-                <!-- D’Ignazio & Klein -->
+                <!-- D'Ignazio & Klein -->
                 <div class="reference-card">
                     <div class="ref-content">
                         <p class="ref-citation">
-                            D’Ignazio, C., & Klein, L. F. (2020). <i>Data feminism.</i> MIT Press.
+                            D'Ignazio, C., & Klein, L. F. (2020). <i>Data feminism.</i> MIT Press.
                         </p>
                     </div>
                 </div>

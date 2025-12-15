@@ -34,3 +34,6 @@ To add images:
 - The website is responsive and will work on mobile devices
 - Feel free to add more sections or items as needed
 
+
+
+
