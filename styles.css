@@ -792,8 +792,67 @@ section.visible {
     color: var(--text-primary);
 }
 
+/* ============================================
+   CREDITS SECTION
+   ============================================ */
+
+.credits-section {
+    padding: 180px 40px;
+    text-align: center;
+    position: relative;
+}
+
+.credits-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.credits-content h2 {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--accent);
+    margin-bottom: 20px;
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+.credits-subtitle {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+    margin-bottom: 60px;
+    opacity: 0.6;
+    font-weight: 300;
+}
+
+.credits-names {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.credits-names p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.4;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.credits-names p:hover {
+    opacity: 1;
+    transform: translateX(10px);
+    color: var(--accent);
+}
+
 .reference-list-section {
-    margin-top: 150px;
+    margin-top: 100px;
     border-top: 1px solid var(--glass-border);
     padding-top: 120px;
 }
