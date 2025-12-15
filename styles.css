@@ -385,6 +385,7 @@ section.visible {
 .assignment-section {
     padding: var(--section-spacing) 40px;
     position: relative;
+    scroll-margin-top: 120px;
 }
 
 .assignment-header {
@@ -541,7 +542,7 @@ section.visible {
 }
 
 .transition-section {
-    padding: 180px 40px;
+    padding: 150px 40px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -553,14 +554,14 @@ section.visible {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 2px;
-    height: 100px;
+    width: 1px;
+    height: 80px;
     background: linear-gradient(180deg, transparent, var(--accent), transparent);
-    opacity: 0.3;
+    opacity: 0.2;
 }
 
 .transition-content {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
@@ -568,13 +569,13 @@ section.visible {
 
 .transition-text {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 300;
     color: var(--text-primary);
     font-style: italic;
-    opacity: 0.6;
-    letter-spacing: -0.02em;
-    line-height: 1.4;
+    opacity: 0.5;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
 }
 
 .curator-name {
