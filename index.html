@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Webspind — portefølje og digitalt laboratorium af Jakob Munch-Brandt. Værktøjer der kører i browseren.">
+  <meta name="description" content="Webspind — Zero-cost edge portfolio. Client-side værktøjer og informationsarkitektur af Jakob Munch-Brandt.">
   <meta name="author" content="Jakob Munch-Brandt">
-  <title>Webspind | Digitalt lab af Jakob Munch-Brandt</title>
+  <title>Webspind | Digitalt lab · Jakob Munch-Brandt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,13 +16,9 @@
 
   <header class="site-header" id="top">
     <nav class="nav" aria-label="Primær navigation">
-      <a class="nav__logo" href="#top">
-        webspind<span class="nav__logo-tld">.com</span>
-      </a>
+      <a class="nav__logo" href="#top">webspind<span class="nav__logo-tld">.com</span></a>
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Åbn menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
       <ul class="nav__menu" id="nav-menu">
         <li><a href="#lab">Værktøjer</a></li>
@@ -34,28 +30,20 @@
 
   <main id="main">
     <section class="hero section" aria-labelledby="hero-title">
-      <p class="hero__kicker">Portefølje · edge computing uden serveromkostninger</p>
-      <h1 id="hero-title" class="hero__title">
-        Webspind: Digitalt lab af Jakob Munch-Brandt
-      </h1>
+      <p class="hero__kicker">Zero-cost edge · informationsarkitektur</p>
+      <h1 id="hero-title" class="hero__title">Webspind: Digitalt lab</h1>
+      <p class="hero__byline">Jakob Munch-Brandt</p>
       <p class="hero__bio">
-        Kandidatstuderende i informationsvidenskab (Aarhus Universitet) og specialist i AI-optimering.
-        Jeg forbinder teoretisk informationsarkitektur med praktisk AI-implementering.
+        Kandidat i informationsvidenskab (AU) · AI-optimering · systemdesign fra taxonomi til produktion.
       </p>
-      <div class="hero__actions">
-        <a class="btn" href="#lab">Se værktøjer</a>
-        <a class="btn btn--outline" href="#cv">Se CV</a>
-      </div>
     </section>
 
-    <hr class="rule">
-
-    <section class="lab section" id="lab" aria-labelledby="lab-title">
+    <section class="lab section section--tight" id="lab" aria-labelledby="lab-title">
       <header class="section__header">
-        <p class="section__kicker">Kører i din browser</p>
+        <p class="section__kicker">Client-side runtime</p>
         <h2 id="lab-title" class="section__title">Det digitale laboratorium</h2>
-        <p class="section__lead">
-          Ingen upload til servere. Dine filer og prompts bliver på din enhed.
+        <p class="section__lead section__lead--tech">
+          <strong>Zero-Cost Architecture:</strong> Værktøjerne afvikles 100&nbsp;% client-side via WebAssembly og lokal DOM-manipulation. Data forlader aldrig din browser (GDPR-by-design).
         </p>
       </header>
 
@@ -63,19 +51,18 @@
         <article class="tool" aria-labelledby="pdf-title">
           <h3 id="pdf-title" class="tool__title">PDF-metadatafjerner</h3>
           <p class="tool__desc">
-            Fjern titel, forfatter, emne og producent fra en PDF før du deler den.
+            Stripper Info-dictionary (Title, Author, Producer m.fl.) via pdf-lib. Ingen round-trip til server.
           </p>
 
           <label class="dropzone" id="pdf-dropzone">
             <input type="file" id="pdf-input" accept="application/pdf,.pdf">
-            <span class="dropzone__text" id="pdf-label">Træk en PDF hertil, eller klik for at vælge fil</span>
-            <span class="dropzone__hint">Maks. 25 MB</span>
+            <span class="dropzone__text" id="pdf-label">Træk PDF hertil · klik for filsystem</span>
+            <span class="dropzone__hint">Maks. 25 MB · ArrayBuffer → pdf-lib → Blob download</span>
           </label>
 
           <p class="tool__status" id="pdf-status" role="status" aria-live="polite"></p>
-
           <div class="tool__actions">
-            <button type="button" class="btn" id="pdf-scrub-btn" disabled>Rens og download</button>
+            <button type="button" class="btn" id="pdf-scrub-btn" disabled>Rens &amp; download</button>
             <button type="button" class="btn btn--outline btn--small" id="pdf-clear-btn" disabled>Ryd</button>
           </div>
         </article>
@@ -83,19 +70,45 @@
         <article class="tool" aria-labelledby="prompt-title">
           <h3 id="prompt-title" class="tool__title">Prompt-arkitekt</h3>
           <p class="tool__desc">
-            Gør en rå AI-prompt om til en struktureret systemprompt med kontekst, opgave og format.
+            Kompilerer rå input til en flerlags systemprompt: kontekst, opgave, tone, format constraints og few-shot eksempler.
           </p>
 
-          <label class="field-label" for="prompt-raw">Rå prompt</label>
-          <textarea id="prompt-raw" class="field" rows="5" placeholder="Indsæt din ustrukturerede prompt her…"></textarea>
+          <label class="field-label" for="prompt-raw">Kerneopgave</label>
+          <textarea id="prompt-raw" class="field" rows="4" placeholder="Beskriv opgaven, målgruppe og ønsket output…"></textarea>
+
+          <div class="field-row">
+            <div>
+              <label class="field-label" for="prompt-tone">Tone of voice</label>
+              <select id="prompt-tone" class="field field--select">
+                <option value="professionel">Professionel &amp; præcis</option>
+                <option value="teknisk">Teknisk &amp; datadrevet</option>
+                <option value="konsulent">Konsulent — struktureret, handlingsorienteret</option>
+                <option value="akademisk">Akademisk — nuanceret, evidensbaseret</option>
+                <option value="direkte">Direkte &amp; koncist</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label" for="prompt-format">Format constraint</label>
+              <select id="prompt-format" class="field field--select">
+                <option value="markdown">Markdown (overskrifter + lister)</option>
+                <option value="json">JSON (valid, typed struktur)</option>
+                <option value="xml">XML (velformede tags)</option>
+                <option value="tabel">Tabeller / CSV-lignende</option>
+                <option value="prosa">Ren prosa</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="field-label" for="prompt-examples">Few-shot eksempler <span class="field-label__opt">(valgfrit)</span></label>
+          <textarea id="prompt-examples" class="field field--mono" rows="3" placeholder="Input: …&#10;Output: …&#10;&#10;Input: …&#10;Output: …"></textarea>
 
           <div class="tool__actions">
-            <button type="button" class="btn" id="prompt-build-btn">Byg prompt</button>
+            <button type="button" class="btn" id="prompt-build-btn">Kompiler prompt</button>
             <button type="button" class="btn btn--outline btn--small" id="prompt-copy-btn" disabled>Kopiér</button>
           </div>
 
-          <label class="field-label" for="prompt-output">Struktureret output</label>
-          <textarea id="prompt-output" class="field field--mono" rows="10" readonly placeholder="Resultatet vises her…"></textarea>
+          <label class="field-label" for="prompt-output">Kompileret systemprompt</label>
+          <textarea id="prompt-output" class="field field--mono" rows="14" readonly placeholder="Output genereres her…"></textarea>
         </article>
       </div>
     </section>
@@ -104,70 +117,99 @@
 
     <section class="cv section" id="cv" aria-labelledby="cv-title">
       <header class="section__header">
-        <p class="section__kicker">Profil</p>
-        <h2 id="cv-title" class="section__title">Erfaring og baggrund</h2>
+        <p class="section__kicker">Interaktiv informationsarkitektur</p>
+        <h2 id="cv-title" class="section__title">Erfaring &amp; baggrund</h2>
+        <p class="section__lead">Filtrér efter domæne — implementeret i ren JavaScript uden framework.</p>
       </header>
+
+      <div class="cv-filters" role="toolbar" aria-label="Filtrér CV">
+        <button type="button" class="filter-btn is-active" data-filter="all">Alle</button>
+        <button type="button" class="filter-btn" data-filter="ai">Vis AI</button>
+        <button type="button" class="filter-btn" data-filter="web">Vis Web</button>
+        <button type="button" class="filter-btn" data-filter="akademi">Vis Akademi</button>
+      </div>
 
       <div class="cv__grid">
         <div>
           <h3 class="cv__heading">Erfaring</h3>
-          <ol class="timeline">
-            <li class="timeline__item">
-              <time class="timeline__date" datetime="2024">2024 — nu</time>
-              <h4 class="timeline__role">AI-optimeringsspecialist</h4>
-              <p class="timeline__org">Sweco</p>
-              <p class="timeline__text">
-                Design og implementering af AI-drevne arbejdsgange til optimering af ingeniørprocesser, dokumentation og vidensopslag.
-              </p>
+          <ol class="timeline" id="timeline-exp">
+            <li class="timeline__item" data-categories="ai">
+              <div class="timeline__row">
+                <time class="timeline__year" datetime="2024">2024</time>
+                <span class="timeline__line" aria-hidden="true"></span>
+                <div class="timeline__body">
+                  <span class="timeline__range">nu</span>
+                  <h4 class="timeline__role">AI-optimeringsspecialist</h4>
+                  <p class="timeline__org">Sweco</p>
+                  <p class="timeline__text">RAG-pipelines, prompt chains og workflow-automatisering i ingeniør- og dokumentationsdomæner.</p>
+                </div>
+              </div>
             </li>
-            <li class="timeline__item">
-              <time class="timeline__date" datetime="2023">2023 — 2024</time>
-              <h4 class="timeline__role">AI &amp; kommunikation</h4>
-              <p class="timeline__org">Uniwelco</p>
-              <p class="timeline__text">
-                Formidling af tekniske AI-kompetencer til interessenter, indholdsstrategi og intern enablement.
-              </p>
+            <li class="timeline__item" data-categories="ai">
+              <div class="timeline__row">
+                <time class="timeline__year" datetime="2023">2023</time>
+                <span class="timeline__line" aria-hidden="true"></span>
+                <div class="timeline__body">
+                  <span class="timeline__range">2024</span>
+                  <h4 class="timeline__role">AI &amp; kommunikation</h4>
+                  <p class="timeline__org">Uniwelco</p>
+                  <p class="timeline__text">Teknisk enablement, GPT-implementering og stakeholder-alignment mellem IT og forretning.</p>
+                </div>
+              </div>
             </li>
-            <li class="timeline__item">
-              <time class="timeline__date" datetime="2021">2021 — nu</time>
-              <h4 class="timeline__role">E-handelsstifter &amp; webudvikler</h4>
-              <p class="timeline__org">24skin</p>
-              <p class="timeline__text">
-                Opbygning og skalering af en DTC-platform — webudvikling, automatisering og konverteringsfokuseret UX.
-              </p>
+            <li class="timeline__item" data-categories="web">
+              <div class="timeline__row">
+                <time class="timeline__year" datetime="2021">2021</time>
+                <span class="timeline__line" aria-hidden="true"></span>
+                <div class="timeline__body">
+                  <span class="timeline__range">nu</span>
+                  <h4 class="timeline__role">E-handelsstifter &amp; webudvikler</h4>
+                  <p class="timeline__org">24skin</p>
+                  <p class="timeline__text">DTC-stack, konverterings-UX, checkout-flows og integrationslag (betaling, lager, analytics).</p>
+                </div>
+              </div>
             </li>
           </ol>
         </div>
 
         <div>
           <h3 class="cv__heading">Uddannelse</h3>
-          <ol class="timeline">
-            <li class="timeline__item">
-              <time class="timeline__date" datetime="2023">2023 — nu</time>
-              <h4 class="timeline__role">Kandidat i informationsvidenskab</h4>
-              <p class="timeline__org">Aarhus Universitet</p>
-              <p class="timeline__text">
-                Informationsarkitektur, datamodellering, menneske-computer-interaktion og AI-systemer i organisationer.
-              </p>
+          <ol class="timeline" id="timeline-edu">
+            <li class="timeline__item" data-categories="akademi">
+              <div class="timeline__row">
+                <time class="timeline__year" datetime="2023">2023</time>
+                <span class="timeline__line" aria-hidden="true"></span>
+                <div class="timeline__body">
+                  <span class="timeline__range">nu</span>
+                  <h4 class="timeline__role">Kandidat · informationsvidenskab</h4>
+                  <p class="timeline__org">Aarhus Universitet</p>
+                  <p class="timeline__text">Informationsarkitektur, ontologier, HCI og AI-systemer i organisatoriske kontekster.</p>
+                </div>
+              </div>
             </li>
-            <li class="timeline__item">
-              <time class="timeline__date" datetime="2024">Udveksling · 2024</time>
-              <h4 class="timeline__role">Information Studies</h4>
-              <p class="timeline__org">University of Texas at Austin</p>
-              <p class="timeline__text">
-                International udveksling med fokus på digitale biblioteker, vidensorganisering og informationspolitik.
-              </p>
+            <li class="timeline__item" data-categories="akademi">
+              <div class="timeline__row">
+                <time class="timeline__year" datetime="2024">2024</time>
+                <span class="timeline__line" aria-hidden="true"></span>
+                <div class="timeline__body">
+                  <span class="timeline__range">udv.</span>
+                  <h4 class="timeline__role">Information Studies</h4>
+                  <p class="timeline__org">University of Texas at Austin</p>
+                  <p class="timeline__text">Digital libraries, knowledge organization, informationspolitik.</p>
+                </div>
+              </div>
             </li>
           </ol>
 
           <h3 class="cv__heading cv__heading--spaced">Kompetencer</h3>
-          <ul class="tags">
-            <li class="tag">Web (HTML/CSS/JS)</li>
-            <li class="tag">AI-implementering</li>
-            <li class="tag">Digital automatisering</li>
-            <li class="tag">Custom GPT'er</li>
-            <li class="tag">Informationsarkitektur</li>
-            <li class="tag">Prompt engineering</li>
+          <ul class="tags" id="cv-tags">
+            <li class="tag" data-categories="web">HTML/CSS/JS</li>
+            <li class="tag" data-categories="ai">AI-implementering</li>
+            <li class="tag" data-categories="ai">Prompt engineering</li>
+            <li class="tag" data-categories="ai">Custom GPT'er</li>
+            <li class="tag" data-categories="web">Digital automatisering</li>
+            <li class="tag" data-categories="akademi">Informationsarkitektur</li>
+            <li class="tag" data-categories="ai">RAG &amp; workflow design</li>
           </ul>
         </div>
       </div>
@@ -177,16 +219,14 @@
 
     <section class="contact section" id="kontakt" aria-labelledby="kontakt-title">
       <h2 id="kontakt-title" class="section__title">Kontakt</h2>
-      <p class="contact__text">
-        Spørgsmål om AI-optimering, informationsarkitektur eller browserbaserede værktøjer?
-      </p>
-      <a class="contact__email" href="mailto:hello@webspind.com">hello@webspind.com</a>
+      <p class="contact__text">AI-optimering, informationsarkitektur eller edge-native tooling.</p>
+      <a class="contact__email" href="mailto:jakob.mb17@gmail.com">jakob.mb17@gmail.com</a>
     </section>
   </main>
 
   <footer class="site-footer">
     <p>&copy; <span id="year"></span> Jakob Munch-Brandt · <a href="https://webspind.com">webspind.com</a></p>
-    <p class="site-footer__note">Bygget med ren HTML, CSS og JavaScript — uden build-trin og uden backend.</p>
+    <p class="site-footer__note">Vanilla HTML/CSS/JS · ingen build pipeline · ingen backend.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
