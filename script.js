@@ -4,6 +4,9 @@
 (function () {
   'use strict';
 
+  const PROCESS_BLOCK =
+    '<process>Før du løser opgaven, skal du gøre følgende: 1. Stil mig højst 3 korte, præcise spørgsmål for at afklare min situation og mine behov. 2. Vent på, at jeg har besvaret dine spørgsmål. 3. Først derefter giver du dit endelige svar baseret på den fulde kontekst.</process>';
+
   const REASONING_BLOCK =
     '<reasoning>Before providing the final output, please think step by step and outline your logic.</reasoning>';
 
@@ -72,13 +75,13 @@
   function buildPrompt(role, action, tone, format) {
     if (!action.trim()) return null;
 
-    const parts = [];
+    const parts = ['<system_prompt>', ''];
 
     appendTag(parts, 'role', role);
     appendTag(parts, 'action', action);
     appendTag(parts, 'tone', tone);
     appendTag(parts, 'format', format);
-    parts.push(REASONING_BLOCK);
+    parts.push(PROCESS_BLOCK, '', REASONING_BLOCK, '', '</system_prompt>');
 
     return parts.join('\n');
   }
