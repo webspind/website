@@ -4,6 +4,9 @@
 (function () {
   'use strict';
 
+  const CONSTRAINTS_BLOCK =
+    "<constraints>1. Undgå 'AI-slop': Brug ingen fyldord, klicheer eller metaforer. 2. Vær direkte og menneskelig i sproget. Skriv som en erfaren fagperson, ikke en maskine. 3. Gå direkte til sagen. Drop overflødige indledninger og konklusioner. 4. Ingen overflødig høflighed. Bare løs opgaven.</constraints>";
+
   const PROCESS_BLOCK =
     '<process>Før du løser opgaven, skal du gøre følgende: 1. Stil mig højst 3 korte, præcise spørgsmål for at afklare min situation og mine behov. 2. Vent på, at jeg har besvaret dine spørgsmål. 3. Først derefter giver du dit endelige svar baseret på den fulde kontekst.</process>';
 
@@ -80,6 +83,7 @@
     appendTag(parts, 'role', role);
     appendTag(parts, 'action', action);
     appendTag(parts, 'tone', tone);
+    parts.push(CONSTRAINTS_BLOCK, '');
     appendTag(parts, 'format', format);
     parts.push(PROCESS_BLOCK, '', REASONING_BLOCK, '', '</system_prompt>');
 
