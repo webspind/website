@@ -22,7 +22,7 @@
     </div>
     <nav class="nav" aria-label="Navigation">
       <ul class="nav__menu" id="nav-menu">
-        <li><a href="#lab">Værktøjer</a></li>
+        <li><a href="#lab">Laboratorium</a></li>
         <li><a href="#cv">CV</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
       </ul>
@@ -65,65 +65,72 @@
 
     <hr class="rule rule--thick">
 
-    <section class="block" id="lab" aria-labelledby="lab-title">
-      <h2 id="lab-title" class="block__title">Værktøjer</h2>
-      <p class="block__intro">
-        Kører i browseren. Ingen server — dine filer bliver på din computer.
-      </p>
+    <section class="block block--lab" id="lab" aria-labelledby="lab-title">
+      <h2 id="lab-title" class="block__title">Det digitale laboratorium</h2>
+      <p class="block__intro">Prompt-arkitekt — udfyld felterne og få en klar systemprompt.</p>
 
-      <div class="tools">
-        <article class="tool">
-          <h3 class="tool__name">PDF — fjern metadata</h3>
-          <p class="tool__hint">Træk en PDF ind, download en renset version.</p>
-
-          <label class="dropzone" id="pdf-dropzone">
-            <input type="file" id="pdf-input" accept="application/pdf,.pdf">
-            <span class="dropzone__text" id="pdf-label">Vælg eller træk PDF</span>
+      <div class="architect">
+        <form class="architect__form" id="prompt-form" novalidate>
+          <label class="field" for="prompt-persona">
+            <span class="field__label">Persona / rolle</span>
+            <input
+              type="text"
+              id="prompt-persona"
+              class="field__input"
+              placeholder="Fx: You are a technical writer…"
+              autocomplete="off"
+            >
           </label>
-          <p class="tool__status" id="pdf-status" role="status" aria-live="polite"></p>
-          <div class="tool__btns">
-            <button type="button" class="btn" id="pdf-scrub-btn" disabled>Download</button>
-            <button type="button" class="btn btn--light" id="pdf-clear-btn" disabled>Ryd</button>
+
+          <label class="field" for="prompt-context">
+            <span class="field__label">Kontekst / baggrund</span>
+            <textarea
+              id="prompt-context"
+              class="field__input field__input--area"
+              rows="3"
+              placeholder="Hvad er situationen?"
+            ></textarea>
+          </label>
+
+          <label class="field" for="prompt-task">
+            <span class="field__label">Opgave <span class="field__req">*</span></span>
+            <textarea
+              id="prompt-task"
+              class="field__input field__input--area"
+              rows="3"
+              placeholder="Hvad skal modellen lave?"
+              required
+            ></textarea>
+          </label>
+
+          <label class="field" for="prompt-examples">
+            <span class="field__label">Few-shot eksempler <span class="field__opt">valgfrit</span></span>
+            <textarea
+              id="prompt-examples"
+              class="field__input field__input--area"
+              rows="3"
+              placeholder="1–2 eksempler på godt output…"
+            ></textarea>
+          </label>
+
+          <label class="field field--check" for="prompt-cot">
+            <input type="checkbox" id="prompt-cot" class="field__check">
+            <span class="field__check-text">
+              Bed modellen tænke trin for trin, før den svarer
+            </span>
+          </label>
+
+          <button type="submit" class="btn btn--primary">Generer prompt</button>
+          <p class="architect__msg" id="prompt-msg" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="terminal" id="prompt-output-wrap" hidden>
+          <div class="terminal__bar">
+            <span class="terminal__title">system_prompt.xml</span>
+            <button type="button" class="terminal__copy" id="prompt-copy-btn">Kopiér</button>
           </div>
-        </article>
-
-        <article class="tool">
-          <h3 class="tool__name">Prompt-arkitekt</h3>
-          <p class="tool__hint">Skriv en opgave — få en struktureret systemprompt.</p>
-
-          <label class="label" for="prompt-raw">Opgave</label>
-          <textarea id="prompt-raw" class="input" rows="3" placeholder="Hvad skal AI'en gøre?"></textarea>
-
-          <div class="tool__row">
-            <div>
-              <label class="label" for="prompt-tone">Tone</label>
-              <select id="prompt-tone" class="input input--select">
-                <option value="professionel">Professionel</option>
-                <option value="teknisk">Teknisk</option>
-                <option value="direkte">Direkte</option>
-              </select>
-            </div>
-            <div>
-              <label class="label" for="prompt-format">Format</label>
-              <select id="prompt-format" class="input input--select">
-                <option value="markdown">Markdown</option>
-                <option value="json">JSON</option>
-                <option value="prosa">Tekst</option>
-              </select>
-            </div>
-          </div>
-
-          <label class="label" for="prompt-examples">Eksempler <span class="label--opt">valgfrit</span></label>
-          <textarea id="prompt-examples" class="input input--small" rows="2" placeholder="Input / output …"></textarea>
-
-          <div class="tool__btns">
-            <button type="button" class="btn" id="prompt-build-btn">Byg</button>
-            <button type="button" class="btn btn--light" id="prompt-copy-btn" disabled>Kopiér</button>
-          </div>
-
-          <label class="label" for="prompt-output">Resultat</label>
-          <textarea id="prompt-output" class="input input--mono" rows="8" readonly></textarea>
-        </article>
+          <pre class="terminal__body" id="prompt-output" tabindex="0"></pre>
+        </div>
       </div>
     </section>
 
@@ -209,7 +216,6 @@
     <p><span id="year"></span> · Jakob Munch-Brandt · webspind.com</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
