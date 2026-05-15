@@ -51,23 +51,46 @@
     }
   }
 
+  function setToggleState(toggle, isOpen) {
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Luk menu' : 'Åbn menu');
+  }
+
   function initNav() {
     const toggle = document.querySelector('.nav__toggle');
     const menu = $('nav-menu');
     if (!toggle || !menu) return;
 
+    setToggleState(toggle, false);
+
     toggle.addEventListener('click', () => {
       const open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
+      setToggleState(toggle, !open);
       menu.classList.toggle('is-open', !open);
     });
 
     menu.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
-        toggle.setAttribute('aria-expanded', 'false');
+        setToggleState(toggle, false);
         menu.classList.remove('is-open');
       });
     });
+  }
+
+  function initStickyCompact() {
+    const masthead = document.querySelector('.masthead');
+    if (!masthead) return;
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        masthead.classList.toggle('is-compact', window.scrollY > 80);
+        ticking = false;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
 
   function appendTag(parts, tag, value) {
@@ -108,15 +131,18 @@
     }
   }
 
+  function getRadioValue(name) {
+    const checked = document.querySelector(`input[name="${name}"]:checked`);
+    return checked ? checked.value : '';
+  }
+
   function initPrompt() {
     const form = $('prompt-form');
     const role = $('prompt-role');
     const action = $('prompt-action');
-    const tone = $('prompt-tone');
-    const format = $('prompt-format');
     const msg = $('prompt-msg');
 
-    if (!form || !action || !tone || !format) return;
+    if (!form || !action) return;
 
     let successTimer = null;
 
@@ -132,8 +158,8 @@
       const result = buildPrompt(
         role.value,
         action.value,
-        tone.value,
-        format.value
+        getRadioValue('prompt-tone'),
+        getRadioValue('prompt-format')
       );
 
       if (!result) {
@@ -164,11 +190,16 @@
     const buttons = document.querySelectorAll('.filter');
     const entries = document.querySelectorAll('.entry[data-categories]');
     const tags = document.querySelectorAll('.tag[data-categories]');
+    const cvSection = $('cv');
 
     buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
         const f = btn.dataset.filter || 'all';
-        buttons.forEach((b) => b.classList.toggle('is-on', b === btn));
+        buttons.forEach((b) => {
+          const on = b === btn;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
         entries.forEach((el) => {
           const match = f === 'all' || el.dataset.categories === f;
           el.classList.toggle('is-hidden', !match);
@@ -177,6 +208,9 @@
           const match = f === 'all' || el.dataset.categories === f;
           el.classList.toggle('is-hidden', !match);
         });
+        if (cvSection && f !== 'all') {
+          cvSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
   }
@@ -190,6 +224,7 @@
     initMasthead();
     initPortrait();
     initNav();
+    initStickyCompact();
     initPrompt();
     initFilter();
     initFooter();

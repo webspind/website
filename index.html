@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Webspind — portefølje og værktøjer af Jakob Munch-Brandt.">
+  <meta name="description" content="CV og prompt-arkitekt-værktøj af Jakob Munch-Brandt — informationsvidenskab og AI i praksis.">
   <meta name="author" content="Jakob Munch-Brandt">
   <title>Webspind · Jakob Munch-Brandt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
     <div class="masthead__inner">
       <p class="masthead__date" id="masthead-date" aria-hidden="true"></p>
       <a class="masthead__title" href="#top">Webspind</a>
-      <p class="masthead__tagline">Digitalt CV · webspind.com</p>
+      <p class="masthead__tagline">Portefølje · 2026</p>
     </div>
     <nav class="nav" aria-label="Navigation">
       <ul class="nav__menu" id="nav-menu">
@@ -26,7 +26,7 @@
         <li><a href="#lab">Prompt-arkitekt</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
       </ul>
-      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Åbn menu">
         <span></span><span></span>
       </button>
     </nav>
@@ -51,13 +51,14 @@
         </figure>
 
         <div class="hero__text">
-          <p class="hero__label">Om mig</p>
+          <p class="hero__label">Jakob Munch-Brandt</p>
           <h1 id="hero-title" class="hero__title">
-            Informationsvidenskab og AI i praksis
+            Jeg arbejder med informationsvidenskab og AI i praksis
           </h1>
           <p class="hero__lead">
-            Kandidatstuderende ved Aarhus Universitet. Jeg arbejder med AI-optimering,
-            web og struktur — fra idé til noget, der kan bruges.
+            Kandidatstuderende i informationsvidenskab ved Aarhus Universitet.
+            Jeg bygger AI-værktøjer og automatisering — fra idé til prototype
+            der løser et reelt problem.
           </p>
         </div>
       </div>
@@ -69,10 +70,10 @@
       <h2 id="cv-title" class="block__title">CV</h2>
 
       <div class="filters" role="toolbar" aria-label="Filtrér">
-        <button type="button" class="filter is-on" data-filter="all">Alle</button>
-        <button type="button" class="filter" data-filter="ai">AI</button>
-        <button type="button" class="filter" data-filter="web">Web</button>
-        <button type="button" class="filter" data-filter="akademi">Studie</button>
+        <button type="button" class="filter is-on" data-filter="all" aria-pressed="true">Alle</button>
+        <button type="button" class="filter" data-filter="ai" aria-pressed="false">AI</button>
+        <button type="button" class="filter" data-filter="web" aria-pressed="false">Web</button>
+        <button type="button" class="filter" data-filter="akademi" aria-pressed="false">Studie</button>
       </div>
 
       <div class="cv">
@@ -82,15 +83,15 @@
             <li class="entry" data-categories="ai">
               <span class="entry__year">2024-2025</span>
               <div class="entry__body">
-                <strong>AI &amp; kommunikation</strong> · Uniwelco
+                <strong>AI &amp; kommunikation</strong> · Uniwelco (studiejob)
                 <p>HubSpot Breeze-agenter, AI-workflows og automatisering.</p>
               </div>
             </li>
             <li class="entry" data-categories="web">
-              <span class="entry__year">2021</span>
+              <span class="entry__year">2019-2023</span>
               <div class="entry__body">
                 <strong>Stifter &amp; udvikler</strong> · 24skin
-                <p>E-handel, web og automatisering.</p>
+                <p>E-handelsplatform med selvbygget web og automatiserede flows. Drevet i fire år, solgt 2023.</p>
               </div>
             </li>
           </ol>
@@ -121,6 +122,11 @@
             <li class="tag" data-categories="ai">AI-implementering</li>
             <li class="tag" data-categories="ai">Prompt design</li>
             <li class="tag" data-categories="akademi">Informationsarkitektur</li>
+            <li class="tag" data-categories="akademi">Informationsvidenskab</li>
+            <li class="tag" data-categories="ai">UX-skrivning</li>
+            <li class="tag" data-categories="ai">HubSpot</li>
+            <li class="tag" data-categories="ai">n8n</li>
+            <li class="tag" data-categories="web">Figma</li>
           </ul>
         </div>
       </div>
@@ -132,7 +138,7 @@
       <header class="lab-header">
         <p class="lab-header__overline">Arbejdseksempel</p>
         <h2 id="lab-title" class="lab-header__title">Prompt-arkitekt</h2>
-        <p class="lab-header__intro">Et værktøj jeg har bygget for at vise hvordan jeg arbejder med prompt design og informationsarkitektur. Udfyld felterne, få en klar systemprompt.</p>
+        <p class="lab-header__intro">Skriv kort hvad du har brug for. Værktøjet bygger en struktureret systemprompt du kan kopiere direkte ind i ChatGPT eller Claude.</p>
       </header>
 
       <div class="architect">
@@ -159,23 +165,35 @@
             ></textarea>
           </label>
 
-          <label class="field" for="prompt-tone">
-            <span class="field__label">Tone / Stil</span>
-            <select id="prompt-tone" class="field__input field__input--select">
-              <option value="Pædagogisk og letforståelig">Pædagogisk og letforståelig</option>
-              <option value="Kort, direkte og professionel">Kort, direkte og professionel</option>
-            </select>
-          </label>
+          <fieldset class="field field--radio">
+            <legend class="field__label">Tone / Stil</legend>
+            <div class="radio-group">
+              <label class="radio">
+                <input type="radio" name="prompt-tone" value="Pædagogisk og letforståelig" checked>
+                <span>Pædagogisk og letforståelig</span>
+              </label>
+              <label class="radio">
+                <input type="radio" name="prompt-tone" value="Kort, direkte og professionel">
+                <span>Kort, direkte og professionel</span>
+              </label>
+            </div>
+          </fieldset>
 
-          <label class="field" for="prompt-format">
-            <span class="field__label">Svarets format</span>
-            <select id="prompt-format" class="field__input field__input--select">
-              <option value="Korte punkttegn">Korte punkttegn</option>
-              <option value="Udførlig tekst">Udførlig tekst</option>
-            </select>
-          </label>
+          <fieldset class="field field--radio">
+            <legend class="field__label">Svarets format</legend>
+            <div class="radio-group">
+              <label class="radio">
+                <input type="radio" name="prompt-format" value="Korte punkttegn" checked>
+                <span>Korte punkttegn</span>
+              </label>
+              <label class="radio">
+                <input type="radio" name="prompt-format" value="Udførlig tekst">
+                <span>Udførlig tekst</span>
+              </label>
+            </div>
+          </fieldset>
 
-          <button type="submit" class="btn btn--primary" id="prompt-copy-btn">Kopiér din super-prompt</button>
+          <button type="submit" class="btn btn--primary" id="prompt-copy-btn">Generér prompt</button>
           <p class="architect__msg" id="prompt-msg" role="status" aria-live="polite"></p>
         </form>
 
@@ -186,15 +204,22 @@
 
     <section class="block block--contact" id="kontakt">
       <h2 class="block__title">Kontakt</h2>
+      <p class="block__intro">Skriv til mig hvis du vil høre om et projekt eller bare sige hej.</p>
       <div class="contact-links">
         <a class="contact-link" href="mailto:jakob.mb17@gmail.com">jakob.mb17@gmail.com</a>
-        <a class="contact-link" href="https://www.linkedin.com/in/jakobmunchbrandt" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="contact-link" href="https://www.linkedin.com/in/jakobmunchbrandt" target="_blank" rel="noopener noreferrer">LinkedIn <span class="visually-hidden">(åbner i nyt vindue)</span></a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p><span id="year"></span> · Jakob Munch-Brandt · webspind.com</p>
+    <p class="footer__meta">
+      <span class="footer__edition">Udgave <span id="year">2026</span></span>
+      <span class="footer__sep">·</span>
+      <span>Jakob Munch-Brandt</span>
+      <span class="footer__sep">·</span>
+      <span>Sat i Libre Baskerville &amp; Source Sans 3</span>
+    </p>
   </footer>
 
   <script src="script.js"></script>
