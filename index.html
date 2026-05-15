@@ -73,78 +73,42 @@
 
       <div class="architect">
         <form class="architect__form" id="prompt-form" novalidate>
-          <label class="field" for="prompt-persona">
-            <span class="field__label">Hvem skal hjælpe dig? (f.eks. en kok, en lærer)</span>
+          <label class="field" for="prompt-role">
+            <span class="field__label">Hvem skal hjælpe dig?</span>
             <input
               type="text"
-              id="prompt-persona"
+              id="prompt-role"
               class="field__input"
-              placeholder="Fx: en erfaren kok, der kan lave hurtige familiemåltider"
+              placeholder="Skriv 2-3 ord (f.eks. ekspert i aktier, dansklærer)"
               autocomplete="off"
             >
           </label>
 
-          <label class="field" for="prompt-task">
-            <span class="field__label">Hvad har du brug for hjælp til? <span class="field__req">*</span></span>
+          <label class="field" for="prompt-action">
+            <span class="field__label">Hvad skal du have hjælp til? <span class="field__req">*</span></span>
             <textarea
-              id="prompt-task"
+              id="prompt-action"
               class="field__input field__input--area"
               rows="3"
-              placeholder="Fx: Lav en ugeplan med aftensmad"
+              placeholder="Beskriv kort din opgave..."
               required
             ></textarea>
           </label>
 
-          <label class="field" for="prompt-context">
-            <span class="field__label">Hvad er situationen? (f.eks. 3 kræsne børn, 20 minutter)</span>
-            <textarea
-              id="prompt-context"
-              class="field__input field__input--area"
-              rows="3"
-              placeholder="Fx: Vi er tre voksne og tre børn — måltiderne skal laves på under 30 min"
-            ></textarea>
-          </label>
-
-          <label class="field" for="prompt-format">
-            <span class="field__label">Hvordan skal svaret se ud? (f.eks. punktform, kort tekst)</span>
-            <select id="prompt-format" class="field__input field__input--select">
-              <option value="tekst">Standard tekst</option>
-              <option value="punkt">Punktopstilling</option>
-              <option value="tabel">Tabel</option>
-              <option value="kode">Kodeblok</option>
+          <label class="field" for="prompt-tone">
+            <span class="field__label">Tone / Stil</span>
+            <select id="prompt-tone" class="field__input field__input--select">
+              <option value="Pædagogisk og letforståelig">Pædagogisk og letforståelig</option>
+              <option value="Kort, direkte og professionel">Kort, direkte og professionel</option>
             </select>
           </label>
 
-          <label class="field" for="prompt-tone">
-            <span class="field__label">Tone / Stil (f.eks. pædagogisk, direkte, sjov)</span>
-            <input
-              type="text"
-              id="prompt-tone"
-              class="field__input"
-              placeholder="Fx: venlig og pædagogisk"
-              autocomplete="off"
-            >
-          </label>
-
-          <label class="field" for="prompt-constraints">
-            <span class="field__label">Begrænsninger (Er der noget den skal undgå?)</span>
-            <input
-              type="text"
-              id="prompt-constraints"
-              class="field__input"
-              placeholder="Fx: ingen nødder, ingen svære ingredienser"
-              autocomplete="off"
-            >
-          </label>
-
-          <label class="field" for="prompt-examples">
-            <span class="field__label">Eksempel (Valgfrit: Indsæt et eksempel på et godt svar)</span>
-            <textarea
-              id="prompt-examples"
-              class="field__input field__input--area"
-              rows="3"
-              placeholder="Indsæt et eksempel på et godt svar, hvis du har ét"
-            ></textarea>
+          <label class="field" for="prompt-format">
+            <span class="field__label">Svarets format</span>
+            <select id="prompt-format" class="field__input field__input--select">
+              <option value="Korte punkttegn">Korte punkttegn</option>
+              <option value="Udførlig tekst">Udførlig tekst</option>
+            </select>
           </label>
 
           <button type="submit" class="btn btn--primary" id="prompt-copy-btn">Kopiér din super-prompt</button>

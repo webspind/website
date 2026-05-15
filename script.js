@@ -7,13 +7,6 @@
   const REASONING_BLOCK =
     '<reasoning>Before providing the final output, please think step by step and outline your logic.</reasoning>';
 
-  const FORMAT_CONSTRAINTS = {
-    tekst: 'Svar i klar, velstruktureret prosa (standard tekst).',
-    punkt: 'Svar som punktopstilling — ét punkt per linje, kort og præcist.',
-    tabel: 'Svar som en tabel med tydelige kolonneoverskrifter.',
-    kode: 'Svar i en kodeblok med korrekt syntaks.',
-  };
-
   const SUCCESS_MSG = 'Kopieret! Sæt ind i ChatGPT';
   const SUCCESS_MS = 3000;
 
@@ -76,22 +69,15 @@
     parts.push(`<${tag}>`, value.trim(), `</${tag}>`, '');
   }
 
-  function buildPrompt(role, context, action, formatKey, tone, constraints, examples) {
+  function buildPrompt(role, action, tone, format) {
     if (!action.trim()) return null;
 
     const parts = [];
 
     appendTag(parts, 'role', role);
-    appendTag(parts, 'context', context);
     appendTag(parts, 'action', action);
-
-    const formatText = FORMAT_CONSTRAINTS[formatKey] || FORMAT_CONSTRAINTS.tekst;
-    parts.push('<format>', formatText, '</format>', '');
-
     appendTag(parts, 'tone', tone);
-    appendTag(parts, 'constraints', constraints);
-    appendTag(parts, 'examples', examples);
-
+    appendTag(parts, 'format', format);
     parts.push(REASONING_BLOCK);
 
     return parts.join('\n');
@@ -117,16 +103,13 @@
 
   function initPrompt() {
     const form = $('prompt-form');
-    const role = $('prompt-persona');
-    const context = $('prompt-context');
-    const action = $('prompt-task');
-    const format = $('prompt-format');
+    const role = $('prompt-role');
+    const action = $('prompt-action');
     const tone = $('prompt-tone');
-    const constraints = $('prompt-constraints');
-    const examples = $('prompt-examples');
+    const format = $('prompt-format');
     const msg = $('prompt-msg');
 
-    if (!form || !action) return;
+    if (!form || !action || !tone || !format) return;
 
     let successTimer = null;
 
@@ -141,16 +124,13 @@
 
       const result = buildPrompt(
         role.value,
-        context.value,
         action.value,
-        format ? format.value : 'tekst',
-        tone ? tone.value : '',
-        constraints ? constraints.value : '',
-        examples ? examples.value : ''
+        tone.value,
+        format.value
       );
 
       if (!result) {
-        msg.textContent = 'Udfyld mindst feltet «Hvad har du brug for hjælp til?».';
+        msg.textContent = 'Udfyld mindst feltet «Hvad skal du have hjælp til?».';
         msg.classList.add('is-error');
         action.focus();
         return;
