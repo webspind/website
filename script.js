@@ -7,6 +7,13 @@
   const COT_BLOCK =
     '<reasoning> Before providing the final output, please think step by step and outline your logic. </reasoning>';
 
+  const FORMAT_CONSTRAINTS = {
+    tekst: 'Svar i klar, velstruktureret prosa (standard tekst).',
+    punkt: 'Svar som punktopstilling — ét punkt per linje, kort og præcist.',
+    tabel: 'Svar som en tabel med tydelige kolonneoverskrifter.',
+    kode: 'Svar i en kodeblok med korrekt syntaks.',
+  };
+
   function $(id) {
     return document.getElementById(id);
   }
@@ -61,7 +68,7 @@
     });
   }
 
-  function buildPrompt(persona, context, task, examples, useCot) {
+  function buildPrompt(persona, context, task, formatKey, useCot) {
     if (!task.trim()) return null;
 
     const parts = ['<system_prompt>', ''];
@@ -76,9 +83,13 @@
 
     parts.push('<task>', task.trim(), '</task>', '');
 
-    if (examples.trim()) {
-      parts.push('<examples>', examples.trim(), '</examples>', '');
-    }
+    const formatText = FORMAT_CONSTRAINTS[formatKey] || FORMAT_CONSTRAINTS.tekst;
+    parts.push(
+      '<format_constraint>',
+      formatText,
+      '</format_constraint>',
+      ''
+    );
 
     if (useCot) {
       parts.push(COT_BLOCK, '');
@@ -93,7 +104,7 @@
     const persona = $('prompt-persona');
     const context = $('prompt-context');
     const task = $('prompt-task');
-    const examples = $('prompt-examples');
+    const format = $('prompt-format');
     const cot = $('prompt-cot');
     const msg = $('prompt-msg');
     const wrap = $('prompt-output-wrap');
@@ -111,7 +122,7 @@
         persona.value,
         context.value,
         task.value,
-        examples.value,
+        format ? format.value : 'tekst',
         cot.checked
       );
 

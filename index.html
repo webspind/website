@@ -22,7 +22,7 @@
     </div>
     <nav class="nav" aria-label="Navigation">
       <ul class="nav__menu" id="nav-menu">
-        <li><a href="#lab">Laboratorium</a></li>
+        <li><a href="#lab">Prompt-arkitekt</a></li>
         <li><a href="#cv">CV</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
       </ul>
@@ -66,8 +66,10 @@
     <hr class="rule rule--thick">
 
     <section class="block block--lab" id="lab" aria-labelledby="lab-title">
-      <h2 id="lab-title" class="block__title">Det digitale laboratorium</h2>
-      <p class="block__intro">Prompt-arkitekt — udfyld felterne og få en klar systemprompt.</p>
+      <header class="lab-header">
+        <h2 id="lab-title" class="lab-header__title">Prompt-arkitekt</h2>
+        <p class="lab-header__intro">Udfyld felterne — få en klar systemprompt.</p>
+      </header>
 
       <div class="architect">
         <form class="architect__form" id="prompt-form" novalidate>
@@ -77,7 +79,7 @@
               type="text"
               id="prompt-persona"
               class="field__input"
-              placeholder="Fx: You are a technical writer…"
+              placeholder="Fx: Du er en ekspert i markedsføring…"
               autocomplete="off"
             >
           </label>
@@ -88,7 +90,7 @@
               id="prompt-context"
               class="field__input field__input--area"
               rows="3"
-              placeholder="Hvad er situationen?"
+              placeholder="Hvad er den nødvendige baggrundsviden?"
             ></textarea>
           </label>
 
@@ -98,19 +100,19 @@
               id="prompt-task"
               class="field__input field__input--area"
               rows="3"
-              placeholder="Hvad skal modellen lave?"
+              placeholder="Hvad præcist skal AI'en løse for dig?"
               required
             ></textarea>
           </label>
 
-          <label class="field" for="prompt-examples">
-            <span class="field__label">Few-shot eksempler <span class="field__opt">valgfrit</span></span>
-            <textarea
-              id="prompt-examples"
-              class="field__input field__input--area"
-              rows="3"
-              placeholder="1–2 eksempler på godt output…"
-            ></textarea>
+          <label class="field" for="prompt-format">
+            <span class="field__label">Ønsket format <span class="field__opt">valgfrit</span></span>
+            <select id="prompt-format" class="field__input field__input--select">
+              <option value="tekst">Standard tekst</option>
+              <option value="punkt">Punktopstilling</option>
+              <option value="tabel">Tabel</option>
+              <option value="kode">Kodeblok</option>
+            </select>
           </label>
 
           <label class="field field--check" for="prompt-cot">
