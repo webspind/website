@@ -5,10 +5,10 @@
   'use strict';
 
   const CONSTRAINTS_BLOCK =
-    "<constraints>1. Undgå 'AI-slop': Brug ingen fyldord, klicheer eller metaforer. 2. Vær direkte og menneskelig i sproget. Skriv som en erfaren fagperson, ikke en maskine. 3. Gå direkte til sagen. Drop overflødige indledninger og konklusioner. 4. Ingen overflødig høflighed. Bare løs opgaven.</constraints>";
+    "<constraints>1. Undgå 'AI-slop': Brug ingen overflødige fyldord, maskinelle klicheer eller opsummeringer. 2. Tilpas dig 100% den valgte rolle og tone. Hvis tonen er empatisk, skal du være nærværende, anerkendende og lyttende. Hvis tonen er faglig, skal du være skarp og direkte. 3. Skriv altid naturligt og menneskeligt.</constraints>";
 
   const PROCESS_BLOCK =
-    "<process>Før du løser opgaven, skal du følge dette workflow strengt: 1. Stil mig højst 3 korte, præcise spørgsmål for at afklare min situation. 2. Vent på, at jeg har besvaret dine spørgsmål. 3. Når jeg har svaret, skal du tænke over, hvad den absolut vigtigste første handling er. 4. Skriv KUN denne ene ting, jeg skal gøre LIGE NU. Giv mig under ingen omstændigheder en lang liste eller den fulde plan. 5. Vent på min reaktion (f.eks. 'gjort', 'hvad så nu?', eller 'det kan jeg ikke finde ud af'). 6. Fortsæt i din rolle. Baseret på mit svar, giver du mig den NÆSTE vigtigste handling. Fortsæt altid kun med én ting ad gangen.</process>";
+    "<process>Du er en interaktiv samtalepartner. Dit workflow er: 1. Start med at afklare situationen med højst 1-2 korte spørgsmål, HVIS det er nødvendigt. 2. Tag derefter kun ét skridt ad gangen. Hvis jeg beder om handling, giv mig én opgave. Hvis jeg har brug for at lufte ud, så lyt, anerkend mine følelser og giv et kort, støttende svar. 3. Giv ALDRIG lange lister eller lange afhandlinger. 4. Vent altid på mit svar, før du driver samtalen videre.</process>";
 
   const REASONING_BLOCK =
     '<reasoning>Before providing the final output, please think step by step and outline your logic.</reasoning>';
