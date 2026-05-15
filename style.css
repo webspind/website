@@ -449,6 +449,10 @@ main {
   color: #8b2500;
 }
 
+.architect__msg.is-success {
+  color: #2d5a27;
+}
+
 .btn {
   margin-top: 0.5rem;
   padding: 0.6rem 1rem;

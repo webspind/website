@@ -74,39 +74,39 @@
       <div class="architect">
         <form class="architect__form" id="prompt-form" novalidate>
           <label class="field" for="prompt-persona">
-            <span class="field__label">Persona / rolle</span>
+            <span class="field__label">Hvem skal hjælpe dig? (f.eks. en kok, en lærer)</span>
             <input
               type="text"
               id="prompt-persona"
               class="field__input"
-              placeholder="Fx: Du er en ekspert i markedsføring…"
+              placeholder="Fx: en erfaren kok, der kan lave hurtige familiemåltider"
               autocomplete="off"
             >
           </label>
 
-          <label class="field" for="prompt-context">
-            <span class="field__label">Kontekst / baggrund</span>
-            <textarea
-              id="prompt-context"
-              class="field__input field__input--area"
-              rows="3"
-              placeholder="Hvad er den nødvendige baggrundsviden?"
-            ></textarea>
-          </label>
-
           <label class="field" for="prompt-task">
-            <span class="field__label">Opgave <span class="field__req">*</span></span>
+            <span class="field__label">Hvad har du brug for hjælp til? <span class="field__req">*</span></span>
             <textarea
               id="prompt-task"
               class="field__input field__input--area"
               rows="3"
-              placeholder="Hvad præcist skal AI'en løse for dig?"
+              placeholder="Fx: Lav en ugeplan med aftensmad"
               required
             ></textarea>
           </label>
 
+          <label class="field" for="prompt-context">
+            <span class="field__label">Hvad er situationen? (f.eks. 3 kræsne børn, 20 minutter)</span>
+            <textarea
+              id="prompt-context"
+              class="field__input field__input--area"
+              rows="3"
+              placeholder="Fx: Vi er tre voksne og tre børn — måltiderne skal laves på under 30 min"
+            ></textarea>
+          </label>
+
           <label class="field" for="prompt-format">
-            <span class="field__label">Ønsket format <span class="field__opt">valgfrit</span></span>
+            <span class="field__label">Hvordan skal svaret se ud? (f.eks. punktform, kort tekst)</span>
             <select id="prompt-format" class="field__input field__input--select">
               <option value="tekst">Standard tekst</option>
               <option value="punkt">Punktopstilling</option>
@@ -115,24 +115,42 @@
             </select>
           </label>
 
-          <label class="field field--check" for="prompt-cot">
-            <input type="checkbox" id="prompt-cot" class="field__check">
-            <span class="field__check-text">
-              Bed modellen tænke trin for trin, før den svarer
-            </span>
+          <label class="field" for="prompt-tone">
+            <span class="field__label">Tone / Stil (f.eks. pædagogisk, direkte, sjov)</span>
+            <input
+              type="text"
+              id="prompt-tone"
+              class="field__input"
+              placeholder="Fx: venlig og pædagogisk"
+              autocomplete="off"
+            >
           </label>
 
-          <button type="submit" class="btn btn--primary">Generer prompt</button>
+          <label class="field" for="prompt-constraints">
+            <span class="field__label">Begrænsninger (Er der noget den skal undgå?)</span>
+            <input
+              type="text"
+              id="prompt-constraints"
+              class="field__input"
+              placeholder="Fx: ingen nødder, ingen svære ingredienser"
+              autocomplete="off"
+            >
+          </label>
+
+          <label class="field" for="prompt-examples">
+            <span class="field__label">Eksempel (Valgfrit: Indsæt et eksempel på et godt svar)</span>
+            <textarea
+              id="prompt-examples"
+              class="field__input field__input--area"
+              rows="3"
+              placeholder="Indsæt et eksempel på et godt svar, hvis du har ét"
+            ></textarea>
+          </label>
+
+          <button type="submit" class="btn btn--primary" id="prompt-copy-btn">Kopiér din super-prompt</button>
           <p class="architect__msg" id="prompt-msg" role="status" aria-live="polite"></p>
         </form>
 
-        <div class="terminal" id="prompt-output-wrap" hidden>
-          <div class="terminal__bar">
-            <span class="terminal__title">system_prompt.xml</span>
-            <button type="button" class="terminal__copy" id="prompt-copy-btn">Kopiér</button>
-          </div>
-          <pre class="terminal__body" id="prompt-output" tabindex="0"></pre>
-        </div>
       </div>
     </section>
 
