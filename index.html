@@ -18,12 +18,12 @@
     <div class="masthead__inner">
       <p class="masthead__date" id="masthead-date" aria-hidden="true"></p>
       <a class="masthead__title" href="#top">Webspind</a>
-      <p class="masthead__tagline">Digitalt lab · webspind.com</p>
+      <p class="masthead__tagline">Digitalt CV · webspind.com</p>
     </div>
     <nav class="nav" aria-label="Navigation">
       <ul class="nav__menu" id="nav-menu">
-        <li><a href="#lab">Prompt-arkitekt</a></li>
         <li><a href="#cv">CV</a></li>
+        <li><a href="#lab">Prompt-arkitekt</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
       </ul>
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
@@ -51,7 +51,7 @@
         </figure>
 
         <div class="hero__text">
-          <p class="hero__label">Portræt</p>
+          <p class="hero__label">Om mig</p>
           <h1 id="hero-title" class="hero__title">
             Informationsvidenskab og AI i praksis
           </h1>
@@ -65,10 +65,74 @@
 
     <hr class="rule rule--thick">
 
+    <section class="block" id="cv" aria-labelledby="cv-title">
+      <h2 id="cv-title" class="block__title">CV</h2>
+
+      <div class="filters" role="toolbar" aria-label="Filtrér">
+        <button type="button" class="filter is-on" data-filter="all">Alle</button>
+        <button type="button" class="filter" data-filter="ai">AI</button>
+        <button type="button" class="filter" data-filter="web">Web</button>
+        <button type="button" class="filter" data-filter="akademi">Studie</button>
+      </div>
+
+      <div class="cv">
+        <div class="cv__col">
+          <h3 class="cv__label">Erfaring</h3>
+          <ol class="entries">
+            <li class="entry" data-categories="ai">
+              <span class="entry__year">2024-2025</span>
+              <div class="entry__body">
+                <strong>AI &amp; kommunikation</strong> · Uniwelco
+                <p>HubSpot Breeze-agenter, AI-workflows og automatisering.</p>
+              </div>
+            </li>
+            <li class="entry" data-categories="web">
+              <span class="entry__year">2021</span>
+              <div class="entry__body">
+                <strong>Stifter &amp; udvikler</strong> · 24skin
+                <p>E-handel, web og automatisering.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="cv__col">
+          <h3 class="cv__label">Uddannelse</h3>
+          <ol class="entries">
+            <li class="entry" data-categories="akademi">
+              <span class="entry__year">2023-2028</span>
+              <div class="entry__body">
+                <strong>Informationsvidenskab</strong> · Aarhus Universitet
+                <p>Kandidat — informationsarkitektur og AI.</p>
+              </div>
+            </li>
+            <li class="entry" data-categories="akademi">
+              <span class="entry__year">2026</span>
+              <div class="entry__body">
+                <strong>Udveksling</strong> · University of Texas at Austin
+                <p>Information Studies.</p>
+              </div>
+            </li>
+          </ol>
+
+          <h3 class="cv__label cv__label--gap">Kompetencer</h3>
+          <ul class="tags" id="cv-tags">
+            <li class="tag" data-categories="web">HTML / CSS / JS</li>
+            <li class="tag" data-categories="ai">AI-implementering</li>
+            <li class="tag" data-categories="ai">Prompt design</li>
+            <li class="tag" data-categories="akademi">Informationsarkitektur</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule">
+
     <section class="block block--lab" id="lab" aria-labelledby="lab-title">
       <header class="lab-header">
+        <p class="lab-header__overline">Arbejdseksempel</p>
         <h2 id="lab-title" class="lab-header__title">Prompt-arkitekt</h2>
-        <p class="lab-header__intro">Udfyld felterne — få en klar systemprompt.</p>
+        <p class="lab-header__intro">Et værktøj jeg har bygget for at vise hvordan jeg arbejder med prompt design og informationsarkitektur. Udfyld felterne, få en klar systemprompt.</p>
       </header>
 
       <div class="architect">
@@ -120,79 +184,12 @@
 
     <hr class="rule">
 
-    <section class="block" id="cv" aria-labelledby="cv-title">
-      <h2 id="cv-title" class="block__title">CV</h2>
-
-      <div class="filters" role="toolbar" aria-label="Filtrér">
-        <button type="button" class="filter is-on" data-filter="all">Alle</button>
-        <button type="button" class="filter" data-filter="ai">AI</button>
-        <button type="button" class="filter" data-filter="web">Web</button>
-        <button type="button" class="filter" data-filter="akademi">Studie</button>
-      </div>
-
-      <div class="cv">
-        <div class="cv__col">
-          <h3 class="cv__label">Erfaring</h3>
-          <ol class="entries">
-            <li class="entry" data-categories="ai">
-              <span class="entry__year">2026</span>
-              <div class="entry__body">
-                <strong>AI-optimering</strong> · 
-                <p>AI-workflows i ingeniør- og dokumentationsarbejde.</p>
-              </div>
-            </li>
-            <li class="entry" data-categories="ai">
-              <span class="entry__year">2024-2025</span>
-              <div class="entry__body">
-                <strong>AI &amp; kommunikation</strong> · Uniwelco
-                <p>GPT-løsninger og formidling mellem IT og forretning.</p>
-              </div>
-            </li>
-            <li class="entry" data-categories="web">
-              <span class="entry__year">2021</span>
-              <div class="entry__body">
-                <strong>Stifter &amp; udvikler</strong> · 24skin
-                <p>E-handel, web og automatisering.</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-
-        <div class="cv__col">
-          <h3 class="cv__label">Uddannelse</h3>
-          <ol class="entries">
-            <li class="entry" data-categories="akademi">
-              <span class="entry__year">2023-2028</span>
-              <div class="entry__body">
-                <strong>Informationsvidenskab</strong> · Aarhus Universitet
-                <p>Kandidat — informationsarkitektur og AI.</p>
-              </div>
-            </li>
-            <li class="entry" data-categories="akademi">
-              <span class="entry__year">2026</span>
-              <div class="entry__body">
-                <strong>Udveksling</strong> · University of Texas at Austin
-                <p>Information Studies.</p>
-              </div>
-            </li>
-          </ol>
-
-          <h3 class="cv__label cv__label--gap">Kompetencer</h3>
-          <ul class="tags" id="cv-tags">
-            <li class="tag" data-categories="web">HTML / CSS / JS</li>
-            <li class="tag" data-categories="ai">AI-implementering</li>
-            <li class="tag" data-categories="ai">Prompt design</li>
-            <li class="tag" data-categories="akademi">Informationsarkitektur</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <hr class="rule">
-
     <section class="block block--contact" id="kontakt">
       <h2 class="block__title">Kontakt</h2>
-      <a class="contact-link" href="mailto:jakob.mb17@gmail.com">jakob.mb17@gmail.com</a>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:jakob.mb17@gmail.com">jakob.mb17@gmail.com</a>
+        <a class="contact-link" href="https://www.linkedin.com/in/jakobmunchbrandt" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
     </section>
   </main>
 

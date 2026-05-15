@@ -335,6 +335,15 @@ main {
   margin: 0 auto 1.5rem;
 }
 
+.lab-header__overline {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  margin-bottom: 0.35rem;
+}
+
 .lab-header__title {
   font-family: var(--serif);
   font-size: clamp(1.5rem, 4vw, 2rem);
@@ -680,13 +689,23 @@ main {
   padding-bottom: 2rem;
 }
 
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
 .contact-link {
   display: inline-block;
-  margin-top: 0.5rem;
   font-family: var(--serif);
   font-size: 1.0625rem;
   font-weight: 700;
   text-decoration: underline;
+}
+
+.contact-links .contact-link {
+  margin-top: 0;
 }
 
 .footer {
