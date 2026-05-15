@@ -1,45 +1,55 @@
 /**
- * Webspind — Zero-Cost Edge Computing Portfolio
- * 100% client-side · No backend
+ * Webspind — klient-side værktøjer (dansk)
  */
-
 (function () {
   'use strict';
 
-  const MAX_PDF_BYTES = 25 * 1024 * 1024;
+  const MAX_PDF = 25 * 1024 * 1024;
+  const MSG = {
+    pdfInvalid: 'Vælg en gyldig PDF-fil.',
+    pdfLarge: 'Filen er større end 25 MB.',
+    pdfReadErr: 'Kunne ikke læse filen.',
+    pdfLibErr: 'pdf-lib kunne ikke indlæses. Tjek din forbindelse og genindlæs siden.',
+    pdfWorking: 'Renser metadata…',
+    pdfDone: 'Download startet — metadata er fjernet lokalt.',
+    pdfFail: 'Kunne ikke behandle PDF-filen.',
+    pdfLoaded: (name, kb) => `Klar: ${name} (${kb} KB)`,
+    promptEmpty: 'Skriv en prompt først.',
+    copied: 'Kopieret!',
+    copy: 'Kopiér',
+  };
 
-  // ---------------------------------------------------------------------------
-  // Utilities
-  // ---------------------------------------------------------------------------
+  let pdfBuffer = null;
+  let pdfName = '';
 
   function $(id) {
     return document.getElementById(id);
   }
 
-  function setStatus(el, message, type) {
+  function status(el, text, kind) {
     if (!el) return;
-    el.textContent = message;
-    el.classList.remove('is-success', 'is-error');
-    if (type) el.classList.add(`is-${type}`);
+    el.textContent = text;
+    el.classList.remove('is-ok', 'is-err');
+    if (kind === 'ok') el.classList.add('is-ok');
+    if (kind === 'err') el.classList.add('is-err');
   }
 
-  function downloadBlob(blob, filename) {
+  function download(blob, filename) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = filename;
+    document.body.appendChild(a);
     a.click();
+    a.remove();
     URL.revokeObjectURL(url);
   }
 
-  function sanitizeFilename(name) {
-    return name.replace(/\.pdf$/i, '') + '-scrubbed.pdf';
+  function scrubbedName(name) {
+    return name.replace(/\.pdf$/i, '') + '-renset.pdf';
   }
 
-  // ---------------------------------------------------------------------------
   // Navigation
-  // ---------------------------------------------------------------------------
-
   function initNav() {
     const toggle = document.querySelector('.nav__toggle');
     const menu = $('nav-menu');
@@ -59,296 +69,211 @@
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // Scroll reveal
-  // ---------------------------------------------------------------------------
-
-  function initReveal() {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const items = document.querySelectorAll('.reveal');
-
-    if (prefersReduced) {
-      items.forEach((el) => el.classList.add('is-visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
-
-    items.forEach((el) => observer.observe(el));
-  }
-
-  // ---------------------------------------------------------------------------
-  // PDF Metadata Scrubber (pdf-lib via CDN)
-  // ---------------------------------------------------------------------------
-
-  let pdfFile = null;
-  let pdfArrayBuffer = null;
-
-  async function scrubPdfMetadata(arrayBuffer, originalName) {
+  // PDF tool
+  async function scrubPdf(buffer) {
     if (typeof PDFLib === 'undefined') {
-      throw new Error('pdf-lib failed to load. Check your connection and refresh.');
+      throw new Error(MSG.pdfLibErr);
     }
-
     const { PDFDocument } = PDFLib;
-    const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
-
-    pdfDoc.setTitle('');
-    pdfDoc.setAuthor('');
-    pdfDoc.setSubject('');
-    pdfDoc.setKeywords([]);
-    pdfDoc.setCreator('');
-    pdfDoc.setProducer('');
-
-    const bytes = await pdfDoc.save({ useObjectStreams: false });
+    const doc = await PDFDocument.load(buffer, { ignoreEncryption: true });
+    doc.setTitle('');
+    doc.setAuthor('');
+    doc.setSubject('');
+    doc.setKeywords([]);
+    doc.setCreator('');
+    doc.setProducer('');
+    const bytes = await doc.save();
     return new Blob([bytes], { type: 'application/pdf' });
   }
 
-  function initPdfTool() {
+  function initPdf() {
     const dropzone = $('pdf-dropzone');
     const input = $('pdf-input');
+    const label = $('pdf-label');
     const scrubBtn = $('pdf-scrub-btn');
     const clearBtn = $('pdf-clear-btn');
-    const status = $('pdf-status');
+    const stat = $('pdf-status');
 
-    if (!dropzone || !input) return;
+    if (!dropzone || !input || !scrubBtn) return;
 
-    function resetPdf() {
-      pdfFile = null;
-      pdfArrayBuffer = null;
+    function reset() {
+      pdfBuffer = null;
+      pdfName = '';
       input.value = '';
-      dropzone.classList.remove('is-loaded', 'is-dragover');
+      dropzone.classList.remove('is-ready', 'is-dragover');
+      if (label) label.textContent = 'Træk en PDF hertil, eller klik for at vælge fil';
       scrubBtn.disabled = true;
       clearBtn.disabled = true;
-      setStatus(status, '');
+      status(stat, '');
     }
 
-    function loadPdf(file) {
-      if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
-        setStatus(status, 'Please select a valid PDF file.', 'error');
+    function accept(file) {
+      const isPdf =
+        file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+      if (!isPdf) {
+        status(stat, MSG.pdfInvalid, 'err');
         return;
       }
-      if (file.size > MAX_PDF_BYTES) {
-        setStatus(status, 'File exceeds 25 MB limit.', 'error');
+      if (file.size > MAX_PDF) {
+        status(stat, MSG.pdfLarge, 'err');
         return;
       }
 
       const reader = new FileReader();
       reader.onload = () => {
-        pdfFile = file;
-        pdfArrayBuffer = reader.result;
-        dropzone.classList.add('is-loaded');
+        pdfBuffer = reader.result;
+        pdfName = file.name;
+        dropzone.classList.add('is-ready');
+        if (label) label.textContent = file.name;
         scrubBtn.disabled = false;
         clearBtn.disabled = false;
-        setStatus(status, `Loaded: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`, 'success');
+        status(stat, MSG.pdfLoaded(file.name, (file.size / 1024).toFixed(1)), 'ok');
       };
-      reader.onerror = () => setStatus(status, 'Failed to read file.', 'error');
+      reader.onerror = () => status(stat, MSG.pdfReadErr, 'err');
       reader.readAsArrayBuffer(file);
     }
 
-    dropzone.addEventListener('click', () => input.click());
-    dropzone.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        input.click();
-      }
-    });
-
     input.addEventListener('change', () => {
-      if (input.files?.[0]) loadPdf(input.files[0]);
+      if (input.files && input.files[0]) accept(input.files[0]);
     });
 
-    ['dragenter', 'dragover'].forEach((evt) => {
-      dropzone.addEventListener(evt, (e) => {
-        e.preventDefault();
-        dropzone.classList.add('is-dragover');
-      });
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('is-dragover');
     });
 
-    ['dragleave', 'drop'].forEach((evt) => {
-      dropzone.addEventListener(evt, (e) => {
-        e.preventDefault();
-        dropzone.classList.remove('is-dragover');
-      });
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.classList.remove('is-dragover');
     });
 
     dropzone.addEventListener('drop', (e) => {
-      const file = e.dataTransfer?.files?.[0];
-      if (file) loadPdf(file);
+      e.preventDefault();
+      dropzone.classList.remove('is-dragover');
+      const file = e.dataTransfer && e.dataTransfer.files[0];
+      if (file) accept(file);
     });
 
     scrubBtn.addEventListener('click', async () => {
-      if (!pdfArrayBuffer || !pdfFile) return;
-
+      if (!pdfBuffer || !pdfName) return;
       scrubBtn.disabled = true;
-      setStatus(status, 'Scrubbing metadata…');
+      status(stat, MSG.pdfWorking);
 
       try {
-        const blob = await scrubPdfMetadata(pdfArrayBuffer, pdfFile.name);
-        downloadBlob(blob, sanitizeFilename(pdfFile.name));
-        setStatus(status, 'Download started — metadata stripped locally.', 'success');
-      } catch (err) {
-        setStatus(status, err.message || 'Failed to process PDF.', 'error');
+        const blob = await scrubPdf(pdfBuffer);
+        download(blob, scrubbedName(pdfName));
+        status(stat, MSG.pdfDone, 'ok');
+      } catch (e) {
+        status(stat, e.message || MSG.pdfFail, 'err');
       } finally {
-        scrubBtn.disabled = !pdfArrayBuffer;
+        scrubBtn.disabled = !pdfBuffer;
       }
     });
 
-    clearBtn.addEventListener('click', resetPdf);
+    clearBtn.addEventListener('click', reset);
   }
 
-  // ---------------------------------------------------------------------------
-  // Prompt Architect
-  // ---------------------------------------------------------------------------
+  // Prompt tool
+  function buildPrompt(raw) {
+    const text = raw.trim();
+    if (!text) return '';
 
-  function escapeXml(text) {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&apos;');
-  }
+    const parts = text.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+    let kontekst;
+    let opgave;
+    let format;
 
-  function inferSections(raw) {
-    const blocks = raw
-      .split(/\n{2,}/)
-      .map((b) => b.trim())
-      .filter(Boolean);
-
-    if (blocks.length >= 3) {
-      return {
-        context: blocks[0],
-        task: blocks.slice(1, -1).join('\n\n') || blocks[1],
-        format: blocks[blocks.length - 1],
-      };
+    if (parts.length >= 3) {
+      kontekst = parts[0];
+      format = parts[parts.length - 1];
+      opgave = parts.slice(1, -1).join('\n\n');
+    } else if (parts.length === 2) {
+      kontekst = parts[0];
+      opgave = parts[1];
+      format =
+        'Svar på dansk med klar struktur. Brug punktopstillinger og korte afsnit, hvor det giver mening.';
+    } else {
+      kontekst =
+        'Du er en præcis og professionel AI-assistent med relevant domæneviden.';
+      opgave = text;
+      format =
+        'Svar på dansk med klar struktur. Brug punktopstillinger og korte afsnit, hvor det giver mening.';
     }
 
-    if (blocks.length === 2) {
-      return { context: blocks[0], task: blocks[1], format: defaultFormat() };
-    }
-
-    return { context: defaultContext(), task: raw.trim(), format: defaultFormat() };
-  }
-
-  function defaultContext() {
     return [
-      'You are a precise, professional AI assistant.',
-      'Apply domain expertise relevant to the user request.',
-      'Prioritize accuracy, clarity, and actionable output.',
-    ].join(' ');
-  }
-
-  function defaultFormat() {
-    return [
-      'Respond in clear, structured prose.',
-      'Use markdown headings and bullet lists where helpful.',
-      'State assumptions explicitly when information is missing.',
-    ].join(' ');
-  }
-
-  function architectPrompt(raw) {
-    const trimmed = raw.trim();
-    if (!trimmed) return '';
-
-    const { context, task, format } = inferSections(trimmed);
-
-    return [
-      'You are an expert AI system. Follow the structured instructions below.',
-      '',
       '<system_prompt>',
       '',
-      '<context>',
-      escapeXml(context),
-      '</context>',
+      '<kontekst>',
+      kontekst,
+      '</kontekst>',
       '',
-      '<task>',
-      escapeXml(task),
-      '</task>',
+      '<opgave>',
+      opgave,
+      '</opgave>',
       '',
       '<format>',
-      escapeXml(format),
+      format,
       '</format>',
       '',
       '</system_prompt>',
       '',
       '---',
       '',
-      'Context:',
-      context,
+      'Kontekst:',
+      kontekst,
       '',
-      'Task:',
-      task,
+      'Opgave:',
+      opgave,
       '',
       'Format:',
       format,
     ].join('\n');
   }
 
-  function initPromptTool() {
-    const rawInput = $('prompt-raw');
-    const output = $('prompt-output');
-    const architectBtn = $('prompt-architect-btn');
+  function initPrompt() {
+    const raw = $('prompt-raw');
+    const out = $('prompt-output');
+    const buildBtn = $('prompt-build-btn');
     const copyBtn = $('prompt-copy-btn');
 
-    if (!rawInput || !output || !architectBtn) return;
+    if (!raw || !out || !buildBtn) return;
 
-    architectBtn.addEventListener('click', () => {
-      const structured = architectPrompt(rawInput.value);
-      if (!structured) {
-        setStatus(null, '');
-        output.value = '';
+    buildBtn.addEventListener('click', () => {
+      const result = buildPrompt(raw.value);
+      if (!result) {
+        out.value = '';
         copyBtn.disabled = true;
+        raw.focus();
         return;
       }
-      output.value = structured;
+      out.value = result;
       copyBtn.disabled = false;
-      output.focus();
     });
 
     copyBtn.addEventListener('click', async () => {
-      if (!output.value) return;
+      if (!out.value) return;
       try {
-        await navigator.clipboard.writeText(output.value);
-        const label = copyBtn.textContent;
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => {
-          copyBtn.textContent = label;
-        }, 2000);
+        await navigator.clipboard.writeText(out.value);
       } catch {
-        output.select();
+        out.select();
         document.execCommand('copy');
       }
+      const prev = copyBtn.textContent;
+      copyBtn.textContent = MSG.copied;
+      setTimeout(() => {
+        copyBtn.textContent = prev;
+      }, 1800);
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // Footer year
-  // ---------------------------------------------------------------------------
-
   function initFooter() {
-    const yearEl = $('year');
-    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    const y = $('year');
+    if (y) y.textContent = String(new Date().getFullYear());
   }
-
-  // ---------------------------------------------------------------------------
-  // Boot
-  // ---------------------------------------------------------------------------
 
   document.addEventListener('DOMContentLoaded', () => {
     initNav();
-    initReveal();
-    initPdfTool();
-    initPromptTool();
+    initPdf();
+    initPrompt();
     initFooter();
   });
 })();

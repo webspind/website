@@ -1,273 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Webspind — Zero-cost edge computing portfolio and digital lab by Jakob Munch-Brandt. Client-side PDF tools, prompt architecture, and CV.">
+  <meta name="description" content="Webspind — portefølje og digitalt laboratorium af Jakob Munch-Brandt. Værktøjer der kører i browseren.">
   <meta name="author" content="Jakob Munch-Brandt">
-  <title>Webspind | Digital Lab by Jakob Munch-Brandt</title>
+  <title>Webspind | Digitalt lab af Jakob Munch-Brandt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main">Spring til indhold</a>
 
   <header class="site-header" id="top">
-    <nav class="nav" aria-label="Primary">
-      <a class="nav__logo" href="#top" aria-label="Webspind home">
-        <span class="nav__logo-mark" aria-hidden="true"></span>
+    <nav class="nav" aria-label="Primær navigation">
+      <a class="nav__logo" href="#top">
         webspind<span class="nav__logo-tld">.com</span>
       </a>
-      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Åbn menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
       <ul class="nav__menu" id="nav-menu">
-        <li><a href="#lab">Digital Lab</a></li>
+        <li><a href="#lab">Værktøjer</a></li>
         <li><a href="#cv">CV</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
       </ul>
     </nav>
   </header>
 
   <main id="main">
-    <!-- Hero -->
     <section class="hero section" aria-labelledby="hero-title">
-      <div class="hero__glow hero__glow--blue" aria-hidden="true"></div>
-      <div class="hero__glow hero__glow--green" aria-hidden="true"></div>
-      <div class="hero__grid" aria-hidden="true"></div>
-
-      <div class="hero__content reveal">
-        <p class="hero__eyebrow">Zero-Cost Edge Computing Portfolio</p>
-        <h1 id="hero-title" class="hero__title">
-          Webspind: Digital Lab by Jakob Munch-Brandt
-        </h1>
-        <p class="hero__bio">
-          Information Science Master's Student (Aarhus University) &amp; AI-Optimization Specialist.
-          Bridging the gap between theoretical information architecture and practical AI execution.
-        </p>
-        <div class="hero__actions">
-          <a class="btn btn--primary" href="#lab">Explore the Lab</a>
-          <a class="btn btn--ghost" href="#cv">View CV</a>
-        </div>
+      <p class="hero__kicker">Portefølje · edge computing uden serveromkostninger</p>
+      <h1 id="hero-title" class="hero__title">
+        Webspind: Digitalt lab af Jakob Munch-Brandt
+      </h1>
+      <p class="hero__bio">
+        Kandidatstuderende i informationsvidenskab (Aarhus Universitet) og specialist i AI-optimering.
+        Jeg forbinder teoretisk informationsarkitektur med praktisk AI-implementering.
+      </p>
+      <div class="hero__actions">
+        <a class="btn" href="#lab">Se værktøjer</a>
+        <a class="btn btn--outline" href="#cv">Se CV</a>
       </div>
-
-      <ul class="hero__stats reveal" aria-label="Highlights">
-        <li>
-          <span class="hero__stat-value">100%</span>
-          <span class="hero__stat-label">Client-side</span>
-        </li>
-        <li>
-          <span class="hero__stat-value">0</span>
-          <span class="hero__stat-label">Server cost</span>
-        </li>
-        <li>
-          <span class="hero__stat-value">Edge</span>
-          <span class="hero__stat-label">Privacy-first</span>
-        </li>
-      </ul>
     </section>
 
-    <!-- Digital Lab -->
+    <hr class="rule">
+
     <section class="lab section" id="lab" aria-labelledby="lab-title">
-      <div class="section__header reveal">
-        <p class="section__eyebrow">Client-Side Tools</p>
-        <h2 id="lab-title" class="section__title">The Digital Lab</h2>
-        <p class="section__desc">
-          Utilities that run entirely in your browser. No uploads, no servers — your data never leaves the edge.
+      <header class="section__header">
+        <p class="section__kicker">Kører i din browser</p>
+        <h2 id="lab-title" class="section__title">Det digitale laboratorium</h2>
+        <p class="section__lead">
+          Ingen upload til servere. Dine filer og prompts bliver på din enhed.
         </p>
-      </div>
+      </header>
 
       <div class="lab__grid">
-        <!-- Tool A: PDF Metadata Scrubber -->
-        <article class="tool-card reveal" aria-labelledby="pdf-tool-title">
-          <div class="tool-card__header">
-            <span class="tool-card__badge">Tool A</span>
-            <h3 id="pdf-tool-title" class="tool-card__title">PDF Metadata Scrubber</h3>
-            <p class="tool-card__desc">
-              Strip title, author, dates, and producer fields from PDFs before sharing. Processed locally via pdf-lib.
-            </p>
-          </div>
+        <article class="tool" aria-labelledby="pdf-title">
+          <h3 id="pdf-title" class="tool__title">PDF-metadatafjerner</h3>
+          <p class="tool__desc">
+            Fjern titel, forfatter, emne og producent fra en PDF før du deler den.
+          </p>
 
-          <div
-            class="dropzone"
-            id="pdf-dropzone"
-            tabindex="0"
-            role="button"
-            aria-label="Drop a PDF file here or click to browse"
-          >
-            <input type="file" id="pdf-input" accept="application/pdf,.pdf" hidden>
-            <div class="dropzone__icon" aria-hidden="true">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
-              </svg>
-            </div>
-            <p class="dropzone__label">Drag &amp; drop a PDF here</p>
-            <p class="dropzone__hint">or click to browse · max 25 MB</p>
-          </div>
+          <label class="dropzone" id="pdf-dropzone">
+            <input type="file" id="pdf-input" accept="application/pdf,.pdf">
+            <span class="dropzone__text" id="pdf-label">Træk en PDF hertil, eller klik for at vælge fil</span>
+            <span class="dropzone__hint">Maks. 25 MB</span>
+          </label>
 
-          <div class="tool-card__status" id="pdf-status" role="status" aria-live="polite"></div>
+          <p class="tool__status" id="pdf-status" role="status" aria-live="polite"></p>
 
-          <div class="tool-card__actions">
-            <button type="button" class="btn btn--primary" id="pdf-scrub-btn" disabled>
-              Scrub &amp; Download
-            </button>
-            <button type="button" class="btn btn--ghost btn--sm" id="pdf-clear-btn" disabled>
-              Clear
-            </button>
+          <div class="tool__actions">
+            <button type="button" class="btn" id="pdf-scrub-btn" disabled>Rens og download</button>
+            <button type="button" class="btn btn--outline btn--small" id="pdf-clear-btn" disabled>Ryd</button>
           </div>
         </article>
 
-        <!-- Tool B: Prompt Architect -->
-        <article class="tool-card reveal" aria-labelledby="prompt-tool-title">
-          <div class="tool-card__header">
-            <span class="tool-card__badge tool-card__badge--green">Tool B</span>
-            <h3 id="prompt-tool-title" class="tool-card__title">Prompt Architect</h3>
-            <p class="tool-card__desc">
-              Transform a rough AI prompt into a structured system prompt with XML sections and clear directives.
-            </p>
+        <article class="tool" aria-labelledby="prompt-title">
+          <h3 id="prompt-title" class="tool__title">Prompt-arkitekt</h3>
+          <p class="tool__desc">
+            Gør en rå AI-prompt om til en struktureret systemprompt med kontekst, opgave og format.
+          </p>
+
+          <label class="field-label" for="prompt-raw">Rå prompt</label>
+          <textarea id="prompt-raw" class="field" rows="5" placeholder="Indsæt din ustrukturerede prompt her…"></textarea>
+
+          <div class="tool__actions">
+            <button type="button" class="btn" id="prompt-build-btn">Byg prompt</button>
+            <button type="button" class="btn btn--outline btn--small" id="prompt-copy-btn" disabled>Kopiér</button>
           </div>
 
-          <label class="field-label" for="prompt-raw">Raw prompt</label>
-          <textarea
-            id="prompt-raw"
-            class="textarea"
-            rows="6"
-            placeholder="Paste your unstructured prompt here…"
-          ></textarea>
-
-          <div class="tool-card__actions">
-            <button type="button" class="btn btn--primary" id="prompt-architect-btn">
-              Structure Prompt
-            </button>
-            <button type="button" class="btn btn--ghost btn--sm" id="prompt-copy-btn" disabled>
-              Copy Output
-            </button>
-          </div>
-
-          <label class="field-label" for="prompt-output">Structured system prompt</label>
-          <textarea
-            id="prompt-output"
-            class="textarea textarea--mono"
-            rows="12"
-            readonly
-            placeholder="Your architected prompt will appear here…"
-          ></textarea>
+          <label class="field-label" for="prompt-output">Struktureret output</label>
+          <textarea id="prompt-output" class="field field--mono" rows="10" readonly placeholder="Resultatet vises her…"></textarea>
         </article>
       </div>
     </section>
 
-    <!-- CV -->
-    <section class="cv section" id="cv" aria-labelledby="cv-title">
-      <div class="section__header reveal">
-        <p class="section__eyebrow">Profile</p>
-        <h2 id="cv-title" class="section__title">Experience &amp; Background</h2>
-      </div>
+    <hr class="rule">
 
-      <div class="cv__layout">
-        <div class="cv__column">
-          <h3 class="cv__heading reveal">Experience</h3>
+    <section class="cv section" id="cv" aria-labelledby="cv-title">
+      <header class="section__header">
+        <p class="section__kicker">Profil</p>
+        <h2 id="cv-title" class="section__title">Erfaring og baggrund</h2>
+      </header>
+
+      <div class="cv__grid">
+        <div>
+          <h3 class="cv__heading">Erfaring</h3>
           <ol class="timeline">
-            <li class="timeline__item reveal">
-              <div class="timeline__marker" aria-hidden="true"></div>
-              <div class="timeline__content">
-                <time class="timeline__date" datetime="2024">2024 — Present</time>
-                <h4 class="timeline__role">AI-Optimization Specialist</h4>
-                <p class="timeline__org">Sweco</p>
-                <p class="timeline__desc">
-                  Designing and implementing AI-driven workflows to optimize engineering processes, documentation, and knowledge retrieval.
-                </p>
-              </div>
+            <li class="timeline__item">
+              <time class="timeline__date" datetime="2024">2024 — nu</time>
+              <h4 class="timeline__role">AI-optimeringsspecialist</h4>
+              <p class="timeline__org">Sweco</p>
+              <p class="timeline__text">
+                Design og implementering af AI-drevne arbejdsgange til optimering af ingeniørprocesser, dokumentation og vidensopslag.
+              </p>
             </li>
-            <li class="timeline__item reveal">
-              <div class="timeline__marker" aria-hidden="true"></div>
-              <div class="timeline__content">
-                <time class="timeline__date" datetime="2023">2023 — 2024</time>
-                <h4 class="timeline__role">AI &amp; Communications</h4>
-                <p class="timeline__org">Uniwelco</p>
-                <p class="timeline__desc">
-                  Bridging technical AI capabilities with clear stakeholder communication, content strategy, and internal enablement.
-                </p>
-              </div>
+            <li class="timeline__item">
+              <time class="timeline__date" datetime="2023">2023 — 2024</time>
+              <h4 class="timeline__role">AI &amp; kommunikation</h4>
+              <p class="timeline__org">Uniwelco</p>
+              <p class="timeline__text">
+                Formidling af tekniske AI-kompetencer til interessenter, indholdsstrategi og intern enablement.
+              </p>
             </li>
-            <li class="timeline__item reveal">
-              <div class="timeline__marker" aria-hidden="true"></div>
-              <div class="timeline__content">
-                <time class="timeline__date" datetime="2021">2021 — Present</time>
-                <h4 class="timeline__role">E-commerce Founder &amp; Web Developer</h4>
-                <p class="timeline__org">24skin</p>
-                <p class="timeline__desc">
-                  Built and scaled a DTC e-commerce platform — full-stack web development, automation, and conversion-focused UX.
-                </p>
-              </div>
+            <li class="timeline__item">
+              <time class="timeline__date" datetime="2021">2021 — nu</time>
+              <h4 class="timeline__role">E-handelsstifter &amp; webudvikler</h4>
+              <p class="timeline__org">24skin</p>
+              <p class="timeline__text">
+                Opbygning og skalering af en DTC-platform — webudvikling, automatisering og konverteringsfokuseret UX.
+              </p>
             </li>
           </ol>
         </div>
 
-        <div class="cv__column">
-          <h3 class="cv__heading reveal">Education</h3>
+        <div>
+          <h3 class="cv__heading">Uddannelse</h3>
           <ol class="timeline">
-            <li class="timeline__item reveal">
-              <div class="timeline__marker" aria-hidden="true"></div>
-              <div class="timeline__content">
-                <time class="timeline__date" datetime="2023">2023 — Present</time>
-                <h4 class="timeline__role">MSc Information Science</h4>
-                <p class="timeline__org">Aarhus University</p>
-                <p class="timeline__desc">
-                  Focus on information architecture, data modeling, human–computer interaction, and AI systems in organizational contexts.
-                </p>
-              </div>
+            <li class="timeline__item">
+              <time class="timeline__date" datetime="2023">2023 — nu</time>
+              <h4 class="timeline__role">Kandidat i informationsvidenskab</h4>
+              <p class="timeline__org">Aarhus Universitet</p>
+              <p class="timeline__text">
+                Informationsarkitektur, datamodellering, menneske-computer-interaktion og AI-systemer i organisationer.
+              </p>
             </li>
-            <li class="timeline__item reveal">
-              <div class="timeline__marker timeline__marker--accent" aria-hidden="true"></div>
-              <div class="timeline__content">
-                <time class="timeline__date" datetime="2024">Exchange · 2024</time>
-                <h4 class="timeline__role">Information Studies</h4>
-                <p class="timeline__org">University of Texas at Austin</p>
-                <p class="timeline__desc">
-                  International exchange deepening expertise in digital libraries, knowledge organization, and information policy.
-                </p>
-              </div>
+            <li class="timeline__item">
+              <time class="timeline__date" datetime="2024">Udveksling · 2024</time>
+              <h4 class="timeline__role">Information Studies</h4>
+              <p class="timeline__org">University of Texas at Austin</p>
+              <p class="timeline__text">
+                International udveksling med fokus på digitale biblioteker, vidensorganisering og informationspolitik.
+              </p>
             </li>
           </ol>
 
-          <h3 class="cv__heading cv__heading--skills reveal">Skills</h3>
-          <ul class="tags reveal" aria-label="Skills">
-            <li class="tag">Web Dev (HTML/CSS/JS)</li>
-            <li class="tag">AI Implementation</li>
-            <li class="tag">Digital Automation</li>
-            <li class="tag">Custom GPTs</li>
-            <li class="tag">Information Architecture</li>
-            <li class="tag">Prompt Engineering</li>
-            <li class="tag">E-commerce UX</li>
-            <li class="tag">Client-Side Edge Tools</li>
+          <h3 class="cv__heading cv__heading--spaced">Kompetencer</h3>
+          <ul class="tags">
+            <li class="tag">Web (HTML/CSS/JS)</li>
+            <li class="tag">AI-implementering</li>
+            <li class="tag">Digital automatisering</li>
+            <li class="tag">Custom GPT'er</li>
+            <li class="tag">Informationsarkitektur</li>
+            <li class="tag">Prompt engineering</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section class="contact section" id="contact" aria-labelledby="contact-title">
-      <div class="contact__card reveal">
-        <h2 id="contact-title" class="contact__title">Let's build at the edge.</h2>
-        <p class="contact__text">
-          Interested in AI optimization, information architecture, or zero-cost tooling?
-          Reach out via your preferred channel.
-        </p>
-        <a class="btn btn--primary" href="mailto:hello@webspind.com">hello@webspind.com</a>
-      </div>
+    <hr class="rule">
+
+    <section class="contact section" id="kontakt" aria-labelledby="kontakt-title">
+      <h2 id="kontakt-title" class="section__title">Kontakt</h2>
+      <p class="contact__text">
+        Spørgsmål om AI-optimering, informationsarkitektur eller browserbaserede værktøjer?
+      </p>
+      <a class="contact__email" href="mailto:hello@webspind.com">hello@webspind.com</a>
     </section>
   </main>
 
   <footer class="site-footer">
     <p>&copy; <span id="year"></span> Jakob Munch-Brandt · <a href="https://webspind.com">webspind.com</a></p>
-    <p class="site-footer__note">Built with vanilla HTML, CSS &amp; JS — no build step, no backend.</p>
+    <p class="site-footer__note">Bygget med ren HTML, CSS og JavaScript — uden build-trin og uden backend.</p>
   </footer>
 
-  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
