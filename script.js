@@ -19,17 +19,6 @@
     return document.getElementById(id);
   }
 
-  function initMasthead() {
-    const el = $('masthead-date');
-    if (!el) return;
-    el.textContent = new Date().toLocaleDateString('da-DK', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
-  }
-
   function initPortrait() {
     const portrait = $('portrait');
     if (!portrait) return;
@@ -214,18 +203,11 @@
     });
   }
 
-  function initFooter() {
-    const y = $('year');
-    if (y) y.textContent = String(new Date().getFullYear());
-  }
-
   document.addEventListener('DOMContentLoaded', () => {
-    initMasthead();
     initPortrait();
     initNav();
     initStickyCompact();
     initPrompt();
     initFilter();
-    initFooter();
   });
 })();
