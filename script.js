@@ -204,6 +204,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    document.documentElement.classList.add('page-loaded');
     initPortrait();
     initNav();
     initStickyCompact();
