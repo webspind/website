@@ -258,14 +258,6 @@ main {
   margin: 0;
 }
 
-#webGLApp {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.55; /* subtle intensity so content stays readable */
-}
-
 .rule--thick {
   border-top-width: 2px;
   border-top-color: var(--rule);
