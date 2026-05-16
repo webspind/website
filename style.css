@@ -6,10 +6,12 @@
   --ink: #171515;
   --ink-soft: #323232;
   --ink-faint: #5b5853;
-  --accent: #d9732f;
-  --accent-soft: #fff1e5;
-  --rule: #8b4d20;
-  --rule-light: #d8c3b0;
+  --accent: #a7502c;
+  --accent-soft: #f7e7d9;
+  --green: #6d8a6c;
+  --green-soft: #e7efe6;
+  --rule: #8b5b3f;
+  --rule-light: #d8c5b3;
   --serif: "Libre Baskerville", Georgia, serif;
   --sans: "Source Sans 3", system-ui, sans-serif;
   --width: 40rem;
@@ -256,6 +258,18 @@ main {
   margin: 0;
 }
 
+#webGLApp {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: #0a0e27;
+}
+
+body {
+  background: #0a0e27;
+}
+
 .rule--thick {
   border-top-width: 2px;
   border-top-color: var(--rule);
@@ -445,7 +459,7 @@ em {
   margin: 1rem 0 0.9rem;
   padding: 1rem 1.1rem;
   border-left: 4px solid var(--accent);
-  background: rgba(217, 115, 47, 0.12);
+  background: var(--accent-soft);
   color: var(--ink);
   font-style: italic;
   line-height: 1.7;
@@ -844,7 +858,7 @@ em {
   gap: 0 0.85rem;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid var(--rule-light);
+  border-bottom: 1px solid var(--rule);
   transition: opacity 0.3s ease, max-height 0.35s ease, border-color 0.2s ease;
   opacity: 1;
   max-height: 12rem;
@@ -927,15 +941,39 @@ em {
 }
 
 .cv__highlight {
-  padding: 1.1rem 1.2rem;
-  border-radius: 0.75rem;
-  background: rgba(255, 165, 0, 0.12);
-  border: 1px solid rgba(255, 165, 0, 0.24);
+  position: relative;
+  padding: 1.2rem 1.25rem;
+  border-radius: 0.95rem;
+  background: var(--paper);
+  border: 1px solid var(--rule-light);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.cv__highlight::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.35rem;
+  border-radius: 0.95rem 0 0 0.95rem;
+  background: var(--accent);
+}
+
+.cv__highlight--warm::before {
+  background: var(--accent);
+}
+
+.cv__highlight--green::before {
+  background: var(--green);
+}
+
+.cv__highlight--warm {
+  background: var(--accent-soft);
 }
 
 .cv__highlight--green {
-  background: rgba(49, 134, 80, 0.1);
-  border-color: rgba(49, 134, 80, 0.2);
+  background: var(--green-soft);
 }
 
 .cv__highlight__eyebrow {
@@ -945,6 +983,14 @@ em {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--ink-soft);
+}
+
+.cv__highlight--warm .cv__highlight__eyebrow {
+  color: var(--accent);
+}
+
+.cv__highlight--green .cv__highlight__eyebrow {
+  color: var(--green);
 }
 
 .cv__highlight h4 {
