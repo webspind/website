@@ -33,88 +33,81 @@
 
   <main id="main">
     <section class="pitch-intro">
-      <p>Jeg laver AI-værktøjer og informationsstrukturer. Netop nu arbejder jeg med systemprompter og prompt-engineering, og her er et værktøj jeg byggede til at skrue bedre prompts sammen.</p>
+      <p><strong>Jeg laver AI-værktøjer og informationsstrukturer.</strong> Netop nu arbejder jeg med systemprompter og prompt-engineering, og her er et værktøj, jeg byggede til at skrue bedre prompts sammen.</p>
     </section>
 
     <section class="block block--lab" id="lab" aria-labelledby="lab-title">
-      <header class="lab-header">
-        <p class="lab-header__overline">Arbejdseksempel</p>
-        <h2 id="lab-title" class="lab-header__title">Prompt-arkitekt</h2>
-        <p class="lab-header__intro">Skriv kort hvad du har brug for. Værktøjet bygger en struktureret systemprompt, der kan kopieres direkte ind i ChatGPT eller Claude.</p>
-      </header>
+      <div class="lab-grid">
+        <aside class="lab-panel">
+          <header class="lab-header">
+            <p class="lab-header__overline">Arbejdseksempel</p>
+            <h2 id="lab-title" class="lab-header__title">Prompt-arkitekt</h2>
+            <p class="lab-header__intro">Skriv kort hvad du har brug for. Værktøjet bygger en struktureret systemprompt, der kan kopieres direkte ind i ChatGPT eller Claude.</p>
+          </header>
 
-      <div class="architect">
-        <div class="architect__summary">
-          <p>Et godt prompt starter med en klar rolle, et præcist mål, en tydelig tone og et ønsket format. Her får du en enkel ramme, så du kan få stærkere AI-udkast uden overflødige gentagelser.</p>
+          <div class="architect__summary">
+            <p><strong>Et godt prompt</strong> starter med en klar rolle, et præcist mål, en tydelig tone og et ønsket format. Her får du en enkel ramme, så du kan få stærkere AI-udkast uden overflødige gentagelser.</p>
+          </div>
+        </aside>
+
+        <div class="architect">
+          <form class="architect__form" id="prompt-form" novalidate>
+            <label class="field" for="prompt-role">
+              <span class="field__label">Hvem skal hjælpe dig?</span>
+              <input
+                type="text"
+                id="prompt-role"
+                class="field__input"
+                placeholder="Skriv 2-3 ord (f.eks. ekspert i aktier, dansklærer)"
+                autocomplete="off"
+              >
+            </label>
+
+            <label class="field" for="prompt-action">
+              <span class="field__label">Hvad skal du have hjælp til? <span class="field__req">*</span></span>
+              <textarea
+                id="prompt-action"
+                class="field__input field__input--area"
+                rows="3"
+                placeholder="Beskriv kort din opgave..."
+                required
+              ></textarea>
+            </label>
+
+            <fieldset class="field field--radio">
+              <legend class="field__label">Tone / Stil</legend>
+              <div class="radio-group">
+                <label class="radio">
+                  <input type="radio" name="prompt-tone" value="Pædagogisk og letforståelig" checked>
+                  <span>Pædagogisk og letforståelig</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="prompt-tone" value="Kort, direkte og professionel">
+                  <span>Kort, direkte og professionel</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field field--radio">
+              <legend class="field__label">Svarets format</legend>
+              <div class="radio-group">
+                <label class="radio">
+                  <input type="radio" name="prompt-format" value="Korte punkttegn" checked>
+                  <span>Korte punkttegn</span>
+                </label>
+                <label class="radio">
+                  <input type="radio" name="prompt-format" value="Udførlig tekst">
+                  <span>Udførlig tekst</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <button type="submit" class="btn btn--primary" id="prompt-copy-btn">Generér prompt</button>
+            <p class="architect__msg" id="prompt-msg" role="status" aria-live="polite"></p>
+          </form>
+
+          <p class="architect__hint">Tryk på knappen for at kopiere en prompt direkte til udklipsholderen. Indsæt den i ChatGPT eller Claude for et klart og målrettet svar.</p>
         </div>
-
-        <form class="architect__form" id="prompt-form" novalidate>
-          <label class="field" for="prompt-role">
-            <span class="field__label">Hvem skal hjælpe dig?</span>
-            <input
-              type="text"
-              id="prompt-role"
-              class="field__input"
-              placeholder="Skriv 2-3 ord (f.eks. ekspert i aktier, dansklærer)"
-              autocomplete="off"
-            >
-          </label>
-
-          <label class="field" for="prompt-action">
-            <span class="field__label">Hvad skal du have hjælp til? <span class="field__req">*</span></span>
-            <textarea
-              id="prompt-action"
-              class="field__input field__input--area"
-              rows="3"
-              placeholder="Beskriv kort din opgave..."
-              required
-            ></textarea>
-          </label>
-
-          <fieldset class="field field--radio">
-            <legend class="field__label">Tone / Stil</legend>
-            <div class="radio-group">
-              <label class="radio">
-                <input type="radio" name="prompt-tone" value="Pædagogisk og letforståelig" checked>
-                <span>Pædagogisk og letforståelig</span>
-              </label>
-              <label class="radio">
-                <input type="radio" name="prompt-tone" value="Kort, direkte og professionel">
-                <span>Kort, direkte og professionel</span>
-              </label>
-            </div>
-          </fieldset>
-
-          <fieldset class="field field--radio">
-            <legend class="field__label">Svarets format</legend>
-            <div class="radio-group">
-              <label class="radio">
-                <input type="radio" name="prompt-format" value="Korte punkttegn" checked>
-                <span>Korte punkttegn</span>
-              </label>
-              <label class="radio">
-                <input type="radio" name="prompt-format" value="Udførlig tekst">
-                <span>Udførlig tekst</span>
-              </label>
-            </div>
-          </fieldset>
-
-          <button type="submit" class="btn btn--primary" id="prompt-copy-btn">Generér prompt</button>
-          <p class="architect__msg" id="prompt-msg" role="status" aria-live="polite"></p>
-        </form>
-
-        <div class="prompt-preview">
-          <div class="prompt-preview__meta">Eksempel</div>
-          <pre class="prompt-preview__code"><code>&lt;system_prompt&gt;
-&lt;role&gt;Ekspert i informationsdesign&lt;/role&gt;
-&lt;action&gt;Udarbejd 5 korte punkter om, hvordan man bedst strukturerer en prompt for AI-assistenter.&lt;/action&gt;
-&lt;tone&gt;Kort, direkte og professionel&lt;/tone&gt;
-&lt;format&gt;Korte punkttegn&lt;/format&gt;
-&lt;constraints&gt;Undgå overflødige ord og hold dig i rollen som rådgiver.&lt;/constraints&gt;
-&lt;/system_prompt&gt;</code></pre>
-        </div>
-
-        <p class="architect__hint">Kopier systemprompten, og indsæt den direkte i ChatGPT eller Claude for et mere målrettet svar.</p>
       </div>
     </section>
 
@@ -145,7 +138,7 @@
           <p class="hero__strapline">Fra idé til prototype, fra møde til maskine — altid med mennesket i midten.</p>
           <p class="hero__lead">
             Kandidatstuderende i informationsvidenskab ved Aarhus Universitet.
-            Jeg bygger AI-værktøjer og automatisering — fra idé til prototype
+            <strong>Jeg bygger AI-værktøjer og automatisering</strong> — fra idé til prototype
             der løser et reelt problem.
           </p>
         </div>
@@ -228,7 +221,7 @@
 
     <section class="block block--contact" id="kontakt">
       <h2 class="block__title">Kontakt</h2>
-      <p class="block__intro">Skriv til mig hvis du vil høre om et projekt, diskutere AI-implementering, eller bare sige hej. Jeg svarer inden for få dage.</p>
+      <p class="block__intro"><strong>Skriv til mig</strong>, hvis du vil høre om et projekt, diskutere AI-implementering eller bare sige hej. Jeg svarer inden for få dage.</p>
       <div class="contact-links">
         <a class="contact-link" href="mailto:jakob.mb17@gmail.com" title="Send email">jakob.mb17@gmail.com</a>
         <a class="contact-link" href="https://www.linkedin.com/in/jakobmunchbrandt" target="_blank" rel="noopener noreferrer" title="Visit LinkedIn profile">LinkedIn <span class="visually-hidden">(åbner i nyt vindue)</span></a>
