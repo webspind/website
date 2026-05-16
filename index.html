@@ -100,7 +100,18 @@
           <p class="architect__msg" id="prompt-msg" role="status" aria-live="polite"></p>
         </form>
 
-        <p class="architect__hint">Tip: Skriv mindst ét konkret outputønske eller resultatmål for klarere og mere målrettede forslag.</p>
+        <div class="prompt-preview">
+          <div class="prompt-preview__meta">Eksempel</div>
+          <pre class="prompt-preview__code"><code>&lt;system_prompt&gt;
+&lt;role&gt;Ekspert i informationsdesign&lt;/role&gt;
+&lt;action&gt;Udarbejd 5 korte punkter om, hvordan man bedst strukturerer en prompt for AI-assistenter.&lt;/action&gt;
+&lt;tone&gt;Kort, direkte og professionel&lt;/tone&gt;
+&lt;format&gt;Korte punkttegn&lt;/format&gt;
+&lt;constraints&gt;Undgå overflødige ord og hold dig i rollen som rådgiver.&lt;/constraints&gt;
+&lt;/system_prompt&gt;</code></pre>
+        </div>
+
+        <p class="architect__hint">Kopier systemprompten, og indsæt den direkte i ChatGPT eller Claude for et mere målrettet svar.</p>
       </div>
     </section>
 
@@ -128,6 +139,7 @@
           <h1 id="hero-title" class="hero__title">
             Jeg arbejder med informationsvidenskab og AI i praksis
           </h1>
+          <p class="hero__strapline">Fra idé til prototype, fra møde til maskine — altid med mennesket i midten.</p>
           <p class="hero__lead">
             Kandidatstuderende i informationsvidenskab ved Aarhus Universitet.
             Jeg bygger AI-værktøjer og automatisering — fra idé til prototype
@@ -140,6 +152,7 @@
     <section class="block" id="cv" aria-labelledby="cv-title">
       <h2 id="cv-title" class="block__title">CV</h2>
       <p class="block__intro">Udforsk min erfaring inden for AI, web og informationsarkitektur gennem udvalgte projekter og studieforløb.</p>
+      <blockquote class="callout">Min tilgang handler om at gøre komplekse AI- og webprojekter til noget, der fungerer i hverdagen.</blockquote>
 
       <div class="filters" role="toolbar" aria-label="Filtrér">
         <button type="button" class="filter is-on" data-filter="all" aria-pressed="true">Alle</button>
@@ -157,6 +170,7 @@
               <div class="entry__body">
                 <strong>AI &amp; kommunikation</strong> · Uniwelco (studiejob)
                 <p>HubSpot Breeze-agenter, AI-workflows og automatisering.</p>
+                <p>Jeg arbejdede direkte med kommunikationsteamet for at skrue processer sammen, som sparer tid og minimerer manuelle fejl.</p>
               </div>
             </li>
             <li class="entry" data-categories="web">
@@ -164,6 +178,7 @@
               <div class="entry__body">
                 <strong>Stifter &amp; udvikler</strong> · 24skin
                 <p>E-handelsplatform med selvbygget web og automatiserede flows. Drevet i fire år, solgt 2023.</p>
+                <p>Projektet handlede om at bygge en klar og effektiv kunderejse, hvor data og design talte sammen.</p>
               </div>
             </li>
           </ol>
@@ -177,6 +192,7 @@
               <div class="entry__body">
                 <strong>Informationsvidenskab</strong> · Aarhus Universitet
                 <p>Kandidat — informationsarkitektur og AI.</p>
+                <p>Fokuserer på, hvordan digitale services kan organiseres, så både mennesker og maskiner forstår informationen.</p>
               </div>
             </li>
             <li class="entry" data-categories="akademi">
@@ -184,6 +200,7 @@
               <div class="entry__body">
                 <strong>Udveksling</strong> · University of Texas at Austin
                 <p>Information Studies.</p>
+                <p>Studierne i Austin gav et internationalt perspektiv på informationsstrukturer og brugercentrerede digitale løsninger.</p>
               </div>
             </li>
           </ol>
