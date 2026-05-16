@@ -263,11 +263,7 @@ main {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: #0a0e27;
-}
-
-body {
-  background: #0a0e27;
+  opacity: 0.55; /* subtle intensity so content stays readable */
 }
 
 .rule--thick {
