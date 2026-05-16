@@ -64,10 +64,82 @@
       </div>
     </section>
 
+    <section class="block block--lab" id="lab" aria-labelledby="lab-title">
+      <header class="lab-header">
+        <p class="lab-header__overline">Arbejdseksempel</p>
+        <h2 id="lab-title" class="lab-header__title">Prompt-arkitekt</h2>
+        <p class="lab-header__intro">Skriv kort hvad du har brug for. Værktøjet bygger en struktureret systemprompt, der kan kopieres direkte ind i ChatGPT eller Claude.</p>
+      </header>
+
+      <div class="architect">
+        <div class="architect__summary">
+          <p>Et godt prompt starter med en klar rolle, et præcist mål, en tydelig tone og et ønsket format. Her får du en enkel ramme, så du kan få stærkere AI-udkast uden overflødige gentagelser.</p>
+        </div>
+
+        <form class="architect__form" id="prompt-form" novalidate>
+          <label class="field" for="prompt-role">
+            <span class="field__label">Hvem skal hjælpe dig?</span>
+            <input
+              type="text"
+              id="prompt-role"
+              class="field__input"
+              placeholder="Skriv 2-3 ord (f.eks. ekspert i aktier, dansklærer)"
+              autocomplete="off"
+            >
+          </label>
+
+          <label class="field" for="prompt-action">
+            <span class="field__label">Hvad skal du have hjælp til? <span class="field__req">*</span></span>
+            <textarea
+              id="prompt-action"
+              class="field__input field__input--area"
+              rows="3"
+              placeholder="Beskriv kort din opgave..."
+              required
+            ></textarea>
+          </label>
+
+          <fieldset class="field field--radio">
+            <legend class="field__label">Tone / Stil</legend>
+            <div class="radio-group">
+              <label class="radio">
+                <input type="radio" name="prompt-tone" value="Pædagogisk og letforståelig" checked>
+                <span>Pædagogisk og letforståelig</span>
+              </label>
+              <label class="radio">
+                <input type="radio" name="prompt-tone" value="Kort, direkte og professionel">
+                <span>Kort, direkte og professionel</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field field--radio">
+            <legend class="field__label">Svarets format</legend>
+            <div class="radio-group">
+              <label class="radio">
+                <input type="radio" name="prompt-format" value="Korte punkttegn" checked>
+                <span>Korte punkttegn</span>
+              </label>
+              <label class="radio">
+                <input type="radio" name="prompt-format" value="Udførlig tekst">
+                <span>Udførlig tekst</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn--primary" id="prompt-copy-btn">Generér prompt</button>
+          <p class="architect__msg" id="prompt-msg" role="status" aria-live="polite"></p>
+        </form>
+
+        <p class="architect__hint">Tip: Skriv mindst ét konkret outputønske eller resultatmål for klarere og mere målrettede forslag.</p>
+      </div>
+    </section>
+
     <hr class="rule rule--thick">
 
     <section class="block" id="cv" aria-labelledby="cv-title">
       <h2 id="cv-title" class="block__title">CV</h2>
+      <p class="block__intro">Udforsk min erfaring inden for AI, web og informationsarkitektur gennem udvalgte projekter og studieforløb.</p>
 
       <div class="filters" role="toolbar" aria-label="Filtrér">
         <button type="button" class="filter is-on" data-filter="all" aria-pressed="true">Alle</button>
@@ -129,74 +201,6 @@
             <li class="tag" data-categories="web">Figma</li>
           </ul>
         </div>
-      </div>
-    </section>
-
-    <hr class="rule">
-
-    <section class="block block--lab" id="lab" aria-labelledby="lab-title">
-      <header class="lab-header">
-        <p class="lab-header__overline">Arbejdseksempel</p>
-        <h2 id="lab-title" class="lab-header__title">Prompt-arkitekt</h2>
-        <p class="lab-header__intro">Skriv kort hvad du har brug for. Værktøjet bygger en struktureret systemprompt du kan kopiere direkte ind i ChatGPT eller Claude.</p>
-      </header>
-
-      <div class="architect">
-        <form class="architect__form" id="prompt-form" novalidate>
-          <label class="field" for="prompt-role">
-            <span class="field__label">Hvem skal hjælpe dig?</span>
-            <input
-              type="text"
-              id="prompt-role"
-              class="field__input"
-              placeholder="Skriv 2-3 ord (f.eks. ekspert i aktier, dansklærer)"
-              autocomplete="off"
-            >
-          </label>
-
-          <label class="field" for="prompt-action">
-            <span class="field__label">Hvad skal du have hjælp til? <span class="field__req">*</span></span>
-            <textarea
-              id="prompt-action"
-              class="field__input field__input--area"
-              rows="3"
-              placeholder="Beskriv kort din opgave..."
-              required
-            ></textarea>
-          </label>
-
-          <fieldset class="field field--radio">
-            <legend class="field__label">Tone / Stil</legend>
-            <div class="radio-group">
-              <label class="radio">
-                <input type="radio" name="prompt-tone" value="Pædagogisk og letforståelig" checked>
-                <span>Pædagogisk og letforståelig</span>
-              </label>
-              <label class="radio">
-                <input type="radio" name="prompt-tone" value="Kort, direkte og professionel">
-                <span>Kort, direkte og professionel</span>
-              </label>
-            </div>
-          </fieldset>
-
-          <fieldset class="field field--radio">
-            <legend class="field__label">Svarets format</legend>
-            <div class="radio-group">
-              <label class="radio">
-                <input type="radio" name="prompt-format" value="Korte punkttegn" checked>
-                <span>Korte punkttegn</span>
-              </label>
-              <label class="radio">
-                <input type="radio" name="prompt-format" value="Udførlig tekst">
-                <span>Udførlig tekst</span>
-              </label>
-            </div>
-          </fieldset>
-
-          <button type="submit" class="btn btn--primary" id="prompt-copy-btn">Generér prompt</button>
-          <p class="architect__msg" id="prompt-msg" role="status" aria-live="polite"></p>
-        </form>
-
       </div>
     </section>
 

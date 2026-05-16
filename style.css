@@ -396,6 +396,16 @@ main {
   text-align: center;
   max-width: 28rem;
   margin: 0 auto 1.5rem;
+  position: relative;
+}
+
+.lab-header::after {
+  content: "";
+  display: block;
+  width: 4rem;
+  height: 1px;
+  margin: 1.25rem auto 0;
+  background: var(--rule-light);
 }
 
 .lab-header__overline {
@@ -405,6 +415,23 @@ main {
   letter-spacing: 0.14em;
   color: var(--ink-faint);
   margin-bottom: 0.35rem;
+}
+
+.architect__summary {
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.1rem;
+  border-left: 4px solid var(--ink);
+  background: rgba(26, 26, 26, 0.04);
+  color: var(--ink-soft);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.architect__hint {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+  line-height: 1.6;
 }
 
 .lab-header__title {
