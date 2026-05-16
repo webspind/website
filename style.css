@@ -6,10 +6,10 @@
   --ink: #171515;
   --ink-soft: #323232;
   --ink-faint: #5b5853;
-  --accent: #165f86;
-  --accent-soft: #e8f3f8;
-  --rule: #2d3c4d;
-  --rule-light: #b2bac2;
+  --accent: #d9732f;
+  --accent-soft: #fff1e5;
+  --rule: #8b4d20;
+  --rule-light: #d8c3b0;
   --serif: "Libre Baskerville", Georgia, serif;
   --sans: "Source Sans 3", system-ui, sans-serif;
   --width: 40rem;
@@ -445,7 +445,7 @@ em {
   margin: 1rem 0 0.9rem;
   padding: 1rem 1.1rem;
   border-left: 4px solid var(--accent);
-  background: rgba(22, 95, 134, 0.08);
+  background: rgba(217, 115, 47, 0.12);
   color: var(--ink);
   font-style: italic;
   line-height: 1.7;
@@ -760,7 +760,7 @@ em {
 
 .callout {
   border-left: 4px solid var(--accent);
-  background: rgba(22, 95, 134, 0.08);
+  background: rgba(217, 115, 47, 0.12);
   color: var(--ink);
 }
 
@@ -840,7 +840,7 @@ em {
 
 .entry {
   display: grid;
-  grid-template-columns: 2.75rem 1fr;
+  grid-template-columns: minmax(4rem, auto) 1fr;
   gap: 0 0.85rem;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
@@ -884,6 +884,7 @@ em {
   padding-right: 0.65rem;
   color: var(--ink-soft);
   transition: color 0.2s ease;
+  white-space: nowrap;
 }
 
 .entry__body {
@@ -917,6 +918,52 @@ em {
 
 .tag.is-hidden {
   opacity: 0.25;
+}
+
+.cv__highlights {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.cv__highlight {
+  padding: 1.1rem 1.2rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 165, 0, 0.12);
+  border: 1px solid rgba(255, 165, 0, 0.24);
+}
+
+.cv__highlight--green {
+  background: rgba(49, 134, 80, 0.1);
+  border-color: rgba(49, 134, 80, 0.2);
+}
+
+.cv__highlight__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+}
+
+.cv__highlight h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.cv__highlight p {
+  margin: 0.55rem 0 0;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+@media (min-width: 560px) {
+  .cv__highlights {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* Contact */
